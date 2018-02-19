@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>pict/close.png</file>
+        <file>pict/dow.png</file>
+        <file>pict/info.png</file>
+        <file>pict/left.png</file>
+        <file>pict/menu.png</file>
+        <file>pict/open.png</file>
+        <file>pict/QImageWiever.ico</file>
+        <file>pict/QImageWiever.png</file>
+        <file>pict/right.png</file>
+        <file>pict/rotate_l.png</file>
+        <file>pict/rotate_r.png</file>
+        <file>pict/seve.png</file>
+        <file>pict/trash.png</file>
+        <file>pict/up.png</file>
+    </qresource>
+</RCC>

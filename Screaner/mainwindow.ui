@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>775</width>
+    <height>428</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <item row="1" column="0">
+     <widget class="QGraphicsView" name="graphicsView"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>775</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>Файл</string>
+    </property>
+    <addaction name="actionSave"/>
+    <addaction name="separator"/>
+    <addaction name="actionPrint"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>Вид</string>
+    </property>
+    <addaction name="actionZoomIn"/>
+    <addaction name="actionZoomOut"/>
+   </widget>
+   <widget class="QMenu" name="menuInfo">
+    <property name="title">
+     <string>Справка</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuView"/>
+   <addaction name="menuInfo"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextBesideIcon</enum>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionElipse"/>
+   <addaction name="actionRectangle"/>
+   <addaction name="actionLine"/>
+   <addaction name="actionText"/>
+   <addaction name="actionPen"/>
+   <addaction name="actionCut"/>
+   <addaction name="actionCursor"/>
+  </widget>
+  <widget class="QToolBar" name="graficToolBar">
+   <property name="windowTitle">
+    <string/>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <property name="floatable">
+    <bool>true</bool>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>BottomToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionDarkColor"/>
+   <addaction name="actionWhiteColor"/>
+   <addaction name="actionRedColor"/>
+   <addaction name="actionGreenColor"/>
+   <addaction name="actionBlooColor"/>
+   <addaction name="actionYellowColor"/>
+  </widget>
+  <widget class="QToolBar" name="SaveToolBar">
+   <property name="windowTitle">
+    <string/>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::RightToLeft</enum>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>BottomToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionSaveToFile"/>
+  </widget>
+  <widget class="QToolBar" name="applyToolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextBesideIcon</enum>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionApply"/>
+   <addaction name="actionCancel"/>
+  </widget>
+  <action name="actionSave">
+   <property name="text">
+    <string>Сохранить и выйти</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Выход</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionPrint">
+   <property name="text">
+    <string>Печать</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
+   </property>
+  </action>
+  <action name="actionZoomIn">
+   <property name="text">
+    <string>Увеличить</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl++</string>
+   </property>
+  </action>
+  <action name="actionZoomOut">
+   <property name="text">
+    <string>Уменьшить</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+-</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>О программе</string>
+   </property>
+  </action>
+  <action name="actionSaveToFile">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/save.png</normaloff>:/pict/save.png</iconset>
+   </property>
+   <property name="text">
+    <string>Сохранить и выйти</string>
+   </property>
+   <property name="toolTip">
+    <string>Сохранить и выйти</string>
+   </property>
+  </action>
+  <action name="actionDarkColor">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/circle_dark.png</normaloff>:/pict/circle_dark.png</iconset>
+   </property>
+   <property name="text">
+    <string>Черный цвет</string>
+   </property>
+   <property name="toolTip">
+    <string>Черный цвет</string>
+   </property>
+  </action>
+  <action name="actionWhiteColor">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/circle_grey.png</normaloff>:/pict/circle_grey.png</iconset>
+   </property>
+   <property name="text">
+    <string>Белый цвет</string>
+   </property>
+   <property name="toolTip">
+    <string>Белый цвет</string>
+   </property>
+  </action>
+  <action name="actionRedColor">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/circle_red.png</normaloff>:/pict/circle_red.png</iconset>
+   </property>
+   <property name="text">
+    <string>Красный цвет</string>
+   </property>
+  </action>
+  <action name="actionGreenColor">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/circle_green.png</normaloff>:/pict/circle_green.png</iconset>
+   </property>
+   <property name="text">
+    <string>Зеленый цвет</string>
+   </property>
+  </action>
+  <action name="actionBlooColor">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/circle_blue.png</normaloff>:/pict/circle_blue.png</iconset>
+   </property>
+   <property name="text">
+    <string>Голубой цвет</string>
+   </property>
+  </action>
+  <action name="actionYellowColor">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/circle_yellow.png</normaloff>:/pict/circle_yellow.png</iconset>
+   </property>
+   <property name="text">
+    <string>Желтый цвет</string>
+   </property>
+  </action>
+  <action name="actionPen">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/pencil.png</normaloff>:/pict/pencil.png</iconset>
+   </property>
+   <property name="text">
+    <string>Маркер</string>
+   </property>
+   <property name="toolTip">
+    <string>Маркер</string>
+   </property>
+  </action>
+  <action name="actionLine">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/line.png</normaloff>:/pict/line.png</iconset>
+   </property>
+   <property name="text">
+    <string>Линия</string>
+   </property>
+   <property name="toolTip">
+    <string>Линия</string>
+   </property>
+  </action>
+  <action name="actionElipse">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/circle.png</normaloff>:/pict/circle.png</iconset>
+   </property>
+   <property name="text">
+    <string>Элипс</string>
+   </property>
+   <property name="toolTip">
+    <string>Элипс</string>
+   </property>
+  </action>
+  <action name="actionRectangle">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/rectangle.png</normaloff>:/pict/rectangle.png</iconset>
+   </property>
+   <property name="text">
+    <string>Прямоугольник</string>
+   </property>
+   <property name="toolTip">
+    <string>Прямоугольник</string>
+   </property>
+  </action>
+  <action name="actionText">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/text.png</normaloff>:/pict/text.png</iconset>
+   </property>
+   <property name="text">
+    <string>Текст</string>
+   </property>
+   <property name="toolTip">
+    <string>Текст</string>
+   </property>
+  </action>
+  <action name="actionCut">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/resize.png</normaloff>:/pict/resize.png</iconset>
+   </property>
+   <property name="text">
+    <string>Обрезать</string>
+   </property>
+   <property name="toolTip">
+    <string>Обрезать</string>
+   </property>
+  </action>
+  <action name="actionApply">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/apply.png</normaloff>:/pict/apply.png</iconset>
+   </property>
+   <property name="text">
+    <string>Применить</string>
+   </property>
+   <property name="toolTip">
+    <string>Применить</string>
+   </property>
+   <property name="visible">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionCancel">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/editdelete.png</normaloff>:/pict/editdelete.png</iconset>
+   </property>
+   <property name="text">
+    <string>Отменить</string>
+   </property>
+   <property name="toolTip">
+    <string>Отменить</string>
+   </property>
+   <property name="visible">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionCursor">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/cursor.png</normaloff>:/pict/cursor.png</iconset>
+   </property>
+   <property name="text">
+    <string>Курсор</string>
+   </property>
+   <property name="toolTip">
+    <string>Курсор</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>actionExit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>hide()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>243</x>
+     <y>203</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

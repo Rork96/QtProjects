@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/">
+        <file>pict/circle.png</file>
+        <file>pict/line.png</file>
+        <file>pict/pencil.png</file>
+        <file>pict/QScreener.png</file>
+        <file>pict/rectangle.png</file>
+        <file>pict/resize.png</file>
+        <file>pict/save.png</file>
+        <file>pict/text.png</file>
+        <file>pict/circle_blue.png</file>
+        <file>pict/circle_dark.png</file>
+        <file>pict/circle_green.png</file>
+        <file>pict/circle_grey.png</file>
+        <file>pict/circle_red.png</file>
+        <file>pict/circle_yellow.png</file>
+        <file>pict/apply.png</file>
+        <file>pict/editdelete.png</file>
+        <file>pict/cursor.png</file>
+    </qresource>
+</RCC>

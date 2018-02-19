@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>pict/VBeltDrive.ico</file>
+        <file>pict/BeltTable.png</file>
+        <file>pict/rightarrow.png</file>
+        <file>pict/param.png</file>
+        <file>pict/shem.png</file>
+        <file>pict/clear.png</file>
+        <file>pict/info.png</file>
+    </qresource>
+</RCC>

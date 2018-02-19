@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=V-Belt Drive
+Comment=V-Belt Drive
+Exec=opt/VBeltDrive/VBeltDrive.sh
+Terminal=false
+Type=Application
+StartupNotify=true
+Icon=usr/share/pixmaps/VBeltDrive.png
+Categories=calculation
+Name[ru_UA]=V-Belt Drive

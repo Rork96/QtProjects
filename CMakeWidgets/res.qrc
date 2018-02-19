@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>pict/CMakeWidgets.ico</file>
+        <file>pict/CMakeWidgets.png</file>
+    </qresource>
+</RCC>

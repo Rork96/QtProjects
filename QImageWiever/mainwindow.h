@@ -31,6 +31,8 @@ private:
     void nextImage();
     // Предыдущее изображение
     void prevImage();
+    // О программе
+    void aboutProgram();
 
 private:
     Ui::MainWindow *ui;
@@ -76,6 +78,9 @@ private:
     // Поворот в лево на 90 град
     QShortcut *rotLeftShortcut;
     QAction *rotLeftAction;
+
+    // О программе
+    QAction *aboutAction;
 
     // Масштабирование
 #define SCALE_IN    1.25

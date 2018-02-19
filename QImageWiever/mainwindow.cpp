@@ -3,6 +3,7 @@
 
 #include <QFileDialog>
 #include <QStandardPaths>
+#include <QMessageBox>
 
 #include <QDebug>
 
@@ -59,6 +60,9 @@ MainWindow::MainWindow(QWidget *parent) :
     rotLeftShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Left), this);
     rotLeftAction = new QAction("Повернуть в лево", this);
 
+    // О программе
+    aboutAction = new QAction("О программе", this);
+
     /* Слоты */ {
         // Открыть изображение
         connect(openShortcut, &QShortcut::activated, this, &MainWindow::openImage);
@@ -106,6 +110,9 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(rotLeftAction, &QAction::triggered, this, [this] {
             gView->rotate(ROT_LEFT);
         });
+
+        // О программе
+        connect(aboutAction, &QAction::triggered, this, &MainWindow::aboutProgram);
     }
 }
 
@@ -230,4 +237,17 @@ void MainWindow::prevImage()
     // Загрузить изображение
     QString str = dirContent[dirContent.indexOf(dirContent.at(iCurFile), 0)].absoluteFilePath();
     loadImage(str);
+}
+
+void MainWindow::aboutProgram()
+{
+    // О программе
+
+    QString aboutText;
+    aboutText = "          QImageWiever  v 1.0.0  \n\n";
+    aboutText += "Автор  : \tmasterarrow\n\n";
+    aboutText += "email  : \tmasterarrows@gmail.com\n\n";
+    aboutText += "          Copyright © 2018\n";
+
+    QMessageBox::about(this, "О программе", aboutText);
 }

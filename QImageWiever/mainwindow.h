@@ -23,14 +23,19 @@ public:
 private:
     // Открыть изображение
     void openImage();
+
     // Загрузка изображения
     inline void loadImage(const QString& str);
+
     // Сохранить изображение
     void saveImage();
+
     // Следующее изображение
     void nextImage();
+
     // Предыдущее изображение
     void prevImage();
+
     // О программе
     void aboutProgram();
 
@@ -39,8 +44,18 @@ private:
 
     // QGraphicsView для сцены
     QGraphicsView *gView;
+
     // Сцена для помещение в нее изображения
     QGraphicsScene *scene;
+
+    // Список файлов в  директории
+    QFileInfoList dirContent;
+
+    // Текущий индекс файла в dirContent
+    int iCurFile = -1;
+
+private:
+    /* * * Горячие клавиши * * */
 
     // Сочетание клавиш и действие для открытия изображения
     QShortcut *openShortcut;
@@ -66,11 +81,6 @@ private:
     QShortcut *prevImageShortcut;
     QAction *prevImageAction;
 
-    // Список файлов в  директории
-    QFileInfoList dirContent;
-    // Текущий индекс файла в dirContent
-    int iCurFile = -1;
-
     // Поворот в право на 90 град
     QShortcut *rotRightShortcut;
     QAction *rotRightAction;
@@ -85,6 +95,7 @@ private:
     // Масштабирование
 #define SCALE_IN    1.25
 #define SCALE_OUT   0.8
+
     // Поворот
 #define ROT_RIGHT   90
 #define ROT_LEFT    -90

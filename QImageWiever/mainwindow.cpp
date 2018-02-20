@@ -5,6 +5,8 @@
 #include <QStandardPaths>
 #include <QMessageBox>
 
+#include <QPushButton>
+
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -13,57 +15,70 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    // Окно развернуто на весь экран
-    setWindowState(Qt::WindowMaximized);
+     /* * * Начальные настройки приложения * * */ {
+        // Окно развернуто на весь экран
+        setWindowState(Qt::WindowMaximized);
 
-    // Черный цвер фона
-    setStyleSheet("background-color: #EEEEF1;");
+        // Цвер фона
+        setStyleSheet("background-color: #EEEEF1;");
 
-    // Установка QGraphicsView и QGraphicsScene
-    // для отображения изображения
-    gView = new QGraphicsView();
-    setCentralWidget(gView);
-    scene = new QGraphicsScene();
-    gView->setScene(scene);
-    // По центру
-    gView->centerOn(0, 0);
+        // Установка QGraphicsView и QGraphicsScene
+        // для отображения изображения
+        gView = new QGraphicsView();
+        setCentralWidget(gView);
+        scene = new QGraphicsScene();
+        gView->setScene(scene);
+        // По центру
+        gView->centerOn(0, 0);
 
-    // Сочетание клавиш и действие для открытия изображения
-    openShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_O), this);
-    openAction = new QAction("Открыть изображение", this);
+        /* Прозрачная кнопка */
+        QPushButton *btn = new QPushButton(QPixmap(":/pict/left.png"), "", gView);
+        QString styleButton=QString("QAbstractButton {background: rgba(255,255,255,100);}");
+        btn->setStyleSheet(styleButton);
+        btn->setFlat(true);
+        btn->setVisible(true);
+        btn->setGeometry(10, geometry().width()/1.5, 20, 20);
+        /* ************************* */
+    }
 
-    // Сочетание клавиш и действие для сохранения изображения
-    saveShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_S), this);;
-    saveAction = new QAction("Открыть изображение", this);;
+    /* * * Горячие клавиши приложения * * */ {
+        // Открыть изображение
+        openShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_O), this);
+        openAction = new QAction("Открыть изображение", this);
 
-    // Сочетание клавиш и действие для увеличения изображения
-    zoomInShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Plus), this);
-    zoomInAction = new QAction("Увеличить", this);
+        // Сохранить изображение
+        saveShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_S), this);;
+        saveAction = new QAction("Сохранить изображение", this);;
 
-    // Сочетание клавиш и действие для уменьшения изображения
-    zoomOutShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Minus), this);
-    zoomOutAction = new QAction("Уменьшить", this);
+        // Увеличить изображение
+        zoomInShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Plus), this);
+        zoomInAction = new QAction("Увеличить", this);
 
-    // Следующее изображение
-    nextImageShortcut = new QShortcut(QKeySequence(Qt::Key_Right), this);
-    nextImageAction = new QAction("Следующее изображение", this);
+        // Уеньшить изображение
+        zoomOutShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Minus), this);
+        zoomOutAction = new QAction("Уменьшить", this);
 
-    // Предыдущее изображение
-    prevImageShortcut = new QShortcut(QKeySequence(Qt::Key_Left), this);
-    prevImageAction = new QAction("Предыдущее изображение", this);
+        // Следующее изображение
+        nextImageShortcut = new QShortcut(QKeySequence(Qt::Key_Right), this);
+        nextImageAction = new QAction("Следующее изображение", this);
 
-    // Поворот в право на 90 град
-    rotRightShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Right), this);
-    rotRightAction = new QAction("Повернуть в право", this);
+        // Предыдущее изображение
+        prevImageShortcut = new QShortcut(QKeySequence(Qt::Key_Left), this);
+        prevImageAction = new QAction("Предыдущее изображение", this);
 
-    // Поворот в лево на 90 град
-    rotLeftShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Left), this);
-    rotLeftAction = new QAction("Повернуть в лево", this);
+        // Поворот в право на 90 град
+        rotRightShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Right), this);
+        rotRightAction = new QAction("Повернуть в право", this);
 
-    // О программе
-    aboutAction = new QAction("О программе", this);
+        // Поворот в лево на 90 град
+        rotLeftShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Left), this);
+        rotLeftAction = new QAction("Повернуть в лево", this);
 
-    /* Слоты */ {
+        // О программе
+        aboutAction = new QAction("О программе", this);
+    }
+
+    /* * * Слоты * * */ {
         // Открыть изображение
         connect(openShortcut, &QShortcut::activated, this, &MainWindow::openImage);
         connect(openAction, &QAction::triggered, this, &MainWindow::openImage);
@@ -79,6 +94,7 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(zoomInAction, &QAction::triggered, this, [this] {
             gView->scale(SCALE_IN, SCALE_IN);
         });
+
         // Уменьшить
         connect(zoomOutShortcut, &QShortcut::activated, this, [this] {
             gView->scale(SCALE_OUT, SCALE_OUT);
@@ -123,7 +139,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::openImage()
 {
-    // Открыть изображение
+    /* * * Открыть изображение * * */
+
     QString fName = QFileDialog::getOpenFileName(this, "Открыть изображение",
                 QStandardPaths::locate(QStandardPaths::HomeLocation, QString()),
                             "Файлы изображений (*.jpg | *.jpeg | *.png | *.bmp)");
@@ -143,7 +160,7 @@ void MainWindow::openImage()
 
 inline void MainWindow::loadImage(const QString& str)
 {
-    // Загрузка изображения
+    /* * * Загрузка изображения * * */
 
     // Добавить новый элемент на сцену
     QGraphicsPixmapItem *pixItem = new QGraphicsPixmapItem();
@@ -179,7 +196,7 @@ inline void MainWindow::loadImage(const QString& str)
 
 void MainWindow::saveImage()
 {
-    // Сохранить изображение
+    /* * * Сохранить изображение * * */
 
     if(iCurFile == -1) return; // Нет открытых изображений
 
@@ -205,7 +222,7 @@ void MainWindow::saveImage()
 
 void MainWindow::nextImage()
 {
-    // Следующее изображение
+    /* * * Следующее изображение * * */
 
     if(iCurFile == -1) return; // Нет открытых изображений
 
@@ -223,7 +240,7 @@ void MainWindow::nextImage()
 
 void MainWindow::prevImage()
 {
-    // Предыдущее изображение
+    /* * * Предыдущее изображение * * */
 
     if(iCurFile == -1) return; // Нет открытых изображений
 
@@ -241,7 +258,7 @@ void MainWindow::prevImage()
 
 void MainWindow::aboutProgram()
 {
-    // О программе
+    /* * * О программе * * */
 
     QString aboutText;
     aboutText = "          QImageWiever  v 1.0.0  \n\n";

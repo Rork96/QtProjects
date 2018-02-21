@@ -7,6 +7,7 @@
 #include <QAction>
 #include <QGraphicsPixmapItem>
 #include <QFileInfoList>
+#include <QPushButton>
 
 namespace Ui {
 class MainWindow;
@@ -54,40 +55,38 @@ private:
     // Текущий индекс файла в dirContent
     int iCurFile = -1;
 
+    QPushButton *rBtn;
+    QPushButton *lBtn;
+
 private:
     /* * * Горячие клавиши * * */
 
-    // Сочетание клавиш и действие для открытия изображения
+    // Открыть изображение
     QShortcut *openShortcut;
-    QAction *openAction;
 
-    // Сочетание клавиш и действие для сохранения изображения
+    // Сохранить изображение
     QShortcut *saveShortcut;
-    QAction *saveAction;
 
-    // Сочетание клавиш и действие для увеличения изображения
+    // Увеличить изображение
     QShortcut *zoomInShortcut;
-    QAction *zoomInAction;
 
-    // Сочетание клавиш и действие для уменьшения изображения
+    // Уменьшить изображение
     QShortcut *zoomOutShortcut;
-    QAction *zoomOutAction;
 
     // Следующее изображение
     QShortcut *nextImageShortcut;
-    QAction *nextImageAction;
 
     // Предыдущее изображение
     QShortcut *prevImageShortcut;
-    QAction *prevImageAction;
 
     // Поворот в право на 90 град
     QShortcut *rotRightShortcut;
-    QAction *rotRightAction;
 
     // Поворот в лево на 90 град
     QShortcut *rotLeftShortcut;
-    QAction *rotLeftAction;
+
+    // Показать элементы управления
+    void showElements();
 
     // О программе
     QAction *aboutAction;

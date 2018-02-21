@@ -4,8 +4,7 @@
 #include <QFileDialog>
 #include <QStandardPaths>
 #include <QMessageBox>
-
-#include <QPushButton>
+#include <QScreen>
 
 #include <QDebug>
 
@@ -32,47 +31,50 @@ MainWindow::MainWindow(QWidget *parent) :
         gView->centerOn(0, 0);
 
         /* Прозрачная кнопка */
-        QPushButton *btn = new QPushButton(QPixmap(":/pict/left.png"), "", gView);
         QString styleButton=QString("QAbstractButton {background: rgba(255,255,255,100);}");
-        btn->setStyleSheet(styleButton);
-        btn->setFlat(true);
-        btn->setVisible(true);
-        btn->setGeometry(10, geometry().width()/1.5, 20, 20);
+
+        rBtn = new QPushButton("", this);
+        rBtn->setIcon(QPixmap(":/pict/left.png"));
+        rBtn->setIconSize(QSize(50, 50));
+        rBtn->setStyleSheet(styleButton);
+        rBtn->setFlat(true);
+        rBtn->setGeometry(20, geometry().width(), 60, 60);
+        rBtn->setVisible(false);
+
+        lBtn = new QPushButton("", this);
+        lBtn->setIcon(QPixmap(":/pict/right.png"));
+        lBtn->setIconSize(QSize(50, 50));
+        lBtn->setStyleSheet(styleButton);
+        lBtn->setFlat(true);
+        lBtn->setGeometry(QApplication::screens().at(0)->geometry().width()-lBtn->width()/2-30, geometry().width(), 60, 60);
+        lBtn->setVisible(false);
         /* ************************* */
     }
 
     /* * * Горячие клавиши приложения * * */ {
         // Открыть изображение
         openShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_O), this);
-        openAction = new QAction("Открыть изображение", this);
 
         // Сохранить изображение
-        saveShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_S), this);;
-        saveAction = new QAction("Сохранить изображение", this);;
+        saveShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_S), this);
 
         // Увеличить изображение
         zoomInShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Plus), this);
-        zoomInAction = new QAction("Увеличить", this);
 
         // Уеньшить изображение
         zoomOutShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Minus), this);
-        zoomOutAction = new QAction("Уменьшить", this);
 
         // Следующее изображение
         nextImageShortcut = new QShortcut(QKeySequence(Qt::Key_Right), this);
-        nextImageAction = new QAction("Следующее изображение", this);
 
         // Предыдущее изображение
         prevImageShortcut = new QShortcut(QKeySequence(Qt::Key_Left), this);
-        prevImageAction = new QAction("Предыдущее изображение", this);
 
         // Поворот в право на 90 град
         rotRightShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Right), this);
-        rotRightAction = new QAction("Повернуть в право", this);
 
         // Поворот в лево на 90 град
         rotLeftShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Left), this);
-        rotLeftAction = new QAction("Повернуть в лево", this);
 
         // О программе
         aboutAction = new QAction("О программе", this);
@@ -81,17 +83,12 @@ MainWindow::MainWindow(QWidget *parent) :
     /* * * Слоты * * */ {
         // Открыть изображение
         connect(openShortcut, &QShortcut::activated, this, &MainWindow::openImage);
-        connect(openAction, &QAction::triggered, this, &MainWindow::openImage);
 
         // Соханить изображение
         connect(saveShortcut, &QShortcut::activated, this, &MainWindow::saveImage);
-        connect(saveAction, &QAction::triggered, this, &MainWindow::saveImage);
 
         // Увеличить
         connect(zoomInShortcut, &QShortcut::activated, this, [this] {
-            gView->scale(SCALE_IN, SCALE_IN);
-        });
-        connect(zoomInAction, &QAction::triggered, this, [this] {
             gView->scale(SCALE_IN, SCALE_IN);
         });
 
@@ -99,31 +96,22 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(zoomOutShortcut, &QShortcut::activated, this, [this] {
             gView->scale(SCALE_OUT, SCALE_OUT);
         });
-        connect(zoomOutAction, &QAction::triggered, this, [this] {
-            gView->scale(SCALE_OUT, SCALE_OUT);
-        });
 
         // Следующее изображение
         connect(nextImageShortcut, &QShortcut::activated, this, &MainWindow::nextImage);
-        connect(nextImageAction, &QAction::triggered, this, &MainWindow::nextImage);
+        connect(rBtn, &QPushButton::clicked, nextImageShortcut, &QShortcut::activated);
 
         // Предыдущее изображение
         connect(prevImageShortcut, &QShortcut::activated, this, &MainWindow::prevImage);
-        connect(prevImageAction, &QAction::triggered, this, &MainWindow::prevImage);
+        connect(lBtn, &QPushButton::clicked, prevImageShortcut, &QShortcut::activated);
 
         // Поворот в право на 90 град
         connect(rotRightShortcut, &QShortcut::activated, this, [this] {
             gView->rotate(ROT_RIGHT);
         });
-        connect(rotRightAction, &QAction::triggered, this, [this] {
-            gView->rotate(ROT_RIGHT);
-        });
 
         // Поворот в лево на 90 град
         connect(rotLeftShortcut, &QShortcut::activated, this, [this] {
-            gView->rotate(ROT_LEFT);
-        });
-        connect(rotLeftAction, &QAction::triggered, this, [this] {
             gView->rotate(ROT_LEFT);
         });
 
@@ -192,6 +180,9 @@ inline void MainWindow::loadImage(const QString& str)
 
     // Имя файла в заголовке окна
     setWindowTitle("QImageWiever - " + QFileInfo(str).fileName());
+
+    // Показать элементы управления
+    showElements();
 }
 
 void MainWindow::saveImage()
@@ -267,4 +258,11 @@ void MainWindow::aboutProgram()
     aboutText += "          Copyright © 2018\n";
 
     QMessageBox::about(this, "О программе", aboutText);
+}
+
+void MainWindow::showElements()
+{
+    // Показать элементы управления
+    rBtn->setVisible(true);
+    lBtn->setVisible(true);
 }

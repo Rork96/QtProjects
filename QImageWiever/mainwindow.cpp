@@ -46,7 +46,8 @@ MainWindow::MainWindow(QWidget *parent) :
         lBtn->setIconSize(QSize(50, 50));
         lBtn->setStyleSheet(styleButton);
         lBtn->setFlat(true);
-        lBtn->setGeometry(QApplication::screens().at(0)->geometry().width()-lBtn->width()/2-30, geometry().width(), 60, 60);
+        lBtn->setGeometry(QApplication::screens().at(0)->geometry().width()-lBtn->width()/2-30,
+                          geometry().width(), 60, 60);
         lBtn->setVisible(false);
         /* ************************* */
     }

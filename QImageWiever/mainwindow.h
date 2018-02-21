@@ -55,7 +55,10 @@ private:
     // Текущий индекс файла в dirContent
     int iCurFile = -1;
 
+    // Предыдущее изображение
     QPushButton *rBtn;
+
+    // Следующее изображение
     QPushButton *lBtn;
 
 private:

@@ -172,7 +172,7 @@ inline void MainWindow::loadImage(const QString& str)
         gView->fitInView(pixItem, Qt::KeepAspectRatio);
         pixItem->setPixmap(QPixmap(str));
     }
-    else {
+    else { // Здесь ошибка
         // вписать изображение в сцену (клиентскую область окна)
         pixItem->setPixmap(QPixmap(str));
         gView->setSceneRect(0, 0, geometry().width(), geometry().height());

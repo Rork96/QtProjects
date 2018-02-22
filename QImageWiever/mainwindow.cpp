@@ -6,8 +6,6 @@
 #include <QMessageBox>
 #include <QScreen>
 
-#include <QDebug>
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -263,7 +261,8 @@ void MainWindow::aboutProgram()
 
 void MainWindow::showElements()
 {
-    // Показать элементы управления
+    /* * * Показать элементы управления * * */
+
     rBtn->setVisible(true);
     lBtn->setVisible(true);
 }

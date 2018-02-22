@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include <QGraphicsView>
 #include <QShortcut>
-#include <QAction>
 #include <QGraphicsPixmapItem>
 #include <QFileInfoList>
 #include <QPushButton>

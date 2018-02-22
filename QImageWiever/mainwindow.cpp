@@ -160,8 +160,13 @@ inline void MainWindow::loadImage(const QString& str)
     // удалить предыдущий
     if(item.count() > 1) delete item.last();
 
+    int i = QPixmap(str).width();
+    int c = QPixmap(str).height();
+    int a = geometry().width();
+    int b = geometry().height();
+
     // Сравнить размеры клиентской области окна с размерами изображения
-    if( (QPixmap(str).width() < geometry().width()) || (QPixmap(str).height() < geometry().height()) ) {
+    if( (QPixmap(str).width() < geometry().width()) && (QPixmap(str).height() < geometry().height()) ) {
         // изображение в реальном размере
         gView->setSceneRect(0, 0, QPixmap(str).width(), QPixmap(str).height());
         gView->fitInView(pixItem, Qt::KeepAspectRatio);

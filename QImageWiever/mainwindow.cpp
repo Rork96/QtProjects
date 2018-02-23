@@ -24,8 +24,11 @@ MainWindow::MainWindow(QWidget *parent) :
         // для отображения изображения
         gView = new QGraphicsView();
         setCentralWidget(gView);
-        scene = new QGraphicsScene();
+        scene = new ImageScene();
         gView->setScene(scene);
+        // Зафиксировать размер сцены
+        // (15 - сдвиг в лево, 35 - уменьшение по высоте)
+        scene->setSceneRect(15, 0, geometry().width()*2, geometry().height()*2-35);
 
         /* * * Прозрачные кнопки: предыдущее и следующеее изображение * * */
         QString styleButton=QString("QAbstractButton {background: rgba(255,255,255,100);}");
@@ -167,7 +170,7 @@ void MainWindow::openImage()
 inline void MainWindow::loadImage(const QString& str)
 {
     /* * * Загрузка изображения * * */
-
+/*
     // Добавить новый элемент на сцену
     QGraphicsPixmapItem *pixItem = new QGraphicsPixmapItem();
     scene->addItem(pixItem);
@@ -182,7 +185,7 @@ inline void MainWindow::loadImage(const QString& str)
     // Изображение в реальном размере
     gView->setSceneRect(0, 0, QPixmap(str).width(), QPixmap(str).height());
     gView->fitInView(pixItem, Qt::KeepAspectRatio);
-    pixItem->setPixmap(QPixmap(str));
+    pixItem->setPixmap(QPixmap(str));*/
 
     /*
     // Сравнить размеры клиентской области окна с размерами изображения
@@ -198,6 +201,10 @@ inline void MainWindow::loadImage(const QString& str)
         gView->setSceneRect(0, 0, geometry().width(), geometry().height());
         gView->fitInView(pixItem, Qt::KeepAspectRatio);
     }*/
+
+//    scene->clear();
+//    scene->addPixmap(QPixmap(str));
+    scene->setPixmap(QPixmap(str));
 
     // Имя файла в заголовке окна
     setWindowTitle("QImageWiever - " + QFileInfo(str).fileName());

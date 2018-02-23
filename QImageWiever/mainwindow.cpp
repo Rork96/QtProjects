@@ -6,7 +6,6 @@
 #include <QMessageBox>
 #include <QScreen>
 #include <QPrinter>
-#include <QPainter>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -82,6 +81,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
         // О программе
         aboutShortcut = new QShortcut(QKeySequence(Qt::Key_F1), this);
+
+        // О Qt
+        aboutQtShortcut = new QShortcut(QKeySequence(Qt::Key_F2), this);
     }
 
     /* * * Слоты * * */ {
@@ -130,6 +132,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
         // О программе
         connect(aboutShortcut, &QShortcut::activated, this, &MainWindow::aboutProgram);
+
+        // О Qt
+        connect(aboutQtShortcut, &QShortcut::activated, this, &MainWindow::aboutQt);
     }
 }
 
@@ -321,4 +326,11 @@ void MainWindow::print(QPrinter *printer)
     paint.drawPixmap(0, 0, pix);
     paint.end();
 #endif
+}
+
+void MainWindow::aboutQt()
+{
+    /* * * О Qt * * */
+
+    QMessageBox::aboutQt(this, "About Qt");
 }

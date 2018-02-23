@@ -46,6 +46,9 @@ private:
     // О программе
     void aboutProgram();
 
+    // О Qt
+    void aboutQt();
+
 private:
     Ui::MainWindow *ui;
 
@@ -105,6 +108,9 @@ private:
 
     // О программе
     QShortcut *aboutShortcut;
+
+    // О Qt
+    QShortcut *aboutQtShortcut;
 
     // Масштабирование
 #define SCALE_IN    1.25

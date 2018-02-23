@@ -25,8 +25,6 @@ MainWindow::MainWindow(QWidget *parent) :
         setCentralWidget(gView);
         scene = new QGraphicsScene();
         gView->setScene(scene);
-        // По центру
-        gView->centerOn(0, 0);
 
         /* Прозрачная кнопка */
         QString styleButton=QString("QAbstractButton {background: rgba(255,255,255,100);}");
@@ -160,11 +158,12 @@ inline void MainWindow::loadImage(const QString& str)
     // удалить предыдущий
     if(item.count() > 1) delete item.last();
 
-    int i = QPixmap(str).width();
-    int c = QPixmap(str).height();
-    int a = geometry().width();
-    int b = geometry().height();
+    // Изображение в реальном размере
+    gView->setSceneRect(0, 0, QPixmap(str).width(), QPixmap(str).height());
+    gView->fitInView(pixItem, Qt::KeepAspectRatio);
+    pixItem->setPixmap(QPixmap(str));
 
+    /*
     // Сравнить размеры клиентской области окна с размерами изображения
     if( (QPixmap(str).width() < geometry().width()) | (QPixmap(str).height() < geometry().height()) ) {
         // изображение в реальном размере
@@ -177,7 +176,9 @@ inline void MainWindow::loadImage(const QString& str)
         pixItem->setPixmap(QPixmap(str));
         gView->setSceneRect(0, 0, geometry().width(), geometry().height());
         gView->fitInView(pixItem, Qt::KeepAspectRatio);
-    }
+    }*/
+
+//    pixItem->setScale(1.0);
 
     // Отобразить элемент
     pixItem->setVisible(true);

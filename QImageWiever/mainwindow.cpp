@@ -5,6 +5,8 @@
 #include <QStandardPaths>
 #include <QMessageBox>
 #include <QScreen>
+#include <QPrinter>
+#include <QPainter>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -26,26 +28,25 @@ MainWindow::MainWindow(QWidget *parent) :
         scene = new QGraphicsScene();
         gView->setScene(scene);
 
-        /* Прозрачная кнопка */
+        /* * * Прозрачные кнопки: предыдущее и следующеее изображение * * */
         QString styleButton=QString("QAbstractButton {background: rgba(255,255,255,100);}");
 
-        rBtn = new QPushButton("", this);
-        rBtn->setIcon(QPixmap(":/pict/left.png"));
-        rBtn->setIconSize(QSize(50, 50));
-        rBtn->setStyleSheet(styleButton);
-        rBtn->setFlat(true);
-        rBtn->setGeometry(20, geometry().width(), 60, 60);
-        rBtn->setVisible(false);
+        prevBtn = new QPushButton("", this);
+        prevBtn->setIcon(QPixmap(":/pict/left.png"));
+        prevBtn->setIconSize(QSize(50, 50));
+        prevBtn->setStyleSheet(styleButton);
+        prevBtn->setFlat(true);
+        prevBtn->setGeometry(20, geometry().width(), 60, 60);
+        prevBtn->setVisible(false);
 
-        lBtn = new QPushButton("", this);
-        lBtn->setIcon(QPixmap(":/pict/right.png"));
-        lBtn->setIconSize(QSize(50, 50));
-        lBtn->setStyleSheet(styleButton);
-        lBtn->setFlat(true);
-        lBtn->setGeometry(QApplication::screens().at(0)->geometry().width()-lBtn->width()/2-30,
+        nextBtn = new QPushButton("", this);
+        nextBtn->setIcon(QPixmap(":/pict/right.png"));
+        nextBtn->setIconSize(QSize(50, 50));
+        nextBtn->setStyleSheet(styleButton);
+        nextBtn->setFlat(true);
+        nextBtn->setGeometry(QApplication::screens().at(0)->geometry().width()-nextBtn->width()/2-30,
                           geometry().width(), 60, 60);
-        lBtn->setVisible(false);
-        /* ************************* */
+        nextBtn->setVisible(false);
     }
 
     /* * * Горячие клавиши приложения * * */ {
@@ -54,6 +55,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
         // Сохранить изображение
         saveShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_S), this);
+
+        // Печать изображения
+        printShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_P), this);
 
         // Увеличить изображение
         zoomInShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Plus), this);
@@ -73,8 +77,11 @@ MainWindow::MainWindow(QWidget *parent) :
         // Поворот в лево на 90 град
         rotLeftShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Left), this);
 
+        // Во весь экран
+        fullScrShortcut = new QShortcut(QKeySequence(Qt::Key_F11), this);
+
         // О программе
-        aboutAction = new QAction("О программе", this);
+        aboutShortcut = new QShortcut(QKeySequence(Qt::Key_F1), this);
     }
 
     /* * * Слоты * * */ {
@@ -83,6 +90,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
         // Соханить изображение
         connect(saveShortcut, &QShortcut::activated, this, &MainWindow::saveImage);
+
+        // Печать изображения
+        connect(printShortcut, &QShortcut::activated, this, &MainWindow::printImage);
 
         // Увеличить
         connect(zoomInShortcut, &QShortcut::activated, this, [this] {
@@ -96,11 +106,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
         // Следующее изображение
         connect(nextImageShortcut, &QShortcut::activated, this, &MainWindow::nextImage);
-        connect(rBtn, &QPushButton::clicked, nextImageShortcut, &QShortcut::activated);
+        connect(nextBtn, &QPushButton::clicked, nextImageShortcut, &QShortcut::activated);
 
         // Предыдущее изображение
         connect(prevImageShortcut, &QShortcut::activated, this, &MainWindow::prevImage);
-        connect(lBtn, &QPushButton::clicked, prevImageShortcut, &QShortcut::activated);
+        connect(prevBtn, &QPushButton::clicked, prevImageShortcut, &QShortcut::activated);
 
         // Поворот в право на 90 град
         connect(rotRightShortcut, &QShortcut::activated, this, [this] {
@@ -112,8 +122,14 @@ MainWindow::MainWindow(QWidget *parent) :
             gView->rotate(ROT_LEFT);
         });
 
+        // Во весь экран
+        connect(fullScrShortcut, &QShortcut::activated, this, [this] {
+            if(isFullScreen()) setWindowState(Qt::WindowMaximized);
+            else showFullScreen();
+        });
+
         // О программе
-        connect(aboutAction, &QAction::triggered, this, &MainWindow::aboutProgram);
+        connect(aboutShortcut, &QShortcut::activated, this, &MainWindow::aboutProgram);
     }
 }
 
@@ -177,11 +193,6 @@ inline void MainWindow::loadImage(const QString& str)
         gView->setSceneRect(0, 0, geometry().width(), geometry().height());
         gView->fitInView(pixItem, Qt::KeepAspectRatio);
     }*/
-
-//    pixItem->setScale(1.0);
-
-    // Отобразить элемент
-    pixItem->setVisible(true);
 
     // Имя файла в заголовке окна
     setWindowTitle("QImageWiever - " + QFileInfo(str).fileName());
@@ -269,6 +280,45 @@ void MainWindow::showElements()
 {
     /* * * Показать элементы управления * * */
 
-    rBtn->setVisible(true);
-    lBtn->setVisible(true);
+    prevBtn->setVisible(true);
+    nextBtn->setVisible(true);
+}
+
+void MainWindow::printImage()
+{
+    /* * * Передварительный просмотр печати изображения * * */
+
+#ifndef QT_NO_PRINTER
+    // Принтер
+    QPrinter printer(QPrinter::HighResolution);
+    printer.setFullPage(true);
+
+    // Диалог предварительного просмотра
+    QPrintPreviewDialog *dlg = new QPrintPreviewDialog(&printer, this);
+
+    // Печать
+    connect(dlg, &QPrintPreviewDialog::paintRequested, this,
+            &MainWindow::print);
+
+    dlg->setWindowTitle("Передварительный просмотр");
+    dlg->exec();
+#endif
+}
+
+void MainWindow::print(QPrinter *printer)
+{
+    /* * * Печать * * */
+
+    QPixmap pix(dirContent[dirContent.indexOf(dirContent.at(iCurFile), 0)].absoluteFilePath());
+
+#ifndef QT_NO_PRINTER
+    QPainter paint;
+    // Масштабирование изображения под лист
+    pix = pix.scaled(printer->pageRect().width(),
+                     printer->pageRect().height(), Qt::KeepAspectRatio);
+    // Вывод на печать
+    paint.begin(printer);
+    paint.drawPixmap(0, 0, pix);
+    paint.end();
+#endif
 }

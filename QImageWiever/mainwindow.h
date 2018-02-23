@@ -7,6 +7,7 @@
 #include <QGraphicsPixmapItem>
 #include <QFileInfoList>
 #include <QPushButton>
+#include <QPrintPreviewDialog>
 
 namespace Ui {
 class MainWindow;
@@ -29,6 +30,12 @@ private:
 
     // Сохранить изображение
     void saveImage();
+
+    // Передварительный просмотр печати изображения
+    void printImage();
+
+    // Печать
+    void print(QPrinter *printer);
 
     // Следующее изображение
     void nextImage();
@@ -55,10 +62,10 @@ private:
     int iCurFile = -1;
 
     // Предыдущее изображение
-    QPushButton *rBtn;
+    QPushButton *prevBtn;
 
     // Следующее изображение
-    QPushButton *lBtn;
+    QPushButton *nextBtn;
 
 private:
     /* * * Горячие клавиши * * */
@@ -68,6 +75,9 @@ private:
 
     // Сохранить изображение
     QShortcut *saveShortcut;
+
+    // Печать изображения
+    QShortcut *printShortcut;
 
     // Увеличить изображение
     QShortcut *zoomInShortcut;
@@ -87,11 +97,14 @@ private:
     // Поворот в лево на 90 град
     QShortcut *rotLeftShortcut;
 
+    // Во весь экран
+    QShortcut *fullScrShortcut;
+
     // Показать элементы управления
     void showElements();
 
     // О программе
-    QAction *aboutAction;
+    QShortcut *aboutShortcut;
 
     // Масштабирование
 #define SCALE_IN    1.25

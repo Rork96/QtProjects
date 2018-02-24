@@ -84,7 +84,7 @@ MainWindow::MainWindow(QWidget *parent) :
                 "Print \t\t-\t CTRL + P \n\n"
                 "Next \t\t-\t Right \n\n"
                 "Previous \t-\t Left \n\n"
-                "Rotate right \t-\t CTRL + Right \n\n"
+                "Rotate right -\t CTRL + Right \n\n"
                 "Rotate left \t-\t CTRL + Left \n\n"
                 "Zoom in \t-\t CTRL + \n\n"
                 "Zoom out \t-\t CTRL - \n\n"
@@ -94,6 +94,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
         QGraphicsScene *gScene = new QGraphicsScene();
         QFont newFont("Courier", 13, QFont::Light, true);
+        newFont.setStretch(125);
         gScene->addText(inofString, newFont);
         gView->setScene(gScene);
     }

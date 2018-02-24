@@ -6,7 +6,7 @@
 #include <QShortcut>
 //#include <QGraphicsPixmapItem>
 #include <QFileInfoList>
-#include <QPushButton>
+//#include <QPushButton>
 #include <QPrintPreviewDialog>
 
 //#include "ImageScene.h"
@@ -44,6 +44,9 @@ private:
 
     // Предыдущее изображение
     void prevImage();
+
+    // Показать элементы управления
+    void showElements();
 
     // О программе
     void aboutProgram();
@@ -105,9 +108,6 @@ private:
 
     // Во весь экран
     QShortcut *fullScrShortcut;
-
-    // Показать элементы управления
-    void showElements();
 
     // О программе
     QShortcut *aboutShortcut;

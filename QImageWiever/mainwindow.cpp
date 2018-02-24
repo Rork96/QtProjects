@@ -6,6 +6,7 @@
 #include <QMessageBox>
 #include <QScreen>
 #include <QPrinter>
+#include <QPushButton>
 #include <QGraphicsPixmapItem>
 
 MainWindow::MainWindow(QWidget *parent) :

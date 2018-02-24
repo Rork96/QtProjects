@@ -6,6 +6,7 @@
 #include <QMessageBox>
 #include <QScreen>
 #include <QPrinter>
+#include <QGraphicsPixmapItem>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -28,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
         gView->setScene(scene);
         // Зафиксировать размер сцены
         // (15 - сдвиг в лево, 35 - уменьшение по высоте)
-        scene->setSceneRect(15, 0, geometry().width()*2, geometry().height()*2-35);
+        //scene->setSceneRect(15, 0, geometry().width()*2, geometry().height()*2-35);
 
         /* * * Прозрачные кнопки: предыдущее и следующеее изображение * * */
         QString styleButton=QString("QAbstractButton {background: rgba(255,255,255,100);}");
@@ -204,7 +205,29 @@ inline void MainWindow::loadImage(const QString& str)
 
 //    scene->clear();
 //    scene->addPixmap(QPixmap(str));
-    scene->setPixmap(QPixmap(str));
+    //scene->setPixmap(QPixmap(str));
+
+    QPixmap pixmap(str);
+    QGraphicsScene *gScene = new QGraphicsScene();
+    QGraphicsPixmapItem *pix = new QGraphicsPixmapItem(pixmap);
+
+
+    if(pixmap.width() > geometry().width()) {
+        pix->setScale(pixmap.width()/geometry().width());
+    }
+    else if(pixmap.height() > geometry().height()) {
+        pix->setScale(pixmap.height()/geometry().height());
+    }
+
+    gScene->addItem(pix);
+
+    QList<QGraphicsItem *> item = gView->items();
+
+    // Если в сцене больше одного элемента, то
+    // удалить предыдущий
+    if(item.count() > 1) delete item.last();
+
+    gView->setScene(gScene);
 
     // Имя файла в заголовке окна
     setWindowTitle("QImageWiever - " + QFileInfo(str).fileName());

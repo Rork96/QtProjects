@@ -51,6 +51,31 @@ MainWindow::MainWindow(QWidget *parent) :
         nextBtn->setGeometry(QApplication::screens().at(0)->geometry().width()-nextBtn->width()/2-30,
                           geometry().width(), 60, 60);
         nextBtn->setVisible(false);
+
+
+        // Добавление на сцену диалогового окна :)
+        QGraphicsScene *gScene = new QGraphicsScene();
+        QPushButton *openButton = new QPushButton("Open");
+        QPushButton *aboutButton = new QPushButton("About");
+        QPushButton *aboutQtButton = new QPushButton("About Qt");
+        QHBoxLayout *l = new QHBoxLayout();
+        l->addWidget(openButton);
+        QSpacerItem *i = new QSpacerItem(100, 50);
+        l->addSpacerItem(i);
+        l->addWidget(aboutButton);
+        l->addSpacerItem(i);
+        l->addWidget(aboutQtButton);
+        QDialog * d = new QDialog();
+        d->setGeometry(0, 0, 500, 100);
+        d->setAttribute(Qt::WA_TranslucentBackground);
+        d->setLayout(l);
+        gScene->addWidget(d);
+
+        connect(openButton, &QPushButton::clicked, this, &MainWindow::openImage);
+        connect(aboutButton, &QPushButton::clicked, this, &MainWindow::aboutProgram);
+        connect(aboutQtButton, &QPushButton::clicked, this, &MainWindow::aboutQt);
+
+        gView->setScene(gScene);
     }
 
     /* * * Горячие клавиши приложения * * */ {
@@ -216,22 +241,24 @@ inline void MainWindow::loadImage(const QString& str)
 
     // Создать новую графическую сцену и PixmapItem
     QGraphicsScene *gScene = new QGraphicsScene();
-    QGraphicsPixmapItem *pix = new QGraphicsPixmapItem(pixmap);
+//    QGraphicsPixmapItem *pix = new QGraphicsPixmapItem(pixmap);
+    // Добавить элемент с изображением на сцену
+    QGraphicsPixmapItem *pix = gScene->addPixmap(pixmap);
 
     // Если размер изображения больше размера окна, то
     // масштабировть изображение под размер окна
     if (pixmap.width() > geometry().width()) {
-//        pix->setScale(pixmap.width()/geometry().width());
-        pixmap.scaled(pixmap.width()/geometry().width(), pixmap.height()/geometry().height(),
-                      Qt::KeepAspectRatio);
+        pix->setScale(pixmap.width()/geometry().width());
+//        pixmap.scaled(pixmap.width()/geometry().width(), pixmap.height()/geometry().height(),
+//                      Qt::KeepAspectRatio);
     } else if (pixmap.height() > geometry().height()) {
-//        pix->setScale(pixmap.height()/geometry().height());
-        pixmap.scaled(pixmap.width()/geometry().width(), pixmap.height()/geometry().height(),
-                      Qt::KeepAspectRatio);
+        pix->setScale(pixmap.height()/geometry().height());
+//        pixmap.scaled(pixmap.width()/geometry().width(), pixmap.height()/geometry().height(),
+//                      Qt::KeepAspectRatio);
     }
 
     // Добавить элемент с изображением на сцену
-    gScene->addItem(pix);
+//    gScene->addItem(pix);
 
     // Получить все элементы GraphicsView
     QList<QGraphicsItem *> item = gView->items();
@@ -243,6 +270,8 @@ inline void MainWindow::loadImage(const QString& str)
 
     // Установить новую сцену в GraphicsView
     gView->setScene(gScene);
+
+    gView->fitInView(0, 0, geometry().width(), geometry().height(), Qt::KeepAspectRatio);
 
     // Имя файла в заголовке окна
     setWindowTitle("QImageWiever - " + QFileInfo(str).fileName());

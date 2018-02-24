@@ -52,7 +52,7 @@ MainWindow::MainWindow(QWidget *parent) :
                           geometry().width(), 60, 60);
         nextBtn->setVisible(false);
 
-
+        /*
         // Добавление на сцену диалогового окна :)
         QGraphicsScene *gScene = new QGraphicsScene();
         QPushButton *openButton = new QPushButton("Open");
@@ -75,6 +75,26 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(aboutButton, &QPushButton::clicked, this, &MainWindow::aboutProgram);
         connect(aboutQtButton, &QPushButton::clicked, this, &MainWindow::aboutQt);
 
+        gView->setScene(gScene);*/
+
+        // Информация о управлении
+        QString inofString =
+                "Open \t\t-\t CTRL + O \n\n"
+                "Save \t\t-\t CTRL + S \n\n"
+                "Print \t\t-\t CTRL + P \n\n"
+                "Next \t\t-\t Right \n\n"
+                "Previous \t-\t Left \n\n"
+                "Rotate right \t-\t CTRL + Right \n\n"
+                "Rotate left \t-\t CTRL + Left \n\n"
+                "Zoom in \t-\t CTRL + \n\n"
+                "Zoom out \t-\t CTRL - \n\n"
+                "Full screen \t-\t F11 \n\n"
+                "About \t\t-\t F1 \n\n"
+                "About Qt \t-\t F2";
+
+        QGraphicsScene *gScene = new QGraphicsScene();
+        QFont newFont("Courier", 13, QFont::Light, true);
+        gScene->addText(inofString, newFont);
         gView->setScene(gScene);
     }
 

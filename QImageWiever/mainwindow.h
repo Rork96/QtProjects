@@ -9,7 +9,7 @@
 #include <QPushButton>
 #include <QPrintPreviewDialog>
 
-#include "ImageScene.h"
+//#include "ImageScene.h"
 
 namespace Ui {
 class MainWindow;
@@ -59,7 +59,7 @@ private:
 
     // Сцена для помещение в нее изображения
     //QGraphicsScene *scene;
-    ImageScene *scene;
+    //ImageScene *scene;
 
     // Список файлов в  директории
     QFileInfoList dirContent;

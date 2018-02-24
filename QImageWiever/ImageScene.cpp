@@ -31,7 +31,6 @@ void ImageScene::setPixmap(const QPixmap pixmap)
     pix->setPos(sceneRect().width()/2-pixmap.width()/2, height()/2-pixmap.height()/2);
     pix->setScale(0.5);
 
-
     addItem(pix);
 
     //addPixmap(pixmap);

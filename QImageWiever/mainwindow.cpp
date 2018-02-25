@@ -6,10 +6,7 @@
 #include <QMessageBox>
 #include <QScreen>
 #include <QPrinter>
-#include <QPushButton>
 #include <QGraphicsPixmapItem>
-
-#include "infodialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -38,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
         prevBtn->setIconSize(QSize(50, 50));
         prevBtn->setStyleSheet(styleButton);
         prevBtn->setFlat(true);
-        prevBtn->setGeometry(20, geometry().width(), 60, 60);
+        prevBtn->setGeometry(20, geometry().height(), 50, 50);
         prevBtn->setVisible(false);
 
         nextBtn = new QPushButton("", this);
@@ -47,14 +44,15 @@ MainWindow::MainWindow(QWidget *parent) :
         nextBtn->setStyleSheet(styleButton);
         nextBtn->setFlat(true);
         nextBtn->setGeometry(QApplication::screens().at(0)->geometry().width()-nextBtn->width()/2-30,
-                          geometry().width(), 60, 60);
+                          geometry().height(), 50, 50);
         nextBtn->setVisible(false);
 
         // Добавление на сцену диалогового окна
         QGraphicsScene *gScene = new QGraphicsScene();
-        InfoDialog *infoDlg = new InfoDialog();
+        infoDlg = new InfoDialog();
         infoDlg->setAttribute(Qt::WA_TranslucentBackground);
         gScene->addWidget(infoDlg);
+        // Добавить сцену в GraphicsView
         gView->setScene(gScene);
     }
 
@@ -99,6 +97,8 @@ MainWindow::MainWindow(QWidget *parent) :
     /* * * Слоты * * */ {
         // Открыть изображение
         connect(openShortcut, &QShortcut::activated, this, &MainWindow::openImage);
+        // Нажатие кнопки открытия изображения в диалоговом окне
+        connect(infoDlg, &InfoDialog::openImg, this, &MainWindow::openImage);
 
         // Соханить изображение
         connect(saveShortcut, &QShortcut::activated, this, &MainWindow::saveImage);
@@ -142,12 +142,18 @@ MainWindow::MainWindow(QWidget *parent) :
                 showFullScreen();
             }
         });
+        // Нажатие кнопки во весь экран в диалоговом окне
+        connect(infoDlg, &InfoDialog::fullScreen, fullScrShortcut, &QShortcut::activated);
 
         // О программе
         connect(aboutShortcut, &QShortcut::activated, this, &MainWindow::aboutProgram);
+        // Нажатие кнопки о программе в диалоговом окне
+        connect(infoDlg, &InfoDialog::aboutProgram, this, &MainWindow::aboutProgram);
 
         // О Qt
         connect(aboutQtShortcut, &QShortcut::activated, this, &MainWindow::aboutQt);
+        // Нажатие о Qt в диалоговом окне
+        connect(infoDlg, &InfoDialog::aboutQt, this, &MainWindow::aboutQt);
     }
 }
 
@@ -347,6 +353,9 @@ void MainWindow::showElements()
 void MainWindow::printImage()
 {
     /* * * Передварительный просмотр печати изображения * * */
+
+    if (iCurFile == -1)
+        return; // Нет открытых изображений
 
 #ifndef QT_NO_PRINTER
     // Принтер

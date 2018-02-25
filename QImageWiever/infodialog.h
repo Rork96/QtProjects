@@ -17,6 +17,16 @@ public:
 
 private:
     Ui::InfoDialog *ui;
+
+signals:
+    // Открыть изображение
+    void openImg();
+    // Во весь экран
+    void fullScreen();
+    // О программе
+    void aboutProgram();
+    // О Qt
+    void aboutQt();
 };
 
 #endif // INFODIALOG_H

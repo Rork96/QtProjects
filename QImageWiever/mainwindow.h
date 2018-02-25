@@ -6,6 +6,9 @@
 #include <QShortcut>
 #include <QFileInfoList>
 #include <QPrintPreviewDialog>
+#include <QPushButton>
+
+#include "infodialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -52,6 +55,9 @@ private:
 
 private:
     Ui::MainWindow *ui;
+
+    // Диалоговое окно
+    InfoDialog *infoDlg;
 
     // QGraphicsView для сцены
     QGraphicsView *gView;

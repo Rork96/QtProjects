@@ -4,7 +4,6 @@
 #include <QFileDialog>
 #include <QStandardPaths>
 #include <QMessageBox>
-#include <QScreen>
 #include <QPrinter>
 #include <QGraphicsPixmapItem>
 
@@ -43,8 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
         nextBtn->setIconSize(QSize(50, 50));
         nextBtn->setStyleSheet(styleButton);
         nextBtn->setFlat(true);
-        nextBtn->setGeometry(QApplication::screens().at(0)->geometry().width()-nextBtn->width()/2-30,
-                          geometry().height(), 50, 50);
+        nextBtn->setGeometry(geometry().width()*2-nextBtn->width()/2, geometry().height(), 50, 50);
         nextBtn->setVisible(false);
 
         // Добавление на сцену диалогового окна

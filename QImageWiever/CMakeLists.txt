@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.1)
 
 # Project
-project(QImageWiever LANGUAGES CXX)
+project(QImageViewer LANGUAGES CXX)
 
-set(PROJECT_LONGNAME "QImageWiever")
+set(PROJECT_LONGNAME "QImageViewer")
 set(PROJECT_VERSION "1.0.0")
 
 # Release by default
@@ -88,10 +88,10 @@ else()
         LIBRARY DESTINATION "opt/${PROJECT_NAME}/lib"
         ARCHIVE DESTINATION "opt/${PROJECT_NAME}/lib")
 
-    INSTALL(FILES ${PROJECT_SOURCE_DIR}/pict/QImageWiever.png
+    INSTALL(FILES ${PROJECT_SOURCE_DIR}/pict/QImageViewer.png
         DESTINATION "usr/share/pixmaps")
-    INSTALL(FILES ${PROJECT_SOURCE_DIR}/scripts/QImageWiever.sh
+    INSTALL(FILES ${PROJECT_SOURCE_DIR}/scripts/QImageViewer.sh
         DESTINATION "opt/${PROJECT_NAME}")
-    INSTALL(FILES ${PROJECT_SOURCE_DIR}/scripts/Screaner.desktop
+    INSTALL(FILES ${PROJECT_SOURCE_DIR}/scripts/QImageViewer.desktop
         DESTINATION "usr/share/applications")
 endif()

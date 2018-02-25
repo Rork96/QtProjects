@@ -9,6 +9,8 @@
 #include <QPushButton>
 #include <QGraphicsPixmapItem>
 
+#include "infodialog.h"
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -18,19 +20,15 @@ MainWindow::MainWindow(QWidget *parent) :
      /* * * Начальные настройки приложения * * */ {
         // Окно развернуто на весь экран
         setWindowState(Qt::WindowMaximized);
-
         // Цвер фона
         setStyleSheet("background-color: #EEEEF1;");
+        // Заголовок окна
+        setWindowTitle("Wellcome to QImageViewer");
 
         // Установка QGraphicsView и QGraphicsScene
         // для отображения изображения
         gView = new QGraphicsView();
         setCentralWidget(gView);
-        //scene = new ImageScene();
-        //gView->setScene(scene);
-        // Зафиксировать размер сцены
-        // (15 - сдвиг в лево, 35 - уменьшение по высоте)
-        //scene->setSceneRect(15, 0, geometry().width()*2, geometry().height()*2-35);
 
         /* * * Прозрачные кнопки: предыдущее и следующеее изображение * * */
         QString styleButton=QString("QAbstractButton {background: rgba(255,255,255,100);}");
@@ -52,50 +50,11 @@ MainWindow::MainWindow(QWidget *parent) :
                           geometry().width(), 60, 60);
         nextBtn->setVisible(false);
 
-        /*
-        // Добавление на сцену диалогового окна :)
+        // Добавление на сцену диалогового окна
         QGraphicsScene *gScene = new QGraphicsScene();
-        QPushButton *openButton = new QPushButton("Open");
-        QPushButton *aboutButton = new QPushButton("About");
-        QPushButton *aboutQtButton = new QPushButton("About Qt");
-        QHBoxLayout *l = new QHBoxLayout();
-        l->addWidget(openButton);
-        QSpacerItem *i = new QSpacerItem(100, 50);
-        l->addSpacerItem(i);
-        l->addWidget(aboutButton);
-        l->addSpacerItem(i);
-        l->addWidget(aboutQtButton);
-        QDialog * d = new QDialog();
-        d->setGeometry(0, 0, 500, 100);
-        d->setAttribute(Qt::WA_TranslucentBackground);
-        d->setLayout(l);
-        gScene->addWidget(d);
-
-        connect(openButton, &QPushButton::clicked, this, &MainWindow::openImage);
-        connect(aboutButton, &QPushButton::clicked, this, &MainWindow::aboutProgram);
-        connect(aboutQtButton, &QPushButton::clicked, this, &MainWindow::aboutQt);
-
-        gView->setScene(gScene);*/
-
-        // Информация о управлении
-        QString inofString =
-                "Open \t\t-\t CTRL + O \n\n"
-                "Save \t\t-\t CTRL + S \n\n"
-                "Print \t\t-\t CTRL + P \n\n"
-                "Next \t\t-\t Right \n\n"
-                "Previous \t-\t Left \n\n"
-                "Rotate right -\t CTRL + Right \n\n"
-                "Rotate left \t-\t CTRL + Left \n\n"
-                "Zoom in \t-\t CTRL + \n\n"
-                "Zoom out \t-\t CTRL - \n\n"
-                "Full screen \t-\t F11 \n\n"
-                "About \t\t-\t F1 \n\n"
-                "About Qt \t-\t F2";
-
-        QGraphicsScene *gScene = new QGraphicsScene();
-        QFont newFont("Courier", 13, QFont::Light, true);
-        newFont.setStretch(125);
-        gScene->addText(inofString, newFont);
+        InfoDialog *infoDlg = new InfoDialog();
+        infoDlg->setAttribute(Qt::WA_TranslucentBackground);
+        gScene->addWidget(infoDlg);
         gView->setScene(gScene);
     }
 
@@ -262,7 +221,6 @@ inline void MainWindow::loadImage(const QString& str)
 
     // Создать новую графическую сцену и PixmapItem
     QGraphicsScene *gScene = new QGraphicsScene();
-//    QGraphicsPixmapItem *pix = new QGraphicsPixmapItem(pixmap);
     // Добавить элемент с изображением на сцену
     QGraphicsPixmapItem *pix = gScene->addPixmap(pixmap);
 
@@ -278,9 +236,6 @@ inline void MainWindow::loadImage(const QString& str)
 //                      Qt::KeepAspectRatio);
     }
 
-    // Добавить элемент с изображением на сцену
-//    gScene->addItem(pix);
-
     // Получить все элементы GraphicsView
     QList<QGraphicsItem *> item = gView->items();
 
@@ -292,10 +247,10 @@ inline void MainWindow::loadImage(const QString& str)
     // Установить новую сцену в GraphicsView
     gView->setScene(gScene);
 
-    gView->fitInView(0, 0, geometry().width(), geometry().height(), Qt::KeepAspectRatio);
+    //gView->fitInView(0, 0, geometry().width(), geometry().height(), Qt::KeepAspectRatio);
 
     // Имя файла в заголовке окна
-    setWindowTitle("QImageWiever - " + QFileInfo(str).fileName());
+    setWindowTitle("QImageViewer - " + QFileInfo(str).fileName());
 
     // Показать элементы управления
     showElements();

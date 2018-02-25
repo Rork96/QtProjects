@@ -11,11 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>QImageWiever</string>
+   <string>QImageViewer</string>
   </property>
   <property name="windowIcon">
    <iconset resource="res.qrc">
-    <normaloff>:/pict/QImageWiever.ico</normaloff>:/pict/QImageWiever.ico</iconset>
+    <normaloff>:/pict/QImageViewer.ico</normaloff>:/pict/QImageViewer.ico</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="sizePolicy">

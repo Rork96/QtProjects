@@ -4,12 +4,8 @@
 #include <QMainWindow>
 #include <QGraphicsView>
 #include <QShortcut>
-//#include <QGraphicsPixmapItem>
 #include <QFileInfoList>
-//#include <QPushButton>
 #include <QPrintPreviewDialog>
-
-//#include "ImageScene.h"
 
 namespace Ui {
 class MainWindow;
@@ -59,10 +55,6 @@ private:
 
     // QGraphicsView для сцены
     QGraphicsView *gView;
-
-    // Сцена для помещение в нее изображения
-    //QGraphicsScene *scene;
-    //ImageScene *scene;
 
     // Список файлов в  директории
     QFileInfoList dirContent;

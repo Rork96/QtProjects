@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
         // Установка QGraphicsView и QGraphicsScene
         // для отображения изображения
-        gView = new QGraphicsView();
+        gView = new QGraphicsView(this);
         setCentralWidget(gView);
 
         /* * * Прозрачные кнопки: предыдущее и следующеее изображение * * */
@@ -46,8 +46,8 @@ MainWindow::MainWindow(QWidget *parent) :
         nextBtn->setVisible(false);
 
         // Добавление на сцену диалогового окна
-        QGraphicsScene *gScene = new QGraphicsScene();
-        infoDlg = new InfoDialog();
+        QGraphicsScene *gScene = new QGraphicsScene(this);
+        infoDlg = new InfoDialog(this);
         infoDlg->setAttribute(Qt::WA_TranslucentBackground);
         gScene->addWidget(infoDlg);
         // Добавить сцену в GraphicsView
@@ -60,6 +60,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
         // Сохранить изображение
         saveShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_S), this);
+
+        // Удалить изображение (в корзину)
+        delShortcut = new QShortcut(QKeySequence(Qt::Key_Delete), this);
 
         // Печать изображения
         printShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_P), this);
@@ -100,6 +103,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
         // Соханить изображение
         connect(saveShortcut, &QShortcut::activated, this, &MainWindow::saveImage);
+
+        // Удалить изображение (в корзину)
+        connect(delShortcut, &QShortcut::activated, this, &MainWindow::delImage);
 
         // Печать изображения
         connect(printShortcut, &QShortcut::activated, this, &MainWindow::printImage);
@@ -169,7 +175,7 @@ void MainWindow::openImage()
                             "Файлы изображений (*.jpg | *.jpeg | *.png | *.bmp)");
 
     if (fName.isEmpty())
-        return;
+        return; // Файл не выбран
 
     // Получить все файлы директории
     QDir dir(QFileInfo(fName).absoluteDir());
@@ -185,59 +191,24 @@ void MainWindow::openImage()
 inline void MainWindow::loadImage(const QString& str)
 {
     /* * * Загрузка изображения * * */
-/*
-    // Добавить новый элемент на сцену
-    QGraphicsPixmapItem *pixItem = new QGraphicsPixmapItem();
-    scene->addItem(pixItem);
-
-    // Получить все элементы в сцены
-    QList<QGraphicsItem *> item = scene->items();
-
-    // Если в сцене больше одного элемента, то
-    // удалить предыдущий
-    if (item.count() > 1)
-        delete item.last();
-
-    // Изображение в реальном размере
-    gView->setSceneRect(0, 0, QPixmap(str).width(), QPixmap(str).height());
-    gView->fitInView(pixItem, Qt::KeepAspectRatio);
-    pixItem->setPixmap(QPixmap(str));*/
-
-    /*
-    // Сравнить размеры клиентской области окна с размерами изображения
-    if ( (QPixmap(str).width() < geometry().width()) | (QPixmap(str).height() < geometry().height()) ) {
-        // изображение в реальном размере
-        gView->setSceneRect(0, 0, QPixmap(str).width(), QPixmap(str).height());
-        gView->fitInView(pixItem, Qt::KeepAspectRatio);
-        pixItem->setPixmap(QPixmap(str));
-    } else { // Здесь ошибка
-        // вписать изображение в сцену (клиентскую область окна)
-        pixItem->setPixmap(QPixmap(str));
-        gView->setSceneRect(0, 0, geometry().width(), geometry().height());
-        gView->fitInView(pixItem, Qt::KeepAspectRatio);
-    }*/
-
-//    scene->clear();
-//    scene->addPixmap(QPixmap(str));
-    //scene->setPixmap(QPixmap(str));
-
-    QPixmap pixmap(str);
 
     // Создать новую графическую сцену и PixmapItem
-    QGraphicsScene *gScene = new QGraphicsScene();
+    QGraphicsScene *gScene = new QGraphicsScene(this);
     // Добавить элемент с изображением на сцену
-    QGraphicsPixmapItem *pix = gScene->addPixmap(pixmap);
+    QGraphicsPixmapItem *pix = gScene->addPixmap(QPixmap(str));
 
     // Если размер изображения больше размера окна, то
     // масштабировть изображение под размер окна
-    if (pixmap.width() > geometry().width()) {
-        pix->setScale(pixmap.width()/geometry().width());
-//        pixmap.scaled(pixmap.width()/geometry().width(), pixmap.height()/geometry().height(),
-//                      Qt::KeepAspectRatio);
-    } else if (pixmap.height() > geometry().height()) {
-        pix->setScale(pixmap.height()/geometry().height());
-//        pixmap.scaled(pixmap.width()/geometry().width(), pixmap.height()/geometry().height(),
-//                      Qt::KeepAspectRatio);
+    if (pix->boundingRect().width() > geometry().width()) {
+        // По ширине
+        // (0.002 - уменьшение для отсутствия полосы прокрутки)
+        // Если отключить полосы прокрутки их придется вкл. при приближении
+        pix->setScale( geometry().width() / (pix->boundingRect().width()*1.0) -0.002);
+//        gView->fitInView(geometry(), Qt::KeepAspectRatio);
+    } else if (pix->boundingRect().height() > geometry().height()) {
+        // По высоте
+        pix->setScale( geometry().height() / (pix->boundingRect().height()*1.0) -0.002);
+//        gView->fitInView(geometry(), Qt::KeepAspectRatio);
     }
 
     // Получить все элементы GraphicsView
@@ -250,8 +221,6 @@ inline void MainWindow::loadImage(const QString& str)
 
     // Установить новую сцену в GraphicsView
     gView->setScene(gScene);
-
-    //gView->fitInView(0, 0, geometry().width(), geometry().height(), Qt::KeepAspectRatio);
 
     // Имя файла в заголовке окна
     setWindowTitle("QImageViewer - " + QFileInfo(str).fileName());
@@ -288,6 +257,24 @@ void MainWindow::saveImage()
     // Сохранить изображение
     f.copy(fName);
 }
+
+void MainWindow::delImage()
+{
+    /* * * Удалить изображение (в корзину) * * */
+
+    QString str = dirContent[dirContent.indexOf(dirContent.at(iCurFile), 0)].absoluteFilePath();
+
+    // Перемещение в корзину в Windows
+#ifdef Q_OS_LINUX
+    QFile(str).rename(str);
+#endif
+
+    // Перемещение в корзину в Linux
+#ifdef Q_OS_WIN
+    QFile(str).rename(str);
+#endif
+}
+
 
 void MainWindow::nextImage()
 {

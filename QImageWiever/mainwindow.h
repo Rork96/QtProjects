@@ -32,6 +32,9 @@ private:
     // Сохранить изображение
     void saveImage();
 
+    // Удалить изображение (в корзину)
+    void delImage();
+
     // Передварительный просмотр печати изображения
     void printImage();
 
@@ -82,6 +85,9 @@ private:
 
     // Сохранить изображение
     QShortcut *saveShortcut;
+
+    // Удалить изображение (в корзину)
+    QShortcut *delShortcut;
 
     // Печать изображения
     QShortcut *printShortcut;

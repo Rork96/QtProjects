@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QScreen>
 #include <QFileDialog>
 #include <QStandardPaths>
 #include <QMessageBox>
@@ -34,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
         prevBtn->setIconSize(QSize(50, 50));
         prevBtn->setStyleSheet(styleButton);
         prevBtn->setFlat(true);
-        prevBtn->setGeometry(20, geometry().height(), 50, 50);
+        prevBtn->setGeometry(20, QApplication::screens().at(0)->geometry().height()/2, 50, 50);
         prevBtn->setVisible(false);
 
         nextBtn = new QPushButton("", this);
@@ -42,7 +43,8 @@ MainWindow::MainWindow(QWidget *parent) :
         nextBtn->setIconSize(QSize(50, 50));
         nextBtn->setStyleSheet(styleButton);
         nextBtn->setFlat(true);
-        nextBtn->setGeometry(geometry().width()*2-nextBtn->width()/2, geometry().height(), 50, 50);
+        nextBtn->setGeometry(QApplication::screens().at(0)->geometry().width()- (nextBtn->geometry().width()/2) -20,
+                             QApplication::screens().at(0)->geometry().height()/2, 50, 50);
         nextBtn->setVisible(false);
 
         /* * * Начальное окно приветствия * * */

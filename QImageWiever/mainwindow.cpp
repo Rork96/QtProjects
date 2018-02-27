@@ -293,7 +293,6 @@ void MainWindow::delImage()
     nextImage();
 }
 
-
 void MainWindow::nextImage()
 {
     /* * * Следующее изображение * * */

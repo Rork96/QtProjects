@@ -47,8 +47,11 @@ private:
     // Предыдущее изображение
     void prevImage();
 
-    // Показать элементы управления
-    void showElements();
+    // Показ элементов управления
+    void showElements(const bool show);
+
+    // Начальное окно приветствия
+    void wellcomePage();
 
     // О программе
     void aboutProgram();

@@ -45,13 +45,8 @@ MainWindow::MainWindow(QWidget *parent) :
         nextBtn->setGeometry(geometry().width()*2-nextBtn->width()/2, geometry().height(), 50, 50);
         nextBtn->setVisible(false);
 
-        // Добавление на сцену диалогового окна
-        QGraphicsScene *gScene = new QGraphicsScene(this);
-        infoDlg = new InfoDialog(this);
-        infoDlg->setAttribute(Qt::WA_TranslucentBackground);
-        gScene->addWidget(infoDlg);
-        // Добавить сцену в GraphicsView
-        gView->setScene(gScene);
+        /* * * Начальное окно приветствия * * */
+        wellcomePage();
     }
 
     /* * * Горячие клавиши приложения * * */ {
@@ -166,6 +161,19 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::wellcomePage()
+{
+    /* * * Начальное окно приветствия * * */
+
+    QGraphicsScene *gScene = new QGraphicsScene(this);
+    //Добавление на сцену диалогового окна с прозрачным фоном
+    infoDlg = new InfoDialog(this);
+    infoDlg->setAttribute(Qt::WA_TranslucentBackground);
+    gScene->addWidget(infoDlg);
+    // Добавить сцену в GraphicsView
+    gView->setScene(gScene);
+}
+
 void MainWindow::openImage()
 {
     /* * * Открыть изображение * * */
@@ -226,7 +234,7 @@ inline void MainWindow::loadImage(const QString& str)
     setWindowTitle("QImageViewer - " + QFileInfo(str).fileName());
 
     // Показать элементы управления
-    showElements();
+    showElements(true);
 }
 
 void MainWindow::saveImage()
@@ -267,6 +275,17 @@ void MainWindow::delImage()
 
     // Удалить путь к файлу со списка
     dirContent.removeAt(iCurFile);
+
+    // проверить наличие изображений в папке
+    if (dirContent.count() == 0) {
+        // Обнулить счетчик
+        iCurFile = 0;
+        // Показать начальное окно приветствия
+        wellcomePage();
+        // Скрыть элементы управления
+        showElements(false);
+        return;
+    }
 
     // Показать следующее изображение
     nextImage();
@@ -324,12 +343,12 @@ void MainWindow::aboutProgram()
     QMessageBox::about(this, "О программе", aboutText);
 }
 
-void MainWindow::showElements()
+void MainWindow::showElements(const bool show)
 {
-    /* * * Показать элементы управления * * */
+    /* * * Показ элементов управления * * */
 
-    prevBtn->setVisible(true);
-    nextBtn->setVisible(true);
+    prevBtn->setVisible(show);
+    nextBtn->setVisible(show);
 }
 
 void MainWindow::printImage()

@@ -61,7 +61,7 @@ MainWindow::MainWindow(QWidget *parent) :
         // Сохранить изображение
         saveShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_S), this);
 
-        // Удалить изображение (в корзину)
+        // Удалить изображение
         delShortcut = new QShortcut(QKeySequence(Qt::Key_Delete), this);
 
         // Печать изображения
@@ -104,7 +104,7 @@ MainWindow::MainWindow(QWidget *parent) :
         // Соханить изображение
         connect(saveShortcut, &QShortcut::activated, this, &MainWindow::saveImage);
 
-        // Удалить изображение (в корзину)
+        // Удалить изображение
         connect(delShortcut, &QShortcut::activated, this, &MainWindow::delImage);
 
         // Печать изображения
@@ -260,19 +260,16 @@ void MainWindow::saveImage()
 
 void MainWindow::delImage()
 {
-    /* * * Удалить изображение (в корзину) * * */
+    /* * * Удалить изображение * * */
 
     QString str = dirContent[dirContent.indexOf(dirContent.at(iCurFile), 0)].absoluteFilePath();
+    QFile(str).remove();
 
-    // Перемещение в корзину в Windows
-#ifdef Q_OS_LINUX
-    QFile(str).rename(str);
-#endif
+    // Удалить путь к файлу со списка
+    dirContent.removeAt(iCurFile);
 
-    // Перемещение в корзину в Linux
-#ifdef Q_OS_WIN
-    QFile(str).rename(str);
-#endif
+    // Показать следующее изображение
+    nextImage();
 }
 
 

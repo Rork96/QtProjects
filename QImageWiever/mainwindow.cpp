@@ -281,7 +281,7 @@ void MainWindow::delImage()
     // проверить наличие изображений в папке
     if (dirContent.count() == 0) {
         // Обнулить счетчик
-        iCurFile = 0;
+        iCurFile = -1;
         // Показать начальное окно приветствия
         wellcomePage();
         // Скрыть элементы управления

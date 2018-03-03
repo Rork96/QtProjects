@@ -67,6 +67,12 @@ MainWindow::MainWindow(QWidget *parent) :
         // Уеньшить изображение
         zoomOutShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Minus), this);
 
+        // Масштаб 100%
+        realScaleShortcut = new QShortcut(QKeySequence(Qt::Key_F7), this);
+
+        // Вписать изображение
+        fitScaleShortcut = new QShortcut(QKeySequence(Qt::Key_F8), this);
+
         // Следующее изображение
         nextImageShortcut = new QShortcut(QKeySequence(Qt::Key_Right), this);
 
@@ -92,8 +98,6 @@ MainWindow::MainWindow(QWidget *parent) :
     /* * * Слоты * * */ {
         // Открыть изображение
         connect(openShortcut, &QShortcut::activated, this, &MainWindow::openImage);
-        // Нажатие кнопки открытия изображения в диалоговом окне
-//        connect(infoDlg, &InfoDialog::openImg, this, &MainWindow::openImage);
 
         // Соханить изображение
         connect(saveShortcut, &QShortcut::activated, this, &MainWindow::saveImage);
@@ -112,6 +116,18 @@ MainWindow::MainWindow(QWidget *parent) :
         // Уменьшить
         connect(zoomOutShortcut, &QShortcut::activated, this, [this] {
             gView->scale(SCALE_OUT, SCALE_OUT);
+        });
+
+        // Масштаб 100%
+        connect(realScaleShortcut, &QShortcut::activated, this, [this]{
+            ViewType = scaleView::realView; // 100%
+            loadImage(); // Перезагрузить изображение
+        });
+
+        // Вписать изображение
+        connect(fitScaleShortcut, &QShortcut::activated, this, [this] {
+            ViewType = scaleView ::fitView; // Вписать изображение
+            loadImage(); // Перезагрузить изображение
         });
 
         // Следующее изображение
@@ -140,18 +156,12 @@ MainWindow::MainWindow(QWidget *parent) :
                 showFullScreen();
             }
         });
-        // Нажатие кнопки во весь экран в диалоговом окне
-//        connect(infoDlg, &InfoDialog::fullScreen, fullScrShortcut, &QShortcut::activated);
 
         // О программе
         connect(aboutShortcut, &QShortcut::activated, this, &MainWindow::aboutProgram);
-        // Нажатие кнопки о программе в диалоговом окне
-//        connect(infoDlg, &InfoDialog::aboutProgram, this, &MainWindow::aboutProgram);
 
         // О Qt
         connect(aboutQtShortcut, &QShortcut::activated, this, &MainWindow::aboutQt);
-        // Нажатие о Qt в диалоговом окне
-//        connect(infoDlg, &InfoDialog::aboutQt, this, &MainWindow::aboutQt);
     }
 
     /* * * Начальное окно приветствия * * */
@@ -206,33 +216,39 @@ void MainWindow::openImage()
     // Сохранить индекс выбранного изображения
     iCurFile = dirContent.indexOf(QFileInfo(fName), 0);
     // Отобразить выбранное изображение
-    loadImage(fName);
+    loadImage();
 
     if (infoDlg != nullptr)
         infoDlg->close(); // Закрытие окна приветствия, если открыто
 }
 
-inline void MainWindow::loadImage(const QString& str)
+inline void MainWindow::loadImage()
 {
     /* * * Загрузка изображения * * */
 
     // Создать новую графическую сцену и PixmapItem
     QGraphicsScene *gScene = new QGraphicsScene(this);
     // Добавить элемент с изображением на сцену
-    QGraphicsPixmapItem *pix = gScene->addPixmap(QPixmap(str));
+    QGraphicsPixmapItem *pix = gScene->addPixmap(
+            QPixmap( dirContent[dirContent.indexOf(dirContent.at(iCurFile), 0)].absoluteFilePath() )
+    );
 
-    // Если размер изображения больше размера окна, то
-    // масштабировть изображение под размер окна
-    if (pix->boundingRect().width() > geometry().width()) {
-        // По ширине
-        // (0.002 - уменьшение для отсутствия полосы прокрутки)
-        // Если отключить полосы прокрутки их придется вкл. при приближении
-        pix->setScale( geometry().width() / (pix->boundingRect().width()*1.0) -0.002);
-//        gView->fitInView(geometry(), Qt::KeepAspectRatio);
-    } else if (pix->boundingRect().height() > geometry().height()) {
-        // По высоте
-        pix->setScale( geometry().height() / (pix->boundingRect().height()*1.0) -0.002);
-//        gView->fitInView(geometry(), Qt::KeepAspectRatio);
+    switch (ViewType) {
+        case scaleView::fitView :
+        // Если размер изображения больше размера окна, то
+        // масштабировть изображение под размер окна
+        if (pix->boundingRect().width() > geometry().width()) {
+            // По ширине
+            // (0.002 - уменьшение для отсутствия полосы прокрутки)
+            // Если отключить полосы прокрутки их придется вкл. при приближении
+            pix->setScale(geometry().width() / (pix->boundingRect().width() * 1.0) - 0.002);
+        } else if (pix->boundingRect().height() > geometry().height()) {
+            // По высоте
+            pix->setScale(geometry().height() / (pix->boundingRect().height() * 1.0) - 0.002);
+        }
+            break;
+        case scaleView::realView :
+            break;
     }
 
     // Получить все элементы GraphicsView
@@ -247,7 +263,9 @@ inline void MainWindow::loadImage(const QString& str)
     gView->setScene(gScene);
 
     // Имя файла в заголовке окна
-    setWindowTitle("QImageViewer - " + QFileInfo(str).fileName());
+    setWindowTitle("QImageViewer - "
+    + QFileInfo(dirContent[dirContent.indexOf(dirContent.at(iCurFile), 0)].absoluteFilePath()).fileName()
+    );
 
     // Показать элементы управления
     showElements(true);
@@ -322,8 +340,7 @@ void MainWindow::nextImage()
     }
 
     // Загрузить изображение
-    QString str = dirContent[dirContent.indexOf(dirContent.at(iCurFile), 0)].absoluteFilePath();
-    loadImage(str);
+    loadImage();
 }
 
 void MainWindow::prevImage()
@@ -341,8 +358,7 @@ void MainWindow::prevImage()
     }
 
     // Загрузить изображение
-    QString str = dirContent[dirContent.indexOf(dirContent.at(iCurFile), 0)].absoluteFilePath();
-    loadImage(str);
+    loadImage();
 }
 
 void MainWindow::aboutProgram()

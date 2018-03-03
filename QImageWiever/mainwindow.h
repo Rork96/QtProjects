@@ -27,7 +27,7 @@ private:
     void openImage();
 
     // Загрузка изображения
-    inline void loadImage(const QString& str);
+    inline void loadImage();
 
     // Сохранить изображение
     void saveImage();
@@ -80,6 +80,15 @@ private:
     // Следующее изображение
     QPushButton *nextBtn;
 
+    // Тип отображения изображения
+    enum scaleView {
+        fitView =0, // Масштаб 100%
+        realView    // Вписать изображение
+    };
+
+    // Текущий тип отображения изображения
+    scaleView ViewType = scaleView ::fitView;
+
 private:
     /* * * Горячие клавиши * * */
 
@@ -100,6 +109,12 @@ private:
 
     // Уменьшить изображение
     QShortcut *zoomOutShortcut;
+
+    // Масштаб 100%
+    QShortcut *realScaleShortcut;
+
+    // Вписать изображение
+    QShortcut *fitScaleShortcut;
 
     // Следующее изображение
     QShortcut *nextImageShortcut;

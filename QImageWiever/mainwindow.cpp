@@ -53,7 +53,7 @@ MainWindow::MainWindow(QWidget *parent) :
         nextBtn->setStyleSheet(styleButton);
         nextBtn->setFlat(true);
         nextBtn->setGeometry(
-                QApplication::screens().at(0)->geometry().width()- (nextBtn->geometry().width()/2) -20,
+                QApplication::screens().at(0)->geometry().width() - (nextBtn->geometry().width()/2) -20,
                 QApplication::screens().at(0)->geometry().height()/2, 50, 50);
         nextBtn->setVisible(false);
     }
@@ -67,6 +67,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
         // Удалить изображение
         delShortcut = new QShortcut(QKeySequence(Qt::Key_Delete), this);
+
+        // Закрыть изображение
+        closeImageShortcut = new QShortcut(QKeySequence(Qt::Key_Escape), this);
 
         // Печать изображения
         printShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_P), this);
@@ -114,6 +117,18 @@ MainWindow::MainWindow(QWidget *parent) :
 
         // Удалить изображение
         connect(delShortcut, &QShortcut::activated, this, &MainWindow::delImage);
+
+        // Закрыть изображение
+        connect(closeImageShortcut, &QShortcut::activated, this, [this] {
+            // Очистить список файлов
+            dirContent.clear();
+            // Обнулить счетчик
+            iCurFile = -1;
+            // Показать начальное окно приветствия
+            wellcomePage();
+            // Скрыть элементы управления
+            showElements(false);
+        });
 
         // Печать изображения
         connect(printShortcut, &QShortcut::activated, this, &MainWindow::printImage);

@@ -101,6 +101,9 @@ private:
     // Удалить изображение
     QShortcut *delShortcut;
 
+    // Закрыть изображение
+    QShortcut *closeImageShortcut;
+
     // Печать изображения
     QShortcut *printShortcut;
 

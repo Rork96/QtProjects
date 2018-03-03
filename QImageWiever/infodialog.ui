@@ -290,30 +290,20 @@
      </property>
     </widget>
    </item>
-   <item row="14" column="1">
-    <widget class="QPushButton" name="realScaleBtn">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
+   <item row="4" column="0" colspan="3">
+    <widget class="QLabel" name="label">
      <property name="text">
-      <string>Full size (F7)</string>
-     </property>
-     <property name="icon">
-      <iconset resource="res.qrc">
-       <normaloff>:/pict/resize.png</normaloff>:/pict/resize.png</iconset>
-     </property>
-     <property name="flat">
-      <bool>true</bool>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;:/pict/QImageViewer.png&quot;/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-family:'DejaVu Sans Mono'; font-size:14pt; font-weight:600; color:#008000;&quot;&gt;QImageViewer&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-style:italic; color:#555753;&quot;&gt;Version 1.0.0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </item>
-   <item row="12" column="1">
+   <item row="11" column="1">
     <widget class="QPushButton" name="fitScaleBtn">
      <property name="enabled">
       <bool>false</bool>
      </property>
      <property name="text">
-      <string>Fit in (F8)</string>
+      <string> Fit in (F8)</string>
      </property>
      <property name="icon">
       <iconset resource="res.qrc">
@@ -330,10 +320,37 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="0" colspan="3">
-    <widget class="QLabel" name="label">
+   <item row="12" column="1">
+    <widget class="QPushButton" name="realScaleBtn">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;:/pict/QImageViewer.png&quot;/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-family:'DejaVu Sans Mono'; font-size:14pt; font-weight:600; color:#008000;&quot;&gt;QImageViewer&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-style:italic; color:#555753;&quot;&gt;Version 1.0.0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string> Full size (F7)</string>
+     </property>
+     <property name="icon">
+      <iconset resource="res.qrc">
+       <normaloff>:/pict/resize.png</normaloff>:/pict/resize.png</iconset>
+     </property>
+     <property name="flat">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="14" column="1">
+    <widget class="QPushButton" name="closeImageBtn">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="text">
+      <string> Home screen (Escape)</string>
+     </property>
+     <property name="icon">
+      <iconset resource="res.qrc">
+       <normaloff>:/pict/QImageViewer.png</normaloff>:/pict/QImageViewer.png</iconset>
+     </property>
+     <property name="flat">
+      <bool>true</bool>
      </property>
     </widget>
    </item>

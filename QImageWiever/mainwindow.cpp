@@ -17,6 +17,15 @@ MainWindow::MainWindow(QWidget *parent) :
      /* * * Начальные настройки приложения * * */ {
         // Окно развернуто на весь экран
         setWindowState(Qt::WindowMaximized);
+        /* Кнопки в заголовке окна */ {
+            setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowTitleHint |
+                           Qt::WindowMinimizeButtonHint | // кнопка сворачивания
+                           //Qt::WindowMaximizeButtonHint | // кнопка разворачивания
+                           Qt::WindowCloseButtonHint | // кнопка закрытия окна
+                           Qt::WindowSystemMenuHint);
+            // Установить атрибуты
+            setAttribute(Qt::WA_CustomWhatsThis);
+        }
         // Цвер фона
         setStyleSheet("background-color: #EEEEF1;");
         // Заголовок окна
@@ -43,8 +52,9 @@ MainWindow::MainWindow(QWidget *parent) :
         nextBtn->setIconSize(QSize(50, 50));
         nextBtn->setStyleSheet(styleButton);
         nextBtn->setFlat(true);
-        nextBtn->setGeometry(QApplication::screens().at(0)->geometry().width()- (nextBtn->geometry().width()/2) -20,
-                             QApplication::screens().at(0)->geometry().height()/2, 50, 50);
+        nextBtn->setGeometry(
+                QApplication::screens().at(0)->geometry().width()- (nextBtn->geometry().width()/2) -20,
+                QApplication::screens().at(0)->geometry().height()/2, 50, 50);
         nextBtn->setVisible(false);
     }
 
@@ -366,12 +376,12 @@ void MainWindow::aboutProgram()
     /* * * О программе * * */
 
     QString aboutText;
-    aboutText = "          QImageWiever  v 1.0.0  \n\n";
+    aboutText = "          QImageViewer  v 1.0.0  \n\n";
     aboutText += "Автор  : \tmasterarrow\n\n";
     aboutText += "email  : \tmasterarrows@gmail.com\n\n";
     aboutText += "          Copyright © 2018\n";
 
-    QMessageBox::about(this, "О программе", aboutText);
+    QMessageBox::about(this, "About QImageViewer", aboutText);
 }
 
 void MainWindow::showElements(const bool show)
@@ -400,7 +410,7 @@ void MainWindow::printImage()
     // Печать
     connect(dlg, &QPrintPreviewDialog::paintRequested, this, &MainWindow::print);
 
-    dlg->setWindowTitle("Передварительный просмотр");
+    dlg->setWindowTitle("Print preview");
     dlg->exec();
 #endif
 }

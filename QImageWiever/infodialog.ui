@@ -296,7 +296,7 @@
       <bool>false</bool>
      </property>
      <property name="text">
-      <string>Реальный размер (F7)</string>
+      <string>Full size (F7)</string>
      </property>
      <property name="icon">
       <iconset resource="res.qrc">
@@ -313,7 +313,7 @@
       <bool>false</bool>
      </property>
      <property name="text">
-      <string>Вписать изображение (F8)</string>
+      <string>Fit in (F8)</string>
      </property>
      <property name="icon">
       <iconset resource="res.qrc">

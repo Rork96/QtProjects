@@ -37,7 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
         setCentralWidget(gView);
 
         /* * * Прозрачные кнопки: предыдущее и следующеее изображение * * */
-        QString styleButton=QString("QAbstractButton {background: rgba(255,255,255,100);}");
+        QString styleButton = QString("QAbstractButton {background: rgba(255,255,255,100);}");
 
         prevBtn = new QPushButton("", this);
         prevBtn->setIcon(QPixmap(":/pict/left.png"));

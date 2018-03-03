@@ -15,5 +15,7 @@
         <file>pict/help.png</file>
         <file>pict/zoomIn.png</file>
         <file>pict/zoomOut.png</file>
+        <file>pict/resize.png</file>
+        <file>pict/collect.png</file>
     </qresource>
 </RCC>

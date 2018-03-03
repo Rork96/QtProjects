@@ -50,13 +50,6 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="1">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;:/pict/QImageViewer.png&quot;/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-family:'DejaVu Sans Mono'; font-size:14pt; font-weight:600; color:#008000;&quot;&gt;QImageViewer&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-style:italic; color:#555753;&quot;&gt;Version 1.0.0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
-    </widget>
-   </item>
    <item row="6" column="1">
     <widget class="QPushButton" name="saveBtn">
      <property name="enabled">
@@ -305,6 +298,10 @@
      <property name="text">
       <string>Реальный размер (F7)</string>
      </property>
+     <property name="icon">
+      <iconset resource="res.qrc">
+       <normaloff>:/pict/resize.png</normaloff>:/pict/resize.png</iconset>
+     </property>
      <property name="flat">
       <bool>true</bool>
      </property>
@@ -318,6 +315,10 @@
      <property name="text">
       <string>Вписать изображение (F8)</string>
      </property>
+     <property name="icon">
+      <iconset resource="res.qrc">
+       <normaloff>:/pict/collect.png</normaloff>:/pict/collect.png</iconset>
+     </property>
      <property name="checkable">
       <bool>false</bool>
      </property>
@@ -326,6 +327,13 @@
      </property>
      <property name="flat">
       <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="3">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;:/pict/QImageViewer.png&quot;/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-family:'DejaVu Sans Mono'; font-size:14pt; font-weight:600; color:#008000;&quot;&gt;QImageViewer&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-style:italic; color:#555753;&quot;&gt;Version 1.0.0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </item>

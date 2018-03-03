@@ -46,9 +46,6 @@ MainWindow::MainWindow(QWidget *parent) :
         nextBtn->setGeometry(QApplication::screens().at(0)->geometry().width()- (nextBtn->geometry().width()/2) -20,
                              QApplication::screens().at(0)->geometry().height()/2, 50, 50);
         nextBtn->setVisible(false);
-
-        /* * * Начальное окно приветствия * * */
-        wellcomePage();
     }
 
     /* * * Горячие клавиши приложения * * */ {
@@ -96,7 +93,7 @@ MainWindow::MainWindow(QWidget *parent) :
         // Открыть изображение
         connect(openShortcut, &QShortcut::activated, this, &MainWindow::openImage);
         // Нажатие кнопки открытия изображения в диалоговом окне
-        connect(infoDlg, &InfoDialog::openImg, this, &MainWindow::openImage);
+//        connect(infoDlg, &InfoDialog::openImg, this, &MainWindow::openImage);
 
         // Соханить изображение
         connect(saveShortcut, &QShortcut::activated, this, &MainWindow::saveImage);
@@ -144,18 +141,21 @@ MainWindow::MainWindow(QWidget *parent) :
             }
         });
         // Нажатие кнопки во весь экран в диалоговом окне
-        connect(infoDlg, &InfoDialog::fullScreen, fullScrShortcut, &QShortcut::activated);
+//        connect(infoDlg, &InfoDialog::fullScreen, fullScrShortcut, &QShortcut::activated);
 
         // О программе
         connect(aboutShortcut, &QShortcut::activated, this, &MainWindow::aboutProgram);
         // Нажатие кнопки о программе в диалоговом окне
-        connect(infoDlg, &InfoDialog::aboutProgram, this, &MainWindow::aboutProgram);
+//        connect(infoDlg, &InfoDialog::aboutProgram, this, &MainWindow::aboutProgram);
 
         // О Qt
         connect(aboutQtShortcut, &QShortcut::activated, this, &MainWindow::aboutQt);
         // Нажатие о Qt в диалоговом окне
-        connect(infoDlg, &InfoDialog::aboutQt, this, &MainWindow::aboutQt);
+//        connect(infoDlg, &InfoDialog::aboutQt, this, &MainWindow::aboutQt);
     }
+
+    /* * * Начальное окно приветствия * * */
+    wellcomePage();
 }
 
 MainWindow::~MainWindow()
@@ -168,9 +168,20 @@ void MainWindow::wellcomePage()
     /* * * Начальное окно приветствия * * */
 
     QGraphicsScene *gScene = new QGraphicsScene(this);
+
     //Добавление на сцену диалогового окна с прозрачным фоном
     infoDlg = new InfoDialog(this);
     infoDlg->setAttribute(Qt::WA_TranslucentBackground);
+
+    // Нажатие кнопки открытия изображения в диалоговом окне
+    connect(infoDlg, &InfoDialog::openImg, this, &MainWindow::openImage);
+    // Нажатие кнопки во весь экран в диалоговом окне
+    connect(infoDlg, &InfoDialog::fullScreen, fullScrShortcut, &QShortcut::activated);
+    // Нажатие кнопки о программе в диалоговом окне
+    connect(infoDlg, &InfoDialog::aboutProgram, this, &MainWindow::aboutProgram);
+    // Нажатие о Qt в диалоговом окне
+    connect(infoDlg, &InfoDialog::aboutQt, this, &MainWindow::aboutQt);
+
     gScene->addWidget(infoDlg);
     // Добавить сцену в GraphicsView
     gView->setScene(gScene);
@@ -196,6 +207,9 @@ void MainWindow::openImage()
     iCurFile = dirContent.indexOf(QFileInfo(fName), 0);
     // Отобразить выбранное изображение
     loadImage(fName);
+
+    if (infoDlg != nullptr)
+        infoDlg->close(); // Закрытие окна приветствия, если открыто
 }
 
 inline void MainWindow::loadImage(const QString& str)

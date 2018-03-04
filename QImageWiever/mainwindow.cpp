@@ -259,7 +259,7 @@ inline void MainWindow::loadImage()
     );
 
     switch (ViewType) {
-        case scaleView::fitView :
+        case scaleView::fitView :   // Вписать зображение
         // Если размер изображения больше размера окна, то
         // масштабировть изображение под размер окна
         if (pix->boundingRect().width() > geometry().width()) {
@@ -272,7 +272,7 @@ inline void MainWindow::loadImage()
             pix->setScale(geometry().height() / (pix->boundingRect().height() * 1.0) - 0.002);
         }
             break;
-        case scaleView::realView :
+        case scaleView::realView :  // Реальный размер
             break;
     }
 

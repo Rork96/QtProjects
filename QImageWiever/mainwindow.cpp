@@ -124,10 +124,10 @@ MainWindow::MainWindow(QWidget *parent) :
             dirContent.clear();
             // Обнулить счетчик
             iCurFile = -1;
-            // Показать начальное окно приветствия
-            wellcomePage();
             // Скрыть элементы управления
             showElements(false);
+            // Показать начальное окно приветствия
+            wellcomePage();
         });
 
         // Печать изображения

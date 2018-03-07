@@ -224,6 +224,21 @@ void MainWindow::wellcomePage()
     gView->setScene(gScene);
 }
 
+void MainWindow::Open(const QString str)
+{
+    /* * * Открытие файла при старте программы * * */
+
+    // Получить все файлы директории
+    QDir dir(QFileInfo(str).absoluteDir());
+    dirContent = dir.entryInfoList(QStringList() << "*.jpg" << "*.jpeg" << "*.png" << "*.bmp",
+                                   QDir::Files | QDir::NoDotAndDotDot);
+
+    // Сохранить индекс выбранного изображения
+    iCurFile = dirContent.indexOf(QFileInfo(str), 0);
+    // Отобразить выбранное изображение
+    loadImage();
+};
+
 void MainWindow::openImage()
 {
     /* * * Открыть изображение * * */
@@ -235,6 +250,7 @@ void MainWindow::openImage()
     if (fName.isEmpty())
         return; // Файл не выбран
 
+    /*
     // Получить все файлы директории
     QDir dir(QFileInfo(fName).absoluteDir());
     dirContent = dir.entryInfoList(QStringList() << "*.jpg" << "*.jpeg" << "*.png" << "*.bmp",
@@ -243,7 +259,10 @@ void MainWindow::openImage()
     // Сохранить индекс выбранного изображения
     iCurFile = dirContent.indexOf(QFileInfo(fName), 0);
     // Отобразить выбранное изображение
-    loadImage();
+    loadImage();*/
+
+    // Открыть файл
+    Open(fName);
 
     if (infoDlg != nullptr)
         infoDlg->close(); // Закрытие окна приветствия, если открыто

@@ -22,6 +22,9 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    // Открытие файла при старте программы
+    void Open(const QString str);
+
 private:
     // Открыть изображение
     void openImage();

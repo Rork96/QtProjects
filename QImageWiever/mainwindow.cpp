@@ -250,17 +250,6 @@ void MainWindow::openImage()
     if (fName.isEmpty())
         return; // Файл не выбран
 
-    /*
-    // Получить все файлы директории
-    QDir dir(QFileInfo(fName).absoluteDir());
-    dirContent = dir.entryInfoList(QStringList() << "*.jpg" << "*.jpeg" << "*.png" << "*.bmp",
-                                                 QDir::Files | QDir::NoDotAndDotDot);
-
-    // Сохранить индекс выбранного изображения
-    iCurFile = dirContent.indexOf(QFileInfo(fName), 0);
-    // Отобразить выбранное изображение
-    loadImage();*/
-
     // Открыть файл
     Open(fName);
 
@@ -283,7 +272,7 @@ inline void MainWindow::loadImage()
         case scaleView::fitView :   // Вписать зображение
             // Если размер изображения больше размера окна, то
             // масштабировть изображение под размер окна
-            /*if (pix->boundingRect().width() > geometry().width()) {
+            if (pix->boundingRect().width() > geometry().width()) {
                 // По ширине
                 // (0.002 - уменьшение для отсутствия полосы прокрутки)
                 // Если отключить полосы прокрутки их придется вкл. при приближении
@@ -291,14 +280,6 @@ inline void MainWindow::loadImage()
             } else if (pix->boundingRect().height() > geometry().height()) {
                 // По высоте
                 pix->setScale(geometry().height() / (pix->boundingRect().height() * 1.0) - 0.002);
-            }*/
-            if ( qAbs(pix->boundingRect().height() - geometry().height())
-                 > qAbs(pix->boundingRect().width() - geometry().width()) ) {
-                // Высота изображения больше
-                pix->setScale(geometry().height() / (pix->boundingRect().height() * 1.0) - 0.005);
-            } else {
-                // Ширина больше
-                pix->setScale(geometry().width() / (pix->boundingRect().width() * 1.0) - 0.005);
             }
             break;
         case scaleView::realView :  // Реальный размер

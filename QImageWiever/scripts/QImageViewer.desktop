@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=QImageViewer
+Comment=Image Viewer
+Exec=opt/QImageViewer/QImageViewer.sh
+Terminal=false
+Type=Application
+StartupNotify=true
+Icon=usr/share/pixmaps/QImageViewer.png
+Categories=images
+Name[ru_UA]=QImageViewer

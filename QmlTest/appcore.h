@@ -13,9 +13,6 @@ public:
     // Приём данных из qml-интерфейса - Q_INVOKABLE
     // или объявлять как public slots
     Q_INVOKABLE void calck(const QString &msg);
-
-protected:
-    QObject *viewer;
 };
 
 #endif // APPCORE_H

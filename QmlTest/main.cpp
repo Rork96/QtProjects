@@ -17,9 +17,9 @@ int main(int argc, char *argv[])
     //engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
     // Для взаимодействия C++ класса AppCore и QML-интерфейса
-    QObject* root = engine.rootObjects()[0];
-    AppCore appCore(root);
-    engine.rootContext()->setContextProperty("appCore", &appCore);
+    AppCore appCore;
+    QQmlContext *context = engine.rootContext();
+    context->setContextProperty("appCore", &appCore);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 

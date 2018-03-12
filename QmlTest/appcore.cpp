@@ -13,13 +13,15 @@ void AppCore::calck(const QString &msg)
     qDebug() << "Сообщение: " << msg;
 
     // Строки ввода
-    QObject* numberX = viewer->findChild<QObject*>("numberX");
-    QObject* numberY = viewer->findChild<QObject*>("numberY");
-
-    qDebug() << "... Инициализация переменных ...";
+    QObject* numberX = this->findChild<QObject*>("numberX");
+    QObject* numberY = this->findChild<QObject*>("numberY");
 
     // Поле вывода
-    QObject* resultLabel = viewer->findChild<QObject*>("resultLabel");
+    QObject* resultLabel = this->findChild<QObject*>("resultLabel");
+
+    qDebug() << numberX;
+
+    qDebug() << "... Инициализация переменных ...";
 
     // Информацию со строк ввода через свойство text
     QString str1 = (numberX->property("text")).toString();

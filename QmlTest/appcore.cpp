@@ -20,7 +20,6 @@ void AppCore::calck(const QString &msg)
     QObject* resultLabel = this->findChild<QObject*>("resultLabel");
 
     qDebug() << numberX;
-
     qDebug() << "... Инициализация переменных ...";
 
     // Информацию со строк ввода через свойство text

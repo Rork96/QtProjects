@@ -48,7 +48,7 @@ ApplicationWindow {
     }
 
     TextField {
-        id: numberX
+        id: appCore.getObjectId() //numberX
         objectName: numberY
         x: 99
         y: 40

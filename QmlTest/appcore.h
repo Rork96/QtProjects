@@ -13,6 +13,12 @@ public:
     // Приём данных из qml-интерфейса - Q_INVOKABLE
     // или объявлять как public slots
     Q_INVOKABLE void calck(const QString &msg);
+    Q_INVOKABLE QObject *getObjectId() {
+        return numberXObj = new QObject();
+    };
+
+private:
+    QObject *numberXObj;
 };
 
 #endif // APPCORE_H

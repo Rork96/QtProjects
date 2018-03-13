@@ -30,7 +30,6 @@ ApplicationWindow {
 
     Label {
         id: resultLabel
-        objectName: resultLabel
         x: 23
         y: 140
         width: 70
@@ -40,7 +39,6 @@ ApplicationWindow {
 
     TextField {
         id: numberY
-        objectName: numberY
         x: 99
         y: 92
         width: 130
@@ -48,8 +46,7 @@ ApplicationWindow {
     }
 
     TextField {
-        id: appCore.getObjectId() //numberX
-        objectName: numberY
+        id: numberX
         x: 99
         y: 40
         width: 130
@@ -66,7 +63,9 @@ ApplicationWindow {
 
     Connections {
         target: calckBtn
-        onClicked: appCore.calck("data");   // Функция из класса AppCore
+        onClicked: {
+            appCore.calck(numberX, numberY, resultLabel)
+        }
     }
 
     Connections {

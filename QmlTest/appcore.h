@@ -6,19 +6,14 @@
 class AppCore : public QObject
 {
     Q_OBJECT
+    using BaseClass = QObject;
 public:
-    explicit AppCore(QObject *parent = 0);
+    explicit AppCore(QObject *parent = nullptr);
 
 public:
     // Приём данных из qml-интерфейса - Q_INVOKABLE
     // или объявлять как public slots
-    Q_INVOKABLE void calck(const QString &msg);
-    Q_INVOKABLE QObject *getObjectId() {
-        return numberXObj = new QObject();
-    };
-
-private:
-    QObject *numberXObj;
+    Q_INVOKABLE void calck(QObject *numXObj, QObject *numYObj, QObject *resLblObj);
 };
 
 #endif // APPCORE_H

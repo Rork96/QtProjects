@@ -6,6 +6,9 @@ project(QImageViewer LANGUAGES CXX)
 set(PROJECT_LONGNAME "QImageViewer")
 set(PROJECT_VERSION "1.0.0")
 
+#Qt modules
+set(QT_MODULES Widgets PrintSupport)
+
 # Release by default
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
@@ -39,13 +42,6 @@ set(CMAKE_CXX_FLAGS_MINSIZEREL     "-Os -DNDEBUG")
 set(CMAKE_CXX_FLAGS_RELEASE        "-O4 -DNDEBUG")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")
 
-# LLVM flags
-#SET (CMAKE_AR           llvm-ar)
-#SET (CMAKE_LINKER       llvm-ld)
-#SET (CMAKE_NM           llvm-nm)
-#SET (CMAKE_OBJDUMP      llvm-objdump)
-#SET (CMAKE_RANLIB       llvm-ranlib)
-
 # Automatically find all files *.cpp, *.h, *.ui, *.qrc in project directory
 FILE(GLOB SOURCE_FILES ${PROJECT_SOURCE_DIR}/*.cpp)
 FILE(GLOB HEADER_FILES ${PROJECT_SOURCE_DIR}/*.h)
@@ -54,17 +50,8 @@ FILE(GLOB UI_QRCS ${PROJECT_SOURCE_DIR}/*.qrc)
 # For application icon for Windows
 FILE(GLOB ICON_RCS ${PROJECT_SOURCE_DIR}/pict/*.rc)
 
-# Find dependencies Qt (Widgets, QtGui, QtCore)
-find_package(Qt5 COMPONENTS Widgets PrintSupport REQUIRED)
-
-# Add QtCore and QtGui include paths
-include_directories(${QT_INCLUDES})
-
-# Add -DQT_WIDGETS_LIB for QtWidgets in Qt
-add_definitions(${QT_DEFINITIONS})
-
-# Compilation flags for Qt project
-set(CMAKE_CXX_FLAGS "${QT_EXECUTABLE_COMPILE_FLAGS}")
+# Find dependencies Qt
+find_package(Qt5 COMPONENTS ${QT_MODULES} REQUIRED)
 
 # Resources *.qrc
 qt5_add_resources(UI_RESOURCES_RCC ${UI_QRCS})
@@ -74,7 +61,6 @@ qt5_add_resources(UI_RESOURCES_RCC ${UI_QRCS})
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
     if(WIN32)
         set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Win32)
-        #set
     elseif(UNIX)
         set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Linux)
     endif()
@@ -86,7 +72,8 @@ if(WIN32)
         ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${ICON_RCS})
 
     # Qt modules
-    target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::PrintSupport)
+    #target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::PrintSupport)
+    qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})
 
     # Set executable file properties
     set_target_properties(${PROJECT} PROPERTIES
@@ -97,7 +84,7 @@ else()
         ${UI_SRC_FILES} ${UI_RESOURCES_RCC})
 
     # Qt modules
-    target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::PrintSupport)
+    qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})
 
     # Install
     INSTALL(TARGETS ${PROJECT_NAME}

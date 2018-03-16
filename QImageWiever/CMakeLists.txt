@@ -3,8 +3,20 @@ cmake_minimum_required(VERSION 3.1)
 # Project
 project(QImageViewer LANGUAGES CXX)
 
-set(PROJECT_LONGNAME "QImageViewer")
-set(PROJECT_VERSION "1.0.0")
+# Application icon and information
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/info)
+include(generate_product_version)
+generate_product_version(
+        VersionFilesOutputVariable
+        NAME ${PROJECT_NAME}
+        ICON ${PROJECT_SOURCE_DIR}/pict/${PROJECT_NAME}.ico
+        VERSION_MAJOR 1
+        VERSION_MINOR 0
+        VERSION_PATH ${BUILD_COUNTER}
+        VERSION_REVISION ${BUILD_REVISION}
+        COMPANY_NAME "masterarrow"
+        FILE_DESCRIPTION "Image Viewer"
+)
 
 #Qt modules
 set(QT_MODULES Widgets PrintSupport)
@@ -47,8 +59,6 @@ FILE(GLOB SOURCE_FILES ${PROJECT_SOURCE_DIR}/*.cpp)
 FILE(GLOB HEADER_FILES ${PROJECT_SOURCE_DIR}/*.h)
 FILE(GLOB UI_SRC_FILES ${PROJECT_SOURCE_DIR}/*.ui)
 FILE(GLOB UI_QRCS ${PROJECT_SOURCE_DIR}/*.qrc)
-# For application icon for Windows
-FILE(GLOB ICON_RCS ${PROJECT_SOURCE_DIR}/pict/*.rc)
 
 # Find dependencies Qt
 find_package(Qt5 COMPONENTS ${QT_MODULES} REQUIRED)
@@ -60,7 +70,7 @@ qt5_add_resources(UI_RESOURCES_RCC ${UI_QRCS})
 # put exe-file in one of the next folders
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
     if(WIN32)
-        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Win32)
+        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Windows)
     elseif(UNIX)
         set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Linux)
     endif()
@@ -69,16 +79,11 @@ endif()
 # Create executable file
 if(WIN32)
     add_executable(${PROJECT_NAME} WIN32 ${SOURCE_FILES} ${HEADER_FILES}
-        ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${ICON_RCS})
+        ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${VersionFilesOutputVariable})
 
     # Qt modules
     #target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::PrintSupport)
     qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})
-
-    # Set executable file properties
-    set_target_properties(${PROJECT} PROPERTIES
-        PROJECT_LONGNAME ${PROJECT_LONGNAME}
-        VERSION "${PROJECT_VERSION}" SOVERSION "0")
 else()
     add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES}
         ${UI_SRC_FILES} ${UI_RESOURCES_RCC})

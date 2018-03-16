@@ -82,7 +82,6 @@ if(WIN32)
         ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${VersionFilesOutputVariable})
 
     # Qt modules
-    #target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::PrintSupport)
     qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})
 else()
     add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES}
@@ -98,10 +97,8 @@ else()
         LIBRARY DESTINATION "opt/${PROJECT_NAME}/lib"
         ARCHIVE DESTINATION "opt/${PROJECT_NAME}/lib")
 
-    INSTALL(FILES ${PROJECT_SOURCE_DIR}/pict/QImageViewer.png
+    INSTALL(FILES ${PROJECT_SOURCE_DIR}/pict/${PROJECT_NAME}.png
         DESTINATION "usr/share/pixmaps")
-    INSTALL(FILES ${PROJECT_SOURCE_DIR}/scripts/QImageViewer.sh
-        DESTINATION "opt/${PROJECT_NAME}")
-    INSTALL(FILES ${PROJECT_SOURCE_DIR}/scripts/QImageViewer.desktop
+    INSTALL(FILES ${PROJECT_SOURCE_DIR}/scripts/${PROJECT_NAME}.desktop
         DESTINATION "usr/share/applications")
 endif()

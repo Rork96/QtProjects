@@ -21,6 +21,13 @@ generate_product_version(
 #Qt modules
 set(QT_MODULES Widgets PrintSupport)
 
+# Path to Qt library
+if(WIN32)
+    set(CMAKE_PREFIX_PATH "C:/msys/mingw/")
+elseif(UNIX)
+    set(CMAKE_PREFIX_PATH "/opt/Qt/5.10.1/gcc_64/")
+endif()
+
 # Release by default
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)

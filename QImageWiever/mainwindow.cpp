@@ -8,8 +8,6 @@
 #include <QPrinter>
 #include <QGraphicsPixmapItem>
 
-#include <QtMath>
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)

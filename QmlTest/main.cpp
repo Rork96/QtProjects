@@ -17,9 +17,10 @@ int main(int argc, char *argv[])
     //engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
     // Для взаимодействия C++ класса AppCore и QML-интерфейса
-    AppCore appCore;
-    QQmlContext *context = engine.rootContext();
-    context->setContextProperty("appCore", &appCore);
+    // QScopedPointer автоматичеки удаляет объект класса AppCore из памяти
+    // при закрытии программы
+    QScopedPointer<AppCore> appCore (new AppCore);
+    engine.rootContext()->setContextProperty("appCore", appCore.data());
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())

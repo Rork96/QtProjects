@@ -15,10 +15,16 @@ set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")
 set(CMAKE_AUTOMOC ON)
 # Find includes in  build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
+#Qt modules
+set(QT_MODULES Core Test)
+# Path to Qt library
+if(WIN32)
+    set(CMAKE_PREFIX_PATH "C:/msys/mingw/")
+elseif(UNIX)
+    set(CMAKE_PREFIX_PATH "/opt/Qt/5.10.1/gcc_64/")
+endif()
 # Find dependencies Qt (QtCore, QtTest)
-find_package(Qt5 COMPONENTS Core Test REQUIRED)
-# Compilation flags for Qt project
-set(CMAKE_CXX_FLAGS "${QT_EXECUTABLE_COMPILE_FLAGS}")
+find_package(Qt5 COMPONENTS ${QT_MODULES} REQUIRED)
 # Output directory
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/MyCalss)
 # Sources
@@ -26,4 +32,4 @@ set(SOURCE_FILES Test_MyClass.cpp ../MyClass.h Test_MyClass.cpp Test_MyClass.h)
 # Create executable file
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 # Qt modules
-target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Test)
+qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})

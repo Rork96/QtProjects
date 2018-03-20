@@ -74,7 +74,7 @@ find_package(Qt5 COMPONENTS ${QT_MODULES} REQUIRED)
 qt5_add_resources(UI_RESOURCES_RCC ${UI_QRCS})
 
 # Dependent on build type and operation system,
-# put exe-file in one of the next folders
+# put exe-file or lib in one of the next folders
 #if(CMAKE_BUILD_TYPE STREQUAL "Release")
     if(WIN32)
         set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Windows/${CMAKE_BUILD_TYPE})

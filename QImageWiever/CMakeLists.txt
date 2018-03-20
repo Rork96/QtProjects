@@ -53,7 +53,7 @@ SET (CMAKE_C_FLAGS_RELEASE        "-O3 -DNDEBUG")
 SET (CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g")
 
 # Use Clang++ as C++ compiller
-SET (CMAKE_CXX_COMPILER clang++)
+SET (CMAKE_CXX_COMPILER            clang++)
 # Initialize CXXFLAGS.
 set(CMAKE_CXX_FLAGS                "-Wall -std=c++11")
 set(CMAKE_CXX_FLAGS_DEBUG          "-O0 -g")
@@ -75,13 +75,13 @@ qt5_add_resources(UI_RESOURCES_RCC ${UI_QRCS})
 
 # Dependent on build type and operation system,
 # put exe-file in one of the next folders
-if(CMAKE_BUILD_TYPE STREQUAL "Release")
+#if(CMAKE_BUILD_TYPE STREQUAL "Release")
     if(WIN32)
-        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Windows)
+        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Windows/${CMAKE_BUILD_TYPE})
     elseif(UNIX)
-        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Linux)
+        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Linux/${CMAKE_BUILD_TYPE})
     endif()
-endif()
+#endif()
 
 # Create executable file
 if(WIN32)

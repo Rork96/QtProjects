@@ -23,7 +23,7 @@ set(QT_MODULES Core Quick)
 
 # Path to Qt library
 if(WIN32)
-    set(CMAKE_PREFIX_PATH "C:/msys64/mingw64/")
+    #set(CMAKE_PREFIX_PATH "C:/msys64/mingw64/")
 elseif(UNIX)
     set(CMAKE_PREFIX_PATH "/opt/Qt/5.10.1/gcc_64/")
 endif()
@@ -52,7 +52,7 @@ set(CMAKE_C_FLAGS_RELEASE        "-O3 -DNDEBUG")
 set(CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g")
 
 # Use Clang++ as C++ compiller
-set(CMAKE_CXX_COMPILER clang++)
+set(CMAKE_CXX_COMPILER              clang++)
 # Initialize CXXFLAGS.
 set(CMAKE_CXX_FLAGS                "-Wall -std=c++11")
 set(CMAKE_CXX_FLAGS_DEBUG          "-O0 -g")

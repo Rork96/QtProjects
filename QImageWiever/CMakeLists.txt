@@ -23,7 +23,7 @@ set(QT_MODULES Widgets PrintSupport)
 
 # Path to Qt library
 if(WIN32)
-    set(CMAKE_PREFIX_PATH "C:/msys/mingw/")
+    set(CMAKE_PREFIX_PATH "C:/msys64/mingw64/")
 elseif(UNIX)
     set(CMAKE_PREFIX_PATH "/opt/Qt/5.10.1/gcc_64/")
 endif()
@@ -53,7 +53,7 @@ SET (CMAKE_C_FLAGS_RELEASE        "-O3 -DNDEBUG")
 SET (CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g")
 
 # Use Clang++ as C++ compiller
-SET (CMAKE_CXX_COMPILER clang++)
+SET (CMAKE_CXX_COMPILER            clang++)
 # Initialize CXXFLAGS.
 set(CMAKE_CXX_FLAGS                "-Wall -std=c++11")
 set(CMAKE_CXX_FLAGS_DEBUG          "-O0 -g")
@@ -74,14 +74,16 @@ find_package(Qt5 COMPONENTS ${QT_MODULES} REQUIRED)
 qt5_add_resources(UI_RESOURCES_RCC ${UI_QRCS})
 
 # Dependent on build type and operation system,
-# put exe-file in one of the next folders
-if(CMAKE_BUILD_TYPE STREQUAL "Release")
+# put exe-file or lib in one of the next folders
+#if(CMAKE_BUILD_TYPE STREQUAL "Release")
     if(WIN32)
-        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Windows)
+        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Windows/${CMAKE_BUILD_TYPE})
+        set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/Windows/dll/${CMAKE_BUILD_TYPE})
     elseif(UNIX)
-        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Linux)
+        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Linux/${CMAKE_BUILD_TYPE})
+        set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/Linux/lib/${CMAKE_BUILD_TYPE})
     endif()
-endif()
+#endif()
 
 # Create executable file
 if(WIN32)

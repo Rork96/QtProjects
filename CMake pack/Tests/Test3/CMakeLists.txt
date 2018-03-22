@@ -30,7 +30,7 @@ find_package(Qt5 COMPONENTS ${QT_MODULES} REQUIRED)
 # Target properties (see main CMakeList)
 set_target_properties(${TARGET} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${BINDIR})
 # Sources
-set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES Test_MyClass.cpp Test_MyClass.h ../MyClass.h)
 # Create executable file
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 # Qt modules

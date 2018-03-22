@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.7)
-# Get project name from list ("2" - third element)
-list (GET APPLICATIONS 2 APP_NAME)
+# Get project name from list ("1" - second element)
+list (GET APPLICATIONS 1 APP_NAME)
 # Project Test
 project (${APP_NAME} LANGUAGES CXX)
 # C++11
@@ -18,7 +18,7 @@ set(CMAKE_AUTOMOC ON)
 # Find includes in  build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 #Qt modules
-set(QT_MODULES Core Widgets Test)
+set(QT_MODULES Core Test)
 # Path to Qt library
 if(WIN32)
     set(CMAKE_PREFIX_PATH "C:/msys64/mingw64/")
@@ -30,7 +30,7 @@ find_package(Qt5 COMPONENTS ${QT_MODULES} REQUIRED)
 # Target properties (see main CMakeList)
 set_target_properties(${TARGET} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${BINDIR})
 # Sources
-set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES Test_MyClass.cpp Test_MyClass.h ../MyClass.h)
 # Create executable file
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 # Qt modules

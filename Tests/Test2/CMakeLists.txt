@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.7)
-# Get project name from list ("0" - first element)
-list (GET APPLICATIONS 0 APP_NAME)
+# Get project name from list ("1" - second element)
+list (GET APPLICATIONS 1 APP_NAME)
 # Project Test
 project (${APP_NAME} LANGUAGES CXX)
 # C++11

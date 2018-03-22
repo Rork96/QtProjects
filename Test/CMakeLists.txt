@@ -3,8 +3,20 @@ cmake_minimum_required (VERSION 3.1)
 # Project
 project (Summerys LANGUAGES CXX)
 
-add_subdirectory (Sum)
-add_subdirectory (Summery)
+# Dependent on build type and operation system,
+# put exe-file and lib in one of the next folders
+set (BINDIR bin)
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY     ../../../${CMAKE_HOST_SYSTEM_NAME}/${CMAKE_BUILD_TYPE})
+set (LIBRARY_OUTPUT_PATH                ../../../${CMAKE_HOST_SYSTEM_NAME}/${CMAKE_BUILD_TYPE})
 
-set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Linux)
-set (LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+# Librarys names
+set (LIBRARIES Summery)
+foreach (LIB ${LIBRARIES})
+    add_subdirectory (${LIB})
+endforeach ()
+
+# Executables names
+set (APPLICATIONS Sum)
+foreach (APP ${APPLICATIONS})
+    add_subdirectory (${APP})
+endforeach ()

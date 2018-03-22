@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.7)
+# Get project name from list ("0" - first element)
+list (GET APPLICATIONS 0 APP_NAME)
 # Project Test
-project(Test3 LANGUAGES CXX)
+project (${APP_NAME} LANGUAGES CXX)
 # C++11
 set(CMAKE_CXX_STANDARD 11)
 # Clang ++
@@ -19,14 +21,14 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(QT_MODULES Core Widgets Test)
 # Path to Qt library
 if(WIN32)
-    set(CMAKE_PREFIX_PATH "C:/msys/mingw/")
+    set(CMAKE_PREFIX_PATH "C:/msys64/mingw64/")
 elseif(UNIX)
     set(CMAKE_PREFIX_PATH "/opt/Qt/5.10.1/gcc_64/")
 endif()
 # Find dependencies Qt (QtCore, QtTest)
 find_package(Qt5 COMPONENTS ${QT_MODULES} REQUIRED)
-# Output directory
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/MyCalss)
+# Target properties (see main CMakeList)
+set_target_properties(${TARGET} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${BINDIR})
 # Sources
 set(SOURCE_FILES main.cpp)
 # Create executable file

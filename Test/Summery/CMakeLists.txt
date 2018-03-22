@@ -1,7 +1,10 @@
 cmake_minimum_required (VERSION 3.1)
 
+# Get library name from list ("0" - first element)
+list (GET LIBRARIES 0 LIB_NAME)
+
 # Library
-project (Summery LANGUAGES CXX)
+project (${LIB_NAME} LANGUAGES CXX)
 
 # Application icon and information
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/info)
@@ -65,13 +68,8 @@ file (GLOB HEADER_FILES ${PROJECT_SOURCE_DIR}/*.h)
 # Find dependencies Qt
 find_package (Qt5 COMPONENTS ${QT_MODULES} REQUIRED)
 
-# Dependent on build type and operation system,
-# put library in one of the next folders
-if (WIN32)
-    set (LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/dll/${CMAKE_BUILD_TYPE})
-elseif (UNIX)
-    set (LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib/${CMAKE_BUILD_TYPE})
-endif ()
+# Target properties (see main CMakeList)
+set_target_properties(${TARGET} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${BINDIR})
 
 # Create library
 if (WIN32)

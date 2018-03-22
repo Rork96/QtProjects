@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=QScreener
+Comment=QScreener
+Exec=opt/QScreener/QScreener
+Terminal=false
+Type=Application
+StartupNotify=true
+Icon=usr/share/pixmaps/QScreener.png
+Categories=images
+Name[ru_UA]=QScreener

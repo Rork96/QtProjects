@@ -18,23 +18,15 @@ generate_product_version (
         FILE_DESCRIPTION "Program description"
 )
 
+#Qt modules
+set(QT_MODULES Widgets PrintSupport)
+
 # Path to Qt library
 if (WIN32)
     set (CMAKE_PREFIX_PATH "C:/msys64/mingw64/")
 elseif (UNIX)
     set (CMAKE_PREFIX_PATH "/opt/Qt/5.10.1/gcc_64/")
 endif ()
-
-# Serch for librarys
-set (LIBRARIES Summery)
-foreach (LIBRARY ${LIBRARIES})
-    include_directories (../${LIBRARY})
-    if (WIN32)
-        link_directories(../${LIBRARY}/dll/${CMAKE_BUILD_TYPE})
-    elseif (UNIX)
-        link_directories(../${LIBRARY}/lib/${CMAKE_BUILD_TYPE})
-    endif ()
-endforeach ()
 
 # Release by default
 if (NOT CMAKE_BUILD_TYPE)
@@ -76,19 +68,14 @@ file (GLOB UI_SRC_FILES ${PROJECT_SOURCE_DIR}/*.ui)
 file (GLOB UI_QRCS ${PROJECT_SOURCE_DIR}/*.qrc)
 
 # Find dependencies Qt
-#find_package (Qt5 COMPONENTS ${QT_MODULES} REQUIRED)
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package (Qt5 COMPONENTS ${QT_MODULES} REQUIRED)
 
 # Resources *.qrc
 qt5_add_resources (UI_RESOURCES_RCC ${UI_QRCS})
 
 # Dependent on build type and operation system,
 # put exe-file in one of the next folders
-if (WIN32)
-    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Windows/${CMAKE_BUILD_TYPE})
-elseif (UNIX)
-    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Linux/${CMAKE_BUILD_TYPE})
-endif ()
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${CMAKE_HOST_SYSTEM_NAME}/${CMAKE_BUILD_TYPE})
 
 # Create executable file
 if (WIN32)
@@ -96,11 +83,23 @@ if (WIN32)
         ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${VersionFilesOutputVariable})
 
     # Qt modules and librarys
-    target_link_libraries(${PROJECT_NAME} Qt5::Widgets ${LIBRARIES})
+	qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})
 else ()
     add_executable (${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES}
         ${UI_SRC_FILES} ${UI_RESOURCES_RCC})
 
     # Qt modules and librarys
-    target_link_libraries(${PROJECT_NAME} Qt5::Widgets ${LIBRARIES})
+    qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})
+	
+	    # Install
+    INSTALL(TARGETS ${PROJECT_NAME}
+        EXPORT depends
+        RUNTIME DESTINATION "opt/${PROJECT_NAME} "
+        LIBRARY DESTINATION "opt/${PROJECT_NAME}/lib"
+        ARCHIVE DESTINATION "opt/${PROJECT_NAME}/lib")
+
+    INSTALL(FILES ${PROJECT_SOURCE_DIR}/pict/${PROJECT_NAME}.png
+        DESTINATION "usr/share/pixmaps")
+    INSTALL(FILES ${PROJECT_SOURCE_DIR}/scripts/${PROJECT_NAME}.desktop
+        DESTINATION "usr/share/applications")
 endif ()

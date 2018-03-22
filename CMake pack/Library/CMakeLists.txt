@@ -67,11 +67,7 @@ find_package (Qt5 COMPONENTS ${QT_MODULES} REQUIRED)
 
 # Dependent on build type and operation system,
 # put library in one of the next folders
-if (WIN32)
-    set (LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/dll/${CMAKE_BUILD_TYPE})
-elseif (UNIX)
-    set (LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib/${CMAKE_BUILD_TYPE})
-endif ()
+set (LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/${CMAKE_HOST_SYSTEM_NAME}/${CMAKE_BUILD_TYPE})
 
 # Create library
 if (WIN32)

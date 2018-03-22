@@ -1,7 +1,10 @@
 cmake_minimum_required (VERSION 3.1)
 
+# Get project name from list ("0" - first element)
+list (GET APPLICATIONS 0 APP_NAME)
+
 # Project
-project (Sum LANGUAGES CXX)
+project (${APP_NAME} LANGUAGES CXX)
 
 # Application icon and information
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/info)
@@ -29,11 +32,7 @@ endif ()
 set (LIBRARIES Summery)
 foreach (LIBRARY ${LIBRARIES})
     include_directories (../${LIBRARY})
-    if (WIN32)
-        link_directories(../${LIBRARY}/dll/${CMAKE_BUILD_TYPE})
-    elseif (UNIX)
-        link_directories(../${LIBRARY}/lib/${CMAKE_BUILD_TYPE})
-    endif ()
+    link_directories(${LIBRARY_OUTPUT_PATH})
 endforeach ()
 
 # Release by default
@@ -82,13 +81,8 @@ find_package(Qt5 COMPONENTS Widgets REQUIRED)
 # Resources *.qrc
 qt5_add_resources (UI_RESOURCES_RCC ${UI_QRCS})
 
-# Dependent on build type and operation system,
-# put exe-file in one of the next folders
-if (WIN32)
-    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Windows/${CMAKE_BUILD_TYPE})
-elseif (UNIX)
-    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Linux/${CMAKE_BUILD_TYPE})
-endif ()
+# Target properties (see main CMakeList)
+set_target_properties(${TARGET} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${BINDIR})
 
 # Create executable file
 if (WIN32)

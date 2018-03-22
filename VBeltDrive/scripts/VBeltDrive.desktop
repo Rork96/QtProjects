@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=V-Belt Drive
 Comment=V-Belt Drive
-Exec=opt/VBeltDrive/VBeltDrive.sh
+Exec=opt/VBeltDrive/VBeltDrive
 Terminal=false
 Type=Application
 StartupNotify=true

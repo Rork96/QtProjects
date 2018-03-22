@@ -16,8 +16,9 @@ sum_widget::~sum_widget()
 void sum_widget::on_callBtn_clicked()
 {
     // Respond from lib
-    Summery clib;
-    ui->lineEdit->setText(QString::number(clib.answer()));
+    Summery *clib = new Summery();
+    ui->lineEdit->setText(QString::number(clib->answer()));
+    delete clib;
 }
 
 void sum_widget::on_exitBtn_clicked()

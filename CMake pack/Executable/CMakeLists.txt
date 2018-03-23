@@ -91,15 +91,15 @@ else ()
     # Qt modules and librarys
     qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})
 	
-	    # Install
-    INSTALL(TARGETS ${PROJECT_NAME}
+	# Install
+    install(TARGETS ${PROJECT_NAME}
         EXPORT depends
         RUNTIME DESTINATION "opt/${PROJECT_NAME} "
         LIBRARY DESTINATION "opt/${PROJECT_NAME}/lib"
         ARCHIVE DESTINATION "opt/${PROJECT_NAME}/lib")
 
-    INSTALL(FILES ${PROJECT_SOURCE_DIR}/pict/${PROJECT_NAME}.png
+    install(FILES ${PROJECT_SOURCE_DIR}/pict/${PROJECT_NAME}.png
         DESTINATION "usr/share/pixmaps")
-    INSTALL(FILES ${PROJECT_SOURCE_DIR}/scripts/${PROJECT_NAME}.desktop
+    install(FILES ${PROJECT_SOURCE_DIR}/scripts/${PROJECT_NAME}.desktop
         DESTINATION "usr/share/applications")
 endif ()

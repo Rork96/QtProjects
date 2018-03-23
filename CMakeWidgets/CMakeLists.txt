@@ -23,7 +23,7 @@ set(QT_MODULES Widgets)
 
 # Path to Qt library
 if (WIN32)
-    set (CMAKE_PREFIX_PATH "C:/msys64/mingw64/")
+    #set (CMAKE_PREFIX_PATH "C:/msys64/mingw64/")
 elseif (UNIX)
     set (CMAKE_PREFIX_PATH "/opt/Qt/5.10.1/gcc_64/")
 endif ()
@@ -44,22 +44,22 @@ set (CMAKE_CXX_STANDARD 11)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Use Clang as C compiller
-set (CMAKE_C_COMPILER               clang)
+#set (CMAKE_C_COMPILER               clang)
 # Initialize CFLAGS.
-set (CMAKE_C_FLAGS                  "-Wall -std=c99")
-set (CMAKE_C_FLAGS_DEBUG            "-g")
-set (CMAKE_C_FLAGS_MINSIZEREL       "-Os -DNDEBUG")
-set (CMAKE_C_FLAGS_RELEASE          "-O3 -DNDEBUG")
-set (CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g")
+#set (CMAKE_C_FLAGS                  "-Wall -std=c99")
+#set (CMAKE_C_FLAGS_DEBUG            "-g")
+#set (CMAKE_C_FLAGS_MINSIZEREL       "-Os -DNDEBUG")
+#set (CMAKE_C_FLAGS_RELEASE          "-O3 -DNDEBUG")
+#set (CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g")
 
 # Use Clang++ as C++ compiller
-set (CMAKE_CXX_COMPILER             clang++)
+#set (CMAKE_CXX_COMPILER             clang++)
 # Initialize CXXFLAGS.
-set (CMAKE_CXX_FLAGS                "-Wall -std=c++11")
-set (CMAKE_CXX_FLAGS_DEBUG          "-O0 -g")
-set (CMAKE_CXX_FLAGS_MINSIZEREL     "-Os -DNDEBUG")
-set (CMAKE_CXX_FLAGS_RELEASE        "-O3 -DNDEBUG")
-set (CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")
+#set (CMAKE_CXX_FLAGS                "-Wall -std=c++11")
+#set (CMAKE_CXX_FLAGS_DEBUG          "-O0 -g")
+#set (CMAKE_CXX_FLAGS_MINSIZEREL     "-Os -DNDEBUG")
+#set (CMAKE_CXX_FLAGS_RELEASE        "-O3 -DNDEBUG")
+#set (CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")
 
 # Automatically find all files *.cpp, *.h, *.ui, *.qrc in project directory
 file (GLOB SOURCE_FILES ${PROJECT_SOURCE_DIR}/*.cpp)
@@ -77,6 +77,11 @@ qt5_add_resources (UI_RESOURCES_RCC ${UI_QRCS})
 # put exe-file in one of the next folders
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${CMAKE_HOST_SYSTEM_NAME}/${CMAKE_BUILD_TYPE})
 
+# Get path to windeployqt for deploying app
+get_target_property(QT5_QMAKE_EXECUTABLE Qt5::qmake IMPORTED_LOCATION)
+get_filename_component(QT5_DEPLOYQT_PATH ${QT5_QMAKE_EXECUTABLE} PATH)
+set(QT5_WINDEPLOYQT_EXECUTABLE "${QT5_DEPLOYQT_PATH}/windeployqt.exe")
+
 # Create executable file
 if (WIN32)
     add_executable (${PROJECT_NAME} WIN32 ${SOURCE_FILES} ${HEADER_FILES}
@@ -84,6 +89,12 @@ if (WIN32)
 
     # Qt modules and librarys
 	qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})
+
+    # Deploying Release version
+    if(CMAKE_BUILD_TYPE STREQUAL "Release")
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+                COMMAND ${QT5_WINDEPLOYQT_EXECUTABLE} ARGS ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}.exe)
+    endif()
 else ()
     add_executable (${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES}
         ${UI_SRC_FILES} ${UI_RESOURCES_RCC})
@@ -91,15 +102,15 @@ else ()
     # Qt modules and librarys
     qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})
 	
-	    # Install
-    INSTALL(TARGETS ${PROJECT_NAME}
+	# Install
+    install(TARGETS ${PROJECT_NAME}
         EXPORT depends
         RUNTIME DESTINATION "opt/${PROJECT_NAME} "
         LIBRARY DESTINATION "opt/${PROJECT_NAME}/lib"
         ARCHIVE DESTINATION "opt/${PROJECT_NAME}/lib")
 
-    INSTALL(FILES ${PROJECT_SOURCE_DIR}/pict/${PROJECT_NAME}.png
+    install(FILES ${PROJECT_SOURCE_DIR}/pict/${PROJECT_NAME}.png
         DESTINATION "usr/share/pixmaps")
-    INSTALL(FILES ${PROJECT_SOURCE_DIR}/scripts/${PROJECT_NAME}.desktop
+    install(FILES ${PROJECT_SOURCE_DIR}/scripts/${PROJECT_NAME}.desktop
         DESTINATION "usr/share/applications")
 endif ()

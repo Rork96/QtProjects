@@ -23,7 +23,7 @@ set(QT_MODULES Widgets)
 
 # Path to Qt library
 if (WIN32)
-    #set (CMAKE_PREFIX_PATH "C:/msys64/mingw64/")
+    set (CMAKE_PREFIX_PATH "C:/msys64/mingw64/")
 elseif (UNIX)
     set (CMAKE_PREFIX_PATH "/opt/Qt/5.10.1/gcc_64/")
 endif ()

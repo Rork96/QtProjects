@@ -35,71 +35,71 @@ Window {
         Menu {
             id: mainMenu
             title: qsTr("File")
-            width: 95
+            //width: 95
 
             MenuItem {
                 id: openItem
                 text: qsTr("Open file")
 
-                onClicked: {
+                /*onClicked: {
                     openFile.open() // Open file
-                }
+                }*/
             }
 
             MenuItem {
                 id: saveAsItem
                 text: qsTr("Save as")
 
-                onClicked: { /* Save file as */ }
+                //onClicked: { /* Save file as */ }
             }
 
             MenuItem {
                 id: unpackItem
                 text: qsTr("Unpack")
 
-                onClicked: { /* Unpack file from archive */ }
+                //onClicked: { /* Unpack file from archive */ }
             }
 
             MenuItem {
                 id: packItem
                 text: qsTr("Pack")
 
-                onClicked: { /* Pack file into archive */ }
+                //onClicked: { /* Pack file into archive */ }
             }
 
             MenuItem {
                 id: maxItem
                 text: qsTr("Maximize")
 
-                onClicked: {
+                /*onClicked: {
                     root.showMaximized() // Show window maximazed
-                }
+                }*/
             }
 
             MenuItem {
                 id: minItem
                 text: qsTr("Minimize")
 
-                onClicked: {
+                /*onClicked: {
                     root.showMinimized() // Minimized
-                }
+                }*/
             }
 
             MenuItem {
                 id: normalItem
                 text: qsTr("Normal")
 
-                onClicked: {
+                /*onClicked: {
                     root.showNormal() // Normal size
-                }
+                }*/
             }
 
             MenuItem {
                 id: quitItem
                 text: qsTr("Quit")
-                onClicked: {
+                /*onClicked: {
                     Qt.quit() // Quit
-                }
+                }*/
             }
         }
     }

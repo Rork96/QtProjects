@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=QZiper
+Comment=QZiper
+Exec=opt/QZiper/QZiper
+Terminal=false
+Type=Application
+StartupNotify=true
+Icon=usr/share/pixmaps/QZiper.png
+Categories=images
+Name[ru_UA]=QZiper

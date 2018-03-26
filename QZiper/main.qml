@@ -11,7 +11,7 @@ Window {
     title: qsTr("QZiper")
 
     FileDialog {
-         /* Open file dialog */
+         /* File dialog */
          id: openFile
          title: qsTr("Choose file")
          modality: Qt.WindowModal // Show dialog as modal

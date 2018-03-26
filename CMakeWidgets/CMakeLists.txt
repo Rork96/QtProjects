@@ -77,11 +77,6 @@ qt5_add_resources (UI_RESOURCES_RCC ${UI_QRCS})
 # put exe-file in one of the next folders
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${CMAKE_HOST_SYSTEM_NAME}/${CMAKE_BUILD_TYPE})
 
-# Get path to windeployqt for deploying app
-get_target_property(QT5_QMAKE_EXECUTABLE Qt5::qmake IMPORTED_LOCATION)
-get_filename_component(QT5_DEPLOYQT_PATH ${QT5_QMAKE_EXECUTABLE} PATH)
-set(QT5_WINDEPLOYQT_EXECUTABLE "${QT5_DEPLOYQT_PATH}/windeployqt.exe")
-
 # Create executable file
 if (WIN32)
     add_executable (${PROJECT_NAME} WIN32 ${SOURCE_FILES} ${HEADER_FILES}
@@ -89,12 +84,6 @@ if (WIN32)
 
     # Qt modules and librarys
 	qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})
-
-    # Deploying Release version
-    if(CMAKE_BUILD_TYPE STREQUAL "Release")
-        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-                COMMAND ${QT5_WINDEPLOYQT_EXECUTABLE} ARGS ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}.exe)
-    endif()
 else ()
     add_executable (${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES}
         ${UI_SRC_FILES} ${UI_RESOURCES_RCC})
@@ -105,7 +94,7 @@ else ()
 	# Install
     install(TARGETS ${PROJECT_NAME}
         EXPORT depends
-        RUNTIME DESTINATION "opt/${PROJECT_NAME} "
+        RUNTIME DESTINATION "opt/${PROJECT_NAME}"
         LIBRARY DESTINATION "opt/${PROJECT_NAME}/lib"
         ARCHIVE DESTINATION "opt/${PROJECT_NAME}/lib")
 

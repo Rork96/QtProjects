@@ -1,7 +1,7 @@
 import QtQuick 2.10
 import QtQuick.Window 2.10
 import QtQuick.Controls 2.3
-import QtQuick.Dialogs 1.2
+import QtQuick.Dialogs 1.4
 
 Window {
     id: root
@@ -10,16 +10,24 @@ Window {
     height: 500
     title: qsTr("QZiper")
 
+    // Select one or more files in FileDialog
+    property bool selectMulty: false
+    // Select folders in FileDialog
+    property bool selectFolder: false
+
     FileDialog {
          /* File dialog */
          id: openFile
          title: qsTr("Choose file")
          modality: Qt.WindowModal // Show dialog as modal
          nameFilters: [ "Archives (*.zip *.rar *tar)" ]
-         folder: shortcuts.home
+         folder: shortcuts.home         // Home directory
+         selectMultiple: selectMulty    // Multiple file selection
+         selectFolders: selectFolder    // Folders selection
 
          onAccepted: {
-            console.log("You chose: " + openFile.fileUrls)
+            selectMultiple ? console.log("You chose: " + openFile.fileUrls) :
+                console.log("You chose: " + openFile.fileUrl)
          }
     }
 
@@ -28,13 +36,14 @@ Window {
         id: menuBar
 
         Menu {
+            /* Menu file */
             id: mainMenu
             title: qsTr("File")
             width: 95
 
             MenuItem {
                 id: openItem
-                text: qsTr("Open file")
+                text: qsTr("Open archive")
 
                 onClicked: {
                     openFile.open() // Open file
@@ -46,29 +55,6 @@ Window {
                 text: qsTr("Save as")
 
                 onClicked: { /* Save file as */ }
-            }
-
-            MenuItem {
-                id: unpackItem
-                text: qsTr("Unpack")
-
-                onClicked: { /* Unpack file from archive */ }
-            }
-
-            MenuItem {
-                id: packItem
-                text: qsTr("Pack")
-
-                onClicked: { /* Pack file into archive */ }
-            }
-
-            MenuItem {
-                id: maxItem
-                text: qsTr("Maximize")
-
-                onClicked: {
-                    root.showMaximized() // Show window maximazed
-                }
             }
 
             MenuItem {
@@ -95,6 +81,34 @@ Window {
                 onClicked: {
                     Qt.quit() // Quit
                 }
+            }
+        }
+
+        Menu {
+            /* Menu Edit*/
+            id: mainMenu
+            title: qsTr("Edit")
+            width: 95
+
+            MenuItem {
+                id: unpackItem
+                text: qsTr("Extract")
+
+                onClicked: { /* Unpack file from archive */ }
+            }
+
+            MenuItem {
+                id: packItem
+                text: qsTr("Pack files")
+
+                onClicked: { /* Pack files into archive */ }
+            }
+
+            MenuItem {
+                id: maxItem
+                text: qsTr("Pack folders")
+
+                onClicked: { /* Pack folders into archive */ }
             }
         }
     }

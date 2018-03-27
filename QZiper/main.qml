@@ -1,7 +1,7 @@
 import QtQuick 2.10
 import QtQuick.Window 2.10
 import QtQuick.Controls 2.3
-import QtQuick.Dialogs 1.4
+import QtQuick.Dialogs 1.2
 
 Window {
     id: root
@@ -23,7 +23,7 @@ Window {
          nameFilters: [ "Archives (*.zip *.rar *tar)" ]
          folder: shortcuts.home         // Home directory
          selectMultiple: selectMulty    // Multiple file selection
-         selectFolders: selectFolder    // Folders selection
+         selectFolder: selectFolder     // Folders selection
 
          onAccepted: {
             selectMultiple ? console.log("You chose: " + openFile.fileUrls) :
@@ -37,7 +37,7 @@ Window {
 
         Menu {
             /* Menu file */
-            id: mainMenu
+            id: menuFile
             title: qsTr("File")
             width: 95
 
@@ -46,6 +46,7 @@ Window {
                 text: qsTr("Open archive")
 
                 onClicked: {
+                    selectMulty = false
                     openFile.open() // Open file
                 }
             }
@@ -54,24 +55,8 @@ Window {
                 id: saveAsItem
                 text: qsTr("Save as")
 
-                onClicked: { /* Save file as */ }
-            }
-
-            MenuItem {
-                id: minItem
-                text: qsTr("Minimize")
-
-                onClicked: {
-                    root.showMinimized() // Minimized
-                }
-            }
-
-            MenuItem {
-                id: normalItem
-                text: qsTr("Normal")
-
-                onClicked: {
-                    root.showNormal() // Normal size
+                onClicked: { /* Save file as */
+                    selectMulty = false
                 }
             }
 
@@ -86,29 +71,57 @@ Window {
 
         Menu {
             /* Menu Edit*/
-            id: mainMenu
+            id: menuEdit
             title: qsTr("Edit")
             width: 95
 
             MenuItem {
-                id: unpackItem
+                id: extractItem
                 text: qsTr("Extract")
 
-                onClicked: { /* Unpack file from archive */ }
+                onClicked: { /* Unpack file from archive */
+                    selectMulty = false
+                }
             }
 
             MenuItem {
-                id: packItem
+                id: packFilesItem
                 text: qsTr("Pack files")
 
-                onClicked: { /* Pack files into archive */ }
+                onClicked: { /* Pack files into archive */
+                    selectMulty = true
+                    openFile.open()
+                }
             }
 
             MenuItem {
-                id: maxItem
+                id: packFolderItem
                 text: qsTr("Pack folders")
 
-                onClicked: { /* Pack folders into archive */ }
+                onClicked: { /* Pack folder into archive */
+                    selectMulty = true
+                }
+            }
+        }
+
+        Menu {
+            /* Menu Help*/
+            id: menuHelp
+            title: qsTr("Help")
+            width: 95
+
+            MenuItem {
+                id: aboutItem
+                text: qsTr("About program")
+
+                onClicked: { /* About program */ }
+            }
+
+            MenuItem {
+                id: aboutQtItem
+                text: qsTr("About Qt")
+
+                onClicked: { /* About Qt */ }
             }
         }
     }

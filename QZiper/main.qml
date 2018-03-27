@@ -10,44 +10,53 @@ Window {
     height: 500
     title: qsTr("QZiper")
 
-    // Select one or more files in FileDialog
-    property bool selectMulty: false
-    // Select folders in FileDialog
-    property bool selectFolder: false
+    property string fileName
+    //property QList<QUrl> fileNames
 
     FileDialog {
          /* File dialog */
-         id: openFile
+         id: fileDialog
          title: qsTr("Choose file")
          modality: Qt.WindowModal // Show dialog as modal
          nameFilters: [ "Archives (*.zip *.rar *tar)" ]
          folder: shortcuts.home         // Home directory
-         selectMultiple: selectMulty    // Multiple file selection
-         selectFolder: selectFolder     // Folders selection
+         selectMultiple: fileDialogSelectMultiple.checked   // Multiple file selection
+         selectFolder: fileDialogSelectFolder.checked       // Folders selection
 
          onAccepted: {
-            selectMultiple ? console.log("You chose: " + openFile.fileUrls) :
-                console.log("You chose: " + openFile.fileUrl)
+             /*selectMultiple ? console.log("You chose: " + fileDialog.fileUrls) :
+                console.log("You chose: " + fileDialog.fileUrl)*/
+             /*if (fileDialogSelectMultiple.checked)
+             {
+                 //for (var i = 0; i < fileUrls.length; ++i)
+                     //Qt.openUrlExternally(fileUrls[i])
+                     // fileNames = fileUrls
+             }*/
+             fileName = fileUrl
          }
     }
 
     MenuBar {
         /* Main menu */
         id: menuBar
+        height: 40
+        width: parent.width
 
         Menu {
             /* Menu file */
             id: menuFile
             title: qsTr("File")
-            width: 95
 
             MenuItem {
                 id: openItem
                 text: qsTr("Open archive")
 
                 onClicked: {
-                    selectMulty = false
-                    openFile.open() // Open file
+                    // Single selection
+                    fileDialog.selectMultiple = false
+                    fileDialog.selectFolder = false
+                    fileDialog.open() // Open file
+                    console.log(fileName)
                 }
             }
 
@@ -56,7 +65,9 @@ Window {
                 text: qsTr("Save as")
 
                 onClicked: { /* Save file as */
-                    selectMulty = false
+                    fileDialog.selectMultiple = false
+                    fileDialog.selectFolder = false
+                    fileDialog.open()
                 }
             }
 
@@ -73,14 +84,16 @@ Window {
             /* Menu Edit*/
             id: menuEdit
             title: qsTr("Edit")
-            width: 95
 
             MenuItem {
                 id: extractItem
                 text: qsTr("Extract")
 
                 onClicked: { /* Unpack file from archive */
-                    selectMulty = false
+                    // Multiple selection
+                    fileDialog.selectMultiple = false
+                    fileDialog.selectFolder = false
+                    fileDialog.open()
                 }
             }
 
@@ -89,17 +102,20 @@ Window {
                 text: qsTr("Pack files")
 
                 onClicked: { /* Pack files into archive */
-                    selectMulty = true
-                    openFile.open()
+                    fileDialog.selectMultiple = true
+                    fileDialog.selectFolder = false
+                    fileDialog.open()
                 }
             }
 
             MenuItem {
-                id: packFolderItem
-                text: qsTr("Pack folders")
+                id: packFoldersItem
+                text: qsTr("Pack folder")
 
                 onClicked: { /* Pack folder into archive */
-                    selectMulty = true
+                    // Select folders
+                    fileDialog.selectFolder = true
+                    fileDialog.open()
                 }
             }
         }
@@ -108,7 +124,6 @@ Window {
             /* Menu Help*/
             id: menuHelp
             title: qsTr("Help")
-            width: 95
 
             MenuItem {
                 id: aboutItem

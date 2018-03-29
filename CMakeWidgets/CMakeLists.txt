@@ -106,23 +106,6 @@ if (WIN32)
     # Qt modules and librarys
 	qt5_use_modules (${PROJECT_NAME} ${QT_MODULES} ${QML_PLUGINS})
 
-    # Install
-    set (dir ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-    #if (${QML_PLUGINS} NOT STREQUAL "")
-    #    install (DIRECTORY qml DESTINATION ${dir})
-    #endif()
-    #install_qt5_platform (${dir})
-    #install_qt5_V8 (${dir})
-    install_qt5_lib (${dir} ${QT_MODULES})
-    install_qt5_icu (${dir})
-    install_qt5_imageformats (${dir} ${Qt_ImageFormats})
-    install_qt5_qml_plugin (${dir} ${QML_PLUGINS})
-    install_qt5_dbdrivers (${dir} ${DRIVERS})
-
-    if (MINGW)
-        install_qt_mingw_rt (${dir})
-    endif (MINGW)
-
     # Get path to windeployqt for deploying app
     get_target_property (QT5_QMAKE_EXECUTABLE Qt5::qmake IMPORTED_LOCATION)
     get_filename_component (QT_PATH ${QT5_QMAKE_EXECUTABLE} PATH)
@@ -139,39 +122,9 @@ else ()
 
     # Qt modules and librarys
     qt5_use_modules (${PROJECT_NAME} ${QT_MODULES} ${QML_PLUGINS})
-	
-	# Install
-    #install (TARGETS ${PROJECT_NAME}
-    #    EXPORT depends
-    #    RUNTIME DESTINATION "opt/${PROJECT_NAME}"
-    #    LIBRARY DESTINATION "opt/${PROJECT_NAME}/lib"
-    #    ARCHIVE DESTINATION "opt/${PROJECT_NAME}/lib")
 
-    #install(FILES ${PROJECT_SOURCE_DIR}/pict/${PROJECT_NAME}.png
-    #        DESTINATION "usr/share/pixmaps")
-    #install(FILES ${PROJECT_SOURCE_DIR}/scripts/${PROJECT_NAME}.desktop
-    #        DESTINATION "usr/share/applications")
-    #install(FILES ${PROJECT_SOURCE_DIR}/scripts/${PROJECT_NAME}.sh
-    #        DESTINATION "opt/${PROJECT_NAME}")
-    #install(FILES ${PROJECT_SOURCE_DIR}/scripts/qt.conf
-    #        DESTINATION "opt/${PROJECT_NAME}")
-
-    # Install
-    set (dir ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-    #if (${QML_PLUGINS} NOT STREQUAL "")
-    #    install (DIRECTORY qml DESTINATION ${dir})
-    #endif()
-    #install_qt5_platform (${dir})
-    #install_qt5_V8 (${dir})
-    install_qt5_lib (${dir} ${QT_MODULES})
-    install_qt5_icu (${dir})
-    install_qt5_imageformats (${dir} ${Qt_ImageFormats})
-    install_qt5_qml_plugin (${dir} ${QML_PLUGINS})
-    install_qt5_dbdrivers (${dir} ${DRIVERS})
-
-    #if (GNU)
-        install_gcc_rt (${dir})
-    #endif (GNU)
+    # Install in system folder
+    #system_install ()
 
     # Deploying Release version
     if (CMAKE_BUILD_TYPE STREQUAL "Release")
@@ -179,3 +132,17 @@ else ()
                 COMMAND make ARGS install)
     endif ()
 endif ()
+
+# Install
+set (dir ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+#if (${QML_PLUGINS} NOT STREQUAL "")
+#    install (DIRECTORY qml DESTINATION ${dir})
+#endif()
+#install_qt5_platform (${dir})
+#install_qt5_V8 (${dir})
+install_qt5_lib (${dir} ${QT_MODULES})
+install_qt5_icu (${dir})
+install_qt5_imageformats (${dir} ${Qt_ImageFormats})
+install_qt5_qml_plugin (${dir} ${QML_PLUGINS})
+install_qt5_dbdrivers (${dir} ${DRIVERS})
+install_rt (${dir})

@@ -2,7 +2,7 @@ if (WIN32)
     #set (FIX "")
     #set (TYPE "dll")
     #set (END "")
-else ()
+elseif (UNIX)
     #set (FIX "lib")
     #set (TYPE ".so")
     set (END ".so")
@@ -74,7 +74,7 @@ function(install_qt5_icu dest)
                       ${_qt5Core_install_prefix}/bin/libicuin58.dll
                       ${_qt5Core_install_prefix}/bin/libicuuc58.dll
                 DESTINATION ${dest})
-    else ()
+    elseif (UNIX)
         install(FILES ${_qt5Core_install_prefix}/lib/${FIX}icudata.so.56.1       #libicudata.so.56.1
                       ${_qt5Core_install_prefix}/lib/${FIX}icui18n.so.56.1       #libicui18n.so.56.1
                       ${_qt5Core_install_prefix}/lib/${FIX}icuuc.so.56.1         #libicuuc.so.56.1
@@ -82,34 +82,51 @@ function(install_qt5_icu dest)
     endif()
 endfunction(install_qt5_icu)
 
-function(install_qt_mingw_rt dest)
-    install(FILES ${_qt5Core_install_prefix}/bin/libgcc_s_seh-1.dll
-                  ${_qt5Core_install_prefix}/bin/libgcc_s_dw2-1.DLL
-                  ${_qt5Core_install_prefix}/bin/libstdc++-6.dll
-                  ${_qt5Core_install_prefix}/bin/libwinpthread-1.dll
-                  ${_qt5Core_install_prefix}/bin/libpcre2-16-0.dll
-                  ${_qt5Core_install_prefix}/bin/zlib1.dll
-                  ${_qt5Core_install_prefix}/bin/libfreetype-6.dll
-                  ${_qt5Core_install_prefix}/bin/libharfbuzz-0.dll
-                  ${_qt5Core_install_prefix}/bin/libbz2-1.dll
-                  #${_qt5Core_install_prefix}/bin/libpng16-16.dll
-                  ${_qt5Core_install_prefix}/bin/libglib-2.0-0.dll
-            DESTINATION ${dest})
-endfunction(install_qt_mingw_rt)
+function(install_rt dest)
+    if (WIN32)
+        install(FILES ${_qt5Core_install_prefix}/bin/libgcc_s_seh-1.dll
+                      ${_qt5Core_install_prefix}/bin/libgcc_s_dw2-1.DLL
+                      ${_qt5Core_install_prefix}/bin/libstdc++-6.dll
+                      ${_qt5Core_install_prefix}/bin/libwinpthread-1.dll
+                      ${_qt5Core_install_prefix}/bin/libpcre2-16-0.dll
+                      ${_qt5Core_install_prefix}/bin/zlib1.dll
+                      ${_qt5Core_install_prefix}/bin/libfreetype-6.dll
+                      ${_qt5Core_install_prefix}/bin/libharfbuzz-0.dll
+                      ${_qt5Core_install_prefix}/bin/libbz2-1.dll
+                      #${_qt5Core_install_prefix}/bin/libpng16-16.dll
+                      ${_qt5Core_install_prefix}/bin/libglib-2.0-0.dll
+                DESTINATION ${dest})
+    elseif (UNIX)
+        set (SYS_PATH "/usr/lib/x86_64-linux-gnu")
+        set (S_PATH "/lib/x86_64-linux-gnu")
+        install(FILES ${S_PATH}/libgcc_s.so.1
+                      ${SYS_PATH}/libstdc++.so.6
+                      ${S_PATH}/libpthread.so.0
+                      ${S_PATH}/libz.so.1
+                      ${S_PATH}/libc.so.6
+                      ${SYS_PATH}/libGL.so.1
+                      ${SYS_PATH}/libgthread-2.0.so.0
+                      ${S_PATH}/libdl.so.2
+                      #${S_PATH}/libpng16.so.0
+                      ${S_PATH}/libglib-2.0.so.0
+                DESTINATION ${dest})
+    endif()
+endfunction(install_rt)
 
-function(install_gcc_rt dest)
-    set (SYS_PATH "/usr/lib/x86_64-linux-gnu")
-    set (S_PATH "/lib/x86_64-linux-gnu")
-    install(FILES ${S_PATH}/libgcc_s.so.1
-                  ${SYS_PATH}/libstdc++.so.6
-                  ${S_PATH}/libpthread.so.0
-                  ${S_PATH}/libz.so.1
-                  ${S_PATH}/libc.so.6
-                  ${SYS_PATH}/libGL.so.1
-                  ${SYS_PATH}/libgthread-2.0.so.0
-                  ${S_PATH}/libdl.so.2
-                  #${S_PATH}/libpng16.so.0
-                  ${S_PATH}/libglib-2.0.so.0
-            DESTINATION ${dest})
-endfunction(install_gcc_rt)
+function (system_install)
+    # Install in system folder (for Linux)
+    install (TARGETS ${PROJECT_NAME}
+        EXPORT depends
+        RUNTIME DESTINATION "opt/${PROJECT_NAME}"
+        LIBRARY DESTINATION "opt/${PROJECT_NAME}/lib"
+        ARCHIVE DESTINATION "opt/${PROJECT_NAME}/lib")
 
+    install(FILES ${PROJECT_SOURCE_DIR}/pict/${PROJECT_NAME}.png
+            DESTINATION "usr/share/pixmaps")
+    install(FILES ${PROJECT_SOURCE_DIR}/scripts/${PROJECT_NAME}.desktop
+            DESTINATION "usr/share/applications")
+    install(FILES ${PROJECT_SOURCE_DIR}/scripts/${PROJECT_NAME}.sh
+            DESTINATION "opt/${PROJECT_NAME}")
+    install(FILES ${PROJECT_SOURCE_DIR}/scripts/qt.conf
+            DESTINATION "opt/${PROJECT_NAME}")
+endfunction ()

@@ -1,3 +1,16 @@
+if (WIN32)
+    #set (FIX "")
+    #set (TYPE "dll")
+    #set (END "")
+else ()
+    #set (FIX "lib")
+    #set (TYPE ".so")
+    set (END ".so")
+endif ()
+
+set (FIX ${CMAKE_FIND_LIBRARY_PREFIXES})    #lib
+set (TYPE ${CMAKE_FIND_LIBRARY_SUFFIXES})   #.dll
+
 function(install_qt5_file srcPath fileName destPath)
     set(QT_PREFIX "")
 
@@ -5,7 +18,7 @@ function(install_qt5_file srcPath fileName destPath)
         set(QT_PREFIX "d")
     endif(CMAKE_BUILD_TYPE STREQUAL Debug)
 
-    install(FILES "${srcPath}/${fileName}${QT_PREFIX}.dll" DESTINATION ${destPath} COMPONENT Runtime)
+    install(FILES "${srcPath}/${FIX}${fileName}${QT_PREFIX}.${TYPE}" DESTINATION ${destPath} COMPONENT Runtime)
 endfunction(install_qt5_file)
 
 function(install_qt5_lib DEST)
@@ -19,22 +32,27 @@ endfunction(install_qt5_lib)
 
 function(install_qt5_dbdrivers dest)
     foreach(driver ${ARGN})
-        install_qt5_file(${_qt5Core_install_prefix}/plugins/sqldrivers ${driver}  ${dest}/sqldrivers)
+        install_qt5_file(${_qt5Core_install_prefix}/plugins/sqldrivers ${FIX}${driver}${END}  ${dest}/sqldrivers)
     endforeach(driver)
 endfunction(install_qt5_dbdrivers)
 
 function(install_qt5_imageformats dest)
     foreach(imgformat ${ARGN})
-        install_qt5_file(${_qt5Core_install_prefix}/plugins/imageformats ${imgformat}  ${dest}/imageformats)
+        install_qt5_file(${_qt5Core_install_prefix}/plugins/imageformats ${FIX}${imgformat}{END}  ${dest}/imageformats)
     endforeach(imgformat)
 endfunction(install_qt5_imageformats)
 
 function(install_qt5_platform dest)
-    install_qt5_file(${_qt5Core_install_prefix}/plugins/platforms "qwindows" ${dest}/platforms)
+    if (WIN32)
+        install_qt5_file(${_qt5Core_install_prefix}/plugins/platforms "qwindows" ${dest}/platforms)
+    else ()
+        install_qt5_file(${_qt5Core_install_prefix}/plugins/platforms "qxcb" ${dest}/platforms)
+    endif ()
+
 endfunction(install_qt5_platform)
 
 function(install_qt5_qml_plugin_qtquick2 dest)
-    install_qt5_file(${_qt5Core_install_prefix}/qml/QtQuick.2 "qtquick2plugin" ${dest}/qml/QtQuick.2)
+    install_qt5_file(${_qt5Core_install_prefix}/qml/QtQuick.2 ${FIX}"qtquick2plugin"${END} ${dest}/qml/QtQuick.2)
     install(FILES ${_qt5Core_install_prefix}/qml/QtQuick.2/qmldir DESTINATION ${dest}/qml/QtQuick.2)
 endfunction(install_qt5_qml_plugin_qtquick2)
 
@@ -51,9 +69,24 @@ function(install_qt5_V8 dest)
 endfunction(install_qt5_V8)
 
 function(install_qt5_icu dest)
-    install(FILES ${_qt5Core_install_prefix}/bin/libicudt58.dll
-                  ${_qt5Core_install_prefix}/bin/libicuin58.dll
-                  ${_qt5Core_install_prefix}/bin/libicuuc58.dll
+    if (WIN32)
+        install(FILES ${_qt5Core_install_prefix}/bin/libicudt.dll
+                      ${_qt5Core_install_prefix}/bin/libicuin58.dll
+                      ${_qt5Core_install_prefix}/bin/libicuuc58.dll
+                DESTINATION ${dest})
+    else ()
+        install(FILES ${_qt5Core_install_prefix}/lib/${FIX}icudata.so.56.1       #libicudata.so.56.1
+                      ${_qt5Core_install_prefix}/lib/${FIX}icui18n.so.56.1       #libicui18n.so.56.1
+                      ${_qt5Core_install_prefix}/lib/${FIX}icuuc.so.56.1         #libicuuc.so.56.1
+                DESTINATION ${dest})
+    endif()
+endfunction(install_qt5_icu)
+
+function(install_qt_mingw_rt dest)
+    install(FILES ${_qt5Core_install_prefix}/bin/libgcc_s_seh-1.dll
+                  ${_qt5Core_install_prefix}/bin/libgcc_s_dw2-1.DLL
+                  ${_qt5Core_install_prefix}/bin/libstdc++-6.dll
+                  ${_qt5Core_install_prefix}/bin/libwinpthread-1.dll
                   ${_qt5Core_install_prefix}/bin/libpcre2-16-0.dll
                   ${_qt5Core_install_prefix}/bin/zlib1.dll
                   ${_qt5Core_install_prefix}/bin/libfreetype-6.dll
@@ -62,11 +95,21 @@ function(install_qt5_icu dest)
                   #${_qt5Core_install_prefix}/bin/libpng16-16.dll
                   ${_qt5Core_install_prefix}/bin/libglib-2.0-0.dll
             DESTINATION ${dest})
-endfunction(install_qt5_icu)
-
-function(install_qt_mingw_rt dest)
-    install(FILES ${_qt5Core_install_prefix}/bin/libgcc_s_seh-1.dll
-                  ${_qt5Core_install_prefix}/bin/libstdc++-6.dll
-                  ${_qt5Core_install_prefix}/bin/libwinpthread-1.dll
-            DESTINATION ${dest})
 endfunction(install_qt_mingw_rt)
+
+function(install_gcc_rt dest)
+    set (SYS_PATH "/usr/lib/x86_64-linux-gnu")
+    set (S_PATH "/lib/x86_64-linux-gnu")
+    install(FILES ${S_PATH}/libgcc_s.so.1
+                  ${SYS_PATH}/libstdc++.so.6
+                  ${S_PATH}/libpthread.so.0
+                  ${S_PATH}/libz.so.1
+                  ${S_PATH}/libc.so.6
+                  ${SYS_PATH}/libGL.so.1
+                  ${SYS_PATH}/libgthread-2.0.so.0
+                  ${S_PATH}/libdl.so.2
+                  #${S_PATH}/libpng16.so.0
+                  ${S_PATH}/libglib-2.0.so.0
+            DESTINATION ${dest})
+endfunction(install_gcc_rt)
+

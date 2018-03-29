@@ -104,7 +104,7 @@ if (WIN32)
         ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${VersionFilesOutputVariable})
 
     # Qt modules and librarys
-	qt5_use_modules (${PROJECT_NAME} ${QT_MODULES} ${QML_PLUGINS})
+    qt5_use_modules (${PROJECT_NAME} ${QT_MODULES})
 
     # Get path to windeployqt for deploying app
     get_target_property (QT5_QMAKE_EXECUTABLE Qt5::qmake IMPORTED_LOCATION)
@@ -121,7 +121,7 @@ else ()
         ${UI_SRC_FILES} ${UI_RESOURCES_RCC})
 
     # Qt modules and librarys
-    qt5_use_modules (${PROJECT_NAME} ${QT_MODULES} ${QML_PLUGINS})
+    qt5_use_modules (${PROJECT_NAME} ${QT_MODULES})
 
     # Install in system folder
     #system_install ()

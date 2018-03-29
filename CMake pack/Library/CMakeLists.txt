@@ -95,7 +95,7 @@ if (WIN32)
     add_library (${PROJECT_NAME} SHARED ${SOURCE_FILES} ${HEADER_FILES} ${VersionFilesOutputVariable})
 
     # Qt modules
-    qt5_use_modules (${PROJECT_NAME} ${QT_MODULES} ${QML_PLUGINS})
+    qt5_use_modules (${PROJECT_NAME} ${QT_MODULES})
 
     # Get path to windeployqt for deploying app
     get_target_property (QT5_QMAKE_EXECUTABLE Qt5::qmake IMPORTED_LOCATION)
@@ -111,7 +111,7 @@ else ()
     add_library (${PROJECT_NAME} SHARED ${SOURCE_FILES} ${HEADER_FILES})
 
     # Qt modules
-    qt5_use_modules (${PROJECT_NAME} ${QT_MODULES} ${QML_PLUGINS})
+    qt5_use_modules (${PROJECT_NAME} ${QT_MODULES})
 
     # Install in system folder
     #system_install ()

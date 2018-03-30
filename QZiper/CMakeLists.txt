@@ -60,7 +60,7 @@ elseif (UNIX)
 endif ()
 
 # Serch for librarys
-set (LIBRARIES QuaZip)
+#set (LIBRARIES QuaZip)
 #foreach (LIBRARY ${LIBRARIES})
 #    include_directories (./${LIBRARY})
 #    link_directories(./${LIBRARY})

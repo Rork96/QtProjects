@@ -70,7 +70,7 @@ endfunction(install_qt5_V8)
 
 function(install_qt5_icu dest)
     if (WIN32)
-        install(FILES ${_qt5Core_install_prefix}/bin/libicudt.dll
+        install(FILES ${_qt5Core_install_prefix}/bin/libicudt58.dll
                       ${_qt5Core_install_prefix}/bin/libicuin58.dll
                       ${_qt5Core_install_prefix}/bin/libicuuc58.dll
                 DESTINATION ${dest})
@@ -85,7 +85,6 @@ endfunction(install_qt5_icu)
 function(install_rt dest)
     if (WIN32)
         install(FILES ${_qt5Core_install_prefix}/bin/libgcc_s_seh-1.dll
-                      ${_qt5Core_install_prefix}/bin/libgcc_s_dw2-1.DLL
                       ${_qt5Core_install_prefix}/bin/libstdc++-6.dll
                       ${_qt5Core_install_prefix}/bin/libwinpthread-1.dll
                       ${_qt5Core_install_prefix}/bin/libpcre2-16-0.dll

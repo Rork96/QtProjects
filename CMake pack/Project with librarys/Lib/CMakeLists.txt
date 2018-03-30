@@ -25,7 +25,13 @@ set (QT_MODULES Core)
 
 # Path to Qt library
 if (WIN32)
-    set (CMAKE_PREFIX_PATH "C:/msys64/mingw64/")
+    if (MINGW)  # MINGW 64 bit
+        set (CMAKE_PREFIX_PATH "C:/msys64/mingw64/")
+    elseif (MSVC)   # MSVC 64 bit
+        set (CMAKE_PREFIX_PATH "C:/Qt/5.10.1/msvc2017_64/")
+    else()  # MINGW 32 bit
+        set (CMAKE_PREFIX_PATH "C:/Qt/5.10.1/mingw53_32/")
+    endif ()
 elseif (UNIX)
     set (CMAKE_PREFIX_PATH "/opt/Qt/5.10.1/gcc_64/")
 endif ()
@@ -43,23 +49,25 @@ set (CMAKE_AUTOMOC ON)
 set (CMAKE_CXX_STANDARD 11)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Use Clang as C compiller
-set (CMAKE_C_COMPILER               clang)
-# Initialize CFLAGS.
-set (CMAKE_C_FLAGS                  "-Wall -std=c99")
-set (CMAKE_C_FLAGS_DEBUG            "-g")
-set (CMAKE_C_FLAGS_MINSIZEREL       "-Os -DNDEBUG")
-set (CMAKE_C_FLAGS_RELEASE          "-O3 -DNDEBUG")
-set (CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g")
+if (MINGW) # MINGW 64 bit
+    # Use Clang as C compiller
+    set (CMAKE_C_COMPILER               clang)
+    # Initialize CFLAGS.
+    set (CMAKE_C_FLAGS                  "-Wall -std=c99")
+    set (CMAKE_C_FLAGS_DEBUG            "-g")
+    set (CMAKE_C_FLAGS_MINSIZEREL       "-Os -DNDEBUG")
+    set (CMAKE_C_FLAGS_RELEASE          "-O3 -DNDEBUG")
+    set (CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g")
 
-# Use Clang++ as C++ compiller
-set (CMAKE_CXX_COMPILER             clang++)
-# Initialize CXXFLAGS.
-set (CMAKE_CXX_FLAGS                "-Wall -std=c++11")
-set (CMAKE_CXX_FLAGS_DEBUG          "-O0 -g")
-set (CMAKE_CXX_FLAGS_MINSIZEREL     "-Os -DNDEBUG")
-set (CMAKE_CXX_FLAGS_RELEASE        "-O3 -DNDEBUG")
-set (CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")
+    # Use Clang++ as C++ compiller
+    set (CMAKE_CXX_COMPILER             clang++)
+    # Initialize CXXFLAGS.
+    set (CMAKE_CXX_FLAGS                "-Wall -std=c++11")
+    set (CMAKE_CXX_FLAGS_DEBUG          "-O0 -g")
+    set (CMAKE_CXX_FLAGS_MINSIZEREL     "-Os -DNDEBUG")
+    set (CMAKE_CXX_FLAGS_RELEASE        "-O3 -DNDEBUG")
+    set (CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")
+endif ()
 
 # Automatically find all files *.cpp, *.h, *.ui, *.qrc in project directory
 file (GLOB SOURCE_FILES ${PROJECT_SOURCE_DIR}/*.cpp)

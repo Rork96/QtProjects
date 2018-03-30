@@ -24,21 +24,37 @@ set (QT_MODULES
                     Core
                     Gui
 #                    Widgets
+#                    PrintSupport
                     Qml Quick Network # Network needed for QML
                     )
 set (QML_PLUGINS
 #                    QtQuick2
                     )
 set (Qt_ImageFormats
+#                    qicns
+#                    qico
 #                    qjpeg
-#                    qgif
+#                    qsvg
+#                    qtga
+#                    qtiff
 #                    qwbmp
-#                    qmng
+#                    qwebp
                     )
+#set (DRIVERS
+#                qsqlite
+#                qsqlmysql
+#                qsqlpsql
+#                )
 
 # Path to Qt library
 if (WIN32)
-    set (CMAKE_PREFIX_PATH "C:/msys64/mingw64/")
+    if (MINGW)  # MINGW 64 bit
+        set (CMAKE_PREFIX_PATH "C:/msys64/mingw64/")
+    elseif (MSVC)   # MSVC 64 bit
+        set (CMAKE_PREFIX_PATH "C:/Qt/5.10.1/msvc2017_64/")
+    else()  # MINGW 32 bit
+        set (CMAKE_PREFIX_PATH "C:/Qt/5.10.1/mingw53_32/")
+    endif ()
 elseif (UNIX)
     set (CMAKE_PREFIX_PATH "/opt/Qt/5.10.1/gcc_64/")
 endif ()
@@ -90,7 +106,11 @@ qt5_add_resources (UI_RESOURCES_RCC ${UI_QRCS})
 
 # Dependent on build type and operation system,
 # put exe-file in one of the next folders
-set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${CMAKE_HOST_SYSTEM_NAME}/${CMAKE_BUILD_TYPE})
+if (MINGW)
+    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${CMAKE_HOST_SYSTEM_NAME}/MinGW/${CMAKE_BUILD_TYPE})
+elseif (MSVC)
+    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${CMAKE_HOST_SYSTEM_NAME}/MSVC/${CMAKE_BUILD_TYPE})
+endif()
 
 # Create executable file
 if (WIN32)
@@ -103,17 +123,26 @@ if (WIN32)
     # Get path to windeployqt for deploying app
     get_target_property (QT5_QMAKE_EXECUTABLE Qt5::qmake IMPORTED_LOCATION)
     get_filename_component (QT_PATH ${QT5_QMAKE_EXECUTABLE} PATH)
-    set (MAKE_PATH "${QT_PATH}/mingw32-make.exe")
+    if (MINGW)
+        set (MAKE_PATH "${QT_PATH}/mingw32-make.exe")
+        set (ARG "install")
+    elseif (MSVC)
+        set (MAKE_PATH "${QT_PATH}/windeployqt.exe")
+        set (ARG "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}.exe")
+    endif ()
 
     # Deploying Release version
     if (CMAKE_BUILD_TYPE STREQUAL "Release")
         add_custom_command (TARGET ${PROJECT_NAME} POST_BUILD
-                COMMAND ${MAKE_PATH} ARGS install)
+            COMMAND ${MAKE_PATH} ARGS ${ARG})
     endif ()
 else ()
     add_executable (${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES}
         ${UI_SRC_FILES} ${UI_RESOURCES_RCC})
 
+    # Qt modules and librarys
+    qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})
+	
     # Qt modules and librarys
     qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})
 	
@@ -132,12 +161,13 @@ set (dir ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 #if (${QML_PLUGINS} NOT STREQUAL "")
 #    install (DIRECTORY qml DESTINATION ${dir})
 #endif()
-#install_qt5_platform (${dir})
-#install_qt5_V8 (${dir})
-install_qt5_lib (${dir} ${QT_MODULES})
-install_qt5_icu (${dir})
-install_qt5_imageformats (${dir} ${Qt_ImageFormats})
-install_qt5_qml_plugin (${dir} ${QML_PLUGINS})
-install_qt5_dbdrivers (${dir} ${DRIVERS})
-install_rt (${dir})
-
+# Qt librarys
+if (MINGW) # For MinGw 64 bit
+    install_qt5_platform (${dir})
+    install_qt5_lib (${dir} ${QT_MODULES})
+    install_qt5_imageformats (${dir} ${Qt_ImageFormats})
+    install_qt5_qml_plugin (${dir} ${QML_PLUGINS})
+    install_qt5_dbdrivers (${dir} ${DRIVERS})
+    install_qt5_icu (${dir})
+    install_rt (${dir})
+endif ()

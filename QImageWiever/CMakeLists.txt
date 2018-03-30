@@ -171,4 +171,3 @@ if (MINGW) # For MinGw 64 bit
     install_qt5_icu (${dir})
     install_rt (${dir})
 endif ()
-

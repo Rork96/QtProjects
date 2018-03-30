@@ -153,7 +153,7 @@ else ()
 
     # Qt modules and librarys
     #qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})
-    target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::QML Qt5::Quick ${LIBRARIES})
+    target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Qml Qt5::Quick ${LIBRARIES})
 
     # Install in system folder
     #system_install ()

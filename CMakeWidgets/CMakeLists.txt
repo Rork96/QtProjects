@@ -36,6 +36,11 @@ set (Qt_ImageFormats
 #                    qwbmp
 #                    qmng
                     )
+#set (DRIVERS
+#                qsqlite
+#                qsqlmysql
+#                qsqlpsql
+#                )
 
 # Path to Qt library
 if (WIN32)
@@ -99,50 +104,45 @@ if (WIN32)
         ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${VersionFilesOutputVariable})
 
     # Qt modules and librarys
-	qt5_use_modules(${PROJECT_NAME} ${QT_MODULES} ${QML_PLUGINS})
-
-    # Install
-    set (dir ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-    #if (${QML_PLUGINS} NOT STREQUAL "")
-    #    install (DIRECTORY qml DESTINATION ${dir})
-    #endif()
-    #install_qt5_platform (${dir})
-    #install_qt5_V8 (${dir})
-    install_qt5_lib (${dir} ${QT_MODULES})
-    install_qt5_icu (${dir})
-    install_qt5_imageformats (${dir} ${Qt_ImageFormats})
-    install_qt5_qml_plugin (${dir} ${QML_PLUGINS})
-
-    if(MINGW)
-        install_qt_mingw_rt (${dir})
-    endif(MINGW)
+    qt5_use_modules (${PROJECT_NAME} ${QT_MODULES})
 
     # Get path to windeployqt for deploying app
-    get_target_property(QT5_QMAKE_EXECUTABLE Qt5::qmake IMPORTED_LOCATION)
-    get_filename_component(QT_PATH ${QT5_QMAKE_EXECUTABLE} PATH)
-    set(MAKE_PATH "${QT_PATH}/mingw32-make.exe")
+    get_target_property (QT5_QMAKE_EXECUTABLE Qt5::qmake IMPORTED_LOCATION)
+    get_filename_component (QT_PATH ${QT5_QMAKE_EXECUTABLE} PATH)
+    set (MAKE_PATH "${QT_PATH}/mingw32-make.exe")
 
     # Deploying Release version
-    if(CMAKE_BUILD_TYPE STREQUAL "Release")
-        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    if (CMAKE_BUILD_TYPE STREQUAL "Release")
+        add_custom_command (TARGET ${PROJECT_NAME} POST_BUILD
                 COMMAND ${MAKE_PATH} ARGS install)
-    endif()
+    endif ()
 else ()
     add_executable (${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES}
         ${UI_SRC_FILES} ${UI_RESOURCES_RCC})
 
     # Qt modules and librarys
-    qt5_use_modules(${PROJECT_NAME} ${QT_MODULES} ${QML_PLUGINS})
-	
-	# Install
-    install(TARGETS ${PROJECT_NAME}
-        EXPORT depends
-        RUNTIME DESTINATION "opt/${PROJECT_NAME}"
-        LIBRARY DESTINATION "opt/${PROJECT_NAME}/lib"
-        ARCHIVE DESTINATION "opt/${PROJECT_NAME}/lib")
+    qt5_use_modules (${PROJECT_NAME} ${QT_MODULES})
 
-    install(FILES ${PROJECT_SOURCE_DIR}/pict/${PROJECT_NAME}.png
-        DESTINATION "usr/share/pixmaps")
-    install(FILES ${PROJECT_SOURCE_DIR}/scripts/${PROJECT_NAME}.desktop
-        DESTINATION "usr/share/applications")
+    # Install in system folder
+    #system_install ()
+
+    # Deploying Release version
+    if (CMAKE_BUILD_TYPE STREQUAL "Release")
+        add_custom_command (TARGET ${PROJECT_NAME} POST_BUILD
+                COMMAND make ARGS install)
+    endif ()
 endif ()
+
+# Install
+set (dir ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+#if (${QML_PLUGINS} NOT STREQUAL "")
+#    install (DIRECTORY qml DESTINATION ${dir})
+#endif()
+#install_qt5_platform (${dir})
+#install_qt5_V8 (${dir})
+install_qt5_lib (${dir} ${QT_MODULES})
+install_qt5_icu (${dir})
+install_qt5_imageformats (${dir} ${Qt_ImageFormats})
+install_qt5_qml_plugin (${dir} ${QML_PLUGINS})
+install_qt5_dbdrivers (${dir} ${DRIVERS})
+install_rt (${dir})

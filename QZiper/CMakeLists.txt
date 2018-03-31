@@ -120,6 +120,10 @@ if (MINGW)
     set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${CMAKE_HOST_SYSTEM_NAME}/MinGW/${CMAKE_BUILD_TYPE})
 elseif (MSVC)
     set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${CMAKE_HOST_SYSTEM_NAME}/MSVC/${CMAKE_BUILD_TYPE})
+elseif (GCC)
+    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${CMAKE_HOST_SYSTEM_NAME}/GCC/${CMAKE_BUILD_TYPE})
+else () # Clang
+    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${CMAKE_HOST_SYSTEM_NAME}/Clang/${CMAKE_BUILD_TYPE})
 endif()
 
 # Create executable file
@@ -159,10 +163,18 @@ else ()
     #system_install ()
 
     # Deploying Release version
-    if (CMAKE_BUILD_TYPE STREQUAL "Release")
-        add_custom_command (TARGET ${PROJECT_NAME} POST_BUILD
-                COMMAND make ARGS install)
-    endif ()
+    #if (CMAKE_BUILD_TYPE STREQUAL "Release")
+    #    add_custom_command (TARGET ${PROJECT_NAME} POST_BUILD
+    #            COMMAND make ARGS install)
+    #endif ()
+
+    # Deploying Release version
+    #if (CMAKE_BUILD_TYPE STREQUAL "Release")
+    #    set (MAKE_PATH "${CMAKE_PREFIX_PATH}/bin/linuxdeployqt")
+    #    set (ARG "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}")
+    #    add_custom_command (TARGET ${PROJECT_NAME} POST_BUILD
+    #            COMMAND ${MAKE_PATH} ARGS ${ARG})
+    #endif ()
 endif ()
 
 # Install

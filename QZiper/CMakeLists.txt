@@ -82,6 +82,13 @@ set (CMAKE_AUTORCC ON)
 set (CMAKE_CXX_STANDARD 11)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
+if (UNIX)
+    # Use Clang as C compiller
+    set (CMAKE_C_COMPILER               clang)
+    # Use Clang++ as C++ compiller
+    set (CMAKE_CXX_COMPILER             clang++)
+endif ()
+
 if (MINGW) # MINGW 64 bit
     # Use Clang as C compiller
     #set (CMAKE_C_COMPILER               clang)

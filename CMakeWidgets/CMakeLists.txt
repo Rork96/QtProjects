@@ -164,9 +164,17 @@ else ()
     #system_install ()
 
     # Deploying Release version
+    #if (CMAKE_BUILD_TYPE STREQUAL "Release")
+    #    add_custom_command (TARGET ${PROJECT_NAME} POST_BUILD
+    #            COMMAND make ARGS install)
+    #endif ()
+
+    # Deploying Release version
     if (CMAKE_BUILD_TYPE STREQUAL "Release")
+        set (MAKE_PATH "${CMAKE_PREFIX_PATH}/bin/linuxdeployqt")
+        set (ARG "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}")
         add_custom_command (TARGET ${PROJECT_NAME} POST_BUILD
-                COMMAND make ARGS install)
+                COMMAND ${MAKE_PATH} ARGS ${ARG})
     endif ()
 endif ()
 

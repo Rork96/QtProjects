@@ -19,33 +19,13 @@ generate_product_version (
 )
 
 #Qt modules
-include (cmake/DeployQt5.cmake)
 set (QT_MODULES
                     Core
                     Gui
                     Widgets
                     PrintSupport
-#                    Qml
-#                    Quick
+#                    Qml Quick Network # Network needed for QML
                     )
-set (QML_PLUGINS
-#                    QtQuick2
-                    )
-set (Qt_ImageFormats
-#                    qicns
-#                    qico
-                    qjpeg
-#                    qsvg
-#                    qtga
-#                    qtiff
-                    qwbmp
-#                    qwebp
-                    )
-#set (DRIVERS
-#                qsqlite
-#                qsqlmysql
-#                qsqlpsql
-#                )
 
 # Path to Qt library
 if (WIN32)
@@ -75,6 +55,8 @@ set (CMAKE_AUTORCC ON)
 set (CMAKE_CXX_STANDARD 11)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# To simplify deployment use MS Compiller for Windows
+# GCC for Linux
 if (MINGW) # MINGW 64 bit
     # Use Clang as C compiller
     #set (CMAKE_C_COMPILER               clang)
@@ -126,52 +108,35 @@ if (WIN32)
 
     # Qt modules and librarys
     qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})
-
-    # Get path to windeployqt for deploying app
-    get_target_property (QT5_QMAKE_EXECUTABLE Qt5::qmake IMPORTED_LOCATION)
-    get_filename_component (QT_PATH ${QT5_QMAKE_EXECUTABLE} PATH)
-    if (MINGW)
-        set (MAKE_PATH "${QT_PATH}/mingw32-make.exe")
-        set (ARG "install")
-    elseif (MSVC)
-        set (MAKE_PATH "${QT_PATH}/windeployqt.exe")
-        set (ARG "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}.exe")
-    endif ()
-
-    # Deploying Release version
-    if (CMAKE_BUILD_TYPE STREQUAL "Release")
-        add_custom_command (TARGET ${PROJECT_NAME} POST_BUILD
-            COMMAND ${MAKE_PATH} ARGS ${ARG})
-    endif ()
 else ()
     add_executable (${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES}
         ${UI_SRC_FILES} ${UI_RESOURCES_RCC})
 
     # Qt modules and librarys
     qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})
-	
-    # Install in system folder
-    #system_install ()
-
-    # Deploying Release version
-    if (CMAKE_BUILD_TYPE STREQUAL "Release")
-        add_custom_command (TARGET ${PROJECT_NAME} POST_BUILD
-                COMMAND make ARGS install)
-    endif ()
 endif ()
 
 # Install
-set (dir ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-#if (${QML_PLUGINS} NOT STREQUAL "")
-#    install (DIRECTORY qml DESTINATION ${dir})
-#endif()
-# Qt librarys
-if (MINGW) # For MinGw 64 bit
-    install_qt5_platform (${dir})
-    install_qt5_lib (${dir} ${QT_MODULES})
-    install_qt5_imageformats (${dir} ${Qt_ImageFormats})
-    install_qt5_qml_plugin (${dir} ${QML_PLUGINS})
-    install_qt5_dbdrivers (${dir} ${DRIVERS})
-    install_qt5_icu (${dir})
-    install_rt (${dir})
+# For complete deploying application drad app onto DeployQt script
+# it will run windeployqt or linuxdeployqt to collect Qt librarys
+# For Windows for MSVC copy vcredist from Qt\vcredist to deploy
+if (WIN32)
+    set (EXT "bat")
+    # Only for Windows, in Linux linuxdeployqt will create it
+    install(FILES ${PROJECT_SOURCE_DIR}/scripts/qt.conf
+            DESTINATION "${PROJECT_SOURCE_DIR}/deploy")
+elseif (UNIX)
+    set (EXT "sh")
 endif ()
+file (GLOB FILES ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/*)
+install(FILES ${FILES}
+        DESTINATION "${PROJECT_SOURCE_DIR}/deploy")
+
+install (TARGETS ${PROJECT_NAME}
+        EXPORT depends
+        RUNTIME DESTINATION "${PROJECT_SOURCE_DIR}/deploy"
+        LIBRARY DESTINATION "${PROJECT_SOURCE_DIR}/deploy"
+        ARCHIVE DESTINATION "${PROJECT_SOURCE_DIR}/deploy")
+
+install(FILES ${PROJECT_SOURCE_DIR}/scripts/DeployQt.${EXT}
+        DESTINATION "${PROJECT_SOURCE_DIR}/deploy")

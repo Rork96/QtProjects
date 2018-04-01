@@ -56,9 +56,11 @@ set (CMAKE_AUTORCC ON)
 set (CMAKE_CXX_STANDARD 11)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
-if (MINGW) # MINGW 64 bit
+# To simplify deployment use MS Compiller for Windows
+# GCC or Clang for Linux
+if (NOT MSVC) # MINGW or Clang
     # Use Clang as C compiller
-    #set (CMAKE_C_COMPILER               clang)
+    set (CMAKE_C_COMPILER               clang)
     # Initialize CFLAGS.
     set (CMAKE_C_FLAGS                  "-Wall -std=c99")
     set (CMAKE_C_FLAGS_DEBUG            "-g")
@@ -67,12 +69,12 @@ if (MINGW) # MINGW 64 bit
     set (CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g")
 
     # Use Clang++ as C++ compiller
-    #set (CMAKE_CXX_COMPILER             clang++)
+    set (CMAKE_CXX_COMPILER             clang++)
     # Initialize CXXFLAGS.
     set (CMAKE_CXX_FLAGS                "-Wall -std=c++11")
     set (CMAKE_CXX_FLAGS_DEBUG          "-O0 -g")
     set (CMAKE_CXX_FLAGS_MINSIZEREL     "-Os -DNDEBUG")
-    set (CMAKE_CXX_FLAGS_RELEASE        "-O3 -DNDEBUG")
+    set (CMAKE_CXX_FLAGS_RELEASE        "-O6 -DNDEBUG")
     set (CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")
 endif ()
 

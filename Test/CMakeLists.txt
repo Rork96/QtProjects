@@ -6,8 +6,8 @@ project (Summerys LANGUAGES CXX)
 # Dependent on build type and operation system,
 # put exe-file and lib in one of the next folders
 set (BINDIR bin)
-set (CMAKE_RUNTIME_OUTPUT_DIRECTORY     ../../../${CMAKE_HOST_SYSTEM_NAME}/${CMAKE_BUILD_TYPE})
-set (LIBRARY_OUTPUT_PATH                ../../../${CMAKE_HOST_SYSTEM_NAME}/${CMAKE_BUILD_TYPE})
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY     ../../../../${CMAKE_HOST_SYSTEM_NAME}/${CMAKE_BUILD_TYPE})
+set (LIBRARY_OUTPUT_PATH                ../../../../${CMAKE_HOST_SYSTEM_NAME}/${CMAKE_BUILD_TYPE})
 
 # Librarys names
 set (LIBRARIES Summery)
@@ -33,7 +33,7 @@ if (WIN32)
 elseif (UNIX)
     set (EXT "sh")
 endif ()
-file (GLOB FILES ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/*)
+file (GLOB FILES ${CMAKE_HOST_SYSTEM_NAME}/${CMAKE_BUILD_TYPE}/*)
 install(FILES ${FILES}
         DESTINATION "${PROJECT_SOURCE_DIR}/deploy")
 

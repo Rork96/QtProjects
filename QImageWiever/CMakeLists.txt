@@ -55,6 +55,8 @@ set (CMAKE_AUTORCC ON)
 set (CMAKE_CXX_STANDARD 11)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# To simplify deployment use MS Compiller for Windows
+# GCC for Linux
 if (MINGW) # MINGW 64 bit
     # Use Clang as C compiller
     #set (CMAKE_C_COMPILER               clang)

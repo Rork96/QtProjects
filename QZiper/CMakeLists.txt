@@ -40,13 +40,13 @@ elseif (UNIX)
     set (CMAKE_PREFIX_PATH "/opt/Qt/5.10.1/gcc_64/")
 endif ()
 
-# Serch for librarys
-#set (LIBRARIES QuaZip)
-#foreach (LIBRARY ${LIBRARIES})
-#    include_directories (./${LIBRARY})
-#    link_directories(./${LIBRARY})
-#    add_subdirectory (${LIBRARY})
-#endforeach ()
+find_package(ZLIB)
+include_directories(${ZLIB_INCLUDE_DIRS})
+set(ZLIB_LIBRARY ${LIBS} ${ZLIB_LIBRARIES})
+
+find_package(QUAZIP5)
+include_directories(${QUAZIP_INCLUDE_DIRS})
+set(QUAZIP_LIBRARY ${LIBS} ${QUAZIP_LIBRARIES})
 
 # Release by default
 if (NOT CMAKE_BUILD_TYPE)
@@ -116,14 +116,14 @@ if (WIN32)
 
     # Qt modules and librarys
     #qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})
-    target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Qml Qt5::Quick ${LIBRARIES})
+    target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Qml Qt5::Quick ${ZLIB_LIBRARY} ${QUAZIP_LIBRARY})
 else ()
     add_executable (${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES}
             ${UI_SRC_FILES} ${UI_RESOURCES_RCC})
 
     # Qt modules and librarys
     #qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})
-    target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Qml Qt5::Quick ${LIBRARIES})
+    target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Qml Qt5::Quick ${ZLIB_LIBRARY} ${QUAZIP_LIBRARY})
 endif ()
 
 # Install

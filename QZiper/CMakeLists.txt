@@ -130,6 +130,7 @@ endif ()
 # For complete deploying application drad app onto DeployQt script
 # it will run windeployqt or linuxdeployqt to collect Qt librarys
 # For Windows for MSVC copy vcredist from Qt\vcredist to deploy
+# On Linux all libraries must be copied to folder deploy/lib
 if (WIN32)
     set (EXT "bat")
     # Only for Windows, in Linux linuxdeployqt will create it

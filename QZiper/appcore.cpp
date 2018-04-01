@@ -13,6 +13,6 @@ void AppCore::compress(QString File, QString Dir)
     /* * * Compress dir * * */
 
     if (!Dir.isEmpty()) {
-        JlCompress::compressDir(File, Dir);
+        //JlCompress::compressDir(File, Dir);
     }
 }

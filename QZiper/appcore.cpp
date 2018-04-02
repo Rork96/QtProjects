@@ -12,7 +12,7 @@ void AppCore::compress(QString File, QString Dir)
     /* * * Receive data from qml * * */
     /* * * Compress dir * * */
 
-    if (!Dir.isEmpty()) {
-        //JlCompress::compressDir(File, Dir);
+    if (!File.isEmpty() && !Dir.isEmpty()) {
+        JlCompress::compressDir(File, Dir);
     }
 }

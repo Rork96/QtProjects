@@ -1,6 +1,6 @@
 #include "appcore.h"
 
-#include <quazip5/JlCompress.h>
+#include "quazip-Qt5/quazip/JlCompress.h"
 
 AppCore::AppCore(QObject *parent) :
         BaseClass(parent)

@@ -27,7 +27,7 @@ void AppCore::compressFiles(QStringList FileNames, QString ArchiveName)
     }
 }
 
-void AppCore::extractArch(QString ArchiveName, QString DirName)
+void AppCore::extractArchive(QString ArchiveName, QString DirName)
 {
     /* * * Extract archive * * */
 

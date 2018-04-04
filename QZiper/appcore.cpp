@@ -57,7 +57,7 @@ void AppCore::compressDir(QString DirName, QString ArchiveName)
 
     if (DirName == "") {
         QFileInfo fInfo(ArchiveName);
-        DirName = fInfo.path() + fInfo.baseName();
+        DirName = fInfo.path() + "/" + fInfo.baseName();
     }
 
     if (DirName.isEmpty() || ArchiveName.isEmpty())

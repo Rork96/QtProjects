@@ -20,6 +20,7 @@ Window {
 
          onAccepted: {
              /* Open archive*/
+             console.log(fileUrl)
              appCore.openArchive(fileUrl)
          }
     }
@@ -35,6 +36,7 @@ Window {
 
              onAccepted: {
                  /* Open archive*/
+                 console.log(fileUrl)
                  appCore.compressDir("", fileUrl)
              }
         }
@@ -58,6 +60,7 @@ Window {
 
                 onClicked: {
                     // Single selection
+                    console.log("Open archive")
                     openArchive.open() // Open file
                 }
             }

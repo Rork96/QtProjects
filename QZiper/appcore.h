@@ -17,6 +17,8 @@ public:
     Q_INVOKABLE void compressDir(QString DirName, QString ArchiveName);             // Compress dir
     Q_INVOKABLE void extractArchive(QString ArchiveName, QString DirName);          // Extract archive
     Q_INVOKABLE void openArchive(QString ArchiveName);                              // Open archive
+    Q_INVOKABLE void aboutQt();                                                     // About Qt
+    Q_INVOKABLE void aboutProgram();                                                // About program
 };
 
 #endif // APPCORE_H

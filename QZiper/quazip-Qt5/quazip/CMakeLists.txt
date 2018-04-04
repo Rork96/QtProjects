@@ -12,7 +12,19 @@ include_directories(
 file(GLOB SRCS "*.c" "*.cpp")
 file(GLOB PUBLIC_HEADERS "*.h")
 
-set (CMAKE_PREFIX_PATH "C:/Qt/5.10.1/msvc2017_64/")
+# Path to Qt library
+if (WIN32)
+	if (MINGW)  # MINGW 64 bit
+		set (CMAKE_PREFIX_PATH "C:/msys64/mingw64/")
+	elseif (MSVC)   # MSVC 64 bit
+		set (CMAKE_PREFIX_PATH "C:/Qt/5.10.1/msvc2017_64/")
+	else()  # MINGW 32 bit
+		set (CMAKE_PREFIX_PATH "C:/Qt/5.10.1/mingw53_32/")
+	endif ()
+elseif (UNIX)
+	set (CMAKE_PREFIX_PATH "/opt/Qt/5.10.1/gcc_64/")
+endif ()
+
 find_package (Qt5 COMPONENTS Core REQUIRED)
 
 set (ZLIB_LIBRARY zlib)

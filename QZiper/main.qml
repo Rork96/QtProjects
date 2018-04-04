@@ -10,42 +10,47 @@ Window {
     height: 500
     title: qsTr("QZiper")
 
-    property string fileName
-    //property QList<QUrl> fileNames
-
     FileDialog {
          /* File dialog */
-         id: fileDialog
-         title: qsTr("Choose file")
-         modality: Qt.WindowModal // Show dialog as modal
+         id: openArchive
+         title: qsTr("Choose archive")
+         modality: Qt.WindowModal           // Show dialog as modal
          nameFilters: [ "Archives (*.zip *.rar *tar)" ]
-         folder: shortcuts.home         // Home directory
-         selectMultiple: fileDialogSelectMultiple.checked   // Multiple file selection
-         selectFolder: fileDialogSelectFolder.checked       // Folders selection
+         folder: shortcuts.home             // Home directory
 
          onAccepted: {
-             /*selectMultiple ? console.log("You chose: " + fileDialog.fileUrls) :
-                console.log("You chose: " + fileDialog.fileUrl)*/
-             /*if (fileDialogSelectMultiple.checked)
-             {
-                 //for (var i = 0; i < fileUrls.length; ++i)
-                     //Qt.openUrlExternally(fileUrls[i])
-                     // fileNames = fileUrls
-             }*/
-             fileName = fileUrl
+             /* Open archive*/
+             appCore.openArchive(fileUrl)
          }
     }
+
+    FileDialog {
+             /* Pack folder */
+             id: packFolder
+             title: qsTr("Choose folder")
+             modality: Qt.WindowModal       // Show dialog as modal
+             nameFilters: [ "" ]
+             folder: shortcuts.home         // Home directory
+             selectFolder: true             // For folders
+
+             onAccepted: {
+                 /* Open archive*/
+                 appCore.compressDir("", fileUrl)
+             }
+        }
 
     MenuBar {
         /* Main menu */
         id: menuBar
         height: 40
         width: parent.width
+        font.pointSize: 10
 
         Menu {
             /* Menu file */
             id: menuFile
             title: qsTr("File")
+            font.pointSize: 10
 
             MenuItem {
                 id: openItem
@@ -53,10 +58,7 @@ Window {
 
                 onClicked: {
                     // Single selection
-                    fileDialog.selectMultiple = false
-                    fileDialog.selectFolder = false
-                    fileDialog.open() // Open file
-                    console.log(fileName)
+                    openArchive.open() // Open file
                 }
             }
 
@@ -64,16 +66,17 @@ Window {
                 id: saveAsItem
                 text: qsTr("Save as")
 
-                onClicked: { /* Save file as */
-                    fileDialog.selectMultiple = false
-                    fileDialog.selectFolder = false
-                    fileDialog.open()
+                onClicked: {
+                    /* Save file as */
                 }
             }
+
+            MenuSeparator { }
 
             MenuItem {
                 id: quitItem
                 text: qsTr("Quit")
+
                 onClicked: {
                     Qt.quit() // Quit
                 }
@@ -84,16 +87,15 @@ Window {
             /* Menu Edit*/
             id: menuEdit
             title: qsTr("Edit")
+            font.pointSize: 10
 
             MenuItem {
                 id: extractItem
                 text: qsTr("Extract")
 
-                onClicked: { /* Unpack file from archive */
+                onClicked: {
+                    /* Unpack file from archive */
                     // Multiple selection
-                    fileDialog.selectMultiple = false
-                    fileDialog.selectFolder = false
-                    fileDialog.open()
                 }
             }
 
@@ -101,10 +103,8 @@ Window {
                 id: packFilesItem
                 text: qsTr("Pack files")
 
-                onClicked: { /* Pack files into archive */
-                    fileDialog.selectMultiple = true
-                    fileDialog.selectFolder = false
-                    fileDialog.open()
+                onClicked: {
+                    /* Pack files into archive */
                 }
             }
 
@@ -112,10 +112,10 @@ Window {
                 id: packFoldersItem
                 text: qsTr("Pack folder")
 
-                onClicked: { /* Pack folder into archive */
+                onClicked: {
+                    /* Pack folder into archive */
                     // Select folders
-                    fileDialog.selectFolder = true
-                    fileDialog.open()
+                    packFolder.open()
                 }
             }
         }
@@ -124,19 +124,26 @@ Window {
             /* Menu Help*/
             id: menuHelp
             title: qsTr("Help")
+            font.pointSize: 10
 
             MenuItem {
                 id: aboutItem
                 text: qsTr("About program")
 
-                onClicked: { /* About program */ }
+                onClicked: {
+                    /* About program */
+                    appCore.aboutProgram()
+                }
             }
 
             MenuItem {
                 id: aboutQtItem
                 text: qsTr("About Qt")
 
-                onClicked: { /* About Qt */ }
+                onClicked: {
+                    /* About Qt */
+                    appCore.aboutQt()
+                }
             }
         }
     }

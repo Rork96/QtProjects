@@ -22,7 +22,7 @@ generate_product_version (
 set (QT_MODULES
                     Core
                     Gui
-#                    Widgets
+                    Widgets
 #                    PrintSupport
                     Qml Quick Network # Network needed for QML
                     )
@@ -78,7 +78,7 @@ set (CMAKE_CXX_STANDARD_REQUIRED ON)
 # GCC or Clang for Linux
 if (NOT MSVC) # MINGW or Clang
     # Use Clang as C compiller
-    set (CMAKE_C_COMPILER               clang)
+    #set (CMAKE_C_COMPILER               clang)
     # Initialize CFLAGS.
     set (CMAKE_C_FLAGS                  "-Wall -std=c99")
     set (CMAKE_C_FLAGS_DEBUG            "-g")
@@ -87,7 +87,7 @@ if (NOT MSVC) # MINGW or Clang
     set (CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g")
 
     # Use Clang++ as C++ compiller
-    set (CMAKE_CXX_COMPILER             clang++)
+    #set (CMAKE_CXX_COMPILER             clang++)
     # Initialize CXXFLAGS.
     set (CMAKE_CXX_FLAGS                "-Wall -std=c++11")
     set (CMAKE_CXX_FLAGS_DEBUG          "-O0 -g")
@@ -127,14 +127,14 @@ if (WIN32)
 
     # Qt modules and librarys
     #qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})
-    target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Qml Qt5::Quick ${ZLIB_LIBRARY} ${QUAZIP_LIBRARY})
+    target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Qml Qt5::Quick ${ZLIB_LIBRARY} ${QUAZIP_LIBRARY})
 else ()
     add_executable (${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES}
             ${UI_SRC_FILES} ${UI_RESOURCES_RCC})
 
     # Qt modules and librarys
     #qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})
-    target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Qml Qt5::Quick ${ZLIB_LIBRARY} ${QUAZIP_LIBRARY})
+    target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Qml Qt5::Quick ${ZLIB_LIBRARY} ${QUAZIP_LIBRARY})
 endif ()
 
 # Install

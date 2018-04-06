@@ -19,27 +19,39 @@ Window {
          folder: shortcuts.home             // Home directory
 
          onAccepted: {
-             /* Open archive*/
-             console.log(fileUrl)
+             /* Open archive */
              appCore.openArchive(fileUrl)
          }
     }
 
     FileDialog {
-             /* Pack folder */
-             id: packFolder
-             title: qsTr("Choose folder")
-             modality: Qt.WindowModal       // Show dialog as modal
-             nameFilters: [ "" ]
-             folder: shortcuts.home         // Home directory
-             selectFolder: true             // For folders
+        /* Pack folder */
+        id: packFolder
+        title: qsTr("Choose folder")
+        modality: Qt.WindowModal       // Show dialog as modal
+        nameFilters: [ "" ]
+        folder: shortcuts.home         // Home directory
+        selectFolder: true             // For folders
 
-             onAccepted: {
-                 /* Open archive*/
-                 console.log(fileUrl)
-                 appCore.compressDir("", fileUrl)
-             }
+        onAccepted: {
+            /* Compress dir */
+            appCore.compressDir("", fileUrl)
+            }
+    }
+
+    FileDialog {
+        /* Pack files */
+        id: packFiles
+        title: qsTr("Choose files")
+        modality: Qt.WindowModal       // Show dialog as modal
+        nameFilters: [ "" ]
+        folder: shortcuts.home         // Home directory
+
+        onAccepted: {
+            /* Compress files */
+            appCore.compressFiles(fileUrl, "")
         }
+    }
 
     MenuBar {
         /* Main menu */
@@ -60,7 +72,6 @@ Window {
 
                 onClicked: {
                     // Single selection
-                    console.log("Open archive")
                     openArchive.open() // Open file
                 }
             }
@@ -108,6 +119,8 @@ Window {
 
                 onClicked: {
                     /* Pack files into archive */
+                    // Select files
+                    packFiles.open()
                 }
             }
 

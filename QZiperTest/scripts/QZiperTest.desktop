@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=QZiperTest
+Comment=QZiperTest
+Exec=opt/QZiperTest/QZiperTest
+Terminal=false
+Type=Application
+StartupNotify=true
+Icon=usr/share/pixmaps/QZiperTest.png
+Categories=images
+Name[ru_UA]=QZiperTest

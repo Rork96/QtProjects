@@ -11,23 +11,39 @@ AppCore::AppCore(QObject *parent) :
 {
 }
 
-void AppCore::compressFiles(QStringList FileNames, QString ArchiveName)
+void AppCore::compressFiles(QString FileNames, QString ArchiveName)
 {
     /* * * Receive data from qml * * */
     /* * * Compress dir * * */
 
-    if (FileNames.isEmpty() || ArchiveName.isEmpty())
-        return;
+    /*if (FileNames.isEmpty() || ArchiveName.isEmpty())
+        return;*/
 
+    if (FileNames.isEmpty())
+        return; // Файл не выбран
+
+    qDebug() << FileNames;
+
+    QFileInfo fInfo(FileNames);
+    ArchiveName = fInfo.path() + "/" + fInfo.baseName() + ".zip";
+    JlCompress::compressFile(ArchiveName, FileNames);
+
+    /*
     if (FileNames.count() == 1) {
         // Single file
-        QString File = FileNames.at(0);
-        JlCompress::compressFile(ArchiveName, File);
+        QString fName = FileNames.at(0);
+        QFileInfo fInfo(fName);
+        ArchiveName = fInfo.path() + "/" + fInfo.baseName() + ".zip";
+        JlCompress::compressFile(ArchiveName, fName);
     }
     else {
         // List of files
+        QString fName = FileNames.at(0);
+        QFileInfo fInfo(fName);
+        ArchiveName = fInfo.path() + "/" + fInfo.baseName() + ".zip";
         JlCompress::compressFiles(ArchiveName, FileNames);
     }
+    */
 }
 
 void AppCore::extractArchive(QString ArchiveName, QString DirName)

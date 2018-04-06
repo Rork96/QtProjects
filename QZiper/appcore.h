@@ -13,7 +13,7 @@ public:
 public:
     // Receive data from qml - Q_INVOKABLE
     // or public slots
-    Q_INVOKABLE void compressFiles(QStringList QStringList, QString ArchiveName);   // Compress file
+    Q_INVOKABLE void compressFiles(QString QStringList, QString ArchiveName);   // Compress file
     Q_INVOKABLE void compressDir(QString DirName, QString ArchiveName);             // Compress dir
     Q_INVOKABLE void extractArchive(QString ArchiveName, QString DirName);          // Extract archive
     Q_INVOKABLE void openArchive(QString ArchiveName);                              // Open archive

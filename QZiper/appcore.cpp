@@ -22,7 +22,7 @@ void AppCore::compressFiles(QStringList FileNames, QString ArchiveName)
     if (FileNames.count() == 1) {
         // Single file
         QString File = FileNames.at(0);
-        JlCompress::compressFile(File, ArchiveName);
+        JlCompress::compressFile(ArchiveName, File);
     }
     else {
         // List of files
@@ -57,7 +57,7 @@ void AppCore::compressDir(QString DirName, QString ArchiveName)
 
     if (DirName == "") {
         QFileInfo fInfo(ArchiveName);
-        DirName = fInfo.path() + "/" + fInfo.baseName();
+        DirName = fInfo.path() + "/";
     }
 
     if (DirName.isEmpty() || ArchiveName.isEmpty())
@@ -74,12 +74,12 @@ void AppCore::openArchive(QString ArchiveName)
 
 #ifdef Q_OS_WIN
     // Path for temporary files in Windows + file name without path and symbolic link (.zip)
-    QString tempPath = "C:\\Users\\Default\\AppData\\Local\\Temp\\" + fInfo.baseName();
+    QString tempPath = "C:/Users/Default/AppData/Local/Temp/";
 #endif
 
 #ifdef Q_OS_LINUX
     // Path for temporary files in Linux + file name without path and symbolic link (.zip)
-    QString tempPath = "/tmp/" + fInfo.baseName();
+    QString tempPath = "/tmp/";
 #endif
 
     // Extract to temporary dir

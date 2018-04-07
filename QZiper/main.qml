@@ -1,5 +1,6 @@
 import QtQuick 2.10
 import QtQuick.Window 2.10
+import QtQuick.Controls 1.4
 import QtQuick.Controls 2.3
 import QtQuick.Dialogs 1.2
 
@@ -10,53 +11,10 @@ Window {
     height: 500
     title: qsTr("QZiper")
 
-    FileDialog {
-         /* File dialog */
-         id: openArchive
-         title: qsTr("Choose archive")
-         modality: Qt.WindowModal           // Show dialog as modal
-         nameFilters: [ "Archives (*.zip *.rar *tar)" ]
-         folder: shortcuts.home             // Home directory
-
-         onAccepted: {
-             /* Open archive */
-             appCore.openArchive(fileUrl)
-         }
-    }
-
-    FileDialog {
-        /* Pack folder */
-        id: packFolder
-        title: qsTr("Choose folder")
-        modality: Qt.WindowModal       // Show dialog as modal
-        nameFilters: [ "" ]
-        folder: shortcuts.home         // Home directory
-        selectFolder: true             // For folders
-
-        onAccepted: {
-            /* Compress dir */
-            appCore.compressDir("", fileUrl)
-            }
-    }
-
-    FileDialog {
-        /* Pack files */
-        id: packFiles
-        title: qsTr("Choose files")
-        modality: Qt.WindowModal       // Show dialog as modal
-        nameFilters: [ "" ]
-        folder: shortcuts.home         // Home directory
-
-        onAccepted: {
-            /* Compress files */
-            appCore.compressFiles(fileUrl, "")
-        }
-    }
-
     MenuBar {
         /* Main menu */
         id: menuBar
-        height: 40
+        height: 35
         width: parent.width
         font.pointSize: 10
 
@@ -72,7 +30,7 @@ Window {
 
                 onClicked: {
                     // Single selection
-                    openArchive.open() // Open file
+                    appCore.openArchive() // Open file
                 }
             }
 
@@ -109,7 +67,7 @@ Window {
 
                 onClicked: {
                     /* Unpack file from archive */
-                    // Multiple selection
+                    appCore.extractArchive()
                 }
             }
 
@@ -120,7 +78,8 @@ Window {
                 onClicked: {
                     /* Pack files into archive */
                     // Select files
-                    packFiles.open()
+                    //packFiles.open()
+                    appCore.compressFiles()
                 }
             }
 
@@ -131,7 +90,8 @@ Window {
                 onClicked: {
                     /* Pack folder into archive */
                     // Select folders
-                    packFolder.open()
+                    //packFolder.open()
+                    appCore.compressDir()
                 }
             }
         }
@@ -161,6 +121,27 @@ Window {
                     appCore.aboutQt()
                 }
             }
+        }
+    }
+
+    TreeView {
+        id: treeView
+        y: menuBar.height
+        height: root.height - menuBar.height
+        width: root.width
+        model: fileSystemModel
+
+        TableViewColumn {
+            title: "Name"
+            role: "fileName"
+        }
+        TableViewColumn {
+            title: "Size"
+            role: "fileSize"
+        }
+        TableViewColumn {
+            title: "Type"
+            role: "fileType"
         }
     }
 }

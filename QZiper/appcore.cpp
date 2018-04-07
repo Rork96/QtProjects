@@ -1,6 +1,8 @@
 #include "appcore.h"
 #include <QFileInfo>
 #include <QMessageBox>
+#include <QFileDialog>
+#include <QStandardPaths>
 
 #include <QDebug>
 
@@ -11,95 +13,91 @@ AppCore::AppCore(QObject *parent) :
 {
 }
 
-void AppCore::compressFiles(QString FileNames, QString ArchiveName)
+void AppCore::compressFiles()
 {
     /* * * Receive data from qml * * */
     /* * * Compress dir * * */
 
-    /*if (FileNames.isEmpty() || ArchiveName.isEmpty())
-        return;*/
+    QStringList fNames = QFileDialog::getOpenFileNames(nullptr, "Choose files",
+                                                       QStandardPaths::locate(QStandardPaths::HomeLocation, QString()),
+                                                       "All files (*.*)");
 
-    if (FileNames.isEmpty())
+    if (fNames.isEmpty())
         return; // Файл не выбран
 
-    qDebug() << FileNames;
+    QFileInfo fInfo(fNames.at(0));
+    QDir dir(fInfo.path());
+    QString path = fInfo.path() + "/" + dir.dirName() + ".zip";
 
-    QFileInfo fInfo(FileNames);
-    ArchiveName = fInfo.path() + "/" + fInfo.baseName() + ".zip";
-    JlCompress::compressFile(ArchiveName, FileNames);
-
-    /*
-    if (FileNames.count() == 1) {
-        // Single file
-        QString fName = FileNames.at(0);
-        QFileInfo fInfo(fName);
-        ArchiveName = fInfo.path() + "/" + fInfo.baseName() + ".zip";
-        JlCompress::compressFile(ArchiveName, fName);
-    }
-    else {
-        // List of files
-        QString fName = FileNames.at(0);
-        QFileInfo fInfo(fName);
-        ArchiveName = fInfo.path() + "/" + fInfo.baseName() + ".zip";
-        JlCompress::compressFiles(ArchiveName, FileNames);
-    }
-    */
+    JlCompress::compressFiles(path, fNames);
 }
 
-void AppCore::extractArchive(QString ArchiveName, QString DirName)
+void AppCore::extractArchive()
 {
     /* * * Extract archive * * */
-/*
-    if (ArchiveName.isEmpty())
-        return;
 
-    if (DirName.isEmpty()) {
-        // File path and file name without symbolic link (.zip)
-        QFileInfo fInfo(ArchiveName);
-        DirName = fInfo.canonicalFilePath();
-    }
+    QString fName = QFileDialog::getOpenFileName(nullptr, "Choose archive",
+                                                 QStandardPaths::locate(QStandardPaths::HomeLocation, QString()),
+                                                 "Archive files (*.zip)");
 
-    JlCompress::extractDir(ArchiveName, DirName);*/
-    QStringList list = JlCompress::getFileList(ArchiveName);
+    if (fName.isEmpty())
+        return; // Файл не выбран
 
-    foreach (QString item, list) {
-        qDebug() << item;
-    }
+    QFileInfo fInfo(fName);
+    QString dirName = fInfo.path() + "/" + fInfo.baseName();
+
+    JlCompress::extractDir(fName, dirName);
 }
 
-void AppCore::compressDir(QString DirName, QString ArchiveName)
+void AppCore::compressDir()
 {
     /* * * Compress dir * * */
 
-    if (DirName == "") {
-        QFileInfo fInfo(ArchiveName);
-        DirName = fInfo.path() + "/";
-    }
+    QString DirName = QFileDialog::getExistingDirectory(nullptr, "Choose directory",
+                                                        QStandardPaths::locate(QStandardPaths::HomeLocation, QString()));
 
-    if (DirName.isEmpty() || ArchiveName.isEmpty())
-        return;
+    if (DirName.isEmpty())
+        return; // Файл не выбран
+
+    QDir dir(DirName);
+    QString ArchiveName = dir.currentPath() + "/" + dir.dirName() + ".zip";
 
     JlCompress::compressDir(ArchiveName, DirName);
 }
 
-void AppCore::openArchive(QString ArchiveName)
+void AppCore::openArchive()
 {
     /* * * Open archive * * */
 
-    QFileInfo fInfo(ArchiveName);
+    QString fName = QFileDialog::getOpenFileName(nullptr, "Choose archive",
+                                                 QStandardPaths::locate(QStandardPaths::HomeLocation, QString()),
+                                                 "Archive files (*.zip)");
+
+    if (fName.isEmpty())
+        return; // Файл не выбран
+
+    QFileInfo fInfo(fName);
 
 #ifdef Q_OS_WIN
     // Path for temporary files in Windows + file name without path and symbolic link (.zip)
-    QString tempPath = "C:/Users/Default/AppData/Local/Temp/";
+    QString tempPath = "C:/Users/Default/AppData/Local/Temp/QZiper/" + fInfo.baseName();
 #endif
 
 #ifdef Q_OS_LINUX
     // Path for temporary files in Linux + file name without path and symbolic link (.zip)
-    QString tempPath = "/tmp/";
+    QString tempPath = "/tmp/QZiper/" + fInfo.baseName();
 #endif
 
+    // If dir is exist - delete
+    QDir dir(tempPath);
+    if (dir.exists())
+        dir.removeRecursively();
+
+    // Create dir
+    dir.mkdir(tempPath);
+
     // Extract to temporary dir
-    extractArchive(ArchiveName, tempPath);
+    JlCompress::extractDir(fName, tempPath);
 
     // View extracted files
 }

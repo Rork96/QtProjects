@@ -135,7 +135,7 @@ else ()
     # Qt modules and librarys
     #qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})
     #target_link_libraries(${PROJECT_NAME} Qt5::Widgets ${ZLIB_LIBRARY} ${QUAZIP_LIBRARY})
-    target_link_libraries(${PROJECT_NAME} Qt5::&{QT_MODULES} ${ZLIB_LIBRARY} ${QUAZIP_LIBRARY})
+    target_link_libraries(${PROJECT_NAME} Qt5::Widgets ${ZLIB_LIBRARY} ${QUAZIP_LIBRARY})
 endif ()
 
 # Install

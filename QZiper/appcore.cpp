@@ -11,6 +11,8 @@
 AppCore::AppCore(QObject *parent) :
         BaseClass(parent)
 {
+    fileSystemModel.setFilter(QDir::NoDotAndDotDot | QDir::Dirs | QDir::Files);
+    fileSystemModel.setRootPath(QDir().homePath());
 }
 
 void AppCore::compressFiles()
@@ -100,6 +102,9 @@ void AppCore::openArchive()
     JlCompress::extractDir(fName, tempPath);
 
     // View extracted files
+
+//    fileSystemModel.setFilter(QDir::NoDotAndDotDot | QDir::Dirs | QDir::Files);
+//    fileSystemModel.setRootPath(tempPath);
 }
 
 void AppCore::aboutQt()

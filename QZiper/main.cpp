@@ -6,12 +6,12 @@
 
 #include "appcore.h"
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char **argv) {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     //QGuiApplication app(argc, argv);
     QApplication app(argc, argv);
+    app.setWindowIcon(QIcon(":/pict/QZiper.png"));
 
     QQmlApplicationEngine engine;
 

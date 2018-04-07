@@ -3,6 +3,7 @@ import QtQuick.Window 2.10
 import QtQuick.Controls 1.4
 import QtQuick.Controls 2.3
 import QtQuick.Dialogs 1.2
+import QtQml.Models 2.3
 
 Window {
     id: root
@@ -10,6 +11,7 @@ Window {
     width: 600
     height: 500
     title: qsTr("QZiper")
+    //ico: "./pict/QZiper.ico"
 
     MenuBar {
         /* Main menu */
@@ -124,24 +126,53 @@ Window {
         }
     }
 
+    ItemSelectionModel {
+        id: sel
+        model: fileSystemModel
+    }
+
     TreeView {
         id: treeView
         y: menuBar.height
         height: root.height - menuBar.height
         width: root.width
-        model: fileSystemModel
+        //model: fileSystemModel
+        model: DelegateModel {
+            model: appCore.fileSystemModel
+        }
+        rootIndex: rootPathIndex
+        selection: sel
 
         TableViewColumn {
+            id: nameColumn
             title: "Name"
             role: "fileName"
+            resizable: true
+            horizontalAlignment : Text.Center
+            width: treeView.width - sizeColumn.width - dateColumn.width - 5
         }
+
         TableViewColumn {
+            id: sizeColumn
             title: "Size"
-            role: "fileSize"
+            role: "size"
+            resizable: true
+            horizontalAlignment : Text.Center
+            width: 120
         }
+
         TableViewColumn {
-            title: "Type"
-            role: "fileType"
+            id: dateColumn
+            title: "Date Modified"
+            role: "lastModified"
+            resizable: true
+            horizontalAlignment : Text.Center
+            width: 150
+        }
+
+        onActivated: {
+            var url = fileSystemModel.data(index, FileSystemModel.UrlStringRole)
+            Qt.openUrlExternally(url)
         }
     }
 }

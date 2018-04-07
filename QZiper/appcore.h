@@ -2,6 +2,7 @@
 #define APPCORE_H
 
 #include <QObject>
+#include <QFileSystemModel>
 
 class AppCore : public QObject
 {
@@ -19,6 +20,7 @@ public:
     Q_INVOKABLE void openArchive();     // Open archive -
     Q_INVOKABLE void aboutQt();         // About Qt
     Q_INVOKABLE void aboutProgram();    // About program
+    QFileSystemModel fileSystemModel;
 };
 
 #endif // APPCORE_H

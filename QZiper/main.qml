@@ -4,24 +4,24 @@ import QtQuick.Controls 1.4
 import QtQuick.Controls 2.3
 import QtQuick.Dialogs 1.2
 import QtQml.Models 2.3
+import Qt.labs.folderlistmodel 2.1
 
-Window {
+ApplicationWindow {
     id: root
     visible: true
     width: 600
     height: 500
     title: qsTr("QZiper")
-    //ico: "./pict/QZiper.ico"
 
     MenuBar {
-        /* Main menu */
+        /* * * Main menu * * */
         id: menuBar
         height: 35
         width: parent.width
         font.pointSize: 10
 
         Menu {
-            /* Menu file */
+            /* * * Menu file * * */
             id: menuFile
             title: qsTr("File")
             font.pointSize: 10
@@ -32,7 +32,7 @@ Window {
 
                 onClicked: {
                     // Single selection
-                    appCore.openArchive() // Open file
+                    appCore.openArchive(treeView) // Open file
                 }
             }
 
@@ -41,7 +41,8 @@ Window {
                 text: qsTr("Save as")
 
                 onClicked: {
-                    /* Save file as */
+                    // Save file as
+                    appCore.saveAs()
                 }
             }
 
@@ -52,13 +53,14 @@ Window {
                 text: qsTr("Quit")
 
                 onClicked: {
+                    appCore.close()
                     Qt.quit() // Quit
                 }
             }
         }
 
         Menu {
-            /* Menu Edit*/
+            /* * * Menu Edit * * */
             id: menuEdit
             title: qsTr("Edit")
             font.pointSize: 10
@@ -68,7 +70,7 @@ Window {
                 text: qsTr("Extract")
 
                 onClicked: {
-                    /* Unpack file from archive */
+                    // Extract archive
                     appCore.extractArchive()
                 }
             }
@@ -78,9 +80,7 @@ Window {
                 text: qsTr("Pack files")
 
                 onClicked: {
-                    /* Pack files into archive */
-                    // Select files
-                    //packFiles.open()
+                    // Compress files into archive
                     appCore.compressFiles()
                 }
             }
@@ -90,16 +90,14 @@ Window {
                 text: qsTr("Pack folder")
 
                 onClicked: {
-                    /* Pack folder into archive */
-                    // Select folders
-                    //packFolder.open()
+                    // Compress folder into archive
                     appCore.compressDir()
                 }
             }
         }
 
         Menu {
-            /* Menu Help*/
+            /* * * Menu Help * * */
             id: menuHelp
             title: qsTr("Help")
             font.pointSize: 10
@@ -109,7 +107,7 @@ Window {
                 text: qsTr("About program")
 
                 onClicked: {
-                    /* About program */
+                    // About program
                     appCore.aboutProgram()
                 }
             }
@@ -119,29 +117,76 @@ Window {
                 text: qsTr("About Qt")
 
                 onClicked: {
-                    /* About Qt */
+                    // About Qt
                     appCore.aboutQt()
                 }
             }
         }
     }
 
-    ItemSelectionModel {
-        id: sel
-        model: fileSystemModel
+    FolderListModel {
+        /* * * File system model * * */
+        id: fileSystemModel
+        //showDirs: true
+        showDirsFirst: true
+        sortField: FolderListModel.Name
+        folder: treeView.path // Current path
+    }
+
+    Rectangle {
+        /* * * Go to parent dir * * */
+        y: parent.height - height
+        height: 32
+        width: parent.width
+        visible: treeView.elemntVisible
+
+        Row {
+            anchors.fill: parent
+
+            Button {
+                id: button
+                width: 32
+                height: 32
+                text: "<<<"
+
+                onClicked: {
+                    // Step out of the start directory is forbidden
+                    if (treeView.path != treeView.startPath) {
+                        // Parent dir
+                        treeView.path = fileSystemModel.parentFolder
+                        curPath.text = " " + treeView.path
+                    }
+                }
+            }
+
+            Text {
+                id: curPath
+                text: " " + treeView.path // Current path
+                anchors.verticalCenter: parent.verticalCenter
+            }
+        }
     }
 
     TreeView {
+        /* * * View file system * * */
+        property string path: ""        // Current path
+        property string startPath: ""   // For saving start path
+        // Visibility of treeView and "Go to parent dir" Rectangle
+        property bool elemntVisible: false
+
         id: treeView
         y: menuBar.height
-        height: root.height - menuBar.height
+        height: root.height - menuBar.height - button.height
         width: root.width
-        //model: fileSystemModel
-        model: DelegateModel {
-            model: appCore.fileSystemModel
+        model: fileSystemModel
+        clip: true
+        visible: elemntVisible
+        selection: ItemSelectionModel {
+            /* * * To be able to get the index of the selected item * * */
+            id: itemSelectionModel
+            model: fileSystemModel
         }
-        rootIndex: rootPathIndex
-        selection: sel
+        selectionMode: SelectionMode.SingleSelection
 
         TableViewColumn {
             id: nameColumn
@@ -155,7 +200,7 @@ Window {
         TableViewColumn {
             id: sizeColumn
             title: "Size"
-            role: "size"
+            role: "fileSize"
             resizable: true
             horizontalAlignment : Text.Center
             width: 120
@@ -163,16 +208,45 @@ Window {
 
         TableViewColumn {
             id: dateColumn
-            title: "Date Modified"
-            role: "lastModified"
+            title: "Modified"
+            role: "fileModified"
             resizable: true
             horizontalAlignment : Text.Center
-            width: 150
+            width: 180
         }
 
-        onActivated: {
-            var url = fileSystemModel.data(index, FileSystemModel.UrlStringRole)
-            Qt.openUrlExternally(url)
+        itemDelegate: Item {
+            /* * * Delegate for file system model * * */
+            id: item
+            Text {
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+                renderType: Text.NativeRendering
+                text: styleData.value
+            }
         }
+
+        onDoubleClicked: {
+            /* * * User double clicked on item * * */
+
+            // Get the index of the selected element
+            var ind = treeView.selection.currentIndex.row
+            if (fileSystemModel.isFolder(ind)) {
+                // Go to directory
+                treeView.path = fileSystemModel.get(ind, "fileURL")
+                // Change current path in the "curPath"
+                curPath.text = " " + treeView.path
+            }
+            else {
+                // Open file
+                Qt.openUrlExternally(fileSystemModel.get(ind, "fileURL"))
+            }
+        }
+    }
+
+    onClosing: {
+        /* * * Delete start folder before closing * * */
+
+        appCore.close()
     }
 }

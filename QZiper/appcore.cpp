@@ -11,13 +11,10 @@
 AppCore::AppCore(QObject *parent) :
         BaseClass(parent)
 {
-    fileSystemModel.setFilter(QDir::NoDotAndDotDot | QDir::Dirs | QDir::Files);
-    fileSystemModel.setRootPath(QDir().homePath());
 }
 
 void AppCore::compressFiles()
 {
-    /* * * Receive data from qml * * */
     /* * * Compress dir * * */
 
     QStringList fNames = QFileDialog::getOpenFileNames(nullptr, "Choose files",
@@ -67,7 +64,7 @@ void AppCore::compressDir()
     JlCompress::compressDir(ArchiveName, DirName);
 }
 
-void AppCore::openArchive()
+void AppCore::openArchive(QObject *treeView)
 {
     /* * * Open archive * * */
 
@@ -82,29 +79,54 @@ void AppCore::openArchive()
 
 #ifdef Q_OS_WIN
     // Path for temporary files in Windows + file name without path and symbolic link (.zip)
-    QString tempPath = "C:/Users/Default/AppData/Local/Temp/QZiper/" + fInfo.baseName();
+    tempPaht = "C:/Users/Default/AppData/Local/Temp/QZiper/" + fInfo.baseName();
 #endif
 
 #ifdef Q_OS_LINUX
     // Path for temporary files in Linux + file name without path and symbolic link (.zip)
-    QString tempPath = "/tmp/QZiper/" + fInfo.baseName();
+    tempPaht = "/tmp/QZiper/" + fInfo.baseName();
 #endif
 
     // If dir is exist - delete
-    QDir dir(tempPath);
-    if (dir.exists())
-        dir.removeRecursively();
+    QDir tempDir(tempPaht);
+    if (tempDir.exists())
+        tempDir.removeRecursively();
 
     // Create dir
-    dir.mkdir(tempPath);
+    tempDir.mkdir(tempPaht);
 
     // Extract to temporary dir
-    JlCompress::extractDir(fName, tempPath);
+    JlCompress::extractDir(fName, tempPaht);
 
-    // View extracted files
+    // View extracted files in treeView in QMl
+#ifdef Q_OS_WIN
+    treeView->setProperty("path", "file:///" + tempPath);
+    // Save start path
+    treeView->setProperty("startPath", "file://" + tempPath);
+#endif
 
-//    fileSystemModel.setFilter(QDir::NoDotAndDotDot | QDir::Dirs | QDir::Files);
-//    fileSystemModel.setRootPath(tempPath);
+#ifdef Q_OS_LINUX
+    treeView->setProperty("path", "file://" + tempPaht);
+    // Save start path
+    treeView->setProperty("startPath", "file://" + tempPaht);
+#endif
+    // Set elements visible
+    treeView->setProperty("elemntVisible", true);
+}
+
+void AppCore::saveAs()
+{
+    /* * * Save archive as * * */
+}
+
+void AppCore::close()
+{
+    /* * * Delete temporary folder before closing * * */
+
+    // Delete folder QZiper in temporary dir
+    QDir dir(tempPaht);
+    dir.cdUp();
+    dir.removeRecursively();
 }
 
 void AppCore::aboutQt()

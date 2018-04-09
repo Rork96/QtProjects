@@ -4,5 +4,6 @@
         <file>qtquickcontrols2.conf</file>
         <file>pict/QZiper.png</file>
         <file>Compress.qml</file>
+        <file>ExtractArc.qml</file>
     </qresource>
 </RCC>

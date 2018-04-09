@@ -13,6 +13,9 @@ ApplicationWindow {
     height: 500
     title: qsTr("QZiper")
 
+    property url fileName: ""
+    property string infString: " Ready ..."
+
     MenuBar {
         /* * * Main menu * * */
         id: menuBar
@@ -26,14 +29,37 @@ ApplicationWindow {
             title: qsTr("File")
             font.pointSize: 10
 
+            FileDialog {
+                id: openArch
+                title: qsTr("Choose archive")
+                modality: Qt.WindowModal       // Show dialog as modal
+                nameFilters: [ "*.zip" ]
+                folder: shortcuts.home         // Home directory
+
+                onAccepted: {
+                    // Select archive file
+                    root.fileName = fileUrl
+                    appCore.openArchive(treeView, fileUrl)
+                    root.infString = " << Back"
+                }
+            }
+
             MenuItem {
                 id: openItem
                 text: qsTr("Open archive")
 
                 onClicked: {
-                    // Single selection
-                    appCore.openArchive(treeView) // Open file
+                    // Open file
+                    openArch.open()
                 }
+            }
+
+            MessageDialog {
+                id: msgDialog
+                title: qsTr("QZiper")
+                text: qsTr("Open archive before saving!")
+                icon: StandardIcon.Information
+                standardButtons: standardButtons.Ok
             }
 
             MenuItem {
@@ -42,7 +68,16 @@ ApplicationWindow {
 
                 onClicked: {
                     // Save file as
-                    appCore.saveAs()
+                    if (treeView.elemntVisible) {
+                        // Save archive
+                        appCore.saveAs(root)
+                        root.infString = " Extracted ..."
+                    }
+                    else {
+                        // Show Message
+                        msgDialog.open()
+                        root.infString = " Ready ..."
+                    }
                 }
             }
 
@@ -71,29 +106,38 @@ ApplicationWindow {
 
                 onClicked: {
                     // Extract archive
-                    appCore.extractArchive()
+                    if (treeView.elemntVisible) {
+                        // Extract opened archive
+                        appCore.extractArchive(root)
+                        root.infString = " Extarcted ..."
+                    }
+                    else {
+                        // Open archive
+                        extractArchive.show()
+                        root.infString = " Ready ..."
+                    }
                 }
             }
 
             MenuItem {
                 id: packFilesItem
-                text: qsTr("Pack files")
+                text: qsTr("Compress files")
 
                 onClicked: {
                     // Compress files into archive
-                    //appCore.compressFiles()
                     compressFiles.show()
+                    root.infString = " Compressed ..."
                 }
             }
 
             MenuItem {
                 id: packFoldersItem
-                text: qsTr("Pack folder")
+                text: qsTr("Compress folder")
 
                 onClicked: {
                     // Compress folder into archive
-                    //appCore.compressDir()
                     compressFolder.show()
+                    root.infString = " Compressed ..."
                 }
             }
         }
@@ -111,6 +155,7 @@ ApplicationWindow {
                 onClicked: {
                     // About program
                     appCore.aboutProgram()
+                    root.infString = " Ready ..."
                 }
             }
 
@@ -121,6 +166,7 @@ ApplicationWindow {
                 onClicked: {
                     // About Qt
                     appCore.aboutQt()
+                    root.infString = " Ready ..."
                 }
             }
         }
@@ -140,13 +186,14 @@ ApplicationWindow {
         y: parent.height - height
         height: 32
         width: parent.width
-        visible: treeView.elemntVisible
+        visible: true
 
         Row {
             anchors.fill: parent
 
             Button {
                 id: button
+                visible: treeView.elemntVisible
                 width: 32
                 height: 32
                 text: "<<<"
@@ -156,14 +203,13 @@ ApplicationWindow {
                     if (treeView.path != treeView.startPath) {
                         // Parent dir
                         treeView.path = fileSystemModel.parentFolder
-                        curPath.text = " " + treeView.path
                     }
                 }
             }
 
             Text {
                 id: curPath
-                text: " " + treeView.path // Current path
+                text: infString
                 anchors.verticalCenter: parent.verticalCenter
             }
         }
@@ -236,8 +282,6 @@ ApplicationWindow {
             if (fileSystemModel.isFolder(ind)) {
                 // Go to directory
                 treeView.path = fileSystemModel.get(ind, "fileURL")
-                // Change current path in the "curPath"
-                curPath.text = " " + treeView.path
             }
             else {
                 // Open file
@@ -248,7 +292,6 @@ ApplicationWindow {
 
     onClosing: {
         /* * * Delete start folder before closing * * */
-
         appCore.close()
     }
 
@@ -273,7 +316,10 @@ ApplicationWindow {
 
             onAccepted: {
                 // Files name
-                compressFiles.fileName = fileUrls
+                // Format fileUrls into string with ";" as separator
+                for (var i = 0; i < fileUrls.length; ++i)
+                    compressFiles.fileName += fileUrls[i] + ";"
+                root.infString = " << Back"
             }
         }
 
@@ -321,6 +367,41 @@ ApplicationWindow {
         onSignalCansel: {
             // Close window
             compressFolder.close()
+        }
+    }
+
+    ExtractArc {
+        /* Compress folder */
+        id: extractArchive
+
+        onSignalExtract: {
+            /* * * Compress * * */
+            appCore.extractArchive(extractArchive)
+            // Close window
+            extractArchive.close()
+        }
+
+        FileDialog {
+            id: pathDlg
+            title: qsTr("Choose folder for compression")
+            modality: Qt.WindowModal       // Show dialog as modal
+            nameFilters: [ "*.zip" ]
+            folder: shortcuts.home         // Home directory
+
+            onAccepted: {
+                // Folder name
+                extractArchive.fileName = fileUrl
+            }
+        }
+
+        onSignalCoose: {
+            /* * * Choosing folder for compression * * * */
+            pathDlg.open()
+        }
+
+        onSignalCansel: {
+            // Close window
+            extractArchive.close()
         }
     }
 }

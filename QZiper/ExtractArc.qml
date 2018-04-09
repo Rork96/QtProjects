@@ -7,26 +7,25 @@ import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.0
 
 Window {
-    id: compress
+    id: extract
     visible: false
     width: 400
-    height: 190
-    title: qsTr("Compress to zip")
+    height: 170
+    title: qsTr("Extract from zip")
     minimumWidth: width
     minimumHeight: height
     maximumWidth: width
     maximumHeight: height
 
-    property string fileName:       ""
-    property url folderPath:        ""
-    property string archiveName:    nameField.text
+    property url fileName:      ""
+    property url folderPath:    ""
 
-    signal signalCompress   // Start compression
-    signal signalCoose      // Files or folder for compression
+    signal signalExtract   // Start extraction
+    signal signalCoose      // Files or folder for extraction
     signal signalCansel     // Close window
 
     function clearPath() {
-        var path = compress.folderPath.toString()
+        var path = extract.folderPath.toString()
         // Remove prefixed "file:///"
         path = path.replace(/^(file:\/{3})/,"")
         // Unescape html codes like '%23' for '#'
@@ -43,7 +42,7 @@ Window {
         selectFolder: true             // For folders
 
         onAccepted: {
-            compress.folderPath = fileUrl
+            extract.folderPath = fileUrl
             clearPath()
         }
     }
@@ -63,8 +62,8 @@ Window {
         Layout.alignment: Qt.AlignLeft | Qt.AlignTop
 
         onClicked: {
-            /* * * Choosing files or folder for compression * * */
-            compress.signalCoose()
+            /* * * Choosing files or folder for extraction * * */
+            extract.signalCoose()
         }
     }
 
@@ -82,44 +81,23 @@ Window {
 
     Label {
         id: label1
-        y: 80
+        y: 52
         height: 20
         text: qsTr("Folder:")
         font.pointSize: 10
         anchors.right: parent.right
         anchors.rightMargin: 19
         anchors.left: parent.left
-        anchors.leftMargin: 20
+        anchors.leftMargin: 21
     }
 
     RowLayout {
-        y: 47
+        y: 78
         height: 20
         anchors.right: parent.right
-        anchors.rightMargin: 20
+        anchors.rightMargin: 19
         anchors.left: parent.left
-        anchors.leftMargin: 20
-
-        TextField {
-            id: nameField
-            width: 258
-            Layout.alignment: Qt.AlignLeft | Qt.AlignTop
-            padding: 0
-            font.pointSize: 10
-            Layout.preferredHeight: 20
-            Layout.preferredWidth: 258
-            placeholderText: qsTr("")
-            text: "Archive"
-        }
-    }
-
-    RowLayout {
-        y: 106
-        height: 20
-        anchors.right: parent.right
-        anchors.rightMargin: 20
-        anchors.left: parent.left
-        anchors.leftMargin: 20
+        anchors.leftMargin: 21
 
         TextField {
             id: pathField
@@ -128,7 +106,7 @@ Window {
             Layout.preferredHeight: 20
             Layout.preferredWidth: 258
             placeholderText: qsTr("")
-            text: "" // compress.folderPath
+            text: "" // extract.folderPath
         }
 
         Button {
@@ -149,16 +127,16 @@ Window {
     }
 
     RowLayout {
-        y: 149
+        y: 132
         height: 20
         anchors.right: parent.right
-        anchors.rightMargin: 20
+        anchors.rightMargin: 19
         anchors.left: parent.left
-        anchors.leftMargin: 20
+        anchors.leftMargin: 21
 
         Button {
-            id: compressBtn
-            text: qsTr("Compress")
+            id: extractBtn
+            text: qsTr("Extract")
             padding: 0
             spacing: 0
             font.pointSize: 10
@@ -166,8 +144,8 @@ Window {
             Layout.preferredWidth: 90
 
             onClicked: {
-                /* * * Compress * * */
-                compress.signalCompress() // Call signal
+                /* * * extract * * */
+                extract.signalExtract() // Call signal
             }
         }
 
@@ -183,7 +161,7 @@ Window {
 
             onClicked: {
                 /* * * Close window * * */
-                compress.signalCansel()
+                extract.signalCansel()
             }
         }
     }

@@ -108,6 +108,8 @@ void Widget::on_pushButton_6_clicked() // Works
     if (dirName.isEmpty())
         return; // Файл не выбран
 
+    qDebug() << dirName;
+
     QDir dir(dirName);
     QString path = dir.currentPath() + "/" + dir.dirName() + ".zip";
 

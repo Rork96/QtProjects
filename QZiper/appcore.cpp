@@ -13,20 +13,59 @@ AppCore::AppCore(QObject *parent) :
 {
 }
 
-void AppCore::compressFiles()
+void AppCore::compressFiles(QObject *window)
 {
     /* * * Compress dir * * */
 
-    QStringList fNames = QFileDialog::getOpenFileNames(nullptr, "Choose files",
+    /*QStringList fNames = QFileDialog::getOpenFileNames(nullptr, "Choose files",
                                                        QStandardPaths::locate(QStandardPaths::HomeLocation, QString()),
                                                        "All files (*.*)");
 
     if (fNames.isEmpty())
-        return; // Файл не выбран
+        return; // Файл не выбран*/
 
-    QFileInfo fInfo(fNames.at(0));
-    QDir dir(fInfo.path());
-    QString path = fInfo.path() + "/" + dir.dirName() + ".zip";
+    QString fileName = (window->property("fileName")).toString(); // Wrong type ?
+    QUrl folderPath = (window->property("folderPath")).toUrl();
+    QString archiveName = (window->property("archiveName")).toString();
+
+    qDebug() << fileName;
+    qDebug() << folderPath;
+    qDebug() << archiveName;
+
+    QStringList fNames; // = fileName;
+
+#ifdef Q_OS_WIN
+    QString regExp = "file:///";
+#endif
+
+#ifdef Q_OS_LINUX
+    QString regExp = "file://";
+#endif
+
+    foreach (QString str, fileName) {
+        str.replace("file://","");
+        qDebug() << str;
+        fNames.append(str);
+    }
+
+    /*
+    var path = compress.folderPath.toString()
+    console.log(path)
+    // Remove prefixed "file:///"
+    path = path.replace(/^(file:\/{3})/,"")
+    // Unescape html codes like '%23' for '#'
+    var cleanPath = decodeURIComponent(path)
+    pathField.text = cleanPath
+    */
+
+
+    QString path = folderPath.toLocalFile() + "/" + archiveName + ".zip";
+
+    qDebug() << path;
+
+    //QFileInfo fInfo(fNames.at(0));
+    //QDir dir(fInfo.path());
+    //QString path = fInfo.path() + "/" + dir.dirName() + ".zip";
 
     JlCompress::compressFiles(path, fNames);
 }
@@ -48,7 +87,7 @@ void AppCore::extractArchive()
     JlCompress::extractDir(fName, dirName);
 }
 
-void AppCore::compressDir()
+void AppCore::compressDir(QObject *window)
 {
     /* * * Compress dir * * */
 
@@ -77,38 +116,31 @@ void AppCore::openArchive(QObject *treeView)
 
     QFileInfo fInfo(fName);
 
-#ifdef Q_OS_WIN
-    // Path for temporary files in Windows + file name without path and symbolic link (.zip)
-    tempPaht = "C:/Users/Default/AppData/Local/Temp/QZiper/" + fInfo.baseName();
-#endif
-
-#ifdef Q_OS_LINUX
-    // Path for temporary files in Linux + file name without path and symbolic link (.zip)
-    tempPaht = "/tmp/QZiper/" + fInfo.baseName();
-#endif
+    // Path for temporary files + file name without path and symbolic link (.zip)
+    QString temp = tempPaht + fInfo.baseName();
 
     // If dir is exist - delete
-    QDir tempDir(tempPaht);
+    QDir tempDir(temp);
     if (tempDir.exists())
         tempDir.removeRecursively();
 
     // Create dir
-    tempDir.mkdir(tempPaht);
+    tempDir.mkdir(temp);
 
     // Extract to temporary dir
-    JlCompress::extractDir(fName, tempPaht);
+    JlCompress::extractDir(fName, temp);
 
     // View extracted files in treeView in QMl
 #ifdef Q_OS_WIN
-    treeView->setProperty("path", "file:///" + tempPath);
+    treeView->setProperty("path", "file:///" + temp);
     // Save start path
-    treeView->setProperty("startPath", "file://" + tempPath);
+    treeView->setProperty("startPath", "file:///" + temp);
 #endif
 
 #ifdef Q_OS_LINUX
-    treeView->setProperty("path", "file://" + tempPaht);
+    treeView->setProperty("path", "file://" + temp);
     // Save start path
-    treeView->setProperty("startPath", "file://" + tempPaht);
+    treeView->setProperty("startPath", "file://" + temp);
 #endif
     // Set elements visible
     treeView->setProperty("elemntVisible", true);

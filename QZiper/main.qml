@@ -81,7 +81,8 @@ ApplicationWindow {
 
                 onClicked: {
                     // Compress files into archive
-                    appCore.compressFiles()
+                    //appCore.compressFiles()
+                    compressFiles.show()
                 }
             }
 
@@ -91,7 +92,8 @@ ApplicationWindow {
 
                 onClicked: {
                     // Compress folder into archive
-                    appCore.compressDir()
+                    //appCore.compressDir()
+                    compressFolder.show()
                 }
             }
         }
@@ -217,7 +219,7 @@ ApplicationWindow {
 
         itemDelegate: Item {
             /* * * Delegate for file system model * * */
-            id: item
+            id: itemDeleg
             Text {
                 anchors.left: parent.left
                 anchors.verticalCenter: parent.verticalCenter
@@ -248,5 +250,77 @@ ApplicationWindow {
         /* * * Delete start folder before closing * * */
 
         appCore.close()
+    }
+
+    Compress {
+        /* Compress filses */
+        id: compressFiles
+
+        onSignalCompress: {
+            /* * * Compress * * */
+            appCore.compressFiles(compressFiles)
+            // Close window
+            compressFiles.close()
+        }
+
+        FileDialog {
+            id: files
+            title: qsTr("Choose files for compression")
+            modality: Qt.WindowModal       // Show dialog as modal
+            nameFilters: [ "*" ]
+            folder: shortcuts.home         // Home directory
+            selectMultiple: true
+
+            onAccepted: {
+                // Files name
+                compressFiles.fileName = fileUrls
+            }
+        }
+
+        onSignalCoose: {
+            /* * * Choosing files for compression * * * */
+            files.open()
+        }
+
+        onSignalCansel: {
+            // Close window
+            compressFiles.close()
+        }
+    }
+
+    Compress {
+        /* Compress folder */
+        id: compressFolder
+
+        onSignalCompress: {
+            /* * * Compress * * */
+            appCore.compressDir(compressFolder)
+            // Close window
+            compressFolder.close()
+        }
+
+        FileDialog {
+            id: folder
+            title: qsTr("Choose folder for compression")
+            modality: Qt.WindowModal       // Show dialog as modal
+            nameFilters: [ "*" ]
+            folder: shortcuts.home         // Home directory
+            selectFolder: true             // For folders
+
+            onAccepted: {
+                // Folder name
+                compressFolder.fileName = fileUrl
+            }
+        }
+
+        onSignalCoose: {
+            /* * * Choosing folder for compression * * * */
+            folder.open()
+        }
+
+        onSignalCansel: {
+            // Close window
+            compressFolder.close()
+        }
     }
 }

@@ -13,8 +13,8 @@ public:
 public:
     // Receive data from qml - Q_INVOKABLE
     // or public slots
-    Q_INVOKABLE void compressFiles();                   // Compress file
-    Q_INVOKABLE void compressDir();                     // Compress dir
+    Q_INVOKABLE void compressFiles(QObject *window);    // Compress file
+    Q_INVOKABLE void compressDir(QObject *window);      // Compress dir
     Q_INVOKABLE void extractArchive();                  // Extract archive
     Q_INVOKABLE void openArchive(QObject *treeView);    // Open archive
     Q_INVOKABLE void saveAs();                          // Save archive as
@@ -23,7 +23,15 @@ public:
     Q_INVOKABLE void close();                           // Brefore closing program
 
 private:
-    QString tempPaht = "";  // Temporary dir
+#ifdef Q_OS_WIN
+    // Path for temporary files in Windows
+    const QString tempPaht = "C:/Users/Default/AppData/Local/Temp/QZiper/";
+#endif
+
+#ifdef Q_OS_LINUX
+    // Path for temporary files in Linux
+    const QString tempPaht = "/tmp/QZiper/";
+#endif
 };
 
 #endif // APPCORE_H

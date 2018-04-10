@@ -13,7 +13,7 @@ AppCore::AppCore(QObject *parent) :
 {
 }
 
-void AppCore::compressFiles(QObject *window)
+bool AppCore::compressFiles(QObject *window)
 {
     /* * * Compress dir * * */
 
@@ -23,9 +23,9 @@ void AppCore::compressFiles(QObject *window)
     QString archiveName = (window->property("archiveName")).toString();
 
     if (fileName.isEmpty())
-        return;
+        return false;
 
-    QStringList fNames; // = fileName;
+    QStringList fNames;
 
 #ifdef Q_OS_WIN
     QString regExp = "file:///";
@@ -49,10 +49,10 @@ void AppCore::compressFiles(QObject *window)
     QString path = folderPath.toLocalFile() + "/" + archiveName + ".zip";
 
     // Compress
-    JlCompress::compressFiles(path, fNames);
+    return JlCompress::compressFiles(path, fNames);
 }
 
-void AppCore::extractArchive(QObject *window)
+bool AppCore::extractArchive(QObject *window)
 {
     /* * * Extract archive * * */
 
@@ -61,7 +61,7 @@ void AppCore::extractArchive(QObject *window)
     QUrl folderPath = (window->property("folderPath")).toUrl();
 
     if (fileName.isEmpty())
-        return;
+        return false;
 
     if (folderPath.toLocalFile().isEmpty()) {
         // Choose folder
@@ -73,10 +73,15 @@ void AppCore::extractArchive(QObject *window)
     QString fName = fileName.toLocalFile();
     QString path = folderPath.toLocalFile() + "/" + QFileInfo(fName).baseName();
 
-    JlCompress::extractDir(fName, path);
+    if (!JlCompress::extractDir(fName, path).isEmpty()) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
-void AppCore::compressDir(QObject *window)
+bool AppCore::compressDir(QObject *window)
 {
     /* * * Compress dir * * */
 
@@ -86,7 +91,7 @@ void AppCore::compressDir(QObject *window)
     QString archiveName = (window->property("archiveName")).toString();
 
     if (fileName.isEmpty())
-        return;
+        return false;
 
     // Format from QUrl to QString
     QString fName = fileName.toLocalFile();
@@ -95,10 +100,10 @@ void AppCore::compressDir(QObject *window)
     QString path = folderPath.toLocalFile() + "/" + archiveName + ".zip";
 
     // Compress
-    JlCompress::compressDir(path, fName);
+    return JlCompress::compressDir(path, fName);
 }
 
-void AppCore::openArchive(QObject *treeView, QUrl fileName)
+bool AppCore::openArchive(QObject *treeView, QUrl fileName)
 {
     /* * * Open archive * * */
 
@@ -106,7 +111,7 @@ void AppCore::openArchive(QObject *treeView, QUrl fileName)
     QString fName = fileName.toLocalFile();
 
     if (fName.isEmpty())
-        return;
+        return false;
 
     QFileInfo fInfo(fName);
 
@@ -121,8 +126,11 @@ void AppCore::openArchive(QObject *treeView, QUrl fileName)
     // Create dir
     tempDir.mkdir(temp);
 
+    bool result = false;
+
     // Extract to temporary dir
-    JlCompress::extractDir(fName, temp);
+    if (!JlCompress::extractDir(fName, temp).isEmpty())
+        result = true;
 
     // View extracted files in treeView in QMl
 #ifdef Q_OS_WIN
@@ -137,10 +145,12 @@ void AppCore::openArchive(QObject *treeView, QUrl fileName)
     treeView->setProperty("startPath", "file://" + temp);
 #endif
     // Set elements visible
-    treeView->setProperty("elemntVisible", true);
+    treeView->setProperty("elemntVisible", result);
+
+    return result;
 }
 
-void AppCore::saveAs(QObject *window)
+bool AppCore::saveAs(QObject *window)
 {
     /* * * Save archive as * * */
 
@@ -150,14 +160,18 @@ void AppCore::saveAs(QObject *window)
     // Format from QUrl to QString
     QString fName = fileName.toLocalFile();
 
+    if (fName.isEmpty())
+        return false;
+
     QString newName = QFileDialog::getSaveFileName(nullptr, "Choose folder for saving",
         QStandardPaths::locate(QStandardPaths::HomeLocation, QString()),
                                                    "Archive files (*.zip)");
 
-    if (QFileInfo(newName).bundleName().isEmpty())
-        newName += ".zip";
+#ifdef Q_OS_LINUX
+    newName += ".zip";
+#endif
 
-    QFile::copy(fName, newName);
+    return QFile::copy(fName, newName);
 }
 
 void AppCore::close()

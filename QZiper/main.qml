@@ -39,8 +39,12 @@ ApplicationWindow {
                 onAccepted: {
                     // Select archive file
                     root.fileName = fileUrl
-                    appCore.openArchive(treeView, fileUrl)
-                    root.infString = " << Back"
+                    if (appCore.openArchive(treeView, fileUrl)) {
+                        root.infString = " << Back"
+                    }
+                    else {
+                        root.infString = " Opening rejected ..."
+                    }
                 }
             }
 
@@ -60,6 +64,10 @@ ApplicationWindow {
                 text: qsTr("Open archive before saving!")
                 icon: StandardIcon.Information
                 standardButtons: standardButtons.Ok
+
+                onAccepted: {
+                    root.infString = " Archive not opened ..."
+                }
             }
 
             MenuItem {
@@ -70,13 +78,34 @@ ApplicationWindow {
                     // Save file as
                     if (treeView.elemntVisible) {
                         // Save archive
-                        appCore.saveAs(root)
-                        root.infString = " Extracted ..."
+                        if (appCore.saveAs(root)) {
+                            root.infString = " Archive saved ..."
+                        }
+                        else {
+                            root.infString = " Saving rejected ..."
+                        }
                     }
                     else {
                         // Show Message
                         msgDialog.open()
-                        root.infString = " Ready ..."
+                    }
+                }
+            }
+
+            MenuSeparator { }
+
+            MenuItem {
+                id: closeArchItem
+                text: qsTr("Close archive")
+
+                onClicked: {
+                    if (treeView.elemntVisible) {
+                        treeView.elemntVisible = false
+                        root.fileName = ""
+                        root.infString = " Archive closed ..."
+                    }
+                    else {
+                        root.infString = " Archive not opened ..."
                     }
                 }
             }
@@ -108,13 +137,16 @@ ApplicationWindow {
                     // Extract archive
                     if (treeView.elemntVisible) {
                         // Extract opened archive
-                        appCore.extractArchive(root)
-                        root.infString = " Extarcted ..."
+                        if (appCore.extractArchive(root)) {
+                            root.infString = " Archive extracted ..."
+                        }
+                        else {
+                            root.infString = " Extraction rejected ..."
+                        }
                     }
                     else {
                         // Open archive
                         extractArchive.show()
-                        root.infString = " Ready ..."
                     }
                 }
             }
@@ -126,7 +158,6 @@ ApplicationWindow {
                 onClicked: {
                     // Compress files into archive
                     compressFiles.show()
-                    root.infString = " Compressed ..."
                 }
             }
 
@@ -137,7 +168,6 @@ ApplicationWindow {
                 onClicked: {
                     // Compress folder into archive
                     compressFolder.show()
-                    root.infString = " Compressed ..."
                 }
             }
         }
@@ -296,12 +326,17 @@ ApplicationWindow {
     }
 
     Compress {
-        /* Compress filses */
+        /* Compress files */
         id: compressFiles
 
         onSignalCompress: {
             /* * * Compress * * */
-            appCore.compressFiles(compressFiles)
+            if (appCore.compressFiles(compressFiles)) {
+                root.infString = " Files compressed ..."
+            }
+            else {
+                root.infString = " Compression rejected ..."
+            }
             // Close window
             compressFiles.close()
         }
@@ -319,7 +354,6 @@ ApplicationWindow {
                 // Format fileUrls into string with ";" as separator
                 for (var i = 0; i < fileUrls.length; ++i)
                     compressFiles.fileName += fileUrls[i] + ";"
-                root.infString = " << Back"
             }
         }
 
@@ -330,6 +364,7 @@ ApplicationWindow {
 
         onSignalCansel: {
             // Close window
+            root.infString = " Rejected ..."
             compressFiles.close()
         }
     }
@@ -340,7 +375,12 @@ ApplicationWindow {
 
         onSignalCompress: {
             /* * * Compress * * */
-            appCore.compressDir(compressFolder)
+            if (appCore.compressDir(compressFolder)) {
+                root.infString = " Folder compressed ..."
+            }
+            else {
+                root.infString = " Compression rejected ..."
+            }
             // Close window
             compressFolder.close()
         }
@@ -366,6 +406,7 @@ ApplicationWindow {
 
         onSignalCansel: {
             // Close window
+            root.infString = " Rejected ..."
             compressFolder.close()
         }
     }
@@ -376,7 +417,12 @@ ApplicationWindow {
 
         onSignalExtract: {
             /* * * Compress * * */
-            appCore.extractArchive(extractArchive)
+            if (appCore.extractArchive(extractArchive)) {
+                root.infString = " Archive extracted ..."
+            }
+            else {
+                root.infString = " Extraction rejected ..."
+            }
             // Close window
             extractArchive.close()
         }
@@ -401,6 +447,7 @@ ApplicationWindow {
 
         onSignalCansel: {
             // Close window
+            root.infString = " Rejected ..."
             extractArchive.close()
         }
     }

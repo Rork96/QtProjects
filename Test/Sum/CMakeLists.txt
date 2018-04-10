@@ -21,6 +21,16 @@ generate_product_version (
         FILE_DESCRIPTION "Program description"
 )
 
+#Qt modules
+set (QT_MODULES
+                    Core
+                    Gui
+                    Widgets
+#                    PrintSupport
+                    Qml Quick Network # Network needed for QML
+#                    Concurrent
+                    )
+
 # Path to Qt library
 if (WIN32)
     if (MINGW)  # MINGW 64 bit
@@ -85,8 +95,7 @@ file (GLOB UI_SRC_FILES ${PROJECT_SOURCE_DIR}/*.ui)
 file (GLOB UI_QRCS ${PROJECT_SOURCE_DIR}/*.qrc)
 
 # Find dependencies Qt
-#find_package (Qt5 COMPONENTS ${QT_MODULES} REQUIRED)
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package (Qt5 COMPONENTS ${QT_MODULES} REQUIRED)
 
 # Resources *.qrc
 qt5_add_resources (UI_RESOURCES_RCC ${UI_QRCS})
@@ -99,12 +108,20 @@ if (WIN32)
     add_executable (${PROJECT_NAME} WIN32 ${SOURCE_FILES} ${HEADER_FILES}
         ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${VersionFilesOutputVariable})
 
-    # Qt modules and librarys
-    target_link_libraries(${PROJECT_NAME} Qt5::Widgets ${LIBRARIES})
+    # Link librarys
+	target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
+    # Link Qt librarys
+    foreach (QT_MODULE ${QT_MODULES})
+        target_link_libraries(${PROJECT_NAME} Qt5::${QT_MODULE})
+    endforeach ()
 else ()
     add_executable (${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES}
         ${UI_SRC_FILES} ${UI_RESOURCES_RCC})
 
-    # Qt modules and librarys
-    target_link_libraries(${PROJECT_NAME} Qt5::Widgets ${LIBRARIES})
+    # Link librarys
+	target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
+    # Link Qt librarys
+    foreach (QT_MODULE ${QT_MODULES})
+        target_link_libraries(${PROJECT_NAME} Qt5::${QT_MODULE})
+    endforeach ()
 endif ()

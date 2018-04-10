@@ -45,6 +45,7 @@ ApplicationWindow {
                     else {
                         root.infString = " Opening rejected ..."
                     }
+                    progress.visible = false
                 }
             }
 
@@ -54,6 +55,8 @@ ApplicationWindow {
 
                 onClicked: {
                     // Open file
+                    root.infString = " Progress ... "
+                    progress.visible = true
                     openArch.open()
                 }
             }
@@ -78,12 +81,15 @@ ApplicationWindow {
                     // Save file as
                     if (treeView.elemntVisible) {
                         // Save archive
+                        root.infString = " Progress ... "
+                        progress.visible = true
                         if (appCore.saveAs(root)) {
                             root.infString = " Archive saved ..."
                         }
                         else {
                             root.infString = " Saving rejected ..."
                         }
+                        progress.visible = false
                     }
                     else {
                         // Show Message
@@ -137,12 +143,15 @@ ApplicationWindow {
                     // Extract archive
                     if (treeView.elemntVisible) {
                         // Extract opened archive
+                        root.infString = " Progress ... "
+                        progress.visible = true
                         if (appCore.extractArchive(root)) {
                             root.infString = " Archive extracted ..."
                         }
                         else {
                             root.infString = " Extraction rejected ..."
                         }
+                        progress.visible = false
                     }
                     else {
                         // Open archive
@@ -242,6 +251,13 @@ ApplicationWindow {
                 text: infString
                 anchors.verticalCenter: parent.verticalCenter
             }
+
+            ProgressBar {
+                id: progress
+                indeterminate: true // Progress is unknown
+                visible: false
+                anchors.verticalCenter: parent.verticalCenter
+            }
         }
     }
 
@@ -331,12 +347,15 @@ ApplicationWindow {
 
         onSignalCompress: {
             /* * * Compress * * */
+            root.infString = " Progress ... "
+            progress.visible = true
             if (appCore.compressFiles(compressFiles)) {
                 root.infString = " Files compressed ..."
             }
             else {
                 root.infString = " Compression rejected ..."
             }
+            progress.visible = false
             // Close window
             compressFiles.close()
         }
@@ -375,12 +394,15 @@ ApplicationWindow {
 
         onSignalCompress: {
             /* * * Compress * * */
+            root.infString = " Progress ... "
+            progress.visible = true
             if (appCore.compressDir(compressFolder)) {
                 root.infString = " Folder compressed ..."
             }
             else {
                 root.infString = " Compression rejected ..."
             }
+            progress.visible = false
             // Close window
             compressFolder.close()
         }
@@ -417,12 +439,15 @@ ApplicationWindow {
 
         onSignalExtract: {
             /* * * Compress * * */
+            root.infString = " Progress ... "
+            progress.visible = true
             if (appCore.extractArchive(extractArchive)) {
                 root.infString = " Archive extracted ..."
             }
             else {
                 root.infString = " Extraction rejected ..."
             }
+            progress.visible = false
             // Close window
             extractArchive.close()
         }

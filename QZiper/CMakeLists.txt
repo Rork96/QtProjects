@@ -25,6 +25,7 @@ set (QT_MODULES
                     Widgets
 #                    PrintSupport
                     Qml Quick Network # Network needed for QML
+#                    Concurrent
                     )
 
 # Path to Qt library

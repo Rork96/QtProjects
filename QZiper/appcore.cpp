@@ -3,8 +3,7 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QStandardPaths>
-
-#include <QDebug>
+#include <QVariant>
 
 #include "quazip-Qt5/quazip/JlCompress.h"
 

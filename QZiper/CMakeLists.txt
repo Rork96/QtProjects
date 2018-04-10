@@ -126,16 +126,23 @@ if (WIN32)
     add_executable (${PROJECT_NAME} WIN32 ${SOURCE_FILES} ${HEADER_FILES}
             ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${VersionFilesOutputVariable})
 
-    # Qt modules and librarys
-    #qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})
-    target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Qml Qt5::Quick ${ZLIB_LIBRARY} ${QUAZIP_LIBRARY})
+    # Link librarys
+    target_link_libraries(${PROJECT_NAME} ${ZLIB_LIBRARY} ${QUAZIP_LIBRARY})
+    # Link Qt librarys
+    foreach (QT_MODULE ${QT_MODULES})
+        target_link_libraries(${PROJECT_NAME} Qt5::${QT_MODULE})
+    endforeach ()
+
 else ()
     add_executable (${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES}
             ${UI_SRC_FILES} ${UI_RESOURCES_RCC})
 
-    # Qt modules and librarys
-    #qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})
-    target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Qml Qt5::Quick ${ZLIB_LIBRARY} ${QUAZIP_LIBRARY})
+    # Link librarys
+    target_link_libraries(${PROJECT_NAME} ${ZLIB_LIBRARY} ${QUAZIP_LIBRARY})
+    # Link Qt librarys
+    foreach (QT_MODULE ${QT_MODULES})
+        target_link_libraries(${PROJECT_NAME} Qt5::${QT_MODULE})
+    endforeach ()
 endif ()
 
 # Install

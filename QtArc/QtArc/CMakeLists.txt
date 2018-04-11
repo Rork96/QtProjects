@@ -51,8 +51,6 @@ foreach (LIBRARY ${LIBRARIES})
     link_directories(${LIBRARY_OUTPUT_PATH})
 endforeach ()
 
-set (LIB_ARCHIVE archive)
-
 # Release by default
 if (NOT CMAKE_BUILD_TYPE)
     set (CMAKE_BUILD_TYPE Release)
@@ -114,7 +112,7 @@ if (WIN32)
 	#target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
     # Link Qt librarys
     foreach (QT_MODULE ${QT_MODULES})
-        target_link_libraries(${PROJECT_NAME} Qt5::${QT_MODULE} ${LIBRARIES} ${LIB_ARCHIVE})
+        target_link_libraries(${PROJECT_NAME} Qt5::${QT_MODULE} ${LIBRARIES})
     endforeach ()
 else ()
     add_executable (${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES}

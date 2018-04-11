@@ -20,6 +20,8 @@ elseif (UNIX)
     set (CMAKE_PREFIX_PATH "/opt/Qt/5.10.1/gcc_64/")
 endif ()
 
+set (LIB_ARCHIVE archive)
+
 # To simplify deployment use MS Compiller for Windows
 # GCC or Clang for Linux
 if (NOT MSVC) # MINGW or Clang
@@ -65,5 +67,5 @@ set_target_properties(${TARGET} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${BINDIR})
 
 add_library(QArchive src/QArchive.cc include/QArchive.hpp)
 #add_library (QArchive SHARED src/QArchive.cc include/QArchive.hpp)
-target_link_libraries(QArchive PUBLIC Qt5::Core Qt5::Concurrent archive)
+target_link_libraries(QArchive PUBLIC Qt5::Core Qt5::Concurrent ${LIB_ARCHIVE})
 target_include_directories(QArchive PUBLIC . include)

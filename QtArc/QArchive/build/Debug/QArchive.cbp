@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="QArchive"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="clang"/>
+		<Option virtualFolders="CMake Files\;CMake Files\msys64\;CMake Files\msys64\mingw64\;CMake Files\msys64\mingw64\lib\;CMake Files\msys64\mingw64\lib\cmake\;CMake Files\msys64\mingw64\lib\cmake\Qt5Core\;CMake Files\msys64\mingw64\lib\cmake\Qt5Concurrent\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="D:/Install/Projects/QArchive/build/Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Install/Projects/QArchive/build/Debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Install/Projects/QArchive/build/Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Install/Projects/QArchive/build/Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Install/Projects/QArchive/build/Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="QArchive">
+				<Option output="D:/Install/Projects/QArchive/library/libQArchive.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Install/Projects/QArchive/build/Debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="clang"/>
+				<Compiler>
+					<Add option="-DQT_CORE_LIB"/>
+					<Add option="-DQT_CONCURRENT_LIB"/>
+					<Add directory="D:/Install/Projects/QArchive/build/Debug"/>
+					<Add directory="D:/Install/Projects/QArchive"/>
+					<Add directory="D:/Install/Projects/QArchive/build/Debug/QArchive_autogen/include"/>
+					<Add directory="D:/Install/Projects/QArchive/."/>
+					<Add directory="D:/Install/Projects/QArchive/include"/>
+					<Add directory="C:/msys64/mingw64/include"/>
+					<Add directory="C:/msys64/mingw64/include/QtCore"/>
+					<Add directory="C:/msys64/mingw64/share/qt5/mkspecs/win32-g++"/>
+					<Add directory="C:/msys64/mingw64/include/QtConcurrent"/>
+					<Add directory="C:\msys64\mingw64\include\c++\7.3.0"/>
+					<Add directory="C:\msys64\mingw64\include\c++\7.3.0\x86_64-w64-mingw32"/>
+					<Add directory="C:\msys64\mingw64\include\c++\7.3.0\backward"/>
+					<Add directory="C:\msys64\mingw64\lib\clang\5.0.1\include"/>
+					<Add directory="C:\msys64\mingw64\x86_64-w64-mingw32\include"/>
+					<Add directory="C:\msys64\mingw64\include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Install/Projects/QArchive/build/Debug/Makefile&quot;  VERBOSE=1 QArchive"/>
+					<CompileFile command="C:/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Install/Projects/QArchive/build/Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Install/Projects/QArchive/build/Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Install/Projects/QArchive/build/Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="QArchive/fast">
+				<Option output="D:/Install/Projects/QArchive/library/libQArchive.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Install/Projects/QArchive/build/Debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="clang"/>
+				<Compiler>
+					<Add option="-DQT_CORE_LIB"/>
+					<Add option="-DQT_CONCURRENT_LIB"/>
+					<Add directory="D:/Install/Projects/QArchive/build/Debug"/>
+					<Add directory="D:/Install/Projects/QArchive"/>
+					<Add directory="D:/Install/Projects/QArchive/build/Debug/QArchive_autogen/include"/>
+					<Add directory="D:/Install/Projects/QArchive/."/>
+					<Add directory="D:/Install/Projects/QArchive/include"/>
+					<Add directory="C:/msys64/mingw64/include"/>
+					<Add directory="C:/msys64/mingw64/include/QtCore"/>
+					<Add directory="C:/msys64/mingw64/share/qt5/mkspecs/win32-g++"/>
+					<Add directory="C:/msys64/mingw64/include/QtConcurrent"/>
+					<Add directory="C:\msys64\mingw64\include\c++\7.3.0"/>
+					<Add directory="C:\msys64\mingw64\include\c++\7.3.0\x86_64-w64-mingw32"/>
+					<Add directory="C:\msys64\mingw64\include\c++\7.3.0\backward"/>
+					<Add directory="C:\msys64\mingw64\lib\clang\5.0.1\include"/>
+					<Add directory="C:\msys64\mingw64\x86_64-w64-mingw32\include"/>
+					<Add directory="C:\msys64\mingw64\include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Install/Projects/QArchive/build/Debug/Makefile&quot;  VERBOSE=1 QArchive/fast"/>
+					<CompileFile command="C:/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Install/Projects/QArchive/build/Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Install/Projects/QArchive/build/Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Install/Projects/QArchive/build/Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="D:/Install/Projects/QArchive/build/Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Install/Projects/QArchive/build/Debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Install/Projects/QArchive/build/Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Install/Projects/QArchive/build/Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Install/Projects/QArchive/build/Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="D:/Install/Projects/QArchive/build/Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Install/Projects/QArchive/build/Debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Install/Projects/QArchive/build/Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Install/Projects/QArchive/build/Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Install/Projects/QArchive/build/Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="QArchive_autogen">
+				<Option working_dir="D:/Install/Projects/QArchive/build/Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Install/Projects/QArchive/build/Debug/Makefile&quot;  VERBOSE=1 QArchive_autogen"/>
+					<CompileFile command="C:/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Install/Projects/QArchive/build/Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Install/Projects/QArchive/build/Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/msys64/mingw64/bin/mingw32-make.exe -f &quot;D:/Install/Projects/QArchive/build/Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="D:/Install/Projects/QArchive/build/Debug/QArchive_autogen/mocs_compilation.cpp">
+			<Option target="QArchive"/>
+		</Unit>
+		<Unit filename="D:/Install/Projects/QArchive/include/QArchive.hpp">
+			<Option target="QArchive"/>
+		</Unit>
+		<Unit filename="D:/Install/Projects/QArchive/src/QArchive.cc">
+			<Option target="QArchive"/>
+		</Unit>
+		<Unit filename="D:/Install/Projects/QArchive/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="D:/Install/Projects/QArchive/msys64/mingw64/lib/cmake/Qt5Core/Qt5CoreConfig.cmake">
+			<Option virtualFolder="CMake Files\msys64\mingw64\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="D:/Install/Projects/QArchive/msys64/mingw64/lib/cmake/Qt5Core/Qt5CoreConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\msys64\mingw64\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="D:/Install/Projects/QArchive/msys64/mingw64/lib/cmake/Qt5Core/Qt5CoreConfigExtrasMkspecDir.cmake">
+			<Option virtualFolder="CMake Files\msys64\mingw64\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="D:/Install/Projects/QArchive/msys64/mingw64/lib/cmake/Qt5Core/Qt5CoreConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\msys64\mingw64\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="D:/Install/Projects/QArchive/msys64/mingw64/lib/cmake/Qt5Core/Qt5CoreMacros.cmake">
+			<Option virtualFolder="CMake Files\msys64\mingw64\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="D:/Install/Projects/QArchive/msys64/mingw64/lib/cmake/Qt5Concurrent/Qt5ConcurrentConfig.cmake">
+			<Option virtualFolder="CMake Files\msys64\mingw64\lib\cmake\Qt5Concurrent\"/>
+		</Unit>
+		<Unit filename="D:/Install/Projects/QArchive/msys64/mingw64/lib/cmake/Qt5Concurrent/Qt5ConcurrentConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\msys64\mingw64\lib\cmake\Qt5Concurrent\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

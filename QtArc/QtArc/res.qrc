@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/">
+        <file>pict/QtArc.ico</file>
+        <file>pict/addfile.png</file>
+        <file>pict/addfolder.png</file>
+        <file>pict/close.png</file>
+        <file>pict/deldocument.png</file>
+        <file>pict/exit.png</file>
+        <file>pict/extract.png</file>
+        <file>pict/full.png</file>
+        <file>pict/help.png</file>
+        <file>pict/open.png</file>
+        <file>pict/password.png</file>
+        <file>pict/qt.png</file>
+        <file>pict/rename.png</file>
+        <file>pict/save.png</file>
+        <file>pict/start.png</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=QtArc
+Comment=Managing all archives types
+Exec=opt/QtArc/QtArc
+Terminal=false
+Type=Application
+StartupNotify=true
+Icon=usr/share/pixmaps/QtArc.png
+Categories=images
+Name[ru_UA]=QtArc

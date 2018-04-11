@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1100</width>
+    <height>720</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>QtArc</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="res.qrc">
+    <normaloff>:/pict/QtArc.ico</normaloff>:/pict/QtArc.ico</iconset>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <property name="leftMargin">
+     <number>2</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>2</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <item row="0" column="0">
+     <widget class="QTableView" name="mainView"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="mainMenuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1100</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="fileMenu">
+    <property name="title">
+     <string>Файл</string>
+    </property>
+    <addaction name="openArc"/>
+    <addaction name="saveArcCopy"/>
+    <addaction name="separator"/>
+    <addaction name="setPassword"/>
+    <addaction name="separator"/>
+    <addaction name="closeArc"/>
+    <addaction name="separator"/>
+    <addaction name="quitProgram"/>
+   </widget>
+   <widget class="QMenu" name="commandMenu">
+    <property name="title">
+     <string>Команды</string>
+    </property>
+    <addaction name="addFiles"/>
+    <addaction name="addFolder"/>
+    <addaction name="extractToDir"/>
+    <addaction name="separator"/>
+    <addaction name="openFile"/>
+    <addaction name="deleteFile"/>
+    <addaction name="renameFile"/>
+   </widget>
+   <widget class="QMenu" name="paramMenu">
+    <property name="title">
+     <string>Параметры</string>
+    </property>
+    <addaction name="mainMenuShow"/>
+    <addaction name="mainToolBarShow"/>
+    <addaction name="statusBarShow"/>
+    <addaction name="separator"/>
+    <addaction name="fullScrean"/>
+   </widget>
+   <widget class="QMenu" name="aboutMenu">
+    <property name="title">
+     <string>Справка</string>
+    </property>
+    <addaction name="aboutProgram"/>
+    <addaction name="separator"/>
+    <addaction name="aboutQt"/>
+   </widget>
+   <addaction name="fileMenu"/>
+   <addaction name="commandMenu"/>
+   <addaction name="paramMenu"/>
+   <addaction name="aboutMenu"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="openArc"/>
+   <addaction name="separator"/>
+   <addaction name="extractToDir"/>
+   <addaction name="separator"/>
+   <addaction name="closeArc"/>
+   <addaction name="separator"/>
+   <addaction name="deleteFile"/>
+   <addaction name="separator"/>
+   <addaction name="setPassword"/>
+   <addaction name="separator"/>
+   <addaction name="quitProgram"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="aboutProgram">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/help.png</normaloff>:/pict/help.png</iconset>
+   </property>
+   <property name="text">
+    <string>О программе</string>
+   </property>
+   <property name="shortcut">
+    <string>F1</string>
+   </property>
+  </action>
+  <action name="aboutQt">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/qt.png</normaloff>:/pict/qt.png</iconset>
+   </property>
+   <property name="text">
+    <string>О Qt</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F1</string>
+   </property>
+  </action>
+  <action name="openArc">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/open.png</normaloff>:/pict/open.png</iconset>
+   </property>
+   <property name="text">
+    <string>Открыть архив</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="saveArcCopy">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/save.png</normaloff>:/pict/save.png</iconset>
+   </property>
+   <property name="text">
+    <string>Сохранить копию архива как</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
+   </property>
+  </action>
+  <action name="setPassword">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/password.png</normaloff>:/pict/password.png</iconset>
+   </property>
+   <property name="text">
+    <string>Установить пароль</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+P</string>
+   </property>
+   <property name="shortcutVisibleInContextMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="quitProgram">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/exit.png</normaloff>:/pict/exit.png</iconset>
+   </property>
+   <property name="text">
+    <string>Выход</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="addFiles">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/addfile.png</normaloff>:/pict/addfile.png</iconset>
+   </property>
+   <property name="text">
+    <string>Добавить файлы в архив</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+A</string>
+   </property>
+  </action>
+  <action name="extractToDir">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/extract.png</normaloff>:/pict/extract.png</iconset>
+   </property>
+   <property name="text">
+    <string>Извлечь в указанную папку</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+E</string>
+   </property>
+  </action>
+  <action name="openFile">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/start.png</normaloff>:/pict/start.png</iconset>
+   </property>
+   <property name="text">
+    <string>Открыть файл</string>
+   </property>
+   <property name="shortcut">
+    <string>F4</string>
+   </property>
+  </action>
+  <action name="deleteFile">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/deldocument.png</normaloff>:/pict/deldocument.png</iconset>
+   </property>
+   <property name="text">
+    <string>Удалить файл</string>
+   </property>
+   <property name="shortcut">
+    <string>Del</string>
+   </property>
+  </action>
+  <action name="renameFile">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/rename.png</normaloff>:/pict/rename.png</iconset>
+   </property>
+   <property name="text">
+    <string>Переименовать файл</string>
+   </property>
+   <property name="shortcut">
+    <string>F2</string>
+   </property>
+  </action>
+  <action name="mainToolBarShow">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Панель инструментов</string>
+   </property>
+  </action>
+  <action name="statusBarShow">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Строка состояния</string>
+   </property>
+  </action>
+  <action name="mainMenuShow">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Главное меню</string>
+   </property>
+  </action>
+  <action name="fullScrean">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/full.png</normaloff>:/pict/full.png</iconset>
+   </property>
+   <property name="text">
+    <string>Во весь экран</string>
+   </property>
+   <property name="shortcut">
+    <string>F11</string>
+   </property>
+  </action>
+  <action name="closeArc">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/close.png</normaloff>:/pict/close.png</iconset>
+   </property>
+   <property name="text">
+    <string>Закрыть архив</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+Q</string>
+   </property>
+  </action>
+  <action name="addFolder">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/addfolder.png</normaloff>:/pict/addfolder.png</iconset>
+   </property>
+   <property name="text">
+    <string>Добавить папку в архив</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+D</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>mainMenuShow</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>mainMenuBar</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>549</x>
+     <y>10</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>mainToolBarShow</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>mainToolBar</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>549</x>
+     <y>37</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>statusBarShow</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>statusBar</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>549</x>
+     <y>709</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

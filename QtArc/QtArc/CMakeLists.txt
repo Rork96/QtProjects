@@ -1,7 +1,10 @@
 cmake_minimum_required (VERSION 3.1)
 
+# Get project name from list ("0" - first element)
+list (GET APPLICATIONS 0 APP_NAME)
+
 # Project
-project (QZiper LANGUAGES CXX)
+project (${APP_NAME} LANGUAGES CXX)
 
 # Application icon and information
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/info)
@@ -15,7 +18,7 @@ generate_product_version (
         VERSION_PATH ${BUILD_COUNTER}
         VERSION_REVISION ${BUILD_REVISION}
         COMPANY_NAME "masterarrow"
-        FILE_DESCRIPTION "QZiper"
+        FILE_DESCRIPTION "Managing all archives types"
 )
 
 #Qt modules
@@ -24,7 +27,7 @@ set (QT_MODULES
                     Gui
                     Widgets
 #                    PrintSupport
-                    Qml Quick Network # Network needed for QML
+#                    Qml Quick Network # Network needed for QML
 #                    Concurrent
                     )
 
@@ -42,23 +45,11 @@ elseif (UNIX)
 endif ()
 
 # Serch for librarys
-set (ZLIB_LIBRARY zlib)
-include_directories (${PROJECT_SOURCE_DIR}/quazip-Qt5/quazip/zlib)
-add_subdirectory (${PROJECT_SOURCE_DIR}/quazip-Qt5/quazip/zlib)
-if (WIN32)
-    link_directories(${PROJECT_SOURCE_DIR}/quazip-Qt5/quazip/zlib/library)
-elseif (UNIX)
-    link_directories(${PROJECT_SOURCE_DIR}/quazip-Qt5/quazip/zlib/lib)
-endif ()
-
-set (QUAZIP_LIBRARY quazip)
-include_directories (${PROJECT_SOURCE_DIR}/quazip-Qt5/quazip)
-add_subdirectory (${PROJECT_SOURCE_DIR}/quazip-Qt5/quazip)
-if (WIN32)
-    link_directories(${PROJECT_SOURCE_DIR}/quazip-Qt5/quazip/library)
-elseif (UNIX)
-    link_directories(${PROJECT_SOURCE_DIR}/quazip-Qt5/quazip/lib)
-endif ()
+#set (LIBRARIES QArchive)
+foreach (LIBRARY ${LIBRARIES})
+    include_directories (../${LIBRARY}/include)
+    link_directories(${LIBRARY_OUTPUT_PATH})
+endforeach ()
 
 # Release by default
 if (NOT CMAKE_BUILD_TYPE)
@@ -93,7 +84,7 @@ if (NOT MSVC) # MINGW or Clang
     set (CMAKE_CXX_FLAGS                "-Wall -std=c++11")
     set (CMAKE_CXX_FLAGS_DEBUG          "-O0 -g")
     set (CMAKE_CXX_FLAGS_MINSIZEREL     "-Os -DNDEBUG")
-    set (CMAKE_CXX_FLAGS_RELEASE        "-O3 -DNDEBUG")
+    set (CMAKE_CXX_FLAGS_RELEASE        "-O6 -DNDEBUG")
     set (CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")
 endif ()
 
@@ -109,57 +100,28 @@ find_package (Qt5 COMPONENTS ${QT_MODULES} REQUIRED)
 # Resources *.qrc
 qt5_add_resources (UI_RESOURCES_RCC ${UI_QRCS})
 
-# Dependent on build type and operation system,
-# put exe-file in one of the next folders
-if (MINGW)
-    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${CMAKE_HOST_SYSTEM_NAME}/MinGW/${CMAKE_BUILD_TYPE})
-elseif (MSVC)
-    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${CMAKE_HOST_SYSTEM_NAME}/MSVC/${CMAKE_BUILD_TYPE})
-elseif (GCC)
-    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${CMAKE_HOST_SYSTEM_NAME}/GCC/${CMAKE_BUILD_TYPE})
-else () # Clang
-    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${CMAKE_HOST_SYSTEM_NAME}/Clang/${CMAKE_BUILD_TYPE})
-endif()
+# Target properties (see main CMakeList)
+set_target_properties(${TARGET} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${BINDIR})
 
 # Create executable file
 if (WIN32)
     add_executable (${PROJECT_NAME} WIN32 ${SOURCE_FILES} ${HEADER_FILES}
-            ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${VersionFilesOutputVariable})
+        ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${VersionFilesOutputVariable})
 
     # Link librarys
-    target_link_libraries(${PROJECT_NAME} ${ZLIB_LIBRARY} ${QUAZIP_LIBRARY})
+	#target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
     # Link Qt librarys
     foreach (QT_MODULE ${QT_MODULES})
-        target_link_libraries(${PROJECT_NAME} Qt5::${QT_MODULE})
+        target_link_libraries(${PROJECT_NAME} Qt5::${QT_MODULE} ${LIBRARIES})
     endforeach ()
 else ()
     add_executable (${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES}
-            ${UI_SRC_FILES} ${UI_RESOURCES_RCC})
+        ${UI_SRC_FILES} ${UI_RESOURCES_RCC})
 
     # Link librarys
-    target_link_libraries(${PROJECT_NAME} ${ZLIB_LIBRARY} ${QUAZIP_LIBRARY})
+	target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
     # Link Qt librarys
     foreach (QT_MODULE ${QT_MODULES})
         target_link_libraries(${PROJECT_NAME} Qt5::${QT_MODULE})
     endforeach ()
 endif ()
-
-# Install
-# For complete deploying application drad app onto DeployQt script
-# it will run windeployqt or linuxdeployqt to collect Qt librarys
-# For Windows for MSVC copy vcredist from Qt\vcredist to deploy
-# On Linux all libraries must be copied to folder deploy/lib
-if (WIN32)
-    set (EXT "bat")
-    # Only for Windows, in Linux linuxdeployqt will create it
-    install(FILES ${PROJECT_SOURCE_DIR}/scripts/qt.conf
-            DESTINATION "${PROJECT_SOURCE_DIR}/deploy")
-elseif (UNIX)
-    set (EXT "sh")
-endif ()
-file (GLOB FILES ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/*)
-install(FILES ${FILES}
-        DESTINATION "${PROJECT_SOURCE_DIR}/deploy")
-
-install(FILES ${PROJECT_SOURCE_DIR}/scripts/DeployQt.${EXT}
-        DESTINATION "${PROJECT_SOURCE_DIR}/deploy")

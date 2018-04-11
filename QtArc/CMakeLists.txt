@@ -34,9 +34,9 @@ if (WIN32)
 elseif (UNIX)
     set (EXT "sh")
 endif ()
-file (GLOB FILES ${CMAKE_HOST_SYSTEM_NAME}/${CMAKE_BUILD_TYPE}/*)
-install(FILES ${FILES}
-        DESTINATION "${PROJECT_SOURCE_DIR}/deploy")
+#file (GLOB FILES ${CMAKE_HOST_SYSTEM_NAME}/${CMAKE_BUILD_TYPE}/*)
+#install(FILES ${FILES}
+#        DESTINATION "${PROJECT_SOURCE_DIR}/deploy")
 
-install(FILES ${PROJECT_SOURCE_DIR}/scripts/DeployQt.${EXT}
-        DESTINATION "${PROJECT_SOURCE_DIR}/deploy")
+#install(FILES ${PROJECT_SOURCE_DIR}/scripts/DeployQt.${EXT}
+#        DESTINATION "${PROJECT_SOURCE_DIR}/deploy")

@@ -21,6 +21,9 @@ elseif (UNIX)
 endif ()
 
 set (LIB_ARCHIVE archive)
+include_directories (${PROJECT_SOURCE_DIR}/libarchive/libarchive)
+#add_subdirectory (${PROJECT_SOURCE_DIR}/libarchive)
+link_directories(${PROJECT_SOURCE_DIR}/library)
 
 # To simplify deployment use MS Compiller for Windows
 # GCC or Clang for Linux

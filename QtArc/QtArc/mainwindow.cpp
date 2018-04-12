@@ -39,7 +39,7 @@ void MainWindow::OpenArc(QString archiveName)
                                                     QStandardPaths::locate(QStandardPaths::HomeLocation, QString()),
                                                     "Archives (*.zip | *.rar | *.7z | *.bz  | *.bz2 | *.gz | *.cpio)");
     }
-
+/*
     // Archive
     QArchive::Reader arcReader(archiveName);
 
@@ -68,5 +68,43 @@ void MainWindow::OpenArc(QString archiveName)
     });
 
     // Extract
-    arcReader.start();
+    arcReader.start();*/
+/*
+    QString dirName = QString();
+    if (archiveName.isEmpty()) {
+        dirName = QFileDialog::getExistingDirectory(this, "Choose files",
+                                                    QStandardPaths::locate(QStandardPaths::HomeLocation, QString()));
+    }
+
+    QDir dir;
+    dir.cd(dirName);
+    QString file7z = dir.path() + ".7z";
+
+    qDebug() << dir;
+    qDebug() << dirName;
+    qDebug() << file7z;
+
+
+    QArchive::Compressor e(file7z, dirName);
+
+    QObject::connect(&e, &QArchive::Compressor::finished, [&]() {
+        qDebug() << "Finished all jobs";
+    });
+    QObject::connect(&e, &QArchive::Compressor::error, [&](short code, QString file) {
+        qDebug() << "error code:: " << code << " :: " << file;
+    });
+
+    e.start();
+
+    */
+    QArchive::Extractor Archiver(archiveName);
+
+    // connect callback
+    QObject::connect(&Archiver , &QArchive::Extractor::extracted , [&](QString file)
+    {
+        qDebug() << "extracted :: " << file;
+    });
+
+    // Start Extraction
+    Archiver.start(); // never use run
 }

@@ -97,6 +97,7 @@ void MainWindow::OpenArc(QString archiveName)
     e.start();
 
     */
+    qDebug() << "Start ...";
     QArchive::Extractor Archiver(archiveName);
 
     // connect callback
@@ -105,6 +106,7 @@ void MainWindow::OpenArc(QString archiveName)
         qDebug() << "extracted :: " << file;
     });
 
+    qDebug() << "Compression ...";
     // Start Extraction
     Archiver.start(); // never use run
 }

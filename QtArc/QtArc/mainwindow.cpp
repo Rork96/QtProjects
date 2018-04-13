@@ -99,12 +99,17 @@ void MainWindow::OpenArc(QString archiveName)
     */
     QArchive::Extractor Archiver(archiveName);
 
+
+    QFileInfo fInfo(archiveName);
+
+    Archiver.setDestination(fInfo.path() + "/" + fInfo.baseName() + "_new");
+/*
     // connect callback
     QObject::connect(&Archiver , &QArchive::Extractor::extracted , [&](QString file)
     {
         qDebug() << "extracted :: " << file;
     });
-
+*/
     // Start Extraction
     Archiver.start(); // never use run
 }

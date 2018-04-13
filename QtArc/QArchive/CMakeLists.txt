@@ -22,14 +22,16 @@ endif ()
 
 set (LIB_ARCHIVE archive)
 include_directories (${PROJECT_SOURCE_DIR}/libarchive/libarchive)
-add_subdirectory (${PROJECT_SOURCE_DIR}/libarchive)
+#if (LINUX)
+    add_subdirectory (${PROJECT_SOURCE_DIR}/libarchive)
+#endif ()
 link_directories(${PROJECT_SOURCE_DIR}/library)
 
 # To simplify deployment use MS Compiller for Windows
 # GCC or Clang for Linux
 if (NOT MSVC) # MINGW or Clang
     # Use Clang as C compiller
-    set (CMAKE_C_COMPILER               clang)
+    #set (CMAKE_C_COMPILER               clang)
     # Initialize CFLAGS.
     set (CMAKE_C_FLAGS                  "-Wall -std=c99")
     set (CMAKE_C_FLAGS_DEBUG            "-g")
@@ -38,7 +40,7 @@ if (NOT MSVC) # MINGW or Clang
     set (CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g")
 
     # Use Clang++ as C++ compiller
-    set (CMAKE_CXX_COMPILER             clang++)
+    #set (CMAKE_CXX_COMPILER             clang++)
     # Initialize CXXFLAGS.
     set (CMAKE_CXX_FLAGS                "-Wall -std=c++11")
     set (CMAKE_CXX_FLAGS_DEBUG          "-O0 -g")

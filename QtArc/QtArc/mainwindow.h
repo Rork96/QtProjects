@@ -4,15 +4,15 @@
 #include <QMainWindow>
 
 // Library
-#include <QArchive>
+#include <QArchive.hpp>
 
 namespace Ui {
-class MainWindow;
+    class MainWindow;
 }
 
 class MainWindow : public QMainWindow
 {
-    Q_OBJECT
+Q_OBJECT
 
 public:
     explicit MainWindow(QWidget *parent = 0);

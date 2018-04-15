@@ -106,20 +106,20 @@ set_target_properties(${TARGET} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${BINDIR})
 # Create executable file
 if (WIN32)
     add_executable (${PROJECT_NAME} WIN32 ${SOURCE_FILES} ${HEADER_FILES}
-        ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${VersionFilesOutputVariable})
+            ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${VersionFilesOutputVariable})
 
     # Link librarys
-	#target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
+    #target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
     # Link Qt librarys
     foreach (QT_MODULE ${QT_MODULES})
         target_link_libraries(${PROJECT_NAME} Qt5::${QT_MODULE} ${LIBRARIES})
     endforeach ()
 else ()
     add_executable (${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES}
-        ${UI_SRC_FILES} ${UI_RESOURCES_RCC})
+            ${UI_SRC_FILES} ${UI_RESOURCES_RCC})
 
     # Link librarys
-	target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
+    target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
     # Link Qt librarys
     foreach (QT_MODULE ${QT_MODULES})
         target_link_libraries(${PROJECT_NAME} Qt5::${QT_MODULE})

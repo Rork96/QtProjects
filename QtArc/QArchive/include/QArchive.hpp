@@ -49,10 +49,8 @@
 extern "C" {
 #include <sys/types.h>
 #include <sys/stat.h>
-//#include <archive.h>
-#include <libarchive/libarchive/archive.h>
-//#include <archive_entry.h>
-#include <libarchive/libarchive/archive_entry.h>
+#include <archive.h>
+#include <archive_entry.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>

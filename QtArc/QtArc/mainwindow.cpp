@@ -42,13 +42,11 @@ void MainWindow::OpenArc(QString archiveName)
 /*
     // Archive
     QArchive::Reader arcReader(archiveName);
-
     // Connect
     connect(&arcReader, &QArchive::Reader::archiveFiles, [&](QString archive, QStringList files) {
         qDebug() << archive << " :: ";
         qDebug() << files;
     });
-
     // If error
     connect(&arcReader, &QArchive::Reader::error, [&](short code, QString file) {
         switch(code) {
@@ -66,7 +64,6 @@ void MainWindow::OpenArc(QString archiveName)
                 break;
         }
     });
-
     // Extract
     arcReader.start();*/
 /*
@@ -75,35 +72,32 @@ void MainWindow::OpenArc(QString archiveName)
         dirName = QFileDialog::getExistingDirectory(this, "Choose files",
                                                     QStandardPaths::locate(QStandardPaths::HomeLocation, QString()));
     }
-
     QDir dir;
     dir.cd(dirName);
     QString file7z = dir.path() + ".7z";
-
     qDebug() << dir;
     qDebug() << dirName;
     qDebug() << file7z;
-
-
     QArchive::Compressor e(file7z, dirName);
-
     QObject::connect(&e, &QArchive::Compressor::finished, [&]() {
         qDebug() << "Finished all jobs";
     });
     QObject::connect(&e, &QArchive::Compressor::error, [&](short code, QString file) {
         qDebug() << "error code:: " << code << " :: " << file;
     });
-
     e.start();
-
     */
-    QArchive::Extractor Archiver(archiveName);
+    //QArchive::Extractor Archiver(archiveName);
 
 
     QFileInfo fInfo(archiveName);
+    QString destPath = fInfo.path() + "/" + fInfo.baseName() + "/";
+
+    QDir dir;
+    dir.mkdir(destPath);
 
     // Set destination path
-    Archiver.setDestination(fInfo.path() + "/" + fInfo.baseName() + "_new");
+/*   Archiver.setDestination(fInfo.path() + "/" + fInfo.baseName());
 
     // connect callback
     QObject::connect(&Archiver , &QArchive::Extractor::extracted , [&](QString file)
@@ -113,4 +107,8 @@ void MainWindow::OpenArc(QString archiveName)
 
     // Start Extraction
     Archiver.start(); // never use run
+    */
+
+    QArchive::Extractor Extractor(archiveName, destPath);
+    Extractor.start();
 }

@@ -39,82 +39,33 @@ void MainWindow::OpenArc(QString archiveName)
     if (archiveName.isEmpty()) {
         archiveName = QFileDialog::getOpenFileName(this, "Choose files",
                                                     QStandardPaths::locate(QStandardPaths::HomeLocation, QString()),
-                                                    "Archives (*.zip | *.rar | *.7z | *.bz  | *.bz2 | *.gz | *.cpio)");
+                                                    "Archives (*.zip | *.7z *.tar)");
     }
 
     if (archiveName.isEmpty())
         return;
-/*
-    // Archive
-    QArchive::Reader arcReader(archiveName);
-    // Connect
-    connect(&arcReader, &QArchive::Reader::archiveFiles, [&](QString archive, QStringList files) {
-        qDebug() << archive << " :: ";
-        qDebug() << files;
-    });
-    // If error
-    connect(&arcReader, &QArchive::Reader::error, [&](short code, QString file) {
-        switch(code) {
-            case QArchive::ARCHIVE_READ_ERROR:
-                qDebug() << "Unable to find archive :: " << file;
-                break;
-            case QArchive::ARCHIVE_QUALITY_ERROR:
-                qDebug() << "Bad archive! :: " << file;
-                break;
-            case QArchive::ARCHIVE_UNCAUGHT_ERROR:
-                qDebug() << "Fatal error. :: " << file;
-                break;
-            default:
-                qDebug() << "Unknown error. :: " << file;
-                break;
+
+    QFileInfo fInfo(archiveName);
+
+    if (fInfo.suffix() == "zip") {
+
+        KZip archive(archiveName);
+
+        // Open the archive
+        if (!archive.open(QIODevice::ReadOnly)) {
+            return;
         }
-    });
-    // Extract
-    arcReader.start();*/
-/*
-    QString dirName = QString();
-    if (archiveName.isEmpty()) {
-        dirName = QFileDialog::getExistingDirectory(this, "Choose files",
-                                                    QStandardPaths::locate(QStandardPaths::HomeLocation, QString()));
+
+        // Take the root folder from the archive and create a KArchiveDirectory object.
+        // KArchiveDirectory represents a directory in a KArchive.
+        const KArchiveDirectory *root = archive.directory();
+
+        // We can extract all contents from a KArchiveDirectory to a destination.
+        // recursive true will also extract subdirectories.
+        QString destination = QDir::currentPath() + "/" + fInfo.baseName();
+        bool recursive = true;
+        root->copyTo(destination, recursive);
+
+        archive.close();
     }
-    QDir dir;
-    dir.cd(dirName);
-    QString file7z = dir.path() + ".7z";
-    qDebug() << dir;
-    qDebug() << dirName;
-    qDebug() << file7z;
-    QArchive::Compressor e(file7z, dirName);
-    QObject::connect(&e, &QArchive::Compressor::finished, [&]() {
-        qDebug() << "Finished all jobs";
-    });
-    QObject::connect(&e, &QArchive::Compressor::error, [&](short code, QString file) {
-        qDebug() << "error code:: " << code << " :: " << file;
-    });
-    e.start();
-    */
-    //QArchive::Extractor Archiver(archiveName);
-
-
-    /*QFileInfo fInfo(archiveName);
-    QString destPath = fInfo.path() + "/" + fInfo.baseName() + "/";
-
-    QDir dir;
-    dir.mkdir(destPath);*/
-
-    // Set destination path
-/*   Archiver.setDestination(fInfo.path() + "/" + fInfo.baseName());
-
-    // connect callback
-    QObject::connect(&Archiver , &QArchive::Extractor::extracted , [&](QString file)
-    {
-        qDebug() << "extracted :: " << file;
-    });
-
-    // Start Extraction
-    Archiver.start(); // never use run
-    */
-
-    // Extract
-    /*QArchive::Extractor Extractor(archiveName, destPath);
-    Extractor.start();*/
 }

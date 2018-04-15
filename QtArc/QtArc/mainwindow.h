@@ -4,7 +4,9 @@
 #include <QMainWindow>
 
 // Library
-#include <karchive.h>
+#include <kzip.h>   // zip files
+#include <k7zip.h>  // 7zip files
+#include <ktar.h>   // tar files
 
 namespace Ui {
     class MainWindow;

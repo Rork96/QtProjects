@@ -10,10 +10,12 @@ set (CMAKE_RUNTIME_OUTPUT_DIRECTORY     ../../../${CMAKE_HOST_SYSTEM_NAME}/${CMA
 set (LIBRARY_OUTPUT_PATH                ../../../${CMAKE_HOST_SYSTEM_NAME}/${CMAKE_BUILD_TYPE})
 
 # Librarys names
-set (LIBRARIES QArchive)
-foreach (LIB ${LIBRARIES})
-    add_subdirectory (${LIB})
-endforeach ()
+#set (LIBRARIES QArchive)
+#foreach (LIB ${LIBRARIES})
+#    add_subdirectory (${LIB})
+#endforeach ()
+
+set (LIBRARIES KF5Archive)
 
 # Executables names
 set (APPLICATIONS QtArc)

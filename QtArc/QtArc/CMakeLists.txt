@@ -46,9 +46,14 @@ endif ()
 
 # Serch for librarys
 #set (LIBRARIES QArchive)
+#foreach (LIBRARY ${LIBRARIES})
+#    include_directories (../${LIBRARY}/include)
+#    link_directories(${LIBRARY_OUTPUT_PATH})
+#endforeach ()
+
 foreach (LIBRARY ${LIBRARIES})
-    include_directories (../${LIBRARY}/include)
-    link_directories(${LIBRARY_OUTPUT_PATH})
+    include_directories (../KArchive/src)
+    link_directories(../library)
 endforeach ()
 
 # Release by default
@@ -109,8 +114,6 @@ if (WIN32)
             ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${VersionFilesOutputVariable})
 
     # Link librarys
-    #target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
-    # Link Qt librarys
     foreach (QT_MODULE ${QT_MODULES})
         target_link_libraries(${PROJECT_NAME} Qt5::${QT_MODULE} ${LIBRARIES})
     endforeach ()
@@ -119,9 +122,7 @@ else ()
             ${UI_SRC_FILES} ${UI_RESOURCES_RCC})
 
     # Link librarys
-    target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
-    # Link Qt librarys
     foreach (QT_MODULE ${QT_MODULES})
-        target_link_libraries(${PROJECT_NAME} Qt5::${QT_MODULE})
+        target_link_libraries(${PROJECT_NAME} Qt5::${QT_MODULE} ${LIBRARIES})
     endforeach ()
 endif ()

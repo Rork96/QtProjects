@@ -95,11 +95,11 @@ void MainWindow::OpenArc(QString archiveName)
     //QArchive::Extractor Archiver(archiveName);
 
 
-    QFileInfo fInfo(archiveName);
+    /*QFileInfo fInfo(archiveName);
     QString destPath = fInfo.path() + "/" + fInfo.baseName() + "/";
 
     QDir dir;
-    dir.mkdir(destPath);
+    dir.mkdir(destPath);*/
 
     // Set destination path
 /*   Archiver.setDestination(fInfo.path() + "/" + fInfo.baseName());
@@ -115,6 +115,6 @@ void MainWindow::OpenArc(QString archiveName)
     */
 
     // Extract
-    QArchive::Extractor Extractor(archiveName, destPath);
-    Extractor.start();
+    /*QArchive::Extractor Extractor(archiveName, destPath);
+    Extractor.start();*/
 }

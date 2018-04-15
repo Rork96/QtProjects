@@ -41,6 +41,9 @@ void MainWindow::OpenArc(QString archiveName)
                                                     QStandardPaths::locate(QStandardPaths::HomeLocation, QString()),
                                                     "Archives (*.zip | *.rar | *.7z | *.bz  | *.bz2 | *.gz | *.cpio)");
     }
+
+    if (archiveName.isEmpty())
+        return;
 /*
     // Archive
     QArchive::Reader arcReader(archiveName);
@@ -111,6 +114,7 @@ void MainWindow::OpenArc(QString archiveName)
     Archiver.start(); // never use run
     */
 
+    // Extract
     QArchive::Extractor Extractor(archiveName, destPath);
     Extractor.start();
 }

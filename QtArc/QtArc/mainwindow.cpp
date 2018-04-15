@@ -13,6 +13,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     /* * * Connections * * */ {
+        // Quit
+        connect(ui->quitProgram, &QAction::triggered, this, &MainWindow::close);
         // Open archive
         connect(ui->openArc, &QAction::triggered, this, &MainWindow::OpenArchive);
     }

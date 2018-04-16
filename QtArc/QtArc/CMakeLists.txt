@@ -18,7 +18,7 @@ generate_product_version (
         VERSION_PATH ${BUILD_COUNTER}
         VERSION_REVISION ${BUILD_REVISION}
         COMPANY_NAME "masterarrow"
-        FILE_DESCRIPTION "Managing all archives types"
+        FILE_DESCRIPTION "${APP_NAME} - Managing all types of archives"
 )
 
 #Qt modules
@@ -28,7 +28,7 @@ set (QT_MODULES
                     Widgets
 #                    PrintSupport
 #                    Qml Quick Network # Network needed for QML
-#                    Concurrent
+                    Concurrent
                     )
 
 # Path to Qt library

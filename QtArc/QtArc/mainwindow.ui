@@ -55,6 +55,8 @@
     <addaction name="openArc"/>
     <addaction name="saveArcCopy"/>
     <addaction name="separator"/>
+    <addaction name="compessArc"/>
+    <addaction name="separator"/>
     <addaction name="setPassword"/>
     <addaction name="separator"/>
     <addaction name="closeArc"/>
@@ -106,6 +108,8 @@
    <addaction name="openArc"/>
    <addaction name="separator"/>
    <addaction name="extractToDir"/>
+   <addaction name="separator"/>
+   <addaction name="compessArc"/>
    <addaction name="separator"/>
    <addaction name="closeArc"/>
    <addaction name="separator"/>
@@ -262,6 +266,9 @@
     <bool>true</bool>
    </property>
    <property name="text">
+    <string>Панель инструментов       Ctrl+I</string>
+   </property>
+   <property name="toolTip">
     <string>Панель инструментов</string>
    </property>
   </action>
@@ -273,6 +280,9 @@
     <bool>true</bool>
    </property>
    <property name="text">
+    <string>Строка состояния               Ctrl+S</string>
+   </property>
+   <property name="toolTip">
     <string>Строка состояния</string>
    </property>
   </action>
@@ -284,6 +294,9 @@
     <bool>true</bool>
    </property>
    <property name="text">
+    <string>Главное меню                     Ctrl+M</string>
+   </property>
+   <property name="toolTip">
     <string>Главное меню</string>
    </property>
   </action>
@@ -299,10 +312,10 @@
      <normaloff>:/pict/full.png</normaloff>:/pict/full.png</iconset>
    </property>
    <property name="text">
-    <string>Во весь экран</string>
+    <string>Во весь экран                       F11</string>
    </property>
-   <property name="shortcut">
-    <string>F11</string>
+   <property name="toolTip">
+    <string>Во весь экран</string>
    </property>
   </action>
   <action name="closeArc">
@@ -327,6 +340,15 @@
    </property>
    <property name="shortcut">
     <string>Alt+D</string>
+   </property>
+  </action>
+  <action name="compessArc">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/compress.png</normaloff>:/pict/compress.png</iconset>
+   </property>
+   <property name="text">
+    <string>Сжать в архив</string>
    </property>
   </action>
  </widget>

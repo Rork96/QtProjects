@@ -123,7 +123,7 @@ void MainWindow::ExtractArc()
 
 bool MainWindow::ExtractZip()
 {
-    /* * * Decompress zip * * */
+    /* * * Extract zip * * */
 
     QFileInfo archiveInfo(archiveName);
     KZip archive(archiveInfo.absoluteFilePath());
@@ -150,7 +150,7 @@ bool MainWindow::ExtractZip()
 
 bool MainWindow::Extract7Zip()
 {
-    /* * * Decompress 7zip * * */
+    /* * * Extract 7zip * * */
 
     QFileInfo archiveInfo(archiveName);
     K7Zip archive(archiveInfo.absoluteFilePath());
@@ -177,7 +177,7 @@ bool MainWindow::Extract7Zip()
 
 bool MainWindow::ExtractTarGz()
 {
-    /* * * Decompress tar.gz * * */
+    /* * * Extract tar.gz * * */
 
     QFileInfo archiveInfo(archiveName);
     KTar archive(archiveInfo.absoluteFilePath());
@@ -204,7 +204,7 @@ bool MainWindow::ExtractTarGz()
 
 bool MainWindow::ExtractBz2()
 {
-    /* * * Decompress bz2 * * */
+    /* * * Extract bz2 * * */
 
     QFileInfo archiveInfo(archiveName);
     bool result = false;

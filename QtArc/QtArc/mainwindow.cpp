@@ -264,9 +264,8 @@ bool MainWindow::CompressZip()
                                                    "Все файлы (*.*)");
 
     QFileInfo archiveInfo(archiveName);
-    KZip archive(archiveInfo.absoluteFilePath());
     bool result = false;
-
+/*
     // Open the archive
     if (!archive.open(QIODevice::WriteOnly))
         return result;
@@ -276,7 +275,6 @@ bool MainWindow::CompressZip()
     // Take the root folder from the archive and create a KArchiveDirectory object.
     // KArchiveDirectory represents a directory in a KArchive.
     const KArchiveDirectory *root = archive.directory();
-    KCompressionDevice *compress;
 
     // Extract all contents from a KArchiveDirectory to a destination.
     // true - will also extract subdirectories.
@@ -284,6 +282,25 @@ bool MainWindow::CompressZip()
     result = root->copyTo(destination, true);
 
     archive.close();
+*/
+    KZip zip(archiveName);
+    if (!zip.open(QIODevice::WriteOnly)) {
+        qWarning() << "Could not open" << fileName << "for writing";
+        return 1;
+    }
+
+    const QByteArray data = "This is the data for the main file";
+    bool writeOk = zip.writeFile(QStringLiteral("maindoc.txt"), data);
+    if (!writeOk) {
+        qWarning() << "Write error (main file)";
+        return 1;
+    }
+    const QByteArray data2 = "This is the data for the other file";
+    writeOk = zip.writeFile(QStringLiteral("subdir/other.txt"), data2);
+    if (!writeOk) {
+        qWarning() << "Write error (other file)";
+        return 1;
+    }
 
     return result;
 }

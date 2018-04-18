@@ -284,22 +284,13 @@ bool MainWindow::CompressZip()
     archive.close();
 */
     KZip zip(archiveName);
-    if (!zip.open(QIODevice::WriteOnly)) {
-        qWarning() << "Could not open" << fileName << "for writing";
-        return 1;
-    }
-
-    const QByteArray data = "This is the data for the main file";
-    bool writeOk = zip.writeFile(QStringLiteral("maindoc.txt"), data);
-    if (!writeOk) {
-        qWarning() << "Write error (main file)";
-        return 1;
-    }
-    const QByteArray data2 = "This is the data for the other file";
-    writeOk = zip.writeFile(QStringLiteral("subdir/other.txt"), data2);
-    if (!writeOk) {
-        qWarning() << "Write error (other file)";
-        return 1;
+    if (zip.open(QIODevice::WriteOnly)) {
+        QFile f(archiveItems[0]);
+        f.open(QFile::ReadOnly);
+        QByteArray arr = f.readAll();
+        result = zip.writeFile(archiveItems[0], arr);
+        //result = zip.addLocalFile(archiveItems[0], archiveName);
+        zip.close();
     }
 
     return result;

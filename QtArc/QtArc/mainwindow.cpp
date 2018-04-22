@@ -265,24 +265,7 @@ bool MainWindow::CompressZip()
 
     QFileInfo archiveInfo(archiveName);
     bool result = false;
-/*
-    // Open the archive
-    if (!archive.open(QIODevice::WriteOnly))
-        return result;
 
-    archive.addLocalFile(archiveItems[0], archiveName);
-
-    // Take the root folder from the archive and create a KArchiveDirectory object.
-    // KArchiveDirectory represents a directory in a KArchive.
-    const KArchiveDirectory *root = archive.directory();
-
-    // Extract all contents from a KArchiveDirectory to a destination.
-    // true - will also extract subdirectories.
-    QString destination = QDir::currentPath();
-    result = root->copyTo(destination, true);
-
-    archive.close();
-*/
     KZip zip(archiveName);
     if (zip.open(QIODevice::WriteOnly)) {
         QFile f(archiveItems[0]);

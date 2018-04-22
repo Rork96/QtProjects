@@ -289,9 +289,8 @@ bool MainWindow::CompressZip()
         f.open(QFile::ReadOnly);
         QByteArray arr = f.readAll();
         result = zip.writeFile(archiveItems[0], arr);
-        //result = zip.addLocalFile(archiveItems[0], archiveName);
-        zip.close();
     }
+    zip.close();
 
     return result;
 }

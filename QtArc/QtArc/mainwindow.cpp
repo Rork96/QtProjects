@@ -242,7 +242,7 @@ void MainWindow::CompressIntoArchive()
         //result = CompressTarGz();
     }
     else { // bz2
-        //result = CompressBz2();
+        result = CompressBz2();
     }
 
     if (result) {
@@ -260,55 +260,48 @@ bool MainWindow::CompressZip()
     // Compression result
     bool result = false;
 
- /*
     KZip zip(archiveName);
     if (zip.open(QIODevice::WriteOnly)) {
-        QFile f(archiveItems[0]);
+        QFileInfo fInfo(archiveName);
+        QString s = fInfo.absolutePath() + "/Word.doc";
+        qDebug() << "File: " << s;
+
+        QFile f(s);
         f.open(QFile::ReadOnly);
-        QByteArray arr = f.readAll();
-        result = zip.writeFile(archiveItems[0], arr);
-    }
-    zip.close();
+        const QByteArray arr = f.readAll();
+        qDebug() << "Array: " << arr.data();
+        bool writeOk = zip.writeFile(f.fileName(), arr);
 
-    */
+        //const QByteArray data = "This is the data for the main file";
+        //bool writeOk = zip.writeFile("maindoc.txt", data);
+        if (!writeOk) {
+            qWarning() << "Write error (main file)";
+            return result;
+        }
 
-    KZip zip(archiveName);
-    if (!zip.open(QIODevice::WriteOnly)) {
-        qWarning() << "Could not open" << archiveName << "for writing";
-        return result;
-    }
-
-    QFileInfo fInfo(archiveName);
-    QString s = fInfo.bundleName() + "/Word.doc";
-
-    QFile f(s);
-    f.open(QFile::ReadOnly);
-    QByteArray arr = f.readAll();
-    bool writeOk = zip.writeFile(f.fileName(), arr);
-
-    //const QByteArray data = "This is the data for the main file";
-    //bool writeOk = zip.writeFile("maindoc.txt", data);
-    if (!writeOk) {
-        qWarning() << "Write error (main file)";
-        return result;
+        result = true;
     }
 
-    /*
+    return result;
+}
+
+bool MainWindow::CompressBz2()
+{
+    /* Compress into bz2 */
+
+    // Compression result
+    bool result = false;
+
     KCompressionDevice device(archiveName, KCompressionDevice::BZip2);
-    if (!device.open(QIODevice::WriteOnly)) {
-        qWarning() << "Could not open" << archiveName << "for writing";
-        return result;
+    if (device.open(QIODevice::WriteOnly)) {
+        const QByteArray data = "This is some text that will be compressed.\n";
+        const int written = device.write(data);
+        if (written != data.size()) {
+            qWarning() << "Error writing data";
+            return result;
+        }
+        result = true;
     }
-
-    const QByteArray data = "This is some text that will be compressed.\n";
-    const int written = device.write(data);
-    if (written != data.size()) {
-        qWarning() << "Error writing data";
-        return result;
-    }
-    */
-
-    result = true;
 
     return result;
 }

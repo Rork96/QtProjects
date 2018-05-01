@@ -38,10 +38,10 @@ private:
     bool ExtractTarGz();            // Extract tar.gz
     bool ExtractBz2();              // Extract bz2
     void CompressIntoArchive();     // Compress into archive
-    bool CompressZip();              // Compress into zip
-    bool Compress7Zip();             // Compress into 7zip
-    bool CompressTarGz();            // Compress into tar.gz
-    bool CompressBz2();              // Compress into bz2
+    bool CompressZip();             // Compress into zip
+    bool Compress7Zip();            // Compress into 7zip
+    bool CompressTarGz();           // Compress into tar.gz
+    bool CompressBz2();             // Compress into bz2
     void CloseArchive();            // Close current archive
 };
 

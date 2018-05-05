@@ -225,6 +225,11 @@ void MainWindow::CompressIntoArchive()
     if (str.isEmpty())
         return;
 
+    // Add default suffix ".zip"
+    if (QFileInfo(str).suffix().isEmpty()) {
+        str.append(".zip");
+    }
+
     // Set archive name
     setArchiveName(str);
 
@@ -236,10 +241,10 @@ void MainWindow::CompressIntoArchive()
         result = CompressZip();
     }
     else if (fInfo.suffix() == "7z") {
-        //result = Compress7Zip();
+        result = Compress7Zip();
     }
     else if (fInfo.suffix() == "gz") {
-        //result = CompressTarGz();
+        result = CompressTarGz();
     }
     else { // bz2
         result = CompressBz2();
@@ -259,23 +264,72 @@ bool MainWindow::CompressZip()
 
     // Compression result
     bool result = false;
+/*
+#ifdef Q_OS_LINUX
+        if (QFileInfo(archiveName).suffix() != "zip") {
+            archiveName += ".zip";
+        }
+#endif*/
 
     KZip zip(archiveName);
     if (zip.open(QIODevice::WriteOnly)) {
         QFileInfo fInfo(archiveName);
-        QString s = fInfo.absolutePath() + "/Word.doc";
-        qDebug() << "File: " << s;
-
-        QFile f(s);
+        QFile f(fInfo.absolutePath() + "/Word.doc");
         f.open(QFile::ReadOnly);
         const QByteArray arr = f.readAll();
-        qDebug() << "Array: " << arr.data();
-        bool writeOk = zip.writeFile(f.fileName(), arr);
+        bool writeOk = zip.writeFile(QFileInfo(f.fileName()).fileName(), arr);
 
-        //const QByteArray data = "This is the data for the main file";
-        //bool writeOk = zip.writeFile("maindoc.txt", data);
         if (!writeOk) {
-            qWarning() << "Write error (main file)";
+            return result;
+        }
+
+        result = true;
+    }
+
+    return result;
+}
+
+bool MainWindow::Compress7Zip()
+{
+    /* * * Compress into 7z * * */
+
+    // Compression result
+    bool result = false;
+
+    KTar tarZip(archiveName);
+    if (tarZip.open(QIODevice::WriteOnly)) {
+        QFileInfo fInfo(archiveName);
+        QFile f(fInfo.absolutePath() + "/Word.doc");
+        f.open(QFile::ReadOnly);
+        const QByteArray arr = f.readAll();
+        bool writeOk = tarZip.writeFile(QFileInfo(f.fileName()).fileName(), arr);
+
+        if (!writeOk) {
+            return result;
+        }
+
+        result = true;
+    }
+
+    return result;
+}
+
+bool MainWindow::CompressTarGz()
+{
+    /* * * Compress into tar.gz * * */
+
+    // Compression result
+    bool result = false;
+
+    KZip zip(archiveName);
+    if (zip.open(QIODevice::WriteOnly)) {
+        QFileInfo fInfo(archiveName);
+        QFile f(fInfo.absolutePath() + "/Word.doc");
+        f.open(QFile::ReadOnly);
+        const QByteArray arr = f.readAll();
+        bool writeOk = zip.writeFile(QFileInfo(f.fileName()).fileName(), arr);
+
+        if (!writeOk) {
             return result;
         }
 
@@ -287,17 +341,20 @@ bool MainWindow::CompressZip()
 
 bool MainWindow::CompressBz2()
 {
-    /* Compress into bz2 */
+    /* * * Compress into bz2 * * */
 
     // Compression result
     bool result = false;
 
     KCompressionDevice device(archiveName, KCompressionDevice::BZip2);
     if (device.open(QIODevice::WriteOnly)) {
-        const QByteArray data = "This is some text that will be compressed.\n";
+        QFileInfo fInfo(archiveName);
+        QFile f(fInfo.absolutePath() + "/Word.doc");
+        f.open(QFile::ReadOnly);
+        const QByteArray data = f.readAll();
         const int written = device.write(data);
+
         if (written != data.size()) {
-            qWarning() << "Error writing data";
             return result;
         }
         result = true;

@@ -8,11 +8,35 @@
 #include <QStandardPaths>
 #include <QShortcut>
 
+#include <QFileSystemModel>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    // Add model into view
+    fModel = new QStandardItemModel(this);
+    ui->mainView->setModel(fModel);
+
+    // Add columns
+    fModel->insertColumns(0, 4);
+    fModel->setHorizontalHeaderLabels(QStringList() << "Путь" << "Имя" << "Тип" << "Размер" << "Дата изменения");
+
+    // Hide 0 column "Путь"
+    ui->mainView->hideColumn(0);
+
+    ui->mainView->verticalHeader()->hide();
+    ui->mainView->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+    // Resize columns
+    ui->mainView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
+    ui->mainView->setColumnWidth(2, 120);
+    ui->mainView->setColumnWidth(3, 150);
+    ui->mainView->setColumnWidth(4, 250);
+    //ui->mainView->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Interactive);    // Width can be changed
+    //ui->mainView->horizontalHeader()->setSectionResizeMode(3, QHeaderView::Stretch);
 
     // Full screen
     QShortcut *fullScreenShortcut = new QShortcut(QKeySequence(Qt::Key_F11), this);
@@ -27,6 +51,12 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(ui->extractToDir, &QAction::triggered, this, &MainWindow::ExtractArc);
         // Compress into archive
         connect(ui->compessArc, &QAction::triggered, this, &MainWindow::CompressIntoArchive);
+
+        // Add file into archive
+        connect(ui->addFiles, &QAction::triggered, this, &MainWindow::AddFiles);
+
+        // Close archive
+        connect(ui->closeArc, &QAction::triggered, this, &MainWindow::CloseArchive);
 
         // Full screen
         connect(ui->fullScrean, &QAction::triggered, fullScreenShortcut, &QShortcut::activated);
@@ -374,8 +404,97 @@ void MainWindow::CloseArchive()
 {
     /* * * Close current archive * * */
 
-    // Clear view
+    // Clear view and model
+    fModel->clear();
+    // Clear saved items
+    archiveItems.clear();
 
     // Set archive name
     setArchiveName(QString());
+}
+
+void MainWindow::AddFiles() {
+    /* * * Add file into archive * * */
+
+    archiveItems = QFileDialog::getOpenFileNames(this, "Выберите файлы",
+                                             QStandardPaths::locate(QStandardPaths::HomeLocation, QString()),
+                                             "Все файлы (*.*)");
+
+    // If user didn't choose file
+    if (archiveItems.isEmpty())
+        return;
+
+    foreach (QString file, archiveItems) {
+        QString type = "";
+        QString size = objSize(QFileInfo(file), type);
+        QList<QStandardItem*> items;
+        items << new QStandardItem(file)                                                        // File path (hidden)
+              << new QStandardItem(QFileInfo(file).fileName())                                  // File name
+              << new QStandardItem(type)                                                        // Type (file or folder)
+              << new QStandardItem(size)                                                        // Size
+              << new QStandardItem(QFileInfo(file).lastModified().toLocalTime().toString());    // Date
+        fModel->appendRow(items);
+    }
+}
+
+QString MainWindow::objSize(const QFileInfo fileInfo, QString &objType)
+{
+    // Identify size of the file or the folder
+    // Return QString and objType
+
+    // Object exists
+    if(!fileInfo.exists()) return "0 байт";
+    float size = 0.0;
+
+    // Folder
+    if(fileInfo.isDir())
+    {
+        // Folder size (return num)
+        dirSize(fileInfo, size);
+        objType = "Папка";
+    }
+    else // File
+    {
+        // File size
+        size = fileInfo.size();
+        objType = "Файл";
+    }
+
+    // Translate into bytes in К, М, Г, Т
+    qint64 i = 0;
+    for (; size > 1024; size /= 1024, ++i) { }
+    // Return value and type (Б, К, М, Г, Т)
+    return QString("%1").arg(size, 0, 'f', 1) + " " + "BKMGT"[i];
+}
+
+void MainWindow::dirSize(const QFileInfo inf, float &num)
+{
+    // Folder size (return num)
+
+    QDir dir;
+    // Browse hidden, skip links
+    dir.setFilter(QDir::Dirs | QDir::Files | QDir::Hidden | QDir::NoSymLinks |
+                  QDir::NoDotAndDotDot);
+    dir.cd(inf.absoluteFilePath());
+
+    // Get file list in the directory
+    QFileInfoList list = dir.entryInfoList();
+
+            foreach (QFileInfo fInfo, list)
+        {
+            /* Если текущий элемент это директория и не "." и ".."
+             * (в Linux "." - указатель на текущий каталог,
+             * а ".." - на родительский каталог) -
+             * их нужно пропустить
+             */
+            if(fInfo.isDir())
+            {
+                float s = 0;
+                // Call dirSize recursively
+                dirSize(fInfo, s);
+                num += s;
+            }
+            // Determine the size of the included files
+            num += fInfo.size();
+        }
 }

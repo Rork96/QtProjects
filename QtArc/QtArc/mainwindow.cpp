@@ -20,24 +20,6 @@ MainWindow::MainWindow(QWidget *parent) :
     fModel = new QStandardItemModel(this);
     ui->mainView->setModel(fModel);
 
-    // Add columns
-    fModel->insertColumns(0, 4);
-    fModel->setHorizontalHeaderLabels(QStringList() << "Путь" << "Имя" << "Тип" << "Размер" << "Дата изменения");
-
-    // Hide 0 column "Путь"
-    ui->mainView->hideColumn(0);
-
-    ui->mainView->verticalHeader()->hide();
-    ui->mainView->setSelectionBehavior(QAbstractItemView::SelectRows);
-
-    // Resize columns
-    ui->mainView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
-    ui->mainView->setColumnWidth(2, 120);
-    ui->mainView->setColumnWidth(3, 150);
-    ui->mainView->setColumnWidth(4, 250);
-    //ui->mainView->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Interactive);    // Width can be changed
-    //ui->mainView->horizontalHeader()->setSectionResizeMode(3, QHeaderView::Stretch);
-
     // Full screen
     QShortcut *fullScreenShortcut = new QShortcut(QKeySequence(Qt::Key_F11), this);
     QShortcut *showMenu = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_M), this);
@@ -46,17 +28,23 @@ MainWindow::MainWindow(QWidget *parent) :
 
     /* * * Connections * * */ {
         // Open archive
-        connect(ui->openArc, &QAction::triggered, this, &MainWindow::OpenArchive);
+        connect(ui->openArc, &QAction::triggered, this, &MainWindow::OpenArc);
         // Extract archive
         connect(ui->extractToDir, &QAction::triggered, this, &MainWindow::ExtractArc);
         // Compress into archive
         connect(ui->compessArc, &QAction::triggered, this, &MainWindow::CompressIntoArchive);
 
-        // Add file into archive
+        // Add files into list for compression
         connect(ui->addFiles, &QAction::triggered, this, &MainWindow::AddFiles);
 
         // Close archive
         connect(ui->closeArc, &QAction::triggered, this, &MainWindow::CloseArchive);
+
+        // Delete file from list
+        connect(ui->deleteFile, &QAction::triggered, this, &MainWindow::DelFile);
+
+        // Save archive as ...
+        connect(ui->saveArcCopy, &QAction::triggered, this, &MainWindow::SaveAsArc);
 
         // Full screen
         connect(ui->fullScrean, &QAction::triggered, fullScreenShortcut, &QShortcut::activated);
@@ -104,9 +92,39 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::OpenArchive()
+void MainWindow::OpenArchive(const QString &arcName)
 {
     /* * * Open archive when program starts * * */
+
+    if (arcName.isEmpty())
+        return;
+
+    setArchiveName(arcName);
+
+    // Open
+    OpenArc();
+}
+
+void MainWindow::OpenArc()
+{
+    /* * * Open archive when program starts * * */
+
+    QString str = QFileDialog::getOpenFileName(this, "Выберите файл",
+                                               QStandardPaths::locate(QStandardPaths::HomeLocation, QString()),
+                                               "Архивы (*.zip | *.7z | *.tar.gz)");
+
+    // User didn't choose file
+    if (str.isEmpty())
+        return;
+
+    // Clear model and list
+    fModel->clear();
+    archiveItems.clear();
+
+    setArchiveName(str);
+
+    // Set title
+    setWindowTitle("QtArc - " + QFileInfo(archiveName).fileName());
 }
 
 void MainWindow::ExtractArc()
@@ -114,16 +132,16 @@ void MainWindow::ExtractArc()
     /* * * Extract archive * * */
 
     if (archiveName.isEmpty()) {
-        // Set archive name
-        setArchiveName(
-                QFileDialog::getOpenFileName(this, "Выберите файл",
-                                             QStandardPaths::locate(QStandardPaths::HomeLocation, QString()),
-                                             "Архивы (*.zip | *.7z | *.tar.gz | *.bz2)")
-        );
+        QMessageBox::information(this, "QtArc", "Сначала откройте архив!", QMessageBox::Ok);
+        return;
     }
 
-    // If user didn't choose file
-    if (archiveName.isEmpty())
+    // Choose Destination
+    QString destination = QFileDialog::getExistingDirectory(this, "Выберите папку",
+                                               QStandardPaths::locate(QStandardPaths::HomeLocation, QString()));
+
+    // User didn't choose file
+    if (destination.isEmpty())
         return;
 
     QFileInfo fInfo(archiveName);
@@ -131,16 +149,13 @@ void MainWindow::ExtractArc()
     bool result = false;
 
     if (fInfo.suffix() == "zip") {
-        result = ExtractZip();
+        result = ExtractZip(destination);
     }
     else if (fInfo.suffix() == "7z") {
-        result = Extract7Zip();
+        result = Extract7Zip(destination);
     }
-    else if (fInfo.suffix() == "gz") {
-        result = ExtractTarGz();
-    }
-    else { // bz2
-        result = ExtractBz2();
+    else { // gz
+        result = ExtractTarGz(destination);
     }
 
     if (result) {
@@ -151,7 +166,7 @@ void MainWindow::ExtractArc()
     }
 }
 
-bool MainWindow::ExtractZip()
+bool MainWindow::ExtractZip(const QString &dest)
 {
     /* * * Extract zip * * */
 
@@ -169,7 +184,7 @@ bool MainWindow::ExtractZip()
 
     // Extract all contents from a KArchiveDirectory to a destination.
     // true - will also extract subdirectories.
-    QString destination = QDir::currentPath() + "/" + archiveInfo.baseName();
+    QString destination = dest + "/" + archiveInfo.baseName();
     result = root->copyTo(destination, true);
 
     archive.close();
@@ -178,7 +193,7 @@ bool MainWindow::ExtractZip()
     return result;
 }
 
-bool MainWindow::Extract7Zip()
+bool MainWindow::Extract7Zip(const QString &dest)
 {
     /* * * Extract 7zip * * */
 
@@ -196,7 +211,7 @@ bool MainWindow::Extract7Zip()
 
     // Extract all contents from a KArchiveDirectory to a destination.
     // true - will also extract subdirectories.
-    QString destination = QDir::currentPath() + "/" + archiveInfo.baseName();
+    QString destination = dest + "/" + archiveInfo.baseName();
     result = root->copyTo(destination, true);
 
     archive.close();
@@ -205,7 +220,7 @@ bool MainWindow::Extract7Zip()
     return result;
 }
 
-bool MainWindow::ExtractTarGz()
+bool MainWindow::ExtractTarGz(const QString &dest)
 {
     /* * * Extract tar.gz * * */
 
@@ -223,8 +238,7 @@ bool MainWindow::ExtractTarGz()
 
     // Extract all contents from a KArchiveDirectory to a destination.
     // true - will also extract subdirectories.
-    QString destination = QDir::currentPath();
-    result = root->copyTo(destination, true);
+    result = root->copyTo(dest, true);
 
     archive.close();
 
@@ -232,24 +246,19 @@ bool MainWindow::ExtractTarGz()
     return result;
 }
 
-bool MainWindow::ExtractBz2()
-{
-    /* * * Extract bz2 * * */
-
-    QFileInfo archiveInfo(archiveName);
-    bool result = false;
-
-    return result;
-}
-
 void MainWindow::CompressIntoArchive()
 {
     /* * * Compress into archive * * */
 
+    // Files for compression must be added
+    if (archiveItems.isEmpty()) {
+        QMessageBox::information(this, "QtArc", "Сначала выберите файлы для архивации!", QMessageBox::Ok);
+        return;
+    }
+
     QString str = QFileDialog::getSaveFileName(this, "Выберите папку для сохранения",
                                                QStandardPaths::locate(QStandardPaths::HomeLocation, QString()),
-                                               "Zip архив (*.zip );; 7Zip архив (*.7z );; Tar gzip архив (*.tar.gz);;"
-                                               "Bzip2 архив (*.bz2)");
+                                               "Zip архив (*.zip );; 7Zip архив (*.7z );; Tar gzip архив (*.tar.gz)");
 
     // If user didn't choose file
     if (str.isEmpty())
@@ -273,15 +282,13 @@ void MainWindow::CompressIntoArchive()
     else if (fInfo.suffix() == "7z") {
         result = Compress7Zip();
     }
-    else if (fInfo.suffix() == "gz") {
+    else { // gz
         result = CompressTarGz();
-    }
-    else { // bz2
-        result = CompressBz2();
     }
 
     if (result) {
         QMessageBox::information(this, "QtArc", "Архивация успешна!", QMessageBox::Ok);
+        setWindowTitle("QtArc - " + QFileInfo(archiveName).fileName());
     }
     else {
         QMessageBox::warning(this, "QtArc", "Ошибка архивации!", QMessageBox::Ok);
@@ -294,29 +301,26 @@ bool MainWindow::CompressZip()
 
     // Compression result
     bool result = false;
-/*
-#ifdef Q_OS_LINUX
-        if (QFileInfo(archiveName).suffix() != "zip") {
-            archiveName += ".zip";
-        }
-#endif*/
 
+    // Compress
     KZip zip(archiveName);
     if (zip.open(QIODevice::WriteOnly)) {
-        QFileInfo fInfo(archiveName);
-        QFile f(fInfo.absolutePath() + "/Word.doc");
-        f.open(QFile::ReadOnly);
-        const QByteArray arr = f.readAll();
-        bool writeOk = zip.writeFile(QFileInfo(f.fileName()).fileName(), arr);
+        // For all items
+        foreach (QString item, archiveItems) {
+            QFile f(item);
+            f.open(QFile::ReadOnly);
+            const QByteArray arr = f.readAll();                                     // Get byte array from file
+            bool writeOk = zip.writeFile(QFileInfo(f.fileName()).fileName(), arr);  // Write file
 
-        if (!writeOk) {
-            return result;
+            if (!writeOk) {
+                return result;  // false
+            }
         }
 
         result = true;
     }
 
-    return result;
+    return result; // true
 }
 
 bool MainWindow::Compress7Zip()
@@ -326,22 +330,25 @@ bool MainWindow::Compress7Zip()
     // Compression result
     bool result = false;
 
+    // Compress
     KTar tarZip(archiveName);
     if (tarZip.open(QIODevice::WriteOnly)) {
-        QFileInfo fInfo(archiveName);
-        QFile f(fInfo.absolutePath() + "/Word.doc");
-        f.open(QFile::ReadOnly);
-        const QByteArray arr = f.readAll();
-        bool writeOk = tarZip.writeFile(QFileInfo(f.fileName()).fileName(), arr);
+        // For all items
+        foreach (QString item, archiveItems) {
+            QFile f(item);
+            f.open(QFile::ReadOnly);
+            const QByteArray arr = f.readAll();
+            bool writeOk = tarZip.writeFile(QFileInfo(f.fileName()).fileName(), arr);
 
-        if (!writeOk) {
-            return result;
+            if (!writeOk) {
+                return result; // false
+            }
         }
 
         result = true;
     }
 
-    return result;
+    return result; // true
 }
 
 bool MainWindow::CompressTarGz()
@@ -351,46 +358,25 @@ bool MainWindow::CompressTarGz()
     // Compression result
     bool result = false;
 
+    // Compress
     KZip zip(archiveName);
     if (zip.open(QIODevice::WriteOnly)) {
-        QFileInfo fInfo(archiveName);
-        QFile f(fInfo.absolutePath() + "/Word.doc");
-        f.open(QFile::ReadOnly);
-        const QByteArray arr = f.readAll();
-        bool writeOk = zip.writeFile(QFileInfo(f.fileName()).fileName(), arr);
+        // For all items
+        foreach (QString item, archiveItems) {
+            QFile f(item);
+            f.open(QFile::ReadOnly);
+            const QByteArray arr = f.readAll();
+            bool writeOk = zip.writeFile(QFileInfo(f.fileName()).fileName(), arr);
 
-        if (!writeOk) {
-            return result;
+            if (!writeOk) {
+                return result; // false
+            }
         }
 
         result = true;
     }
 
-    return result;
-}
-
-bool MainWindow::CompressBz2()
-{
-    /* * * Compress into bz2 * * */
-
-    // Compression result
-    bool result = false;
-
-    KCompressionDevice device(archiveName, KCompressionDevice::BZip2);
-    if (device.open(QIODevice::WriteOnly)) {
-        QFileInfo fInfo(archiveName);
-        QFile f(fInfo.absolutePath() + "/Word.doc");
-        f.open(QFile::ReadOnly);
-        const QByteArray data = f.readAll();
-        const int written = device.write(data);
-
-        if (written != data.size()) {
-            return result;
-        }
-        result = true;
-    }
-
-    return result;
+    return result; // true
 }
 
 void MainWindow::setArchiveName(const QString &arcName)
@@ -411,10 +397,22 @@ void MainWindow::CloseArchive()
 
     // Set archive name
     setArchiveName(QString());
+
+    // Set title
+    setWindowTitle("QtArc");
 }
 
 void MainWindow::AddFiles() {
-    /* * * Add file into archive * * */
+    /* * * Add files into list for compression * * */
+
+    // Clear archiveName, model and list
+    if (!archiveName.isEmpty()) {
+        archiveName.clear();
+        fModel->clear();
+        archiveItems.clear();
+        // Set title
+        setWindowTitle("QtArc");
+    }
 
     archiveItems = QFileDialog::getOpenFileNames(this, "Выберите файлы",
                                              QStandardPaths::locate(QStandardPaths::HomeLocation, QString()),
@@ -423,6 +421,22 @@ void MainWindow::AddFiles() {
     // If user didn't choose file
     if (archiveItems.isEmpty())
         return;
+
+    // Add columns
+    fModel->insertColumns(0, 4);
+    fModel->setHorizontalHeaderLabels(QStringList() << "Путь" << "Имя" << "Тип" << "Размер" << "Дата изменения");
+
+    // Hide 0 column "Путь"
+    ui->mainView->hideColumn(0);
+
+    ui->mainView->verticalHeader()->hide();
+    ui->mainView->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+    // Resize columns
+    ui->mainView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
+    ui->mainView->setColumnWidth(2, 120);
+    ui->mainView->setColumnWidth(3, 150);
+    ui->mainView->setColumnWidth(4, 250);
 
     foreach (QString file, archiveItems) {
         QString type = "";
@@ -497,4 +511,50 @@ void MainWindow::dirSize(const QFileInfo inf, float &num)
             // Determine the size of the included files
             num += fInfo.size();
         }
+}
+
+void MainWindow::DelFile()
+{
+    /* * * Delete file from list * * */
+
+    fModel->removeRow(ui->mainView->selectionModel()->currentIndex().row());
+
+    // Delete from list
+    archiveItems.removeAt(ui->mainView->selectionModel()->currentIndex().row() + 1);
+}
+
+void MainWindow::SaveAsArc()
+{
+    /* * * Save archive as ... * * */
+
+    // Files for compression must be added
+    if (archiveName.isEmpty()) {
+        QMessageBox::information(this, "QtArc", "Сначала откройте архив!", QMessageBox::Ok);
+        return;
+    }
+
+    QString suffix = QFileInfo(archiveName).completeSuffix();
+
+    QString newArchive = QFileDialog::getSaveFileName(this, "Выберите папку для сохранения",
+                                               QStandardPaths::locate(QStandardPaths::HomeLocation, QString()),
+                                               "Архивы (*." + suffix + ")");
+
+    // User didn't choose file
+    if (newArchive.isEmpty())
+        return;
+
+    // Add default suffix ".zip"
+    if (QFileInfo(newArchive).suffix().isEmpty()) {
+        newArchive.append("." + suffix);
+    }
+
+    // Copy archive
+    if (QFile::copy(archiveName, newArchive)) {
+        archiveName = newArchive;
+        QMessageBox::information(this, "QtArc", "Архив сохранен!", QMessageBox::Ok);
+        setWindowTitle("QtArc - " + QFileInfo(archiveName).fileName());
+    }
+    else {
+        QMessageBox::warning(this, "QtArc", "Ошибка сохранения!", QMessageBox::Ok);
+    }
 }

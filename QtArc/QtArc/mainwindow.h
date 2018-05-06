@@ -24,31 +24,29 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     // Open archive when program starts
-    void OpenArchive();
+    void OpenArchive(const QString &arcName);
 
 private:
     Ui::MainWindow *ui;
-    QString archiveName;        // Current archive
-    QStringList archiveItems;   // Items for compression
-    QStandardItemModel *fModel; // Model for view
-
-public:
-    void setArchiveName(const QString &arcName);    // Set archive name
+    QString archiveName;                            // Current archive
+    QStringList archiveItems;                       // Items for compression
+    QStandardItemModel *fModel;                     // Model for view
 
 private:
-    void ExtractArc();              // Extract
-    bool ExtractZip();              // Extract zip
-    bool Extract7Zip();             // Extract 7zip
-    bool ExtractTarGz();            // Extract tar.gz
-    bool ExtractBz2();              // Extract bz2
-    void CompressIntoArchive();     // Compress into archive
-    bool CompressZip();             // Compress into zip
-    bool Compress7Zip();            // Compress into 7zip
-    bool CompressTarGz();           // Compress into tar.gz
-    bool CompressBz2();             // Compress into bz2
-    void CloseArchive();            // Close current archive
-    void AddFiles();                // Add file into archive
-
+    void OpenArc();                                 // Open archive
+    void ExtractArc();                              // Extract
+    bool ExtractZip(const QString &arcName);        // Extract zip
+    bool Extract7Zip(const QString &arcName);       // Extract 7zip
+    bool ExtractTarGz(const QString &arcName);      // Extract tar.gz
+    void CompressIntoArchive();                     // Compress into archive
+    bool CompressZip();                             // Compress into zip
+    bool Compress7Zip();                            // Compress into 7zip
+    bool CompressTarGz();                           // Compress into tar.gz
+    void CloseArchive();                            // Close current archive
+    void AddFiles();                                // Add files into list for compression
+    void DelFile();                                 // Delete file from list
+    void SaveAsArc();                               // Save archive as ...
+    void setArchiveName(const QString &arcName);    // Set archive name
     // Identify size of the file or the folder
     // Return QString and objType
     QString objSize(const QFileInfo fileInfo, QString &objType);

@@ -7,8 +7,7 @@ int main(int argc, char *argv[])
     MainWindow w;
     // Open archive when program starts
     if (argc > 1)
-        w.setArchiveName(argv[1]);
-        w.OpenArchive();
+        w.OpenArchive(argv[1]);
     w.show();
     w.show();
 

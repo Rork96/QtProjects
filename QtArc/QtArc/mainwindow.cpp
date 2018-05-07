@@ -30,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     /* * * Connections * * */ {
         // Open archive
-        connect(ui->openArc, &QAction::triggered, this, &MainWindow::OpenArc);
+        connect(ui->openArc, &QAction::triggered, this, &MainWindow::OpenArchive);
         // Extract archive
         connect(ui->extractToDir, &QAction::triggered, this, &MainWindow::ExtractArc);
         // Compress into archive

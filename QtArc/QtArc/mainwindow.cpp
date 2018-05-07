@@ -123,8 +123,72 @@ void MainWindow::OpenArc()
 
     setArchiveName(str);
 
+    KZip zip(archiveName);
+    if (!zip.open(QIODevice::ReadOnly)) {
+        return;
+    }
+    const KArchiveDirectory *dir = zip.directory();
+
+    // Add files from archive to list
+    AddRecursive(dir, QString());
+
+    zip.close();
+
     // Set title
     setWindowTitle("QtArc - " + QFileInfo(archiveName).fileName());
+}
+
+void MainWindow::AddRecursive(const KArchiveDirectory *dir, const QString &path)
+{
+    /* * * Add files from archive to list * * */
+
+    // Add columns and size
+    CustomizeTable();
+
+    foreach (const QString &it, dir->entries()) {
+        const KArchiveEntry *entry = dir->entry(it);
+        /*
+        qDebug() << "\n\nFiles in archive:"
+                 << "\npermissions:" << entry->permissions()
+                 << "\nuser:" << entry->user().toLatin1().constData()
+                 << "\ngroup:" << entry->group().toLatin1().constData()
+                 << "\npath:" << path.toLatin1().constData()
+                 << "\nfile:" << it.toLatin1().constData()
+                 << "\nsize:" << (static_cast<const KArchiveFile *>(entry))->size()
+                 << "\nposition:" << (static_cast<const KArchiveFile *>(entry))->position()
+                 << "\nisDir:" << entry->isDirectory()
+                 << "\nname:" << entry->name()
+                 << "\ndata:" << (static_cast<const KArchiveFile *>(entry))->date().toLocalTime().toString()
+                 << QString("\nsymlink:").arg(entry->symLinkTarget()).toLatin1().constData();
+
+        qDebug() << "\n";
+        */
+        QString type = "Файл";
+        if (entry->isDirectory()) {
+            type = "Папка";
+        }
+
+        float size = (static_cast<const KArchiveFile *>(entry))->size();
+        // Translate into bytes in К, М, Г, Т
+        qint64 i = 0;
+        for (; size > 1024; size /= 1024, ++i) { }
+        // Return value and type (Б, К, М, Г, Т)
+        QString itSize = QString("%1").arg(size, 0, 'f', 1) + " " + "BKMGT"[i];
+
+        //QString size = objSize(QFileInfo(it), type);
+
+        QList<QStandardItem*> items;
+        items << new QStandardItem(path.toLatin1().constData())                                                     // File path (hidden)
+              << new QStandardItem(it.toLatin1().constData())                                                       // File name
+              << new QStandardItem(type)                                                                            // Type (file or folder)
+              << new QStandardItem(itSize)                                                                          // Size
+              << new QStandardItem((static_cast<const KArchiveFile *>(entry))->date().toLocalTime().toString());    // Date
+        fModel->appendRow(items);
+
+        if (entry->isDirectory()) {
+            AddRecursive(static_cast<const KArchiveDirectory *>(entry), path + it + '/');
+        }
+    }
 }
 
 void MainWindow::ExtractArc()
@@ -171,6 +235,7 @@ bool MainWindow::ExtractZip(const QString &dest)
     /* * * Extract zip * * */
 
     QFileInfo archiveInfo(archiveName);
+
     KZip archive(archiveInfo.absoluteFilePath());
     bool result = false;
 
@@ -422,6 +487,26 @@ void MainWindow::AddFiles() {
     if (archiveItems.isEmpty())
         return;
 
+    // Add columns and size
+    CustomizeTable();
+
+    foreach (QString file, archiveItems) {
+        QString type = "";
+        QString size = objSize(QFileInfo(file), type);
+        QList<QStandardItem*> items;
+        items << new QStandardItem(file)                                                        // File path (hidden)
+              << new QStandardItem(QFileInfo(file).fileName())                                  // File name
+              << new QStandardItem(type)                                                        // Type (file or folder)
+              << new QStandardItem(size)                                                        // Size
+              << new QStandardItem(QFileInfo(file).lastModified().toLocalTime().toString());    // Date
+        fModel->appendRow(items);
+    }
+}
+
+void MainWindow::CustomizeTable()
+{
+    /* * * Customize table * * */
+
     // Add columns
     fModel->insertColumns(0, 4);
     fModel->setHorizontalHeaderLabels(QStringList() << "Путь" << "Имя" << "Тип" << "Размер" << "Дата изменения");
@@ -437,18 +522,6 @@ void MainWindow::AddFiles() {
     ui->mainView->setColumnWidth(2, 120);
     ui->mainView->setColumnWidth(3, 150);
     ui->mainView->setColumnWidth(4, 250);
-
-    foreach (QString file, archiveItems) {
-        QString type = "";
-        QString size = objSize(QFileInfo(file), type);
-        QList<QStandardItem*> items;
-        items << new QStandardItem(file)                                                        // File path (hidden)
-              << new QStandardItem(QFileInfo(file).fileName())                                  // File name
-              << new QStandardItem(type)                                                        // Type (file or folder)
-              << new QStandardItem(size)                                                        // Size
-              << new QStandardItem(QFileInfo(file).lastModified().toLocalTime().toString());    // Date
-        fModel->appendRow(items);
-    }
 }
 
 QString MainWindow::objSize(const QFileInfo fileInfo, QString &objType)

@@ -52,6 +52,10 @@ private:
     QString objSize(const QFileInfo fileInfo, QString &objType);
     // Folder size (return num)
     void dirSize(const QFileInfo inf, float &num);
+    // Add files from archive to list
+    void AddRecursive(const KArchiveDirectory *dir, const QString &path);
+    // Customize table
+    void CustomizeTable();
 };
 
 #endif // MAINWINDOW_H

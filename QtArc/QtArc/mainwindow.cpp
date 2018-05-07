@@ -19,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
     // Add model into view
     fModel = new QStandardItemModel(this);
     ui->mainView->setModel(fModel);
+    // Set edit mode
+    ui->mainView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     // Full screen
     QShortcut *fullScreenShortcut = new QShortcut(QKeySequence(Qt::Key_F11), this);
@@ -164,9 +166,8 @@ void MainWindow::AddRecursive(const KArchiveDirectory *dir, const QString &path)
         qDebug() << "\n";
         */
         QString type = "Файл";
-        if (entry->isDirectory()) {
+        if (entry->isDirectory())
             type = "Папка";
-        }
 
         float size = (static_cast<const KArchiveFile *>(entry))->size();
         // Translate into bytes in К, М, Г, Т
@@ -175,8 +176,6 @@ void MainWindow::AddRecursive(const KArchiveDirectory *dir, const QString &path)
         // Return value and type (Б, К, М, Г, Т)
         QString itSize = QString("%1").arg(size, 0, 'f', 1) + " " + "BKMGT"[i];
 
-        //QString size = objSize(QFileInfo(it), type);
-
         QList<QStandardItem*> items;
         items << new QStandardItem(path.toLatin1().constData())                                                     // File path (hidden)
               << new QStandardItem(it.toLatin1().constData())                                                       // File name
@@ -184,10 +183,12 @@ void MainWindow::AddRecursive(const KArchiveDirectory *dir, const QString &path)
               << new QStandardItem(itSize)                                                                          // Size
               << new QStandardItem((static_cast<const KArchiveFile *>(entry))->date().toLocalTime().toString());    // Date
         fModel->appendRow(items);
-
+        /*
+        // Directory entries
         if (entry->isDirectory()) {
             AddRecursive(static_cast<const KArchiveDirectory *>(entry), path + it + '/');
         }
+        */
     }
 }
 

@@ -56,6 +56,9 @@ private:
     void AddRecursive(const KArchiveDirectory *dir, const QString &path);
     // Customize table
     void CustomizeTable();
+
+    template <class T>
+    bool CompressArc(const T archive);
 };
 
 #endif // MAINWINDOW_H

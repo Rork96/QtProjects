@@ -34,6 +34,9 @@ private:
 
 private:
     void OpenArc();                                 // Open archive
+    void OpenZip();
+    void Open7Zip();
+    void OpenGZip();
     void ExtractArc();                              // Extract
     bool ExtractZip(const QString &arcName);        // Extract zip
     bool Extract7Zip(const QString &arcName);       // Extract 7zip
@@ -53,14 +56,9 @@ private:
     // Folder size (return num)
     void dirSize(const QFileInfo inf, float &num);
     // Add files from archive to list
-    void AddRecursive(const KArchiveDirectory *dir, const QString &path);
+    void ListRecursive(const KArchiveDirectory *dir, const QString &path);
     // Customize table
     void CustomizeTable();
-
-    template <class T>
-    bool CompressArc(const T archive);
-
-    bool Compress();
 };
 
 #endif // MAINWINDOW_H

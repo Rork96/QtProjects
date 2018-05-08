@@ -59,6 +59,8 @@ private:
 
     template <class T>
     bool CompressArc(const T archive);
+
+    bool Compress();
 };
 
 #endif // MAINWINDOW_H

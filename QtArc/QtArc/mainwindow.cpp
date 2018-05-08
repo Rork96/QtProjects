@@ -344,8 +344,9 @@ void MainWindow::CompressIntoArchive()
 
     if (fInfo.suffix() == "zip") {
         //result = CompressZip();
-        const KZip zip(archiveName);
-        result = CompressArc(zip);
+        //KZip zip(archiveName);
+        //result = CompressArc(zip);
+        result = Compress();
     }
     else if (fInfo.suffix() == "7z") {
         result = Compress7Zip();
@@ -361,6 +362,41 @@ void MainWindow::CompressIntoArchive()
     else {
         QMessageBox::warning(this, "QtArc", "Ошибка архивации!", QMessageBox::Ok);
     }
+}
+
+bool MainWindow::Compress()
+{
+    /* * * Compress * * */
+
+    const QString &s = archiveName;
+    KArchive arc(s);
+
+    if (QFileInfo(archiveName).suffix() == "zip") {
+        KZip *arch = new KArchive(s);
+    }
+
+    // Compression result
+    bool result = false;
+
+    // Compress
+    //KZip zip(archiveName);
+    if (arc.open(QIODevice::WriteOnly)) {
+        // For all items
+                foreach (QString item, archiveItems) {
+                QFile f(item);
+                f.open(QFile::ReadOnly);
+                const QByteArray arr = f.readAll();                                     // Get byte array from file
+                bool writeOk = arc.writeFile(QFileInfo(f.fileName()).fileName(), arr);  // Write file
+
+                if (!writeOk) {
+                    return result;  // false
+                }
+            }
+
+        result = true;
+    }
+
+    return result; // true
 }
 
 template <class T>

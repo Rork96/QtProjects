@@ -110,7 +110,6 @@ void MainWindow::OpenArchive(const QString &arcName)
 }
 
 // region Open archive
-
 void MainWindow::OpenArc()
 {
     /* * * Open archive when program starts * * */
@@ -235,11 +234,9 @@ void MainWindow::ListRecursive(const KArchiveDirectory *dir, const QString &path
         */
     }
 }
-
 // endregion Open archive
 
 // region Extract archive
-
 void MainWindow::ExtractArc()
 {
     /* * * Extract archive * * */
@@ -359,11 +356,9 @@ bool MainWindow::ExtractTarGz(const QString &dest)
     // Extraction result
     return result;
 }
-
 // endregion Extract
 
 // region Compress into archive
-
 void MainWindow::CompressIntoArchive()
 {
     /* * * Compress into archive * * */
@@ -496,7 +491,6 @@ bool MainWindow::CompressTarGz()
 
     return result; // true
 }
-
 // endregion Compress into archive
 
 void MainWindow::setArchiveName(const QString &arcName)

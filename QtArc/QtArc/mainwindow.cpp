@@ -28,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QShortcut *showToolBar = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_I), this);
     QShortcut *showStatusBar = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_S), this);
 
+    // region Connections
     /* * * Connections * * */ {
         // Open archive
         connect(ui->openArc, &QAction::triggered, this, &MainWindow::OpenArc);
@@ -87,6 +88,7 @@ MainWindow::MainWindow(QWidget *parent) :
         // Quit
         connect(ui->quitProgram, &QAction::triggered, this, &MainWindow::close);
     }
+    // endregion Connections
 }
 
 MainWindow::~MainWindow()
@@ -106,6 +108,8 @@ void MainWindow::OpenArchive(const QString &arcName)
     // Open
     OpenArc();
 }
+
+// region Open archive
 
 void MainWindow::OpenArc()
 {
@@ -232,6 +236,10 @@ void MainWindow::ListRecursive(const KArchiveDirectory *dir, const QString &path
     }
 }
 
+// endregion Open archive
+
+// region Extract archive
+
 void MainWindow::ExtractArc()
 {
     /* * * Extract archive * * */
@@ -351,6 +359,10 @@ bool MainWindow::ExtractTarGz(const QString &dest)
     // Extraction result
     return result;
 }
+
+// endregion Extract
+
+// region Compress into archive
 
 void MainWindow::CompressIntoArchive()
 {
@@ -484,6 +496,8 @@ bool MainWindow::CompressTarGz()
 
     return result; // true
 }
+
+// endregion Compress into archive
 
 void MainWindow::setArchiveName(const QString &arcName)
 {

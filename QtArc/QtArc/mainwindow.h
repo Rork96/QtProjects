@@ -12,6 +12,8 @@
 #include <kcompressiondevice.h>     // bz2
 #include <QtCore/QFileInfo>
 
+#include "Archive.h"
+
 namespace Ui {
     class MainWindow;
 }

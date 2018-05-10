@@ -8,20 +8,46 @@
 #include <ktar.h>                   // tar.gz
 #include <kcompressiondevice.h>     // bz2
 
-class KARCHIVE_EXPORT Archive {
+class Archive {
 
 public:
-    explicit Archive(int context);
+    virtual ~Archive() {}
+    virtual void open(const QString &filename, QIODevice::OpenMode mode) = 0;
+};
 
-    template <class T>
-    T getObject(const QString &filename);
+class AZip : public Archive {
+public:
+    void open(const QString &filename, QIODevice::OpenMode mode) {
+        KZip zip(filename);
+        zip.open(mode);
+    }
+};
 
-    int context = 0; // 0 = zip, 1 = 7zip, 2 = tar
+class A7Zip : public Archive {
+public:
+    void open(const QString &filename, QIODevice::OpenMode mode) {
+        KZip zip(filename);
+        zip.open(mode);
+    }
+};
 
-    signals:
+class ATar : public Archive {
+public:
+    void open(const QString &filename, QIODevice::OpenMode mode) {
+        KZip zip(filename);
+        zip.open(mode);
+    }
+};
 
-public
-    slots:
+class Archiver {
+public:
+    Archiver(Archive *archive) : arc(archive) {}
+    ~Archiver() { delete  arc; }
+    void open(const QString &filename, QIODevice::OpenMode mode) {
+        arc->open(filename, mode);
+    }
+private:
+    Archive *arc;
 };
 
 #endif //Archive_H

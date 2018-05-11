@@ -3,8 +3,7 @@
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *
- *  Autour: masterarrow
- *  e-mail: masterarrow@gmail.com
+ *  Copyright (C) 2018 masterarrow <masterarrow@gmail.com>
  *
  *                                          Virtual class Archive
  *                                  (all functions must be pure virtual)

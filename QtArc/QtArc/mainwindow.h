@@ -36,17 +36,11 @@ private:
 
 private:
     void OpenArc();                                 // Open archive
-    void OpenZip();
-    void Open7Zip();
-    void OpenGZip();
+    void OpenArch(Archiver *arc);
     void ExtractArc();                              // Extract
-    bool ExtractZip(const QString &arcName);        // Extract zip
-    bool Extract7Zip(const QString &arcName);       // Extract 7zip
-    bool ExtractTarGz(const QString &arcName);      // Extract tar.gz
+    bool ExtractArch(Archiver *arc, const QString &dest);
     void CompressIntoArchive();                     // Compress into archive
-    bool CompressZip();                             // Compress into zip
-    bool Compress7Zip();                            // Compress into 7zip
-    bool CompressTarGz();                           // Compress into tar.gz
+    bool CompressArch(Archiver *arc);
     void CloseArchive();                            // Close current archive
     void AddFiles();                                // Add files into list for compression
     void DelFile();                                 // Delete file from list

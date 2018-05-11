@@ -129,68 +129,39 @@ void MainWindow::OpenArc()
     archiveItems.clear();
 
     if (QFileInfo(archiveName).suffix() == "zip") {
-        OpenZip();
+        // Initialize class Archiver for managing zip files
+        // (class Azip is a wrapper for class KZip)
+        Archiver *arc = new Archiver(new AZip());
+        OpenArch(arc);
     }
     else if (QFileInfo(archiveName).suffix() == "7z") {
-        Open7Zip();
+        Archiver *arc = new Archiver(new A7Zip());
+        OpenArch(arc);
     }
     else { // gz
-        OpenGZip();
+        Archiver *arc = new Archiver(new ATarGz());
+        OpenArch(arc);
     }
 
     // Set title
     setWindowTitle("QtArc - " + QFileInfo(archiveName).fileName());
 }
 
-void MainWindow::OpenZip()
+void MainWindow::OpenArch(Archiver *arc)
 {
-    /* * * Open zip * * */
+    /* * * Open archive * * */
 
-    KZip zip(archiveName);
-    if (!zip.open(QIODevice::ReadOnly)) {
+    arc->setFileName(archiveName);
+    if (!arc->open(QIODevice::ReadOnly)) {
         QMessageBox::warning(this, "QtArc", "Ошибка открытия архива!", QMessageBox::Ok);
         return;
     }
-    const KArchiveDirectory *dir = zip.directory();
+    const KArchiveDirectory *dir = arc->directory();
 
     // Add files from archive to list
     ListRecursive(dir, QString());
 
-    zip.close();
-}
-
-void MainWindow::Open7Zip()
-{
-    /* * * Open 7-zip * * */
-
-    K7Zip sevenZip(archiveName);
-    if (!sevenZip.open(QIODevice::ReadOnly)) {
-        QMessageBox::warning(this, "QtArc", "Ошибка открытия архива!", QMessageBox::Ok);
-        return;
-    }
-    const KArchiveDirectory *dir = sevenZip.directory();
-
-    // Add files from archive to list
-    ListRecursive(dir, QString());
-
-    sevenZip.close();
-}
-
-void MainWindow::OpenGZip()
-{
-    /* * * Open tar.gz * * */
-
-    KTar Gzip(archiveName);
-    if (!Gzip.open(QIODevice::ReadOnly)) {
-        QMessageBox::warning(this, "QtArc", "Ошибка открытия архива!", QMessageBox::Ok);
-        return;
-    }
-    const KArchiveDirectory *dir = Gzip.directory();
-
-    // Add files from archive to list
-    ListRecursive(dir, QString());
-
-    Gzip.close();
+    arc->close();
 }
 
 void MainWindow::ListRecursive(const KArchiveDirectory *dir, const QString &path)
@@ -259,13 +230,18 @@ void MainWindow::ExtractArc()
     bool result = false;
 
     if (fInfo.suffix() == "zip") {
-        result = ExtractZip(destination);
+        // Initialize class Archiver for managing zip files
+        // (class Azip is a wrapper for class KZip)
+        Archiver *arc = new Archiver(new AZip());
+        result = ExtractArch(arc, destination);
     }
     else if (fInfo.suffix() == "7z") {
-        result = Extract7Zip(destination);
+        Archiver *arc = new Archiver(new A7Zip());
+        result = ExtractArch(arc, destination);
     }
     else { // gz
-        result = ExtractTarGz(destination);
+        Archiver *arc = new Archiver(new ATarGz());
+        result = ExtractArch(arc, destination);
     }
 
     if (result) {
@@ -276,87 +252,34 @@ void MainWindow::ExtractArc()
     }
 }
 
-bool MainWindow::ExtractZip(const QString &dest)
+bool MainWindow::ExtractArch(Archiver *arc, const QString &dest)
 {
-    /* * * Extract zip * * */
+    /* * * Extract archive * * */
 
     QFileInfo archiveInfo(archiveName);
 
-    KZip archive(archiveInfo.absoluteFilePath());
+    arc->setFileName(archiveInfo.absoluteFilePath());
     bool result = false;
 
     // Open the archive
-    if (!archive.open(QIODevice::ReadOnly))
+    if (!arc->open(QIODevice::ReadOnly))
         return result;
 
     // Take the root folder from the archive and create a KArchiveDirectory object.
     // KArchiveDirectory represents a directory in a KArchive.
-    const KArchiveDirectory *root = archive.directory();
+    const KArchiveDirectory *root = arc->directory();
 
     // Extract all contents from a KArchiveDirectory to a destination.
     // true - will also extract subdirectories.
     QString destination = dest + "/" + archiveInfo.baseName();
     result = root->copyTo(destination, true);
 
-    archive.close();
+    arc->close();
 
     // Extraction result
     return result;
 }
-
-bool MainWindow::Extract7Zip(const QString &dest)
-{
-    /* * * Extract 7zip * * */
-
-    QFileInfo archiveInfo(archiveName);
-    K7Zip archive(archiveInfo.absoluteFilePath());
-    bool result = false;
-
-    // Open the archive
-    if (!archive.open(QIODevice::ReadOnly))
-        return result;
-
-    // Take the root folder from the archive and create a KArchiveDirectory object.
-    // KArchiveDirectory represents a directory in a KArchive.
-    const KArchiveDirectory *root = archive.directory();
-
-    // Extract all contents from a KArchiveDirectory to a destination.
-    // true - will also extract subdirectories.
-    QString destination = dest + "/" + archiveInfo.baseName();
-    result = root->copyTo(destination, true);
-
-    archive.close();
-
-    // Extraction result
-    return result;
-}
-
-bool MainWindow::ExtractTarGz(const QString &dest)
-{
-    /* * * Extract tar.gz * * */
-
-    QFileInfo archiveInfo(archiveName);
-    KTar archive(archiveInfo.absoluteFilePath());
-    bool result = false;
-
-    // Open the archive
-    if (!archive.open(QIODevice::ReadOnly))
-        return result;
-
-    // Take the root folder from the archive and create a KArchiveDirectory object.
-    // KArchiveDirectory represents a directory in a KArchive.
-    const KArchiveDirectory *root = archive.directory();
-
-    // Extract all contents from a KArchiveDirectory to a destination.
-    // true - will also extract subdirectories.
-    result = root->copyTo(dest, true);
-
-    archive.close();
-
-    // Extraction result
-    return result;
-}
-// endregion Extract
+// endregion Extract archive
 
 // region Compress into archive
 void MainWindow::CompressIntoArchive()
@@ -390,13 +313,18 @@ void MainWindow::CompressIntoArchive()
     bool result = false;
 
     if (fInfo.suffix() == "zip") {
-        result = CompressZip();
+        // Initialize class Archiver for managing zip files
+        // (class Azip is a wrapper for class KZip)
+        Archiver *arc = new Archiver(new AZip());
+        result = CompressArch(arc);
     }
     else if (fInfo.suffix() == "7z") {
-        result = Compress7Zip();
+        Archiver *arc = new Archiver(new A7Zip());
+        result = CompressArch(arc);
     }
     else { // gz
-        result = CompressTarGz();
+        Archiver *arc = new Archiver(new ATarGz());
+        result = CompressArch(arc);
     }
 
     if (result) {
@@ -408,87 +336,31 @@ void MainWindow::CompressIntoArchive()
     }
 }
 
-bool MainWindow::CompressZip()
+bool MainWindow::CompressArch(Archiver *arc)
 {
-    /* * * Compress into zip * * */
+    /* * * Compress into archive * * */
 
     // Compression result
     bool result = false;
 
     // Compress
-    KZip zip(archiveName);
-    if (zip.open(QIODevice::WriteOnly)) {
+    arc->setFileName(archiveName);
+    if (arc->open(QIODevice::WriteOnly)) {
         // For all items
         foreach (QString item, archiveItems) {
             QFile f(item);
             f.open(QFile::ReadOnly);
-            const QByteArray arr = f.readAll();                                     // Get byte array from file
-            bool writeOk = zip.writeFile(QFileInfo(f.fileName()).fileName(), arr);  // Write file
+            const QByteArray arr = f.readAll();                             // Get byte array from file
+            bool writeOk = arc->writeFile(QFileInfo(item).fileName(), arr); // Write file
 
             if (!writeOk) {
                 return result;  // false
             }
         }
+        arc->close();
 
         result = true;
     }
-
-    return result; // true
-}
-
-bool MainWindow::Compress7Zip()
-{
-    /* * * Compress into 7z * * */
-
-    // Compression result
-    bool result = false;
-
-    // Compress
-    K7Zip sevenZip(archiveName);
-    if (sevenZip.open(QIODevice::WriteOnly)) {
-        // For all items
-        foreach (QString item, archiveItems) {
-            QFile f(item);
-            f.open(QFile::ReadOnly);
-            const QByteArray arr = f.readAll();
-            bool writeOk = sevenZip.writeFile(QFileInfo(f.fileName()).fileName(), arr);
-
-            if (!writeOk) {
-                return result; // false
-            }
-        }
-
-        result = true;
-    }
-
-    return result; // true
-}
-
-bool MainWindow::CompressTarGz()
-{
-    /* * * Compress into tar.gz * * */
-
-    // Compression result
-    bool result = false;
-
-    // Compress
-    KTar Gzip(archiveName);
-    if (Gzip.open(QIODevice::WriteOnly)) {
-        // For all items
-        foreach (QString item, archiveItems) {
-            QFile f(item);
-            f.open(QFile::ReadOnly);
-            const QByteArray arr = f.readAll();
-            bool writeOk = Gzip.writeFile(QFileInfo(f.fileName()).fileName(), arr);
-
-            if (!writeOk) {
-                return result; // false
-            }
-        }
-
-        result = true;
-    }
-
     return result; // true
 }
 // endregion Compress into archive

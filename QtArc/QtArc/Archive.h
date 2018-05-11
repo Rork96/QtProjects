@@ -44,9 +44,8 @@
   * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #include <kzip.h>                   // zip
-#include <k7zip.h>                  // 7zip
+#include <k7zip.h>                  // 7z
 #include <ktar.h>                   // tar.gz
-#include <kcompressiondevice.h>     // bz2
 
 class Archive {
 public:

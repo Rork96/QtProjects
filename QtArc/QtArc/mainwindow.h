@@ -5,13 +5,9 @@
 
 #include <QStandardItemModel>
 
-// Library
-#include <kzip.h>                   // zip
-#include <k7zip.h>                  // 7zip
-#include <ktar.h>                   // tar.gz
-#include <kcompressiondevice.h>     // bz2
 #include <QtCore/QFileInfo>
 
+// For zip, 7z, tar.gz
 #include "Archive.h"
 
 namespace Ui {

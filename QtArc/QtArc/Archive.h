@@ -30,7 +30,7 @@
  *
  *              const KArchiveDirectory* directory() - return KArchiveDirectory* for reading file from archive.
  *
- *              bool writeFile(const QString name, const QByteArray data) - write single file into archive,
+ *              bool writeFile(const QString name, const QByteArray data) - write (add) a single file into archive,
  *                                                                          get QString name (full file name with path) and
  *                                                                          QByteArray data (byte array from file),
  *                                                                          returns true if successful.
@@ -47,6 +47,8 @@
 #include <k7zip.h>                  // 7z
 #include <ktar.h>                   // tar.gz
 
+// region Main class (virtual)
+
 class Archive {
 public:
     // All funcions pure virtual = 0 (default)
@@ -57,8 +59,10 @@ public:
     virtual bool writeFile(const QString name, const QByteArray data)= 0;
     virtual bool close() = 0;
 };
+// endregion Main
 
-/* For zip archives (it use KZip) */
+// region For zip archives (it use KZip)
+
 class AZip : public Archive {
 public:
     ~AZip() { delete  zip; }
@@ -85,8 +89,10 @@ public:
 private:
     KZip *zip;
 };
+// endregion zip
 
-/* For 7z archives (it use K7Zip) */
+// region For 7z archives (it use K7Zip)
+
 class A7Zip : public Archive {
 public:
     ~A7Zip() { delete  sZip; }
@@ -113,8 +119,10 @@ public:
 private:
     K7Zip *sZip;
 };
+// endregion 7z
 
-/* For tar.gz archives (it use KTar) */
+// region For tar.gz archives (it use KTar)
+
 class ATarGz : public Archive {
 public:
     ~ATarGz() { delete  tar; }
@@ -141,8 +149,10 @@ public:
 private:
     KTar *tar;
 };
+// endregion tar.gz
 
-// Use for managing archives
+// region Archiver (use for managing archives)
+
 class Archiver {
 public:
     // Archiver *arc = new Archiver(new AZip)   - zip
@@ -168,5 +178,6 @@ public:
 private:
     Archive *arc;
 };
+// endregion Archiver
 
 #endif //Archive_H

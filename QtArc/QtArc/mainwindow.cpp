@@ -110,6 +110,7 @@ void MainWindow::OpenArchive(const QString &arcName)
 }
 
 // region Open archive
+
 void MainWindow::OpenArc()
 {
     /* * * Open archive when program starts * * */
@@ -169,7 +170,8 @@ void MainWindow::ListRecursive(const KArchiveDirectory *dir, const QString &path
     /* * * Add files from 7-zip archive to list * * */
 
     // Add columns and size
-    CustomizeTable();
+    if (fModel->columnCount() == 0)
+        CustomizeTable();
 
     QStringList l = dir->entries();
     QStringList::ConstIterator it = l.constBegin();
@@ -178,15 +180,27 @@ void MainWindow::ListRecursive(const KArchiveDirectory *dir, const QString &path
         const KArchiveEntry *entry = dir->entry((*it));
 
         QString type = "Файл";
-        if (entry->isDirectory())
+        float size = 0;
+        if (entry->isDirectory()) {
             type = "Папка";
+            KArchiveDirectory *ddd;
+            ddd = (KArchiveDirectory *)entry, path + (*it) + '/';
+            QStringList lst = ddd->entries();
+            QStringList::ConstIterator it = lst.constBegin();
+            for (; it != lst.constEnd(); ++it) {
+                const KArchiveEntry *entry = dir->entry((*it));
 
-        float size = (static_cast<const KArchiveFile *>(entry))->size();
-        // Translate into bytes in К, М, Г, Т
-        qint64 i = 0;
-        for (; size > 1024; size /= 1024, ++i) { }
-        // Return value and type (Б, К, М, Г, Т)
-        QString itSize = QString("%1").arg(size, 0, 'f', 1) + " " + "BKMGT"[i];
+                size += (static_cast<const KArchiveFile *>(entry))->size();
+            }
+        }
+        else {
+            size = (static_cast<const KArchiveFile *>(entry))->size();
+        }
+            // Translate into bytes in К, М, Г, Т
+            qint64 i = 0;
+            for (; size > 1024; size /= 1024, ++i) {}
+            // Return value and type (Б, К, М, Г, Т)
+            QString itSize = QString("%1").arg(size, 0, 'f', 1) + " " + "BKMGT"[i];
 
         QList<QStandardItem*> items;
         items << new QStandardItem(path.toLatin1().constData())                                             // File path (hidden)
@@ -200,7 +214,7 @@ void MainWindow::ListRecursive(const KArchiveDirectory *dir, const QString &path
         /*
         // Directory entries
         if (entry->isDirectory()) {
-            Recursive7Zip((KArchiveDirectory *)entry, path + (*it) + '/');
+            ListRecursive((KArchiveDirectory *)entry, path + (*it) + '/');
         }
         */
     }
@@ -208,6 +222,7 @@ void MainWindow::ListRecursive(const KArchiveDirectory *dir, const QString &path
 // endregion Open archive
 
 // region Extract archive
+
 void MainWindow::ExtractArc()
 {
     /* * * Extract archive * * */
@@ -282,6 +297,7 @@ bool MainWindow::ExtractArch(Archiver *arc, const QString &dest)
 // endregion Extract archive
 
 // region Compress into archive
+
 void MainWindow::CompressIntoArchive()
 {
     /* * * Compress into archive * * */
@@ -363,7 +379,7 @@ bool MainWindow::CompressArch(Archiver *arc)
     }
     return result; // true
 }
-// endregion Compress into archive
+//endregion Compress into archive
 
 void MainWindow::setArchiveName(const QString &arcName)
 {
@@ -392,13 +408,7 @@ void MainWindow::AddFiles() {
     /* * * Add files into list for compression * * */
 
     // Clear archiveName, model and list
-    if (!archiveName.isEmpty()) {
-        archiveName.clear();
-        fModel->clear();
-        archiveItems.clear();
-        // Set title
-        setWindowTitle("QtArc");
-    }
+    // CloseArchive();
 
     archiveItems = QFileDialog::getOpenFileNames(this, "Выберите файлы",
                                              QStandardPaths::locate(QStandardPaths::HomeLocation, QString()),
@@ -409,7 +419,8 @@ void MainWindow::AddFiles() {
         return;
 
     // Add columns and size
-    CustomizeTable();
+    if (fModel->columnCount() == 0)
+        CustomizeTable();
 
     foreach (QString file, archiveItems) {
         QString type = "";
@@ -488,23 +499,21 @@ void MainWindow::dirSize(const QFileInfo inf, float &num)
     // Get file list in the directory
     QFileInfoList list = dir.entryInfoList();
 
-            foreach (QFileInfo fInfo, list)
-        {
-            /* Если текущий элемент это директория и не "." и ".."
-             * (в Linux "." - указатель на текущий каталог,
-             * а ".." - на родительский каталог) -
-             * их нужно пропустить
-             */
-            if(fInfo.isDir())
-            {
-                float s = 0;
-                // Call dirSize recursively
-                dirSize(fInfo, s);
-                num += s;
-            }
-            // Determine the size of the included files
-            num += fInfo.size();
-        }
+    foreach (QFileInfo fInfo, list) {
+        /* Если текущий элемент это директория и не "." и ".."
+         * (в Linux "." - указатель на текущий каталог,
+         * а ".." - на родительский каталог) -
+         * их нужно пропустить
+         */
+         if(fInfo.isDir()) {
+             float s = 0;
+             // Call dirSize recursively
+             dirSize(fInfo, s);
+             num += s;
+         }
+         // Determine the size of the included files
+         num += fInfo.size();
+    }
 }
 
 void MainWindow::DelFile()

@@ -324,7 +324,7 @@
      <normaloff>:/pict/close.png</normaloff>:/pict/close.png</iconset>
    </property>
    <property name="text">
-    <string>Закрыть архив</string>
+    <string>Закрыть архив (очистить список)</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+Q</string>

@@ -44,8 +44,6 @@
  *
   * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-//#include <QObject>
-
 #include <kzip.h>                   // zip
 #include <k7zip.h>                  // 7zip
 #include <ktar.h>                   // tar.gz
@@ -149,8 +147,9 @@ private:
 // Use for managing archives
 class Archiver {
 public:
-    // Archiver *arc = new Archiver(new AZip) or Archiver *arc = new Archiver(new A7Zip)
-    // or Archiver *arc = new Archiver(new ATarGz)
+    // Archiver *arc = new Archiver(new AZip)   - zip
+    // Archiver *arc = new Archiver(new A7Zip)  - 7z
+    // Archiver *arc = new Archiver(new ATarGz) - tar.gz
     Archiver(Archive *archive) : arc(archive) {}
     ~Archiver() { delete  arc; }
     void setFileName(const QString &filename) {

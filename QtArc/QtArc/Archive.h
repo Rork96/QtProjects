@@ -11,7 +11,7 @@
  *  This class created for simplify usage of classes KZip, K7Zip and KTar through single interface,
  *  which minimize repeating code.
  *
- *  Class build on Strategy template for providing a single interface for classes Kzip, K7Zip and KTar.
+ *  Class build on Strategy template for providing a single and simple interface for classes Kzip, K7Zip and KTar.
  *
  *  Use class Archiver for managing archives zip, 7z, tar.gz.
  *

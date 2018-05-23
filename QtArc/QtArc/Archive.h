@@ -5,7 +5,7 @@
  *
  *  Copyright (C) 2018 masterarrow <masterarrow@gmail.com>
  *
- *                                          Virtual struct Archive
+ *                                          Virtual class Archive
  *                                  (all functions must be pure virtual)
  *
  *  This class created for simplify usage of classes KZip, K7Zip and KTar through single interface,
@@ -15,9 +15,9 @@
  *
  *  Use class Archiver for managing archives zip, 7z, tar.gz.
  *
- *  Initialization: Archiver *arc = new Archiver(new Zip)      - for zip files
- *                  Archiver *arc = new Archiver(new Zip7)     - for 7z files
- *                  Archiver *arc = new Archiver(new TarGz)    - for tar.gz files
+ *  Initialization: Archiver *arc = new Archiver(new AZip)      - for zip files
+ *                  Archiver *arc = new Archiver(new A7Zip)     - for 7z files
+ *                  Archiver *arc = new Archiver(new ATarGz)    - for tar.gz files
  *
  *  After initialization you will be able to use a functions from it.
  *
@@ -39,7 +39,7 @@
  *
  *  Warning !!! : always close archive after usage - acr->close()
  *
- *  Each function from structures Zip, Zip7 and TarGz call function from class KZip, K7Zip and KTar.
+ *  Each function from child class AZip, A7Zip and ATar call function from class KZip, K7Zip and KTar.
  *
   * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -49,44 +49,36 @@
 
 // region Main class (virtual)
 
-struct Archive {
+class Archive {
 public:
     // All funcions pure virtual = 0 (default)
     virtual ~Archive() = default;
     virtual void setFileName(const QString &filename) = 0;
     virtual bool open(QIODevice::OpenMode mode) = 0;
     virtual const KArchiveDirectory* directory() const = 0;
-    virtual bool writeFile(const QString &name, const QByteArray &data) = 0;
-    virtual bool addLocalFile(const QString &fileName, const QString &destName) = 0;
-    virtual bool writeDir(const QString &name) = 0;
+    virtual bool writeFile(const QString name, const QByteArray data)= 0;
     virtual bool close() = 0;
 };
 // endregion Main
 
 // region For zip archives (it use KZip)
 
-struct Zip : public Archive {
+class AZip : public Archive {
 public:
-    ~Zip() override { delete  zip; }
-    void setFileName(const QString &filename) override {
+    ~AZip() { delete  zip; }
+    void setFileName(const QString &filename){
         zip = new KZip(filename);   // Init KZip
     }
-    bool open(QIODevice::OpenMode mode) override {
+    bool open(QIODevice::OpenMode mode) {
         return zip->open(mode);     // Open acrhive for read or write
     }
-    const KArchiveDirectory* directory() const override {
+    const KArchiveDirectory* directory() const {
         return zip->directory();    // Get archive directory for reading files
     }
-    bool writeFile(const QString &name, const QByteArray &data) override {
+    bool writeFile(const QString name, const QByteArray data) {
         return zip->writeFile(name, data);  // Write file into archive
     }
-    bool addLocalFile(const QString &fileName, const QString &destName) override {
-        return zip->addLocalFile(fileName, destName);
-    }
-    bool writeDir(const QString &name) override {
-        return zip->writeDir(name);         // Write directory into archive
-    }
-    bool close() override {
+    bool close() {
         bool result = zip->close();     // Close archive!
         if (result) {
             delete zip;
@@ -101,28 +93,22 @@ private:
 
 // region For 7z archives (it use K7Zip)
 
-struct Zip7 : public Archive {
+class A7Zip : public Archive {
 public:
-    ~Zip7() override { delete  sZip; }
-    void setFileName(const QString &filename) override {
+    ~A7Zip() { delete  sZip; }
+    void setFileName(const QString &filename){
         sZip = new K7Zip(filename);
     }
-    bool open(QIODevice::OpenMode mode) override {
+    bool open(QIODevice::OpenMode mode) {
         return sZip->open(mode);
     }
-    const KArchiveDirectory* directory() const override {
+    const KArchiveDirectory* directory() const {
         return sZip->directory();
     }
-    bool writeFile(const QString &name, const QByteArray &data) override {
+    bool writeFile(const QString name, const QByteArray data) {
         return sZip->writeFile(name, data);
     }
-    bool addLocalFile(const QString &fileName, const QString &destName) override {
-        return sZip->addLocalFile(fileName, destName);
-    }
-    bool writeDir(const QString &name) override {
-        return sZip->writeDir(name);
-    }
-    bool close() override {
+    bool close() {
         bool result = sZip->close();
         if (result) {
             delete sZip;
@@ -137,28 +123,22 @@ private:
 
 // region For tar.gz archives (it use KTar)
 
-struct TarGz : public Archive {
+class ATarGz : public Archive {
 public:
-    ~TarGz() override { delete  tar; }
-    void setFileName(const QString &filename) override {
+    ~ATarGz() { delete  tar; }
+    void setFileName(const QString &filename){
         tar = new KTar(filename);
     }
-    bool open(QIODevice::OpenMode mode) override {
+    bool open(QIODevice::OpenMode mode) {
         return tar->open(mode);
     }
-    const KArchiveDirectory* directory() const override {
+    const KArchiveDirectory* directory() const {
         return tar->directory();
     }
-    bool writeFile(const QString &name, const QByteArray &data) override {
+    bool writeFile(const QString name, const QByteArray data) {
         return tar->writeFile(name, data);
     }
-    bool addLocalFile(const QString &fileName, const QString &destName) override {
-        return tar->addLocalFile(fileName, destName);
-    }
-    bool writeDir(const QString &name) override {
-        return tar->writeDir(name);
-    }
-    bool close() override {
+    bool close() {
         bool result = tar->close();
         if (result) {
             delete tar;
@@ -175,10 +155,10 @@ private:
 
 class Archiver {
 public:
-    // Archiver *arc = new Archiver(new Zip)   - zip
-    // Archiver *arc = new Archiver(new Zip7)  - 7z
-    // Archiver *arc = new Archiver(new TarGz) - tar.gz
-    explicit Archiver(Archive *archive) : arc(archive) {}
+    // Archiver *arc = new Archiver(new AZip)   - zip
+    // Archiver *arc = new Archiver(new A7Zip)  - 7z
+    // Archiver *arc = new Archiver(new ATarGz) - tar.gz
+    Archiver(Archive *archive) : arc(archive) {}
     ~Archiver() { delete  arc; }
     void setFileName(const QString &filename) {
         arc->setFileName(filename);
@@ -189,14 +169,8 @@ public:
     const KArchiveDirectory* directory() const {
         return arc->directory();
     }
-    bool writeFile(const QString &name, const QByteArray &data) {
+    bool writeFile(const QString name, const QByteArray data) {
         return arc->writeFile(name, data);
-    }
-    bool addLocalFile(const QString &fileName, const QString &destName) {
-        return arc->addLocalFile(fileName, destName);
-    }
-    bool writeDir(const QString &name) {
-        return arc->writeDir(name);
     }
     bool close() {
         return arc->close();

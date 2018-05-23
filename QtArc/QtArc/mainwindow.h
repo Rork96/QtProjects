@@ -26,29 +26,27 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    QString archiveName;                                    // Current archive
-    QStringList archiveItems;                               // Items for compression
-    QStandardItemModel *fModel;                             // Model for view
+    QString archiveName;                            // Current archive
+    QStringList archiveItems;                       // Items for compression
+    QStandardItemModel *fModel;                     // Model for view
 
 private:
-    void OpenArc();                                         // Open archive
+    void OpenArc();                                 // Open archive
     void OpenArch(Archiver *arc);
-    void ExtractArc();                                      // Extract
+    void ExtractArc();                              // Extract
     bool ExtractArch(Archiver *arc, const QString &dest);
-    void CompressIntoArchive();                             // Compress into archive
+    void CompressIntoArchive();                     // Compress into archive
     bool CompressArch(Archiver *arc);
-    bool WriteFile(Archiver *arc, const QStringList &list, const QString &dir);     // Write file into archive
-    void CloseArchive();                                    // Close current archive
-    void AddFiles();                                        // Add files into list for compression
-    void AddFolder();                                       // Add directories into list for compression
-    void DelFile();                                         // Delete file from list
-    void SaveAsArc();                                       // Save archive as ...
-    void setArchiveName(const QString &arcName);            // Set archive name
+    void CloseArchive();                            // Close current archive
+    void AddFiles();                                // Add files into list for compression
+    void DelFile();                                 // Delete file from list
+    void SaveAsArc();                               // Save archive as ...
+    void setArchiveName(const QString &arcName);    // Set archive name
     // Identify size of the file or the folder
     // Return QString and objType
-    QString objSize(QFileInfo fileInfo, QString &objType);
+    QString objSize(const QFileInfo fileInfo, QString &objType);
     // Folder size (return num)
-    void dirSize(QFileInfo inf, float &num);
+    void dirSize(const QFileInfo inf, float &num);
     // Add files from archive to list
     void ListRecursive(const KArchiveDirectory *dir, const QString &path);
     // Customize table

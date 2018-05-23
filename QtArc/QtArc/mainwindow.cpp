@@ -40,9 +40,6 @@ MainWindow::MainWindow(QWidget *parent) :
         // Add files into list for compression
         connect(ui->addFiles, &QAction::triggered, this, &MainWindow::AddFiles);
 
-        // Add directories into list for compression
-        connect(ui->addFolder, &QAction::triggered, this, &MainWindow::AddFolder);
-
         // Close archive
         connect(ui->closeArc, &QAction::triggered, this, &MainWindow::CloseArchive);
 
@@ -135,15 +132,15 @@ void MainWindow::OpenArc()
     if (QFileInfo(archiveName).suffix() == "zip") {
         // Initialize class Archiver for managing zip files
         // (class Azip is a wrapper for class KZip)
-        auto *arc = new Archiver(new Zip());
+        Archiver *arc = new Archiver(new AZip());
         OpenArch(arc);
     }
     else if (QFileInfo(archiveName).suffix() == "7z") {
-        auto *arc = new Archiver(new Zip7());
+        Archiver *arc = new Archiver(new A7Zip());
         OpenArch(arc);
     }
     else { // gz
-        auto *arc = new Archiver(new TarGz());
+        Archiver *arc = new Archiver(new ATarGz());
         OpenArch(arc);
     }
 
@@ -186,11 +183,18 @@ void MainWindow::ListRecursive(const KArchiveDirectory *dir, const QString &path
         float size = 0;
         if (entry->isDirectory()) {
             type = "Папка";
+            /*KArchiveDirectory *ddd;
+            ddd = (KArchiveDirectory *)entry, path + (*it) + '/';
+            QStringList lst = ddd->entries();
+            QStringList::ConstIterator it = lst.constBegin();
+            for (; it != lst.constEnd(); ++it) {
+                const KArchiveEntry *entry = dir->entry((*it));
 
-            // Directory size ?
+                size += (static_cast<const KArchiveFile *>(entry))->size();
+            }*/
         }
         else {
-            size = (dynamic_cast<const KArchiveFile *>(entry))->size();
+            size = (static_cast<const KArchiveFile *>(entry))->size();
         }
             // Translate into bytes in К, М, Г, Т
             qint64 i = 0;
@@ -243,15 +247,15 @@ void MainWindow::ExtractArc()
     if (fInfo.suffix() == "zip") {
         // Initialize class Archiver for managing zip files
         // (class Azip is a wrapper for class KZip)
-        auto *arc = new Archiver(new Zip());
+        Archiver *arc = new Archiver(new AZip());
         result = ExtractArch(arc, destination);
     }
     else if (fInfo.suffix() == "7z") {
-        auto *arc = new Archiver(new Zip7());
+        Archiver *arc = new Archiver(new A7Zip());
         result = ExtractArch(arc, destination);
     }
     else { // gz
-        auto *arc = new Archiver(new TarGz());
+        Archiver *arc = new Archiver(new ATarGz());
         result = ExtractArch(arc, destination);
     }
 
@@ -327,15 +331,15 @@ void MainWindow::CompressIntoArchive()
     if (fInfo.suffix() == "zip") {
         // Initialize class Archiver for managing zip files
         // (class Azip is a wrapper for class KZip)
-        auto *arc = new Archiver(new Zip());
+        Archiver *arc = new Archiver(new AZip());
         result = CompressArch(arc);
     }
     else if (fInfo.suffix() == "7z") {
-        auto *arc = new Archiver(new Zip7());
+        Archiver *arc = new Archiver(new A7Zip());
         result = CompressArch(arc);
     }
     else { // gz
-        auto *arc = new Archiver(new TarGz());
+        Archiver *arc = new Archiver(new ATarGz());
         result = CompressArch(arc);
     }
 
@@ -359,62 +363,21 @@ bool MainWindow::CompressArch(Archiver *arc)
     arc->setFileName(archiveName);
     if (arc->open(QIODevice::WriteOnly)) {
         // For all items
-        result = WriteFile(arc, archiveItems, "");
-
-        arc->close();
-    }
-    return result;
-}
-
-bool MainWindow::WriteFile(Archiver *arc, const QStringList &list, const QString &dir)
-{
-    /* * * Write file into archive * * */
-
-    bool result = false;
-
-    qDebug() << list;
-
-    foreach (QString item, list) {
-        if (!QFileInfo(item).isDir()) {
+        foreach (QString item, archiveItems) {
             QFile f(item);
             f.open(QFile::ReadOnly);
+            const QByteArray arr = f.readAll();                             // Get byte array from file
+            bool writeOk = arc->writeFile(QFileInfo(item).fileName(), arr); // Write file
 
-            qDebug() << QFileInfo(item).fileName();
-
-            const QByteArray arr = f.readAll();                         // Get byte array from file
-            arc->addLocalFile(QFileInfo(item).fileName(), dir);
-            result = arc->writeFile(dir + QFileInfo(item).fileName(), arr);   // Write file
-        }
-        else {
-
-            qDebug() << QFileInfo(item).fileName();
-
-            qDebug() << arc->writeDir(dir + QFileInfo(item).fileName());         // Write dir
-
-            // Write all files and dirs from current dir
-            QDir dir;
-            // Browse hidden, skip links
-            dir.setFilter(QDir::Dirs | QDir::Files | QDir::Hidden | QDir::NoSymLinks |
-                          QDir::NoDotAndDotDot);
-            dir.cd(item);
-
-            if (!dir.isEmpty()) {
-                // Get file list in the directory
-                QStringList lst = dir.entryList();
-
-                qDebug() << lst;
-
-                // Find how to write files into directory !!!
-
-                const KArchiveDirectory *dir = arc->directory();
-                const KArchiveEntry *e = dir->entry(item + "/");
-                dir = static_cast<const KArchiveDirectory *>(e);
-
-                result = WriteFile(arc, lst, "/" + item + "/");
+            if (!writeOk) {
+                return result;  // false
             }
         }
+        arc->close();
+
+        result = true;
     }
-    return result;
+    return result; // true
 }
 //endregion Compress into archive
 
@@ -441,8 +404,7 @@ void MainWindow::CloseArchive()
     setWindowTitle("QtArc");
 }
 
-void MainWindow::AddFiles()
-{
+void MainWindow::AddFiles() {
     /* * * Add files into list for compression * * */
 
     // Clear archiveName, model and list
@@ -473,36 +435,6 @@ void MainWindow::AddFiles()
     }
 }
 
-void MainWindow::AddFolder()
-{
-    /* * * Add files into list for compression * * */
-
-    // Clear archiveName, model and list
-    // CloseArchive();
-
-    archiveItems.append(QFileDialog::getExistingDirectory(this, "Выберите папку",
-                                                          QStandardPaths::locate(QStandardPaths::HomeLocation, QString())));
-
-    // If user didn't choose file
-    if (archiveItems.isEmpty())
-        return;
-
-    // Add columns and size
-    if (fModel->columnCount() == 0)
-        CustomizeTable();
-
-    QString folder = archiveItems.back();
-    QString type = "";
-    QString size = objSize(QFileInfo(folder), type);
-    QList<QStandardItem *> items;
-    items << new QStandardItem(folder)                                                      // File path (hidden)
-          << new QStandardItem(QFileInfo(folder).fileName())                                // File name
-          << new QStandardItem(type)                                                        // Type (file or folder)
-          << new QStandardItem(size)                                                        // Size
-          << new QStandardItem(QFileInfo(folder).lastModified().toLocalTime().toString());  // Date
-    fModel->appendRow(items);
-}
-
 void MainWindow::CustomizeTable()
 {
     /* * * Customize table * * */
@@ -524,7 +456,7 @@ void MainWindow::CustomizeTable()
     ui->mainView->setColumnWidth(4, 250);
 }
 
-QString MainWindow::objSize(QFileInfo fileInfo, QString &objType)
+QString MainWindow::objSize(const QFileInfo fileInfo, QString &objType)
 {
     // Identify size of the file or the folder
     // Return QString and objType
@@ -554,7 +486,7 @@ QString MainWindow::objSize(QFileInfo fileInfo, QString &objType)
     return QString("%1").arg(size, 0, 'f', 1) + " " + "BKMGT"[i];
 }
 
-void MainWindow::dirSize(QFileInfo inf, float &num)
+void MainWindow::dirSize(const QFileInfo inf, float &num)
 {
     // Folder size (return num)
 

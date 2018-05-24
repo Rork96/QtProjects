@@ -91,7 +91,7 @@ void selectSort(int *array, int length)
         for (int element_counter = repeat_counter + 1; element_counter < length; element_counter++) {
             // Проход со следующего элемента (repeat_counter+1) до конца массива
             if (array[repeat_counter] > array[element_counter]) {
-                // если текущий элемент больше следующего - поменять их местами
+                // если текущий элемент больше следующего - поменять их местами и продолжить перебор
                 int temp = array[repeat_counter];
                 array[repeat_counter] = array[element_counter];
                 array[element_counter] = temp;

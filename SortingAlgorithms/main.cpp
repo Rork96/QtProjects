@@ -9,7 +9,7 @@ void bubbleSort(int*, int);    // Сортировка пузырьком
 void insertSort(int*, int);     // Сортировка вставками
 void selectSort(int*, int);     // Сортировка выбором
 
-int main()
+int main(int argc, char* argv[])
 {
     srand(time(NULL));
 

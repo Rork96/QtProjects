@@ -119,7 +119,7 @@ if (WIN32)
     endforeach ()
 else ()
     add_executable (${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES}
-            ${UI_SRC_FILES} ${UI_RESOURCES_RCC})
+            ${UI_SRC_FILES} ${UI_RESOURCES_RCC} Archiver.h)
 
     # Link librarys
     foreach (QT_MODULE ${QT_MODULES})

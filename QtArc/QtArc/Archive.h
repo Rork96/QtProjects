@@ -51,7 +51,7 @@
 
 class Archive {
 public:
-    // All funcions pure virtual = 0 (default)
+    // All functions pure virtual = 0 (default)
     virtual ~Archive() = default;
     virtual void setFileName(const QString &filename) = 0;
     virtual bool open(QIODevice::OpenMode mode) = 0;

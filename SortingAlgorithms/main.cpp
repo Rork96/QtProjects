@@ -5,8 +5,9 @@
 
 using namespace std;
 
-void insertSort(int*, int);    // Сортировка вставками
-void selectSort(int*, int);    // Сортировка выбором
+void bubbleSort(int*, int);    // Сортировка пузырьком
+void insertSort(int*, int);     // Сортировка вставками
+void selectSort(int*, int);     // Сортировка выбором
 
 int main()
 {
@@ -20,7 +21,7 @@ int main()
     int *sorted_array = new int[size_array]; // одномерный динамический массив
     for (int counter = 0; counter < size_array; counter++) {
         sorted_array[counter] = rand() % 100; // заполняем массив случайными числами
-        cout << setw(2) << sorted_array[counter] << "  "; // вывод массива на экран
+        cout << setw(4) << sorted_array[counter]; // вывод массива на экран
     }
     cout << "\n";
 
@@ -36,6 +37,7 @@ int main()
 
     switch (choise) {
         case 1:
+            bubbleSort(sorted_array, size_array);    // Сортировка пузырьком
             break;
         case 2:
             insertSort(sorted_array, size_array);   // Сортировка вставками
@@ -54,13 +56,35 @@ int main()
     cout << "Sorted array:" << endl;
     for (int counter = 0; counter < size_array; counter++)
     {
-        cout << setw(2) << sorted_array[counter] << "  "; // печать отсортированного массива
+        cout << setw(4) << sorted_array[counter]; // печать отсортированного массива
     }
     cout << "\n";
 
     delete[] sorted_array;
     system("pause");
     return 0;
+}
+
+void bubbleSort(int *array, int length)
+{
+    /* * * Сортировка пузырьком * * */
+
+    bool exit = false; // болевая переменная для выхода из цикла, если массив отсортирован
+
+    while(!exit) { // пока массив не отсортирован
+        exit = true;
+        for (int int_counter = 0; int_counter < (length - 1); int_counter++) { // внутренний цикл
+            //сортировка пузырьком по возрастанию - знак >
+            //сортировка пузырьком по убыванию - знак <
+            if (array[int_counter] > array[int_counter + 1]) { // сравниваем два соседних элемента
+                // выполняем перестановку элементов массива
+                int temp = array[int_counter];  // временная переменная для хранения элемента массива
+                array[int_counter] = array[int_counter + 1];
+                array[int_counter + 1] = temp;
+                exit = false; // на очередной итерации была произведена перестановка элементов
+            }
+        }
+    }
 }
 
 void insertSort(int *array, int length)

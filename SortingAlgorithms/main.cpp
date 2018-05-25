@@ -192,18 +192,19 @@ void shellSort(int *array, int length)
 {
     /* * * Сортировка методом Шелла * * */
 
-    for (int step = length / 2; step > 0; step /= 2) {
-        // проход по массиву с шагом, уменьшая шаг в два раза с каждым проходом
-        for (int i = step; i < length; i++) {
-            int tmp = array[i];
-            int j = i;
-            for(i; j >= step; j -= step) {
-                if (tmp < array[j - step])
-                    array[j] = array[j - step];
-                else
-                    break;
+    int step = length / 2;      // шаг
+    while(step > 0) { // пока шаг не 0
+        for (int i = 0; i < (length - step); i++) {
+            int j = i;                      // начиная с i-го элемента
+            while (j >= 0 && array[j] > array[j + step]) {
+                // пока не пришли к началу массива и пока рассматриваемый элемент больше,
+                // чем элемент находящийся на расстоянии шага
+                int temp = array[j];
+                array[j] = array[j + step];         // перестановка элементов массива
+                array[j + step] = temp;
+                j--;
             }
-            array[j] = tmp;
         }
+        step = step / 2;    // уменьшить шаг
     }
 }

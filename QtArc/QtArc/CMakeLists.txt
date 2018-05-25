@@ -29,7 +29,7 @@ set (QT_MODULES
 #                    PrintSupport
 #                    Qml Quick Network # Network needed for QML
                     Concurrent
-                    )
+)
 
 # Path to Qt library
 if (WIN32)
@@ -119,7 +119,7 @@ if (WIN32)
     endforeach ()
 else ()
     add_executable (${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES}
-            ${UI_SRC_FILES} ${UI_RESOURCES_RCC} Archiver.h)
+            ${UI_SRC_FILES} ${UI_RESOURCES_RCC})
 
     # Link librarys
     foreach (QT_MODULE ${QT_MODULES})

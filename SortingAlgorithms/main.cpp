@@ -5,9 +5,11 @@
 
 using namespace std;
 
-void bubbleSort(int*, int);    // Сортировка пузырьком
-void insertSort(int*, int);     // Сортировка вставками
-void selectSort(int*, int);     // Сортировка выбором
+void bubbleSort(int*, int);         // Сортировка пузырьком
+void insertSort(int*, int);         // Сортировка вставками
+void selectSort(int*, int);         // Сортировка выбором
+void merge(int*, int, int);         // Функция, сливающая массивы (для сортировки слиянием)
+void mergeSort(int*, int, int);     // Рекурсивная процедура сортировки слиянием
 
 int main(int argc, char* argv[])
 {
@@ -46,6 +48,7 @@ int main(int argc, char* argv[])
             selectSort(sorted_array, size_array);   // Сортировка выбором
             break;
         case 4:
+            mergeSort(sorted_array, 0, size_array);   // Сортировка слиянием
             break;
         case 5:
             break;
@@ -121,5 +124,40 @@ void selectSort(int *array, int length)
                 array[element_counter] = temp;
             }
         }
+    }
+}
+
+void merge(int *array, int first, int last)
+{
+    /* * * Функция, сливающая массивы (для сортировки слиянием) * * */
+
+    int middle, start, final, j;
+    int *mas=new int[100];
+    middle=(first+last)/2;              // вычисление среднего элемента
+    start=first;                        // начало левой части
+    final=middle+1;                     // начало правой части
+    for(j=first; j<=last; j++) {        // выполнять от начала до конца
+        if ((start <= middle) && ((final > last) || (array[start] < array[final]))) {
+            mas[j] = array[start];
+            start++;
+        }
+        else {
+            mas[j] = array[final];
+            final++;
+        }
+    }
+    // возвращение результата в список
+    for (j=first; j<=last; j++) array[j]=mas[j];
+    delete[]mas;
+}
+
+void mergeSort(int *array, int first, int last)
+{
+    /* * * Рекурсивная процедура сортировки слиянием * * */
+
+    if (first<last) {
+        mergeSort(array, first, (first+last)/2);    // сортировка левой части
+        mergeSort(array, (first+last)/2+1, last);   // сортировка правой части
+        merge(array, first, last);                  // слияние двух частей
     }
 }

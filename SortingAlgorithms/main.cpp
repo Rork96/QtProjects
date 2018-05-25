@@ -2,6 +2,7 @@
 #include <ctime>
 #include <iomanip>
 #include <algorithm>
+#include <vector>
 
 using namespace std;
 
@@ -10,6 +11,7 @@ void insertSort(int*, int);         // Сортировка вставками
 void selectSort(int*, int);         // Сортировка выбором
 void merge(int*, int, int);         // Функция, сливающая массивы (для сортировки слиянием)
 void mergeSort(int*, int, int);     // Рекурсивная процедура сортировки слиянием
+void combSort(int*, int);           // Сортировка рассческой
 
 int main(int argc, char* argv[])
 {
@@ -39,18 +41,19 @@ int main(int argc, char* argv[])
 
     switch (choise) {
         case 1:
-            bubbleSort(sorted_array, size_array);    // Сортировка пузырьком
+            bubbleSort(sorted_array, size_array);       // Сортировка пузырьком
             break;
         case 2:
-            insertSort(sorted_array, size_array);   // Сортировка вставками
+            insertSort(sorted_array, size_array);       // Сортировка вставками
             break;
         case 3:
-            selectSort(sorted_array, size_array);   // Сортировка выбором
+            selectSort(sorted_array, size_array);       // Сортировка выбором
             break;
         case 4:
-            mergeSort(sorted_array, 0, size_array);   // Сортировка слиянием
+            mergeSort(sorted_array, 0, size_array);     // Сортировка слиянием
             break;
         case 5:
+            combSort(sorted_array, size_array);         // Сортировка рассческой
             break;
         case 6:
             break;
@@ -76,10 +79,10 @@ void bubbleSort(int *array, int length)
 
     while(!exit) { // пока массив не отсортирован
         exit = true;
-        for (int int_counter = 0; int_counter < (length - 1); int_counter++) { // внутренний цикл
+        for (int int_counter = 0; int_counter < length-1; int_counter++) { // внутренний цикл
             //сортировка пузырьком по возрастанию - знак >
             //сортировка пузырьком по убыванию - знак <
-            if (array[int_counter] > array[int_counter + 1]) { // сравниваем два соседних элемента
+            if (array[int_counter] > array[int_counter+1]) { // сравниваем два соседних элемента
                 // выполняем перестановку элементов массива
                 int temp = array[int_counter];  // временная переменная для хранения элемента массива
                 array[int_counter] = array[int_counter + 1];
@@ -160,4 +163,26 @@ void mergeSort(int *array, int first, int last)
         mergeSort(array, (first+last)/2+1, last);   // сортировка правой части
         merge(array, first, last);                  // слияние двух частей
     }
+}
+
+void combSort(int *array, int length)
+{
+    /* * * Сортировка рассческой * * */
+
+    double fakt = 1.2473309;    // фактор уменьшения
+    int step = length - 1;      // шаг
+
+    while (step >= 1) {
+        for (int i = 0; i + step < length; ++i) {
+            // проход по массиву с шагом
+            if (array[i] > array[i+step]) {
+                int tmp = array[i];
+                array[i] = array[i+step];       // перестановка элементов массива
+                array[i+step] = tmp;
+            }
+        }
+        step /= fakt;       // уменьшить шаг
+    }
+    // сортировка пузырьком
+    bubbleSort(array, length);
 }

@@ -1,7 +1,6 @@
 #include <iostream>
 #include <ctime>
 #include <iomanip>
-#include <algorithm>
 #include <vector>
 
 using namespace std;
@@ -66,7 +65,7 @@ int main(int argc, char* argv[])
     }
     cout << "\n";
 
-    delete[] sorted_array;
+    //delete[] sorted_array;
     system("pause");
     return 0;
 }
@@ -74,7 +73,6 @@ int main(int argc, char* argv[])
 void bubbleSort(int *array, int length)
 {
     /* * * Сортировка пузырьком * * */
-
     bool exit = false; // болевая переменная для выхода из цикла, если массив отсортирован
 
     while(!exit) { // пока массив не отсортирован

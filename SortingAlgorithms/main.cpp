@@ -132,11 +132,11 @@ void merge(int *array, int first, int last)
     /* * * Функция, сливающая массивы (для сортировки слиянием) * * */
 
     int middle, start, final, j;
-    int *mas=new int[100];
-    middle=(first+last)/2;              // вычисление среднего элемента
-    start=first;                        // начало левой части
-    final=middle+1;                     // начало правой части
-    for(j=first; j<=last; j++) {        // выполнять от начала до конца
+    int *mas = new int[100];
+    middle = (first+last)/2;                // вычисление среднего элемента
+    start =  first;                         // начало левой части
+    final = middle + 1;                     // начало правой части
+    for(j = first; j <= last; j++) {        // выполнять от начала до конца
         if ((start <= middle) && ((final > last) || (array[start] < array[final]))) {
             mas[j] = array[start];
             start++;
@@ -147,15 +147,15 @@ void merge(int *array, int first, int last)
         }
     }
     // возвращение результата в список
-    for (j=first; j<=last; j++) array[j]=mas[j];
-    delete[]mas;
+    for (j = first; j <= last; j++) array[j] = mas[j];
+    delete[] mas;
 }
 
 void mergeSort(int *array, int first, int last)
 {
     /* * * Рекурсивная процедура сортировки слиянием * * */
 
-    if (first<last) {
+    if (first < last) {
         mergeSort(array, first, (first+last)/2);    // сортировка левой части
         mergeSort(array, (first+last)/2+1, last);   // сортировка правой части
         merge(array, first, last);                  // слияние двух частей

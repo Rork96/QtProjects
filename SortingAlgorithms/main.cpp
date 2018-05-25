@@ -11,6 +11,7 @@ void selectSort(int*, int);         // Сортировка выбором
 void merge(int*, int, int);         // Функция, сливающая массивы (для сортировки слиянием)
 void mergeSort(int*, int, int);     // Рекурсивная процедура сортировки слиянием
 void combSort(int*, int);           // Сортировка рассческой
+void shellSort(int*, int);          // Сортировка методом Шелла
 
 int main(int argc, char* argv[])
 {
@@ -55,6 +56,7 @@ int main(int argc, char* argv[])
             combSort(sorted_array, size_array);         // Сортировка рассческой
             break;
         case 6:
+            shellSort(sorted_array, size_array);        // Сортировка Шелла
             break;
     }
 
@@ -184,4 +186,24 @@ void combSort(int *array, int length)
     }
     // сортировка пузырьком
     bubbleSort(array, length);
+}
+
+void shellSort(int *array, int length)
+{
+    /* * * Сортировка методом Шелла * * */
+
+    for (int step = length / 2; step > 0; step /= 2) {
+        // проход по массиву с шагом, уменьшая шаг в два раза с каждым проходом
+        for (int i = step; i < length; i++) {
+            int tmp = array[i];
+            int j = i;
+            for(i; j >= step; j -= step) {
+                if (tmp < array[j - step])
+                    array[j] = array[j - step];
+                else
+                    break;
+            }
+            array[j] = tmp;
+        }
+    }
 }

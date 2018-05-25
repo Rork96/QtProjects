@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
     cout << "6. Shell." << endl;
     cin >> choise;
 
-    switch (choise) {
+    switch(choise) {
         case 1:
             bubbleSort(sorted_array, size_array);       // Сортировка пузырьком
             break;
@@ -59,8 +59,7 @@ int main(int argc, char* argv[])
     }
 
     cout << "Sorted array:" << endl;
-    for (int counter = 0; counter < size_array; counter++)
-    {
+    for(int counter = 0; counter < size_array; counter++) {
         cout << setw(4) << sorted_array[counter]; // печать отсортированного массива
     }
     cout << "\n";
@@ -77,10 +76,10 @@ void bubbleSort(int *array, int length)
 
     while(!exit) { // пока массив не отсортирован
         exit = true;
-        for (int int_counter = 0; int_counter < length-1; int_counter++) { // внутренний цикл
+        for(int int_counter = 0; int_counter < length-1; int_counter++) { // внутренний цикл
             //сортировка пузырьком по возрастанию - знак >
             //сортировка пузырьком по убыванию - знак <
-            if (array[int_counter] > array[int_counter+1]) { // сравниваем два соседних элемента
+            if(array[int_counter] > array[int_counter+1]) { // сравниваем два соседних элемента
                 // выполняем перестановку элементов массива
                 int temp = array[int_counter];  // временная переменная для хранения элемента массива
                 array[int_counter] = array[int_counter + 1];
@@ -96,7 +95,7 @@ void insertSort(int *array, int length)
     /* * * Сортировка вставками * * */
 
     // Проход по всему массиву наччиная с 1-го (не 0-го)
-    for (int counter = 1; counter < length; counter++) {
+    for(int counter = 1; counter < length; counter++) {
         int temp = array[counter]; // инициализируем временную переменную текущим значением элемента массива
         int item = counter-1; // запоминаем индекс предыдущего элемента массива
         while(item >= 0 && array[item] > temp) {
@@ -114,11 +113,11 @@ void selectSort(int *array, int length)
     /* * * Сортировка выбором * * */
 
     // Проход по всему массиву начиная с 0-го
-    for (int repeat_counter = 0; repeat_counter < length; repeat_counter++) {
+    for(int repeat_counter = 0; repeat_counter < length; repeat_counter++) {
         // repeat_counter - текущий элемент (первый)
-        for (int element_counter = repeat_counter + 1; element_counter < length; element_counter++) {
+        for(int element_counter = repeat_counter + 1; element_counter < length; element_counter++) {
             // Проход со следующего элемента (repeat_counter+1) до конца массива
-            if (array[repeat_counter] > array[element_counter]) {
+            if(array[repeat_counter] > array[element_counter]) {
                 // если текущий элемент больше следующего - поменять их местами и продолжить перебор
                 int temp = array[repeat_counter];
                 array[repeat_counter] = array[element_counter];
@@ -138,7 +137,7 @@ void merge(int *array, int first, int last)
     start =  first;                         // начало левой части
     final = middle + 1;                     // начало правой части
     for(j = first; j <= last; j++) {        // выполнять от начала до конца
-        if ((start <= middle) && ((final > last) || (array[start] < array[final]))) {
+        if((start <= middle) && ((final > last) || (array[start] < array[final]))) {
             mas[j] = array[start];
             start++;
         }
@@ -148,7 +147,9 @@ void merge(int *array, int first, int last)
         }
     }
     // возвращение результата в список
-    for (j = first; j <= last; j++) array[j] = mas[j];
+    for(j = first; j <= last; j++)
+        array[j] = mas[j];
+
     delete[] mas;
 }
 
@@ -156,7 +157,7 @@ void mergeSort(int *array, int first, int last)
 {
     /* * * Рекурсивная процедура сортировки слиянием * * */
 
-    if (first < last) {
+    if(first < last) {
         mergeSort(array, first, (first+last)/2);    // сортировка левой части
         mergeSort(array, (first+last)/2+1, last);   // сортировка правой части
         merge(array, first, last);                  // слияние двух частей
@@ -170,10 +171,10 @@ void combSort(int *array, int length)
     double fakt = 1.2473309;    // фактор уменьшения
     int step = length - 1;      // шаг
 
-    while (step >= 1) {
-        for (int i = 0; i + step < length; ++i) {
+    while(step >= 1) {
+        for(int i = 0; i + step < length; ++i) {
             // проход по массиву с шагом
-            if (array[i] > array[i+step]) {
+            if(array[i] > array[i+step]) {
                 int tmp = array[i];
                 array[i] = array[i+step];       // перестановка элементов массива
                 array[i+step] = tmp;

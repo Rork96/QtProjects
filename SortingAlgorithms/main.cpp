@@ -7,18 +7,25 @@ using namespace std;
 
 template<class T>
 void bubbleSort(vector<T>*);        // Сортировка пузырьком
+
 template<class T>
 void insertSort(vector<T>*);        // Сортировка вставками
+
 template<class T>
 void selectSort(vector<T>*);        // Сортировка выбором
+
 template<class T>
 void merge(vector<T>*, T, T);       // Функция, сливающая массивы (для сортировки слиянием)
+
 template<class T>
 void mergeSort(vector<T>*, T, T);   // Рекурсивная процедура сортировки слиянием
+
 template<class T>
 void combSort(vector<T>*);          // Сортировка рассческой
+
 template<class T>
 void shellSort(vector<T>*);         // Сортировка методом Шелла
+
 template<class T>
 void quickSort(vector<T>*, T, T);   // Быстрая сортировка
 

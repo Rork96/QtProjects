@@ -1,17 +1,25 @@
 #include <iostream>
 #include <ctime>
 #include <iomanip>
-#include <vector>
 
 using namespace std;
 
-void bubbleSort(int*, int);         // Сортировка пузырьком
-void insertSort(int*, int);         // Сортировка вставками
-void selectSort(int*, int);         // Сортировка выбором
-void merge(int*, int, int);         // Функция, сливающая массивы (для сортировки слиянием)
-void mergeSort(int*, int, int);     // Рекурсивная процедура сортировки слиянием
-void combSort(int*, int);           // Сортировка рассческой
-void shellSort(int*, int);          // Сортировка методом Шелла
+template<class T>
+void bubbleSort(T*, int);       // Сортировка пузырьком
+template<class T>
+void insertSort(T*, int);       // Сортировка вставками
+template<class T>
+void selectSort(T*, int);       // Сортировка выбором
+template<class T>
+void merge(T*, int, int);       // Функция, сливающая массивы (для сортировки слиянием)
+template<class T>
+void mergeSort(T*, int, int);   // Рекурсивная процедура сортировки слиянием
+template<class T>
+void combSort(T*, int);         // Сортировка рассческой
+template<class T>
+void shellSort(T*, int);        // Сортировка методом Шелла
+template<class T>
+void quickSort(T*, int);        // Быстрая сортировка
 
 int main(int argc, char* argv[])
 {
@@ -36,7 +44,8 @@ int main(int argc, char* argv[])
     cout << "3. Selection;" << endl;
     cout << "4. Merge;" << endl;
     cout << "5. Comb;" << endl;
-    cout << "6. Shell." << endl;
+    cout << "6. Shell;" << endl;
+    cout << "7. Quick." << endl;
     cin >> choise;
 
     switch(choise) {
@@ -58,6 +67,9 @@ int main(int argc, char* argv[])
         case 6:
             shellSort(sorted_array, size_array);        // Сортировка Шелла
             break;
+        case 7:
+            quickSort(sorted_array, size_array);        // Быстрая сортировка
+            break;
     }
 
     cout << "Sorted array:" << endl;
@@ -71,7 +83,8 @@ int main(int argc, char* argv[])
     return 0;
 }
 
-void bubbleSort(int *array, int length)
+template<class T>
+void bubbleSort(T *array, int length)
 {
     /* * * Сортировка пузырьком * * */
     bool exit = false; // болевая переменная для выхода из цикла, если массив отсортирован
@@ -79,38 +92,38 @@ void bubbleSort(int *array, int length)
     while(!exit) { // пока массив не отсортирован
         exit = true;
         for(int int_counter = 0; int_counter < length-1; int_counter++) { // внутренний цикл
-            //сортировка пузырьком по возрастанию - знак >
-            //сортировка пузырьком по убыванию - знак <
+            // сортировка пузырьком по возрастанию - знак >
+            // сортировка пузырьком по убыванию - знак <
             if(array[int_counter] > array[int_counter+1]) { // сравниваем два соседних элемента
-                // выполняем перестановку элементов массива
-                int temp = array[int_counter];  // временная переменная для хранения элемента массива
-                array[int_counter] = array[int_counter + 1];
-                array[int_counter + 1] = temp;
+                // перестановка элементов массива
+                swap(array[int_counter], array[int_counter+1]);
+
                 exit = false; // на очередной итерации была произведена перестановка элементов
             }
         }
     }
 }
 
-void insertSort(int *array, int length)
+template<class T>
+void insertSort(T *array, int length)
 {
     /* * * Сортировка вставками * * */
 
     // Проход по всему массиву наччиная с 1-го (не 0-го)
     for(int counter = 1; counter < length; counter++) {
-        int temp = array[counter]; // инициализируем временную переменную текущим значением элемента массива
+        T temp = array[counter]; // инициализируем временную переменную текущим значением элемента массива
         int item = counter-1; // запоминаем индекс предыдущего элемента массива
         while(item >= 0 && array[item] > temp) {
             // пока индекс не равен 0 и предыдущий элемент массива больше текущего
             // (обходим все элементы от предыдущего (текущего-1) до 0-го)
-            array[item + 1] = array[item]; // перестановка элементов массива
-            array[item] = temp;
+            swap(array[item+1], array[item]); // перестановка элементов массива
             item--;
         }
     }
 }
 
-void selectSort(int *array, int length)
+template<class T>
+void selectSort(T *array, int length)
 {
     /* * * Сортировка выбором * * */
 
@@ -121,24 +134,23 @@ void selectSort(int *array, int length)
             // Проход со следующего элемента (repeat_counter+1) до конца массива
             if(array[repeat_counter] > array[element_counter]) {
                 // если текущий элемент больше следующего - поменять их местами и продолжить перебор
-                int temp = array[repeat_counter];
-                array[repeat_counter] = array[element_counter];
-                array[element_counter] = temp;
+                swap(array[repeat_counter], array[element_counter]);
             }
         }
     }
 }
 
-void merge(int *array, int first, int last)
+template<class T>
+void merge(T *array, int first, int last)
 {
     /* * * Функция, сливающая массивы (для сортировки слиянием) * * */
 
-    int middle, start, final, j;
-    int *mas = new int[100];
+    T middle, start, final;
+    T *mas = new T[100];
     middle = (first+last)/2;                // вычисление среднего элемента
     start =  first;                         // начало левой части
-    final = middle + 1;                     // начало правой части
-    for(j = first; j <= last; j++) {        // выполнять от начала до конца
+    final = middle+1;                     // начало правой части
+    for(int j = first; j <= last; j++) {    // выполнять от начала до конца
         if((start <= middle) && ((final > last) || (array[start] < array[final]))) {
             mas[j] = array[start];
             start++;
@@ -149,13 +161,14 @@ void merge(int *array, int first, int last)
         }
     }
     // возвращение результата в список
-    for(j = first; j <= last; j++)
+    for(int j = first; j <= last; j++)
         array[j] = mas[j];
 
     delete[] mas;
 }
 
-void mergeSort(int *array, int first, int last)
+template<class T>
+void mergeSort(T *array, int first, int last)
 {
     /* * * Рекурсивная процедура сортировки слиянием * * */
 
@@ -166,7 +179,8 @@ void mergeSort(int *array, int first, int last)
     }
 }
 
-void combSort(int *array, int length)
+template<class T>
+void combSort(T *array, int length)
 {
     /* * * Сортировка рассческой * * */
 
@@ -177,9 +191,8 @@ void combSort(int *array, int length)
         for(int i = 0; i + step < length; ++i) {
             // проход по массиву с шагом
             if(array[i] > array[i+step]) {
-                int tmp = array[i];
-                array[i] = array[i+step];       // перестановка элементов массива
-                array[i+step] = tmp;
+                // перестановка элементов массива
+                swap(array[i], array[i+step]);
             }
         }
         step /= fakt;       // уменьшить шаг
@@ -188,23 +201,48 @@ void combSort(int *array, int length)
     bubbleSort(array, length);
 }
 
-void shellSort(int *array, int length)
+template<class T>
+void shellSort(T *array, int length)
 {
     /* * * Сортировка методом Шелла * * */
 
-    int step = length / 2;      // шаг
+    int step = length/2;      // шаг
     while(step > 0) { // пока шаг не 0
-        for (int i = 0; i < (length - step); i++) {
+        for (int i = 0; i < (length-step); i++) {
             int j = i;                      // начиная с i-го элемента
-            while (j >= 0 && array[j] > array[j + step]) {
+            while (j >= 0 && array[j] > array[j+step]) {
                 // пока не пришли к началу массива и пока рассматриваемый элемент больше,
                 // чем элемент находящийся на расстоянии шага
-                int temp = array[j];
-                array[j] = array[j + step];         // перестановка элементов массива
-                array[j + step] = temp;
-                j--;
+                swap(array[j], array[j+step]); // перестановка элементов массива
             }
         }
         step = step / 2;    // уменьшить шаг
     }
+}
+
+template<class T>
+void quickSort(T* a, int last)
+{
+    /* * * Быстрая сортировка * * */
+
+    // указатели на исходные места
+    int i = 0;
+    int j = last-1;
+    T middle_element = a[last>>1];  // центральный элемент массива
+
+    // разделение массива
+    while(i <= j) {
+        while(a[i] < middle_element) i++;
+        while(a[j] > middle_element) j--;
+
+        if(i <= j) {
+            // перестановка элементов массива
+            swap(a[i], a[j]);
+            i++;
+            j--;
+        }
+    }
+    // рекурсивные вызовы, если есть, что сортировать
+    if(j > 0) quickSort(a, j);
+    if(last > i) quickSort(a+i, last-i);
 }

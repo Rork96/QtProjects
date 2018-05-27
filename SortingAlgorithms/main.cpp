@@ -1,44 +1,48 @@
 #include <iostream>
-#include <ctime>
-#include <iomanip>
 #include <vector>
-#include <iterator>
 
 using namespace std;
 
+// region Функции сортировки
+
 template<class T>
-void bubbleSort(vector<T>*, unsigned long);                 // Сортировка пузырьком
+void bubbleSort(vector<T>*);        // Сортировка пузырьком
 template<class T>
-void insertSort(vector<T>*, unsigned long);                 // Сортировка вставками
+void insertSort(vector<T>*);        // Сортировка вставками
 template<class T>
-void selectSort(vector<T>*, unsigned long);                 // Сортировка выбором
+void selectSort(vector<T>*);        // Сортировка выбором
 template<class T>
-void merge(vector<T>*, unsigned long, unsigned long);       // Функция, сливающая массивы (для сортировки слиянием)
+void merge(vector<T>*, T, T);       // Функция, сливающая массивы (для сортировки слиянием)
 template<class T>
-void mergeSort(vector<T>*, unsigned long, unsigned long);   // Рекурсивная процедура сортировки слиянием
+void mergeSort(vector<T>*, T, T);   // Рекурсивная процедура сортировки слиянием
 template<class T>
-void combSort(vector<T>*, unsigned long);                   // Сортировка рассческой
+void combSort(vector<T>*);          // Сортировка рассческой
 template<class T>
-void shellSort(vector<T>*, unsigned long);                  // Сортировка методом Шелла
+void shellSort(vector<T>*);         // Сортировка методом Шелла
 template<class T>
-void quickSort(vector<T>*, unsigned long);                  // Быстрая сортировка
+void quickSort(vector<T>*, T, T);   // Быстрая сортировка
+
+// endregion Функции сортировки
 
 int main(int argc, char* argv[])
 {
-    srand(static_cast<unsigned int>(time(nullptr)));
+    srand(time(NULL));
 
     cout << "Enter array length: ";
     unsigned long size_array;           // длинна массива
     cin >> size_array;
 
+    // region Заполнение массива
     cout << "Array:" << endl;
     vector<int> *sorted_array = new vector<int>(size_array);
-    for(unsigned int counter = 0; counter < size_array; counter++) {
-        sorted_array->at(counter) = rand() % 100;
-        cout << setw(4) << sorted_array->at(counter);
+    for(int i = 0; i < size_array; i++) {
+        sorted_array->at(i) = rand() % 100;
+        cout << sorted_array->at(i) << " ";
     }
     cout << "\n";
+    // endregion Заполнение массива
 
+    // region Выбор типа сортировки
     cout << "Select sorting algorithm:" << endl;
     cout << "1. Bubble;" << endl;
     cout << "2. Insertion;" << endl;
@@ -53,50 +57,55 @@ int main(int argc, char* argv[])
 
     switch(choise) {
         case 1:
-            bubbleSort(sorted_array, sorted_array->size());         // Сортировка пузырьком
+            bubbleSort(sorted_array);         // Сортировка пузырьком
             break;
         case 2:
-            insertSort(sorted_array, sorted_array->size());         // Сортировка вставками
+            insertSort(sorted_array);         // Сортировка вставками
             break;
         case 3:
-            selectSort(sorted_array, sorted_array->size());         // Сортировка выбором
+            selectSort(sorted_array);         // Сортировка выбором
             break;
         case 4:
-            mergeSort(sorted_array, 0, sorted_array->size()-1);     // Сортировка слиянием
+            mergeSort(sorted_array, 0,  (int) sorted_array->size()-1);     // Сортировка слиянием
             break;
         case 5:
-            combSort(sorted_array, sorted_array->size());           // Сортировка рассческой
+            combSort(sorted_array);           // Сортировка рассческой
             break;
         case 6:
-            shellSort(sorted_array, sorted_array->size());          // Сортировка Шелла
+            shellSort(sorted_array);          // Сортировка Шелла
             break;
         case 7:
-            quickSort(sorted_array, sorted_array->size());          // Быстрая сортировка2
+            quickSort(sorted_array, 0, (int) sorted_array->size()-1);          // Быстрая сортировка2
             break;
         default:
             cout << "Wrong number!";
             return 0;
     }
+    // endregion Выбор типа сортировки
 
+    // region Вывод отсортированного массива
     cout << "Sorted array:" << endl;
-    // печать отсортированного массива
-    copy(sorted_array->begin(),              // итератор начала массива
-         sorted_array->end(),                // итератор конца массива
-         ostream_iterator<int>(cout, " ")    //итератор потока вывода
-    );
-
+    for(int i = 0; i < size_array; ++i) {
+        cout << sorted_array->at(i) << " ";
+    }
     cout << "\n";
+    // endregion Вывод отсортированного массива
 
     delete[] sorted_array;
     system("pause");
     return 0;
 }
 
+// region Cортировки
+
+// region Сортировка пузырьком
+
 template<class T>
-void bubbleSort(vector<T> *array, unsigned long length)
+void bubbleSort(vector<T> *array)
 {
     /* * * Сортировка пузырьком * * */
     bool exit = false; // болевая переменная для выхода из цикла, если массив отсортирован
+    unsigned long length = array->size();
 
     while(!exit) { // пока массив не отсортирован
         exit = true;
@@ -112,11 +121,16 @@ void bubbleSort(vector<T> *array, unsigned long length)
         }
     }
 }
+// endregion Сортировка пузырьком
+
+// region Сортировка вставками
 
 template<class T>
-void insertSort(vector<T> *array, unsigned long length)
+void insertSort(vector<T> *array)
 {
     /* * * Сортировка вставками * * */
+
+    unsigned long length = array->size();
 
     // Проход по всему массиву наччиная с 1-го (не 0-го)
     for(int counter = 1; counter < length; counter++) {
@@ -130,11 +144,16 @@ void insertSort(vector<T> *array, unsigned long length)
         }
     }
 }
+// endregion Сортировка вставками
+
+// region Сортировка выбором
 
 template<class T>
-void selectSort(vector<T> *array, unsigned long length)
+void selectSort(vector<T> *array)
 {
     /* * * Сортировка выбором * * */
+
+    unsigned long length = array->size();
 
     // Проход по всему массиву начиная с 0-го
     for(int repeat_counter = 0; repeat_counter < length; repeat_counter++) {
@@ -148,18 +167,23 @@ void selectSort(vector<T> *array, unsigned long length)
         }
     }
 }
+// endregion Сортировка выбором
+
+// region Сортировка слиянием
 
 template<class T>
-void merge(vector<T> *array, unsigned long first, unsigned long last)
+void merge(vector<T> *array, T first, T last)
 {
     /* * * Функция, сливающая массивы (для сортировки слиянием) * * */
 
     T middle, start, final;
-    auto *mas = new vector<T>(array->size());
+    vector<T> *mas = new vector<T>(array->size());
+
     middle = (first+last)/2;                // вычисление среднего элемента
     start = first;                          // начало левой части
     final = middle+1;                       // начало правой части
-    for(long int j = first; j <= last; j++) {    // выполнять от начала до конца
+
+    for(T j = first; j <= last; j++) {    // выполнять от начала до конца
         if((start <= middle) && ((final > last) || (array->at(start) < array->at(final)))) {
             mas->at(j) = array->at(start);
             start++;
@@ -170,14 +194,14 @@ void merge(vector<T> *array, unsigned long first, unsigned long last)
         }
     }
     // возвращение результата в список
-    for(long int j = first; j <= last; j++)
+    for(T j = first; j <= last; j++)
         array->at(j) = mas->at(j);
 
     //delete[] mas;
 }
 
 template<class T>
-void mergeSort(vector<T> *array, unsigned long first, unsigned long last)
+void mergeSort(vector<T> *array, T first, T last)
 {
     /* * * Рекурсивная процедура сортировки слиянием * * */
 
@@ -187,12 +211,16 @@ void mergeSort(vector<T> *array, unsigned long first, unsigned long last)
         merge(array, first, last);                      // слияние двух частей
     }
 }
+// endregion Сортировка слиянием
+
+// region Сортировка рассческой
 
 template<class T>
-void combSort(vector<T> *array, unsigned long length)
+void combSort(vector<T> *array)
 {
     /* * * Сортировка рассческой * * */
 
+    unsigned long length = array->size();
     double fakt = 1.2473309;        // фактор уменьшения
     long int step = length - 1;     // шаг
 
@@ -207,44 +235,55 @@ void combSort(vector<T> *array, unsigned long length)
         step /= fakt;   // уменьшить шаг
     }
     // сортировка пузырьком
-    bubbleSort(array, length);
+    bubbleSort(array);
 }
+// endregion Сортировка рассческой
+
+// region Сортировка Шелла
 
 template<class T>
-void shellSort(vector<T> *array, unsigned long length)
+void shellSort(vector<T> *array)
 {
     /* * * Сортировка методом Шелла * * */
 
+// Обычная последовательность Шилла
+
+    unsigned long length = array->size();
     long int step = length/2;   // шаг
+
     while(step > 0) { // пока шаг не 0
-        for (int i = 0; i < (length-step); i++) {
+        for(int i = 0; i < length-step; i++) {
             int j = i;  // начиная с i-го элемента
             while (j >= 0 && array->at(j) > array->at(j+step)) {
                 // пока не пришли к началу массива и пока рассматриваемый элемент больше,
                 // чем элемент находящийся на расстоянии шага
                 swap(array->at(j), array->at(j+step));  // перестановка элементов массива
+                j--;
             }
         }
         step = step/2;  // уменьшить шаг
     }
 }
+// endregion Сортировка Шелла
+
+// region Быстрая сортировка
 
 template<class T>
-void quickSort(vector<T> *array, unsigned long last)    // ?
+void quickSort(vector<T> *array, T left, T right)
 {
     /* * * Быстрая сортировка * * */
 
     // указатели на исходные места
-    int i = 0;
-    long int j = last-1;
-    T middle_element = array->at(last>>1);  // центральный элемент массива
+    T i = left;
+    T j = right;
+    // центральный элемент массива
+    T pivot = array->at((left+right)/2);
 
     // разделение массива
     while(i <= j) {
-        while(array->at(i) < middle_element) i++;
-        while(array->at(j) > middle_element) j--;
-
-        if(i <= j) {
+        while(array->at(i) < pivot) i++;
+        while (array->at(j) > pivot) j--;
+        if (i <= j) {
             // перестановка элементов массива
             swap(array->at(i), array->at(j));
             i++;
@@ -252,6 +291,11 @@ void quickSort(vector<T> *array, unsigned long last)    // ?
         }
     }
     // рекурсивные вызовы, если есть, что сортировать
-    if(j > 0) quickSort(array, j);
-    if(last > i) quickSort(array+i, last-i);
+    if(left < j)
+        quickSort(array, left, j);
+    if(i < right)
+        quickSort(array, i, right);
 }
+// endregion Быстрая сортировка
+
+// endregion Сортировки

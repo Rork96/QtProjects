@@ -64,25 +64,25 @@ int main(int argc, char* argv[])
 
     switch(choise) {
         case 1:
-            bubbleSort(sorted_array);         // Сортировка пузырьком
+            bubbleSort(sorted_array);                                       // Сортировка пузырьком
             break;
         case 2:
-            insertSort(sorted_array);         // Сортировка вставками
+            insertSort(sorted_array);                                       // Сортировка вставками
             break;
         case 3:
-            selectSort(sorted_array);         // Сортировка выбором
+            selectSort(sorted_array);                                       // Сортировка выбором
             break;
         case 4:
-            mergeSort(sorted_array, 0,  (int) sorted_array->size()-1);     // Сортировка слиянием
+            mergeSort(sorted_array, 0,  (int) sorted_array->size()-1);      // Сортировка слиянием
             break;
         case 5:
-            combSort(sorted_array);           // Сортировка рассческой
+            combSort(sorted_array);                                         // Сортировка рассческой
             break;
         case 6:
-            shellSort(sorted_array);          // Сортировка Шелла
+            shellSort(sorted_array);                                        // Сортировка Шелла
             break;
         case 7:
-            quickSort(sorted_array, 0, (int) sorted_array->size()-1);          // Быстрая сортировка2
+            quickSort(sorted_array, 0, (int) sorted_array->size()-1);       // Быстрая сортировка2
             break;
         default:
             cout << "Wrong number!";
@@ -111,6 +111,9 @@ template<class T>
 void bubbleSort(vector<T> *array)
 {
     /* * * Сортировка пузырьком * * */
+
+    const clock_t start_time = clock();    // Начальное время
+
     bool exit = false; // болевая переменная для выхода из цикла, если массив отсортирован
     unsigned long length = array->size();
 
@@ -127,6 +130,10 @@ void bubbleSort(vector<T> *array)
             }
         }
     }
+
+    // Время выполнения алгоритма
+    clock_t end_time = clock();
+    cout << "Algorithm time = " << (double) (end_time-start_time)/CLOCKS_PER_SEC << endl << endl;
 }
 // endregion Сортировка пузырьком
 
@@ -136,6 +143,8 @@ template<class T>
 void insertSort(vector<T> *array)
 {
     /* * * Сортировка вставками * * */
+
+    const clock_t start_time = clock();    // Начальное время
 
     unsigned long length = array->size();
 
@@ -150,6 +159,10 @@ void insertSort(vector<T> *array)
             item--;
         }
     }
+
+    // Время выполнения алгоритма
+    clock_t end_time = clock();
+    cout << "Algorithm time = " << (double) (end_time-start_time)/CLOCKS_PER_SEC << endl << endl;
 }
 // endregion Сортировка вставками
 
@@ -159,6 +172,8 @@ template<class T>
 void selectSort(vector<T> *array)
 {
     /* * * Сортировка выбором * * */
+
+    const clock_t start_time = clock();    // Начальное время
 
     unsigned long length = array->size();
 
@@ -173,6 +188,10 @@ void selectSort(vector<T> *array)
             }
         }
     }
+
+    // Время выполнения алгоритма
+    clock_t end_time = clock();
+    cout << "Algorithm time = " << (double) (end_time-start_time)/CLOCKS_PER_SEC << endl << endl;
 }
 // endregion Сортировка выбором
 
@@ -212,11 +231,17 @@ void mergeSort(vector<T> *array, T first, T last)
 {
     /* * * Рекурсивная процедура сортировки слиянием * * */
 
+    const clock_t start_time = clock();    // Начальное время
+
     if(first < last) {
         mergeSort(array, first, (first+last)/2);        // сортировка левой части
         mergeSort(array, ((first+last)/2)+1, last);     // сортировка правой части
         merge(array, first, last);                      // слияние двух частей
     }
+
+    // Время выполнения алгоритма
+    clock_t end_time = clock();
+    cout << "Algorithm time = " << (double) (end_time-start_time)/CLOCKS_PER_SEC << endl << endl;
 }
 // endregion Сортировка слиянием
 
@@ -226,6 +251,8 @@ template<class T>
 void combSort(vector<T> *array)
 {
     /* * * Сортировка рассческой * * */
+
+    const clock_t start_time = clock();    // Начальное время
 
     unsigned long length = array->size();
     double fakt = 1.2473309;        // фактор уменьшения
@@ -243,6 +270,10 @@ void combSort(vector<T> *array)
     }
     // сортировка пузырьком
     bubbleSort(array);
+
+    // Время выполнения алгоритма
+    clock_t end_time = clock();
+    cout << "Algorithm time = " << (double) (end_time-start_time)/CLOCKS_PER_SEC << endl << endl;
 }
 // endregion Сортировка рассческой
 
@@ -254,6 +285,8 @@ void shellSort(vector<T> *array)
     /* * * Сортировка методом Шелла * * */
 
 // Обычная последовательность Шилла
+
+    const clock_t start_time = clock();    // Начальное время
 
     unsigned long length = array->size();
     long int step = length/2;   // шаг
@@ -270,6 +303,10 @@ void shellSort(vector<T> *array)
         }
         step = step/2;  // уменьшить шаг
     }
+
+    // Время выполнения алгоритма
+    clock_t end_time = clock();
+    cout << "Algorithm time = " << (double) (end_time-start_time)/CLOCKS_PER_SEC << endl << endl;
 }
 // endregion Сортировка Шелла
 
@@ -279,6 +316,8 @@ template<class T>
 void quickSort(vector<T> *array, T left, T right)
 {
     /* * * Быстрая сортировка * * */
+
+    const clock_t start_time = clock();    // Начальное время
 
     // указатели на исходные места
     T i = left;
@@ -302,6 +341,10 @@ void quickSort(vector<T> *array, T left, T right)
         quickSort(array, left, j);
     if(i < right)
         quickSort(array, i, right);
+
+    // Время выполнения алгоритма
+    clock_t end_time = clock();
+    cout << "Algorithm time = " << (double) (end_time-start_time)/CLOCKS_PER_SEC << endl << endl;
 }
 // endregion Быстрая сортировка
 

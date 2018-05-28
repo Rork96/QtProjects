@@ -6,10 +6,10 @@ using namespace std;
 // region Функции поиска
 
 template<class T>
-void linearSearch(vector<T>*);        // Линейный поиск
+T linearSearch(vector<T>*, T);        // Линейный поиск
 
 template<class T>
-void binarySearch(vector<T>*);        // Бинарный поиск
+T binarySearch(vector<T>*, T);        // Бинарный поиск
 
 
 // endregion Функции поиска
@@ -32,6 +32,12 @@ int main()
     cout << "\n";
     // endregion Заполнение массива
 
+    int element;    // Искомый элемент (значение)
+    int element_index = -1; // Индекс искомого элемента (-1 - не найден)
+    cout << "Enter searching element: ";
+    cin >> element;
+    cout << "\n";
+
     // region Выбор типа поиска
     cout << "Select searching algorithm:" << endl;
     cout << "1. Linear;" << endl;
@@ -42,10 +48,10 @@ int main()
 
     switch(choise) {
         case 1:
-            linearSearch(array);    // Линейный поиск
+            element_index = linearSearch(array, element);    // Линейный поиск
             break;
         case 2:
-            binarySearch(array);    // Бинарный поиск
+            element_index = binarySearch(array, element);    // Бинарный поиск
             break;
         default:
             cout << "Wrong number!";
@@ -54,12 +60,14 @@ int main()
     // endregion Выбор типа поиска
 
     // region Вывод найденного значения
-    cout << "array:" << endl;
-    for(int i = 0; i < size_array; ++i) {
-        cout << array->at(i) << " ";
+    if (element_index == -1) {
+        cout << "Element " << element << " not found" << endl;
     }
-    cout << "\n";
-    // endregion Вывод отсортированного массива
+    else {
+        cout << "Element found at number: " << element_index + 1 << endl;
+        cout << "Searching element: " << array->at(element_index) << endl;
+    }
+    // endregion Вывод найденного значения
 
     delete[] array;
     system("pause");
@@ -71,20 +79,27 @@ int main()
 // region Линейный поиск
 
 template<class T>
-void linearSearch(vector<T>*)
+T linearSearch(vector<T> *array, T element)
 {
     /* * * Линейный поиск * * */
-}
 
-//линейный поиск
-int linearySearch(int arr[], int requiredKey, int arrSize)
-{
-    for (int i = 0; i < arrSize; i++)
-    {
-        if (arr[i] == requiredKey)
-            return i;
+    const clock_t start_time = clock();    // Начальное время
+
+    int index = -1; // Индекс искомого элемента (-1 - не найден)
+
+    // Поочередный перебор элементов массива
+    for(int i = 0; i < array->size(); i++) {
+        if(array->at(i) == element) {
+            index = i;
+            break;  // Искать первое вхождение
+        }
     }
-    return -1;
+
+    // Время выполнения алгоритма
+    clock_t end_time = clock();
+    cout << "Algorithm time = " << (double) (end_time-start_time)/CLOCKS_PER_SEC << endl << endl;
+
+    return index;  // Индекс элемента
 }
 // endregion Линейный поиск
 
@@ -92,7 +107,7 @@ int linearySearch(int arr[], int requiredKey, int arrSize)
 // region Бинарный поиск
 
 template<class T>
-void binarySearch(vector<T>*)
+T binarySearch(vector<T> *array, T element)
 {
     /* * * Бинарный поиск * * */
 }

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -23,17 +24,26 @@ int main()
     cin >> size_array;
 
     // region Заполнение массива
-    cout << "Array:" << endl;
+    //cout << "Array:" << endl;
     vector<int> *array = new vector<int>(size_array);
     for(int i = 0; i < size_array; i++) {
         array->at(i) = rand() % 100;
+        //cout << array->at(i) << " ";
+    }
+    //cout << "\n";
+    // endregion Заполнение массива
+
+    // Поиск в отсортированном массиве
+    sort(array->begin(), array->end());
+    // Вывод отсортированного массива
+    cout << "Sorted array: " << endl;
+    for(int i = 0; i < array->size(); i++) {
         cout << array->at(i) << " ";
     }
     cout << "\n";
-    // endregion Заполнение массива
 
-    int element;    // Искомый элемент (значение)
-    int element_index = -1; // Индекс искомого элемента (-1 - не найден)
+    int element;                // Искомый элемент (значение)
+    int element_index = -1;     // Индекс искомого элемента (-1 - не найден)
     cout << "Enter searching element: ";
     cin >> element;
     cout << "\n";
@@ -48,10 +58,10 @@ int main()
 
     switch(choise) {
         case 1:
-            element_index = linearSearch(array, element);    // Линейный поиск
+            element_index = linearSearch(array, element);   // Линейный поиск
             break;
         case 2:
-            element_index = binarySearch(array, element);    // Бинарный поиск
+            element_index = binarySearch(array, element);   // Бинарный поиск
             break;
         default:
             cout << "Wrong number!";

@@ -3,7 +3,11 @@
 #include <algorithm>
 #include <ctime>
 
-using namespace std;
+//using namespace std;
+using std::cout;
+using std::cin;
+using std::endl;
+using std::vector;
 
 // region Функции поиска
 

@@ -29,13 +29,10 @@ int main()
     cin >> size_array;
 
     // region Заполнение массива
-    //cout << "Array:" << endl;
     vector<int> *array = new vector<int>(size_array);
     for(int i = 0; i < size_array; i++) {
         array->at(i) = rand() % 100;
-        //cout << array->at(i) << " ";
     }
-    //cout << "\n";
     // endregion Заполнение массива
 
     // Поиск в отсортированном массиве

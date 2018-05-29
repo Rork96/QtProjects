@@ -2,7 +2,12 @@
 #include <vector>
 #include <ctime>
 
-using namespace std;
+//using namespace std;
+using std::cout;
+using std::cin;
+using std::endl;
+using std::vector;
+using std::swap;
 
 // region Функции сортировки
 

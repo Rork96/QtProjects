@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <ctime>
 
 using namespace std;
 
@@ -75,11 +76,11 @@ int main()
     }
     else {
         cout << "Element found at number: " << element_index + 1 << endl;
-        cout << "Searching element: " << array->at(element_index) << endl;
+        cout << "Searching element: " << array->at(element_index) << endl << endl;
     }
     // endregion Вывод найденного значения
 
-    delete[] array;
+    //delete[] array;
     system("pause");
     return 0;
 }
@@ -120,6 +121,33 @@ template<class T>
 T binarySearch(vector<T> *array, T element)
 {
     /* * * Бинарный поиск * * */
+
+    const clock_t start_time = clock();    // Начальное время
+
+    int average_index = 0;              // Индекс среднего элемента массива
+    int first_index = 0;                // Индекс первого элемента в массиве
+    int last_index = array->size()-1;   // Индекс последнего элемента в массиве
+    int index = -1;                     // Индекс искомого элемента (-1 - не найден)
+
+    while(first_index < last_index) {
+        average_index = first_index + (last_index-first_index) / 2;     // Изменить индекс среднего значения
+        // Найден ключевой элемент или нет
+        if(element <= array->at(average_index)) {
+            last_index = average_index;
+        }
+        else {
+            first_index = average_index + 1;
+        }
+    }
+    // Элемент искомый найден
+    if(array->at(last_index) == element)
+        index = last_index;
+
+    // Время выполнения алгоритма
+    clock_t end_time = clock();
+    cout << "Algorithm time = " << (double) (end_time-start_time)/CLOCKS_PER_SEC << endl << endl;
+
+    return index;
 }
 // endregion Бинарный поиск
 

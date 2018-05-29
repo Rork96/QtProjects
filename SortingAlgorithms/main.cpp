@@ -99,7 +99,7 @@ int main(int argc, char* argv[])
     cout << "\n";
     // endregion Вывод отсортированного массива
 
-    delete[] sorted_array;
+    //delete[] sorted_array;
     system("pause");
     return 0;
 }

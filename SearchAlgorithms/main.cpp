@@ -55,7 +55,7 @@ int main()
     cout << "1. Linear;" << endl;
     cout << "2. Binary;" << endl;
 
-    int choise;
+    unsigned choise;
     cin >> choise;
 
     switch(choise) {

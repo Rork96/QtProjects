@@ -5,28 +5,29 @@ using std::cout;
 using std::cin;
 using std::endl;
 using std::vector;
+using std::string;
 using std::swap;
 
 template<class T>
 void reverseString(vector<T>*); // Переворот строки
 
-void reverseString(std::string*);
+void reverseString(string*);
 
 int main()
 {
     vector<char> initial_string {'H', 'e', 'l', 'l', 'o', 'w', ' ', 'W', 'o', 'r', 'l', 'd'};
 
-    std::string init_string = "Hello for all";
+    string init_string = "Hello for all";
 
     cout << "String 1: ";
-    for(int i = 0; i < initial_string.size(); i++) {
-        cout << initial_string.at(i);
+    for(char i : initial_string) {
+        cout << i;
     }
     cout << endl << endl;
 
     cout << "String 2: ";
-    for(int i = 0; i < init_string.size(); i++) {
-        cout << init_string.at(i);
+    for(char i : init_string) {
+        cout << i;
     }
     cout << endl << endl;
 
@@ -36,14 +37,14 @@ int main()
     //reverseString(&initial_string);  // Переворот строки
 
     cout << "Reversed string 1: ";
-    for(int i = 0; i < initial_string.size(); i++) {
-        cout << initial_string.at(i);
+    for(char i : initial_string) {
+        cout << i;
     }
     cout << endl << endl;
 
     cout << "Reversed string 2: ";
-    for(int i = 0; i < init_string.size(); i++) {
-        cout << init_string.at(i);
+    for(char i : init_string) {
+        cout << i;
     }
     cout << endl << endl;
 
@@ -58,8 +59,8 @@ void reverseString(vector<T> *current_string)
 {
     /* * * Переворот строки * * */
 
-    int i = 0;                          // Крайний левый элемент
-    int j = current_string->size()-1;   // Крайний правый элемент
+    ulong i = 0;                          // Крайний левый элемент
+    ulong j = current_string->size()-1;   // Крайний правый элемент
     // Перебрать все элементы массива двигаясь от его краев к центру
     while(i < j) {
         // Поменять местами элементы масива
@@ -69,12 +70,12 @@ void reverseString(vector<T> *current_string)
     }
 }
 
-void reverseString(std::string *current_string)
+void reverseString(string *current_string)
 {
     /* * * Переворот строки * * */
 
-    int i = 0;                          // Крайний левый элемент
-    int j = current_string->size()-1;   // Крайний правый элемент
+    ulong i = 0;                          // Крайний левый элемент
+    ulong j = current_string->size()-1;   // Крайний правый элемент
     // Перебрать все элементы массива двигаясь от его краев к центру
     while(i < j) {
         // Поменять местами элементы масива

@@ -30,7 +30,7 @@ int main()
 
     // region Заполнение массива
     vector<int> *array = new vector<int>(size_array);
-    for(int i = 0; i < size_array; i++) {
+    for(unsigned i = 0; i < size_array; i++) {
         array->at(i) = rand() % 100;
     }
     // endregion Заполнение массива
@@ -39,8 +39,8 @@ int main()
     sort(array->begin(), array->end());
     // Вывод отсортированного массива
     cout << "Sorted array: " << endl;
-    for(int i = 0; i < array->size(); i++) {
-        cout << array->at(i) << " ";
+    for(int i : *array) {
+        cout << i << " ";
     }
     cout << "\n";
 

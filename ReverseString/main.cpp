@@ -25,11 +25,7 @@ int main()
     }
     cout << endl << endl;
 
-    cout << "String 2: ";
-    for(char i : init_string) {
-        cout << i;
-    }
-    cout << endl << endl;
+    cout << "String 2: " << init_string << endl << endl;
 
     reverseString(&initial_string);
     reverseString(&init_string);
@@ -42,11 +38,7 @@ int main()
     }
     cout << endl << endl;
 
-    cout << "Reversed string 2: ";
-    for(char i : init_string) {
-        cout << i;
-    }
-    cout << endl << endl;
+    cout << "Reversed string 2: " << init_string << endl << endl;
 
     //delete[] initial_string;
     //delete[] init_string;

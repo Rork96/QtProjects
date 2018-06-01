@@ -48,7 +48,7 @@ int main(int argc, char* argv[])
     // region Заполнение массива
     cout << "Array:" << endl;
     vector<int> *sorted_array = new vector<int>(size_array);
-    for(ulong i = 0; i < size_array; i++) {
+    for(unsigned i = 0; i < size_array; i++) {
         sorted_array->at(i) = rand() % 100;
         cout << sorted_array->at(i) << " ";
     }

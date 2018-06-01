@@ -52,8 +52,8 @@ void reverseString(vector<T> *current_string)
 {
     /* * * Переворот строки * * */
 
-    ulong i = 0;                          // Крайний левый элемент
-    ulong j = current_string->size()-1;   // Крайний правый элемент
+    unsigned i = 0;                          // Крайний левый элемент
+    unsigned j = current_string->size()-1;   // Крайний правый элемент
     // Перебрать все элементы массива двигаясь от его краев к центру
     while(i < j) {
         // Поменять местами элементы масива
@@ -67,8 +67,8 @@ void reverseString(string *current_string)
 {
     /* * * Переворот строки * * */
 
-    ulong i = 0;                          // Крайний левый элемент
-    ulong j = current_string->size()-1;   // Крайний правый элемент
+    unsigned i = 0;                          // Крайний левый элемент
+    unsigned j = current_string->size()-1;   // Крайний правый элемент
     // Перебрать все элементы массива двигаясь от его краев к центру
     while(i < j) {
         // Поменять местами элементы масива

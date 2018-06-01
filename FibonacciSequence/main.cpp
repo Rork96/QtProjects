@@ -6,8 +6,8 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-unsigned long long fibSequence(unsigned short);     // Последовательность Фибоначчи (рекурсия)
-int fSequence(int);                                 // Последовательность Фибоначчи (быстрый способ)
+unsigned long long fibSequence(unsigned short);     // Последовательность Фибоначчи (рекурсивный способ)
+int fSequence(int);                                 // Последовательность Фибоначчи (итеративный способ)
 
 int main() {
     // Последовательность Фибоначчи: 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233
@@ -18,10 +18,10 @@ int main() {
     cin >> number;
     cout << endl << endl;
 
-    // region Последовательность Фибоначчи (быстрый способ)
+    // region Последовательность Фибоначчи (итеративный способ)
     const clock_t s_time = clock();    // Начальное время
 
-    int fSeq = fSequence(number);                       // Последовательность Фибоначчи (быстрый способ)
+    int fSeq = fSequence(number);                       // Последовательность Фибоначчи (итеративный способ)
     cout << "Fibonacci sequence: " << fSeq << endl;
 
     // Время выполнения алгоритма
@@ -32,7 +32,7 @@ int main() {
     // region Последовательность Фибоначчи (рекурсия)
     const clock_t start_time = clock();    // Начальное время
 
-    unsigned long long sequence = fibSequence(number);  // Последовательность Фибоначчи (рекурсия)
+    unsigned long long sequence = fibSequence(number);  // Последовательность Фибоначчи (рекурсивный способ)
     cout << "Fibonacci sequence: " << sequence << endl;
 
     // Время выполнения алгоритма
@@ -47,7 +47,7 @@ int main() {
 
 unsigned long long fibSequence(unsigned short number)
 {
-    /* * * Последовательность Фибоначчи (рекурсия) * * */
+    /* * * Последовательность Фибоначчи (рекурсивный способ) * * */
 
     // fibSequence(0) = 0 и fibSequence(1) = 1
     if(number < 2) {
@@ -61,7 +61,7 @@ unsigned long long fibSequence(unsigned short number)
 
 int fSequence(int number)
 {
-    /* * * Последовательность Фибоначчи (быстрый способ) * * */
+    /* * * Последовательность Фибоначчи (итеративный способ) * * */
 
     // Нужно хранить в памяти только два предыдущих числа
     unsigned long oldValue = 0;

@@ -35,7 +35,7 @@ _inline char encrypt(char symbol, int key, int start, int end)
 {
     /* * * Шифрование символа * * */
 
-    int code = (int) symbol;    // Код символа ASCII
+    int code = static_cast<int> (symbol);    // Код символа ASCII
     code += key;                // Шифрование
     if(code > end) {            // Если выход за границы (алфавит имеет кольцевой вид: a b c ... z a b c)
         code = start + (code - end);

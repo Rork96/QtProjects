@@ -26,10 +26,10 @@ int main() {
 
     // Время выполнения алгоритма
     clock_t e_time = clock();
-    cout << "Quick algorithm time = " << (double) (e_time-s_time)/CLOCKS_PER_SEC << endl << endl;
-    // endregion Последовательность Фибоначчи (быстрый способ)
+    cout << "Iteration algorithm time = " << (double) (e_time-s_time)/CLOCKS_PER_SEC << endl << endl;
+    // endregion Последовательность Фибоначчи (итеративный способ)
 
-    // region Последовательность Фибоначчи (рекурсия)
+    // region Последовательность Фибоначчи (рекурсивный способ)
     const clock_t start_time = clock();    // Начальное время
 
     unsigned long long sequence = fibSequence(number);  // Последовательность Фибоначчи (рекурсивный способ)
@@ -38,7 +38,7 @@ int main() {
     // Время выполнения алгоритма
     clock_t end_time = clock();
     cout << "Recursion algorithm time = " << (double) (end_time-start_time)/CLOCKS_PER_SEC << endl << endl;
-    // endregion Последовательность Фибоначчи (рекурсия)
+    // endregion Последовательность Фибоначчи (рекурсивный способ)
 
     return 0;
 }

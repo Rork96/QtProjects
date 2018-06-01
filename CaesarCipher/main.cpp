@@ -7,12 +7,12 @@ using std::getline;
 using std::endl;
 using std::string;
 
-_inline char encrypt(char, int, int, int);    // Шифрование символа
+inline char encrypt(char, int, int, int);    // Шифрование символа
 void ceasarCipher(string*, int);                // Шифрование текста шифром Цезаря
 
 int main() {
     string init_text;
-    cout << "The program encrypts text with Caesar's cipher." << endl << endl;
+    cout << "The program encrypts text with Caesar's cipher" << endl << endl;
     cout << "Enter text for ciphering: " << endl;
     getline(cin, init_text);    // Считать строку
     cout << endl;
@@ -31,7 +31,7 @@ int main() {
 
 // region Шифрование текста шифром Цезаря
 
-_inline char encrypt(char symbol, int key, int start, int end)
+inline char encrypt(char symbol, int key, int start, int end)
 {
     /* * * Шифрование символа * * */
 

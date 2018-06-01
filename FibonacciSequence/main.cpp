@@ -14,7 +14,7 @@ int main() {
     // Новое число равно сумме предыдущих двух: 1+1=2 ...
     cout << "Fibonacci sequence" << endl << endl;
     cout << "Enter how long you wish the Fibanacci series to display: ";
-    int number;
+    unsigned short number;
     cin >> number;
     cout << endl << endl;
 

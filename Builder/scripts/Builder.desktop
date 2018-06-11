@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Builder
+Comment=Builder
+Exec=opt/Builder/Builder
+Terminal=false
+Type=Application
+StartupNotify=true
+Icon=usr/share/pixmaps/Builder.png
+Categories=images
+Name[ru_UA]=Builder

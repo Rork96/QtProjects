@@ -82,13 +82,13 @@
     <enum>Qt::RightToLeft</enum>
    </property>
    <property name="movable">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <attribute name="toolBarArea">
     <enum>BottomToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
-    <bool>true</bool>
+    <bool>false</bool>
    </attribute>
    <addaction name="actionCreate"/>
    <addaction name="actionCreate_with_builder"/>
@@ -101,6 +101,9 @@
     <enum>Qt::RightToLeft</enum>
    </property>
    <property name="movable">
+    <bool>false</bool>
+   </property>
+   <property name="floatable">
     <bool>true</bool>
    </property>
    <attribute name="toolBarArea">

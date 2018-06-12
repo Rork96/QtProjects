@@ -13,6 +13,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(loginForm, &LoginForm::isLogin, this, &MainWindow::Login);
     connect(ui->actionLogout, &QAction::triggered, this, &MainWindow::initUI);
+    connect(ui->actionGroups, &QAction::triggered, this, [this] {
+        // View group table
+        mainForm = new TableForm(this);
+        setCentralWidget(mainForm);
+    });
 }
 
 MainWindow::~MainWindow()
@@ -31,9 +36,8 @@ void MainWindow::initUI()
 void MainWindow::Login(bool value)
 {
     if (value) {
-        // Login allowed
-        mainForm = new TableForm(this);
-        setCentralWidget(mainForm);
+        // Login
+        setCentralWidget(NULL);
         ui->menuBar->setVisible(true);
     }
 }

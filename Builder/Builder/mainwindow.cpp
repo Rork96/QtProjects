@@ -6,9 +6,34 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    setWindowState(Qt::WindowMaximized);
+
+    initUI();   // Hide main menu and view login screen
+
+    connect(loginForm, &LoginForm::isLogin, this, &MainWindow::Login);
+    connect(ui->actionLogout, &QAction::triggered, this, &MainWindow::initUI);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::initUI()
+{
+    // Hide main menu and view login screen
+    loginForm = new LoginForm(this);
+    setCentralWidget(loginForm);
+    ui->menuBar->setVisible(false);
+}
+
+void MainWindow::Login(bool value)
+{
+    if (value) {
+        // Login allowed
+        mainForm = new TableForm(this);
+        setCentralWidget(mainForm);
+        ui->menuBar->setVisible(true);
+    }
 }

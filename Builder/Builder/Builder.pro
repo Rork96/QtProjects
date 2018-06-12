@@ -26,12 +26,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    mwindow.cpp
+    loginform.cpp \
+    tableform.cpp
 
 HEADERS += \
         mainwindow.h \
-    mwindow.h
+    loginform.h \
+    tableform.h
 
 FORMS += \
         mainwindow.ui \
-    mwindow.ui
+    loginform.ui \
+    tableform.ui
+
+RESOURCES += \
+    res.qrc

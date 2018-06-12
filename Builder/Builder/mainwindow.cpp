@@ -37,7 +37,7 @@ void MainWindow::Login(bool value)
 {
     if (value) {
         // Login
-        setCentralWidget(NULL);
+        setCentralWidget(nullptr);
         ui->menuBar->setVisible(true);
     }
 }

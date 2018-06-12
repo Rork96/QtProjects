@@ -27,17 +27,23 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     loginform.cpp \
-    tableform.cpp
+    tableform.cpp \
+    creategroupform.cpp \
+    createuserform.cpp
 
 HEADERS += \
         mainwindow.h \
     loginform.h \
-    tableform.h
+    tableform.h \
+    creategroupform.h \
+    createuserform.h
 
 FORMS += \
         mainwindow.ui \
     loginform.ui \
-    tableform.ui
+    tableform.ui \
+    creategroupform.ui \
+    createuserform.ui
 
 RESOURCES += \
     res.qrc

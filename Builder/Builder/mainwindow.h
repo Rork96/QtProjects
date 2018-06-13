@@ -5,6 +5,10 @@
 
 #include "loginform.h"
 #include "tableform.h"
+#include "creategroupform.h"
+#include "createuserform.h"
+
+#include "importfilesform.h"
 
 namespace Ui {
 class MainWindow;
@@ -23,9 +27,13 @@ private:
 
     LoginForm *loginForm;
     TableForm *mainForm;
+    CreateGroupForm *groupForm;
+    CreateUserForm *userForm;
 
-    void initUI();              // Hide main menu and view login screen
-    void Login(bool value);     // Login
+    void initUI();                              // Hide main menu and show login screen
+    void login(bool value);                     // Login
+    void setMainView(TableForm::Type type);     // Set view type
+    void createView(TableForm::Type type);      // Create view in dependency of needed view type
 };
 
 #endif // MAINWINDOW_H

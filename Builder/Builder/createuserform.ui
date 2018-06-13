@@ -6,28 +6,108 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>984</width>
-    <height>696</height>
+    <width>1008</width>
+    <height>968</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout_4">
-   <item row="2" column="2">
-    <spacer name="horizontalSpacer_4">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_3">
+   <item row="5" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QToolButton" name="userBackButton">
+       <property name="minimumSize">
+        <size>
+         <width>60</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QToolButton {
+                color: darkblue;
+               padding: 4px;
+               border: 1px solid rgb(0, 85, 255); 
+               border-radius: 5px;
+               border-style: outset;
+               font: 10pt &quot;MS Shell Dlg 2&quot;;
+              }
+
+QToolButton:hover {
+               color: white;
+               border: 1px solid grey;
+               background-color: rgb(0, 78, 235);
+               }
+
+QToolButton:pressed {
+               color: rgb(0, 0, 197)
+               background: shadow;
+               border-style: inset;
+               }</string>
+       </property>
+       <property name="text">
+        <string>Back</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="userSubmitButton">
+       <property name="minimumSize">
+        <size>
+         <width>60</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QToolButton {
+               color: white;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               max-width: 120px;
+               background-color: rgb(0, 85, 255);
+               font: 10pt &quot;MS Shell Dlg 2&quot;;
+              }
+
+QToolButton:hover {
+               color: darkblue;
+               border: 1px solid grey;
+               background-color: rgb(255, 255, 255);
+               }
+
+QToolButton:pressed {
+               color: rgb(0, 0, 197)
+               background: shadow;
+               border-style: inset;
+			    background-color: rgb(0, 78, 235);
+               }</string>
+       </property>
+       <property name="text">
+        <string>Submit</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
-   <item row="3" column="1">
+   <item row="4" column="1">
     <spacer name="verticalSpacer_3">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -40,7 +120,23 @@
      </property>
     </spacer>
    </item>
-   <item row="0" column="1">
+   <item row="2" column="1">
+    <widget class="QLabel" name="label_18">
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+               color: darkblue;
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 12pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+     </property>
+     <property name="text">
+      <string>CREATE USER</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -53,18 +149,56 @@
      </property>
     </spacer>
    </item>
-   <item row="2" column="1">
-    <widget class="QTabWidget" name="tabWidget">
+   <item row="3" column="0">
+    <spacer name="horizontalSpacer_3">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Expanding</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="3" column="2">
+    <spacer name="horizontalSpacer_4">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Expanding</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="3" column="1">
+    <widget class="QTabWidget" name="mainTabWidget">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>200</horstretch>
+       <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
      <property name="minimumSize">
       <size>
-       <width>200</width>
-       <height>600</height>
+       <width>820</width>
+       <height>850</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>820</width>
+       <height>16777215</height>
       </size>
      </property>
      <property name="styleSheet">
@@ -72,18 +206,22 @@
                color: blue;
                padding: 4px;
                border-radius: 5px;
+               border: 1px solid grey; 
                border-style: outset;
 	           font: 11pt &quot;MS Shell Dlg 2&quot;;
               }
 QWidget {
                color: rgb(32, 74, 135);
 	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }
+QScrollBar {
+			   background-color: rgb(240, 240, 240);
               }</string>
      </property>
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="PersonalTab">
+     <widget class="QWidget" name="personalTab">
       <attribute name="title">
        <string>Personal</string>
       </attribute>
@@ -104,7 +242,7 @@ QWidget {
         <number>0</number>
        </property>
        <item row="0" column="0">
-        <widget class="QScrollArea" name="scrollArea">
+        <widget class="QScrollArea" name="personalScrollArea">
          <property name="verticalScrollBarPolicy">
           <enum>Qt::ScrollBarAlwaysOn</enum>
          </property>
@@ -116,8 +254,8 @@ QWidget {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>858</width>
-            <height>943</height>
+            <width>795</width>
+            <height>888</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_5">
@@ -127,7 +265,7 @@ QWidget {
               <widget class="QLabel" name="label_8">
                <property name="styleSheet">
                 <string notr="true">QLabel {
-               color: blue;
+               color: rgb(32, 74, 135);
                padding: 4px;
                border-radius: 5px;
                border-style: outset;
@@ -140,7 +278,7 @@ QWidget {
               </widget>
              </item>
              <item>
-              <widget class="QListView" name="listView_2">
+              <widget class="QListView" name="docGroupListView">
                <property name="styleSheet">
                 <string notr="true">QListView {
                color: black;
@@ -163,7 +301,7 @@ QWidget {
                 <widget class="QLabel" name="label_9">
                  <property name="styleSheet">
                   <string notr="true">QLabel {
-               color: blue;
+               color: rgb(32, 74, 135);
                padding: 4px;
                border-radius: 5px;
                border-style: outset;
@@ -176,7 +314,7 @@ QWidget {
                 </widget>
                </item>
                <item>
-                <widget class="QLineEdit" name="lineEdit_5">
+                <widget class="QLineEdit" name="phoneLine">
                  <property name="styleSheet">
                   <string notr="true">QLineEdit {
                color: black;
@@ -201,7 +339,7 @@ QWidget {
                </property>
                <property name="sizeHint" stdset="0">
                 <size>
-                 <width>10</width>
+                 <width>20</width>
                  <height>20</height>
                 </size>
                </property>
@@ -213,7 +351,7 @@ QWidget {
                 <widget class="QLabel" name="label_10">
                  <property name="styleSheet">
                   <string notr="true">QLabel {
-               color: blue;
+               color: rgb(32, 74, 135);
                padding: 4px;
                border-radius: 5px;
                border-style: outset;
@@ -226,7 +364,7 @@ QWidget {
                 </widget>
                </item>
                <item>
-                <widget class="QLineEdit" name="lineEdit_6">
+                <widget class="QLineEdit" name="emailLine">
                  <property name="styleSheet">
                   <string notr="true">QLineEdit {
                color: black;
@@ -249,7 +387,7 @@ QWidget {
               <widget class="QLabel" name="label_3">
                <property name="styleSheet">
                 <string notr="true">QLabel {
-               color: blue;
+               color: rgb(32, 74, 135);
                padding: 4px;
                border-radius: 5px;
                border-style: outset;
@@ -262,16 +400,16 @@ QWidget {
               </widget>
              </item>
              <item>
-              <widget class="QComboBox" name="comboBox">
+              <widget class="QComboBox" name="accountTypeBox">
                <property name="styleSheet">
                 <string notr="true">QComboBox {
 			   color: black;
                padding: 4px;
-               border: 1px solid black; 
+               border: 1px solid grey; 
                border-radius: 5px;
                border-style: outset;
                font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(240, 240, 240);
+			   background-color: rgb(255, 255, 255);
               }</string>
                </property>
               </widget>
@@ -284,7 +422,7 @@ QWidget {
               <widget class="QLabel" name="label">
                <property name="styleSheet">
                 <string notr="true">QLabel {
-               color: blue;
+               color: rgb(32, 74, 135);
                padding: 4px;
                border-radius: 5px;
                border-style: outset;
@@ -297,7 +435,7 @@ QWidget {
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit">
+              <widget class="QLineEdit" name="userNameLine">
                <property name="styleSheet">
                 <string notr="true">QLineEdit {
                color: black;
@@ -315,7 +453,7 @@ QWidget {
            <item row="3" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout">
              <item>
-              <widget class="QLineEdit" name="lineEdit_2">
+              <widget class="QLineEdit" name="passwordLine">
                <property name="styleSheet">
                 <string notr="true">QLineEdit {
                color: black;
@@ -332,7 +470,7 @@ QWidget {
               <widget class="QCheckBox" name="checkBox">
                <property name="styleSheet">
                 <string notr="true">QCheckBox {
-               color: blue;
+               color: rgb(32, 74, 135);
                padding: 4px;
                border-radius: 5px;
                border-style: outset;
@@ -352,7 +490,7 @@ QWidget {
               <widget class="QLabel" name="label_4">
                <property name="styleSheet">
                 <string notr="true">QLabel {
-               color: blue;
+               color: rgb(32, 74, 135);
                padding: 4px;
                border-radius: 5px;
                border-style: outset;
@@ -365,16 +503,16 @@ QWidget {
               </widget>
              </item>
              <item>
-              <widget class="QComboBox" name="comboBox_2">
+              <widget class="QComboBox" name="tenantCodeBox">
                <property name="styleSheet">
                 <string notr="true">QComboBox {
 			   color: black;
                padding: 4px;
-               border: 1px solid black; 
+               border: 1px solid grey; 
                border-radius: 5px;
                border-style: outset;
                font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(240, 240, 240);
+			   background-color: rgb(255, 255, 255);
               }</string>
                </property>
               </widget>
@@ -387,7 +525,7 @@ QWidget {
               <widget class="QLabel" name="label_6">
                <property name="styleSheet">
                 <string notr="true">QLabel {
-               color: blue;
+               color: rgb(32, 74, 135);
                padding: 4px;
                border-radius: 5px;
                border-style: outset;
@@ -400,16 +538,16 @@ QWidget {
               </widget>
              </item>
              <item>
-              <widget class="QComboBox" name="comboBox_4">
+              <widget class="QComboBox" name="lastLoginBox">
                <property name="styleSheet">
                 <string notr="true">QComboBox {
 			   color: black;
                padding: 4px;
-               border: 1px solid black; 
+               border: 1px solid grey; 
                border-radius: 5px;
                border-style: outset;
                font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(240, 240, 240);
+			   background-color: rgb(255, 255, 255);
               }</string>
                </property>
               </widget>
@@ -422,7 +560,7 @@ QWidget {
               <widget class="QLabel" name="label_11">
                <property name="styleSheet">
                 <string notr="true">QLabel {
-               color: blue;
+               color: rgb(32, 74, 135);
                padding: 4px;
                border-radius: 5px;
                border-style: outset;
@@ -435,7 +573,7 @@ QWidget {
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_7">
+              <widget class="QLineEdit" name="accountNameLine">
                <property name="styleSheet">
                 <string notr="true">QLineEdit {
                color: black;
@@ -456,7 +594,7 @@ QWidget {
               <widget class="QLabel" name="label_7">
                <property name="styleSheet">
                 <string notr="true">QLabel {
-               color: blue;
+               color: rgb(32, 74, 135);
                padding: 4px;
                border-radius: 5px;
                border-style: outset;
@@ -469,7 +607,7 @@ QWidget {
               </widget>
              </item>
              <item>
-              <widget class="QListView" name="listView">
+              <widget class="QListView" name="groupAreaListView">
                <property name="styleSheet">
                 <string notr="true">QListView {
                color: black;
@@ -485,10 +623,10 @@ QWidget {
             </layout>
            </item>
            <item row="4" column="0">
-            <widget class="QCheckBox" name="checkBox_2">
+            <widget class="QCheckBox" name="accountCheckBox">
              <property name="styleSheet">
               <string notr="true">QCheckBox {
-               color: blue;
+               color: rgb(32, 74, 135);
                padding: 4px;
                border-radius: 5px;
                border-style: outset;
@@ -509,7 +647,7 @@ QWidget {
               <widget class="QLabel" name="label_5">
                <property name="styleSheet">
                 <string notr="true">QLabel {
-               color: blue;
+               color: rgb(32, 74, 135);
                padding: 4px;
                border-radius: 5px;
                border-style: outset;
@@ -522,7 +660,7 @@ QWidget {
               </widget>
              </item>
              <item>
-              <widget class="QComboBox" name="comboBox_3">
+              <widget class="QComboBox" name="userTypeBox">
                <property name="enabled">
                 <bool>true</bool>
                </property>
@@ -530,17 +668,17 @@ QWidget {
                 <string notr="true">QComboBox {
 			   color: black;
                padding: 4px;
-               border: 1px solid black; 
+               border: 1px solid grey; 
                border-radius: 5px;
                border-style: outset;
                font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(240, 240, 240);
+			   background-color: rgb(255, 255, 255);
               }</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_3">
+              <widget class="QLineEdit" name="userTypeEdit">
                <property name="enabled">
                 <bool>true</bool>
                </property>
@@ -557,7 +695,7 @@ QWidget {
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_4">
+              <widget class="QLineEdit" name="userTypeEdit_2">
                <property name="enabled">
                 <bool>true</bool>
                </property>
@@ -570,95 +708,6 @@ QWidget {
                border-style: outset;
 	           font: 10pt &quot;MS Shell Dlg 2&quot;;
               }</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item row="14" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_3">
-             <item>
-              <spacer name="horizontalSpacer">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
-              <widget class="QToolButton" name="toolButton_2">
-               <property name="minimumSize">
-                <size>
-                 <width>60</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QToolButton {
-               color: rgb(0, 85, 255);
-               padding: 4px;
-               border: 1px solid rgb(0, 85, 255); 
-               border-radius: 5px;
-               border-style: outset;
-               font: 10pt &quot;MS Shell Dlg 2&quot;;
-              }
-
-QToolButton:hover {
-               color: white;
-               border: 1px solid grey;
-               background-color: rgb(0, 78, 235);
-               }
-
-QToolButton:pressed {
-               color: rgb(0, 0, 197)
-               background: shadow;
-               border-style: inset;
-               }</string>
-               </property>
-               <property name="text">
-                <string>Back</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QToolButton" name="toolButton">
-               <property name="minimumSize">
-                <size>
-                 <width>60</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QToolButton {
-               color: white;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               max-width: 120px;
-               background-color: rgb(0, 85, 255);
-               font: 10pt &quot;MS Shell Dlg 2&quot;;
-              }
-
-QToolButton:hover {
-               color: white;
-               border: 1px solid grey;
-               background-color: rgb(0, 78, 235);
-               }
-
-QToolButton:pressed {
-               color: rgb(0, 0, 197)
-               background: shadow;
-               border-style: inset;
-               }</string>
-               </property>
-               <property name="text">
-                <string>Submit</string>
                </property>
               </widget>
              </item>
@@ -668,7 +717,7 @@ QToolButton:pressed {
             <widget class="QLabel" name="label_2">
              <property name="styleSheet">
               <string notr="true">QLabel {
-               color: blue;
+               color: rgb(32, 74, 135);
                padding: 4px;
                border-radius: 5px;
                border-style: outset;
@@ -680,29 +729,13 @@ QToolButton:pressed {
              </property>
             </widget>
            </item>
-           <item row="13" column="0">
-            <spacer name="verticalSpacer_5">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Fixed</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
           </layout>
          </widget>
         </widget>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="RegionalTab">
+     <widget class="QWidget" name="regionalTab">
       <attribute name="title">
        <string>Regional</string>
       </attribute>
@@ -723,24 +756,55 @@ QToolButton:pressed {
         <number>0</number>
        </property>
        <item row="0" column="0">
-        <widget class="QScrollArea" name="scrollArea_2">
+        <widget class="QScrollArea" name="regionalScrollArea">
          <property name="widgetResizable">
           <bool>true</bool>
          </property>
-         <widget class="QWidget" name="scrollAreaWidgetContents_3">
+         <widget class="QWidget" name="scrollAreaWidgetContents">
           <property name="geometry">
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>872</width>
-            <height>568</height>
+            <width>812</width>
+            <height>817</height>
            </rect>
           </property>
-          <layout class="QGridLayout" name="gridLayout_3">
-           <item row="4" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <layout class="QGridLayout" name="gridLayout_6">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_12">
+             <property name="styleSheet">
+              <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+             </property>
+             <property name="text">
+              <string>Language</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout_42">
              <item>
-              <spacer name="horizontalSpacer_2">
+              <widget class="QComboBox" name="languageBox">
+               <property name="styleSheet">
+                <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_43">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
@@ -752,81 +816,9 @@ QToolButton:pressed {
                </property>
               </spacer>
              </item>
-             <item>
-              <widget class="QToolButton" name="toolButton_4">
-               <property name="minimumSize">
-                <size>
-                 <width>60</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QToolButton {
-               color: rgb(0, 85, 255);
-               padding: 4px;
-               border: 1px solid rgb(0, 85, 255); 
-               border-radius: 5px;
-               border-style: outset;
-               font: 10pt &quot;MS Shell Dlg 2&quot;;
-              }
-
-QToolButton:hover {
-               color: white;
-               border: 1px solid grey;
-               background-color: rgb(0, 78, 235);
-               }
-
-QToolButton:pressed {
-               color: rgb(0, 0, 197)
-               background: shadow;
-               border-style: inset;
-               }</string>
-               </property>
-               <property name="text">
-                <string>Back</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QToolButton" name="toolButton_3">
-               <property name="minimumSize">
-                <size>
-                 <width>60</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QToolButton {
-               color: white;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               max-width: 120px;
-               background-color: rgb(0, 85, 255);
-               font: 10pt &quot;MS Shell Dlg 2&quot;;
-              }
-
-QToolButton:hover {
-               color: white;
-               border: 1px solid grey;
-               background-color: rgb(0, 78, 235);
-               }
-
-QToolButton:pressed {
-               color: rgb(0, 0, 197)
-               background: shadow;
-               border-style: inset;
-               }</string>
-               </property>
-               <property name="text">
-                <string>Submit</string>
-               </property>
-              </widget>
-             </item>
             </layout>
            </item>
-           <item row="1" column="0">
+           <item row="2" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout_5">
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_12">
@@ -834,7 +826,7 @@ QToolButton:pressed {
                 <widget class="QLabel" name="label_13">
                  <property name="styleSheet">
                   <string notr="true">QLabel {
-               color: blue;
+               color: rgb(32, 74, 135);
                padding: 4px;
                border-radius: 5px;
                border-style: outset;
@@ -847,16 +839,16 @@ QToolButton:pressed {
                 </widget>
                </item>
                <item>
-                <widget class="QComboBox" name="comboBox_6">
+                <widget class="QComboBox" name="curFormatBox">
                  <property name="styleSheet">
                   <string notr="true">QComboBox {
 			   color: black;
                padding: 4px;
-               border: 1px solid black; 
+               border: 1px solid grey; 
                border-radius: 5px;
                border-style: outset;
                font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(240, 240, 240);
+			   background-color: rgb(255, 255, 255);
               }</string>
                  </property>
                 </widget>
@@ -873,7 +865,7 @@ QToolButton:pressed {
                </property>
                <property name="sizeHint" stdset="0">
                 <size>
-                 <width>10</width>
+                 <width>20</width>
                  <height>20</height>
                 </size>
                </property>
@@ -885,7 +877,7 @@ QToolButton:pressed {
                 <widget class="QLabel" name="label_14">
                  <property name="styleSheet">
                   <string notr="true">QLabel {
-               color: blue;
+               color: rgb(32, 74, 135);
                padding: 4px;
                border-radius: 5px;
                border-style: outset;
@@ -898,16 +890,16 @@ QToolButton:pressed {
                 </widget>
                </item>
                <item>
-                <widget class="QComboBox" name="comboBox_7">
+                <widget class="QComboBox" name="curTypeBox">
                  <property name="styleSheet">
                   <string notr="true">QComboBox {
 			   color: black;
                padding: 4px;
-               border: 1px solid black; 
+               border: 1px solid grey; 
                border-radius: 5px;
                border-style: outset;
                font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(240, 240, 240);
+			   background-color: rgb(255, 255, 255);
               }</string>
                  </property>
                 </widget>
@@ -916,30 +908,7 @@ QToolButton:pressed {
              </item>
             </layout>
            </item>
-           <item row="0" column="0">
-            <layout class="QVBoxLayout" name="verticalLayout_16">
-             <item>
-              <widget class="QLabel" name="label_12">
-               <property name="styleSheet">
-                <string notr="true">QLabel {
-               color: blue;
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
-               </property>
-               <property name="text">
-                <string>Language</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QComboBox" name="comboBox_5"/>
-             </item>
-            </layout>
-           </item>
-           <item row="2" column="0" colspan="2">
+           <item row="3" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout_6">
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_13">
@@ -947,7 +916,7 @@ QToolButton:pressed {
                 <widget class="QLabel" name="label_15">
                  <property name="styleSheet">
                   <string notr="true">QLabel {
-               color: blue;
+               color: rgb(32, 74, 135);
                padding: 4px;
                border-radius: 5px;
                border-style: outset;
@@ -960,16 +929,16 @@ QToolButton:pressed {
                 </widget>
                </item>
                <item>
-                <widget class="QComboBox" name="comboBox_8">
+                <widget class="QComboBox" name="timeZoneBox">
                  <property name="styleSheet">
                   <string notr="true">QComboBox {
 			   color: black;
                padding: 4px;
-               border: 1px solid black; 
+               border: 1px solid grey; 
                border-radius: 5px;
                border-style: outset;
                font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(240, 240, 240);
+			   background-color: rgb(255, 255, 255);
               }</string>
                  </property>
                 </widget>
@@ -986,7 +955,7 @@ QToolButton:pressed {
                </property>
                <property name="sizeHint" stdset="0">
                 <size>
-                 <width>10</width>
+                 <width>20</width>
                  <height>20</height>
                 </size>
                </property>
@@ -998,7 +967,7 @@ QToolButton:pressed {
                 <widget class="QLabel" name="label_16">
                  <property name="styleSheet">
                   <string notr="true">QLabel {
-               color: blue;
+               color: rgb(32, 74, 135);
                padding: 4px;
                border-radius: 5px;
                border-style: outset;
@@ -1011,16 +980,16 @@ QToolButton:pressed {
                 </widget>
                </item>
                <item>
-                <widget class="QComboBox" name="comboBox_9">
+                <widget class="QComboBox" name="timeFormatBox">
                  <property name="styleSheet">
                   <string notr="true">QComboBox {
 			   color: black;
                padding: 4px;
-               border: 1px solid black; 
+               border: 1px solid grey; 
                border-radius: 5px;
                border-style: outset;
                font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(240, 240, 240);
+			   background-color: rgb(255, 255, 255);
               }</string>
                  </property>
                 </widget>
@@ -1037,7 +1006,7 @@ QToolButton:pressed {
                </property>
                <property name="sizeHint" stdset="0">
                 <size>
-                 <width>10</width>
+                 <width>20</width>
                  <height>20</height>
                 </size>
                </property>
@@ -1049,7 +1018,7 @@ QToolButton:pressed {
                 <widget class="QLabel" name="label_17">
                  <property name="styleSheet">
                   <string notr="true">QLabel {
-               color: blue;
+               color: rgb(32, 74, 135);
                padding: 4px;
                border-radius: 5px;
                border-style: outset;
@@ -1062,16 +1031,16 @@ QToolButton:pressed {
                 </widget>
                </item>
                <item>
-                <widget class="QComboBox" name="comboBox_10">
+                <widget class="QComboBox" name="dateFormatBox">
                  <property name="styleSheet">
                   <string notr="true">QComboBox {
 			   color: black;
                padding: 4px;
-               border: 1px solid black; 
+               border: 1px solid grey; 
                border-radius: 5px;
                border-style: outset;
                font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(240, 240, 240);
+			   background-color: rgb(255, 255, 255);
               }</string>
                  </property>
                 </widget>
@@ -1080,7 +1049,7 @@ QToolButton:pressed {
              </item>
             </layout>
            </item>
-           <item row="5" column="0">
+           <item row="4" column="0">
             <spacer name="verticalSpacer_2">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
@@ -1093,33 +1062,17 @@ QToolButton:pressed {
              </property>
             </spacer>
            </item>
-           <item row="3" column="0">
-            <spacer name="verticalSpacer_4">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Fixed</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
           </layout>
          </widget>
         </widget>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="StylesTab">
+     <widget class="QWidget" name="stylesTab">
       <attribute name="title">
        <string>Styles</string>
       </attribute>
-      <layout class="QGridLayout" name="gridLayout_8">
+      <layout class="QGridLayout" name="gridLayout_4">
        <property name="leftMargin">
         <number>0</number>
        </property>
@@ -1136,7 +1089,7 @@ QToolButton:pressed {
         <number>0</number>
        </property>
        <item row="0" column="0">
-        <widget class="QScrollArea" name="scrollArea_3">
+        <widget class="QScrollArea" name="styleScrollArea">
          <property name="verticalScrollBarPolicy">
           <enum>Qt::ScrollBarAlwaysOn</enum>
          </property>
@@ -1148,10 +1101,2393 @@ QToolButton:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>858</width>
-            <height>568</height>
+            <width>795</width>
+            <height>980</height>
            </rect>
           </property>
+          <layout class="QGridLayout" name="gridLayout_11">
+           <item row="14" column="0" colspan="2">
+            <widget class="Line" name="line_8">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="10" column="0" colspan="2">
+            <widget class="Line" name="line_5">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="2">
+            <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_18">
+               <item>
+                <widget class="QLabel" name="label_20">
+                 <property name="styleSheet">
+                  <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                 </property>
+                 <property name="text">
+                  <string>Menu format</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QComboBox" name="btnFormatBox">
+                 <property name="styleSheet">
+                  <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_9">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Maximum</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_19">
+               <item>
+                <widget class="QLabel" name="label_21">
+                 <property name="styleSheet">
+                  <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                 </property>
+                 <property name="text">
+                  <string>Button style</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QComboBox" name="btnStyleBox">
+                 <property name="styleSheet">
+                  <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+           <item row="5" column="0" colspan="2">
+            <widget class="Line" name="line_3">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0" colspan="2">
+            <layout class="QHBoxLayout" name="horizontalLayout_36">
+             <property name="spacing">
+              <number>20</number>
+             </property>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_30">
+               <item>
+                <widget class="QLabel" name="label_36">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                 </property>
+                 <property name="text">
+                  <string>Section header color</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_18">
+                 <property name="spacing">
+                  <number>0</number>
+                 </property>
+                 <property name="sizeConstraint">
+                  <enum>QLayout::SetDefaultConstraint</enum>
+                 </property>
+                 <item>
+                  <widget class="QComboBox" name="sectionColorBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_37">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_31">
+               <item>
+                <widget class="QLabel" name="label_37">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                 </property>
+                 <property name="text">
+                  <string>Section header background</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_19">
+                 <property name="spacing">
+                  <number>1</number>
+                 </property>
+                 <item>
+                  <widget class="QComboBox" name="sectionHeadColorBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_38">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_32">
+               <item>
+                <widget class="QLabel" name="label_35">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                 </property>
+                 <property name="text">
+                  <string>Section background color</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_20">
+                 <property name="spacing">
+                  <number>1</number>
+                 </property>
+                 <item>
+                  <widget class="QComboBox" name="sectionBackColorBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_41">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+           <item row="6" column="0" colspan="2">
+            <layout class="QHBoxLayout" name="horizontalLayout_37">
+             <property name="spacing">
+              <number>20</number>
+             </property>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_35">
+               <item>
+                <widget class="QLabel" name="label_39">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                 </property>
+                 <property name="text">
+                  <string>Header border size</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_23">
+                 <property name="spacing">
+                  <number>1</number>
+                 </property>
+                 <item>
+                  <widget class="QComboBox" name="sectionColorBox_2">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_39">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_34">
+               <item>
+                <widget class="QLabel" name="label_41">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                 </property>
+                 <property name="text">
+                  <string>Header color</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_22">
+                 <property name="spacing">
+                  <number>1</number>
+                 </property>
+                 <item>
+                  <widget class="QComboBox" name="sectionHeadColorBox_2">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_40">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_33">
+               <item>
+                <widget class="QLabel" name="label_40">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                 </property>
+                 <property name="text">
+                  <string>Header border color</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_21">
+                 <property name="spacing">
+                  <number>1</number>
+                 </property>
+                 <item>
+                  <widget class="QComboBox" name="sectionBackColorBox_2">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_42">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+           <item row="0" column="0" colspan="2">
+            <layout class="QVBoxLayout" name="verticalLayout_17">
+             <item>
+              <widget class="QLabel" name="label_26">
+               <property name="styleSheet">
+                <string notr="true">QLabel {
+               color: darkblue;
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+               </property>
+               <property name="text">
+                <string>Main  format</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="Line" name="line">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_19">
+               <property name="styleSheet">
+                <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+               </property>
+               <property name="text">
+                <string>Avatar</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_4">
+               <item>
+                <widget class="QPushButton" name="avatarButton">
+                 <property name="styleSheet">
+                  <string notr="true">QPushButton {
+               font: 10pt &quot;MS Shell Dlg 2&quot;;
+              }
+
+QPushButton:hover {
+               color: blue;
+               border: 1px solid grey;
+               }
+
+QPushButton:pressed {
+               color:  darkblue;
+               background: shadow;
+               border-style: inset;
+               }</string>
+                 </property>
+                 <property name="text">
+                  <string>Overview</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="avatarNameLabel">
+                 <property name="text">
+                  <string>Files not selected</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_2">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+           <item row="2" column="0" colspan="2">
+            <layout class="QVBoxLayout" name="verticalLayout_20">
+             <item>
+              <widget class="Line" name="line_2">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_27">
+               <property name="styleSheet">
+                <string notr="true">QLabel {
+               color: darkblue;
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+               </property>
+               <property name="text">
+                <string>Menu</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QTabWidget" name="useStylesTabWidget">
+               <property name="currentIndex">
+                <number>0</number>
+               </property>
+               <widget class="QWidget" name="menuSylesTab">
+                <attribute name="title">
+                 <string>Use styles</string>
+                </attribute>
+                <layout class="QGridLayout" name="gridLayout_7">
+                 <property name="leftMargin">
+                  <number>1</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>1</number>
+                 </property>
+                 <item row="0" column="4">
+                  <layout class="QVBoxLayout" name="verticalLayout_23">
+                   <item>
+                    <widget class="QLabel" name="label_24">
+                     <property name="styleSheet">
+                      <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                     </property>
+                     <property name="text">
+                      <string>Highlight color selection</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_10">
+                     <property name="spacing">
+                      <number>1</number>
+                     </property>
+                     <item>
+                      <widget class="QComboBox" name="highlightColorBox">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>16777215</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer_17">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>40</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </item>
+                 <item row="0" column="2">
+                  <layout class="QVBoxLayout" name="verticalLayout_22">
+                   <item>
+                    <widget class="QLabel" name="label_23">
+                     <property name="styleSheet">
+                      <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                     </property>
+                     <property name="text">
+                      <string>Menu text color</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_9">
+                     <property name="spacing">
+                      <number>1</number>
+                     </property>
+                     <item>
+                      <widget class="QComboBox" name="menuTextColorBox">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>16777215</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer_18">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>40</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </item>
+                 <item row="0" column="0">
+                  <layout class="QVBoxLayout" name="verticalLayout_21">
+                   <item>
+                    <widget class="QLabel" name="label_22">
+                     <property name="styleSheet">
+                      <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                     </property>
+                     <property name="text">
+                      <string>Menu background color</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_8">
+                     <property name="spacing">
+                      <number>1</number>
+                     </property>
+                     <item>
+                      <widget class="QComboBox" name="backColorBox">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>16777215</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer_16">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>40</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </item>
+                 <item row="0" column="1">
+                  <spacer name="horizontalSpacer_10">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeType">
+                    <enum>QSizePolicy::Maximum</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item row="0" column="3">
+                  <spacer name="horizontalSpacer_11">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeType">
+                    <enum>QSizePolicy::Maximum</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </widget>
+               <widget class="QWidget" name="menuImageTab">
+                <attribute name="title">
+                 <string>Use images</string>
+                </attribute>
+                <layout class="QGridLayout" name="gridLayout_8">
+                 <property name="leftMargin">
+                  <number>1</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>1</number>
+                 </property>
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label_25">
+                   <property name="text">
+                    <string>Menu background image</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <layout class="QHBoxLayout" name="horizontalLayout_11">
+                   <item>
+                    <widget class="QPushButton" name="menuImgButton">
+                     <property name="styleSheet">
+                      <string notr="true">QPushButton {
+               font: 10pt &quot;MS Shell Dlg 2&quot;;
+              }
+
+QPushButton:hover {
+               color: blue;
+               border: 1px solid grey;
+               }
+
+QPushButton:pressed {
+               color:  darkblue;
+               background: shadow;
+               border-style: inset;
+               }</string>
+                     </property>
+                     <property name="text">
+                      <string>Overview</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="menuImgNameLabel">
+                     <property name="text">
+                      <string>Files not selected</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <spacer name="horizontalSpacer_15">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </widget>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="3" column="0" colspan="2">
+            <layout class="QVBoxLayout" name="verticalLayout_48">
+             <item>
+              <widget class="QLabel" name="label_28">
+               <property name="styleSheet">
+                <string notr="true">QLabel {
+               color: darkblue;
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+               </property>
+               <property name="text">
+                <string>Body</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QTabWidget" name="bodyTabWidget">
+               <property name="currentIndex">
+                <number>0</number>
+               </property>
+               <widget class="QWidget" name="bodyStyleTab">
+                <attribute name="title">
+                 <string>Use styles</string>
+                </attribute>
+                <layout class="QGridLayout" name="gridLayout_9">
+                 <property name="leftMargin">
+                  <number>1</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>1</number>
+                 </property>
+                 <item row="0" column="0">
+                  <layout class="QVBoxLayout" name="verticalLayout_24">
+                   <item>
+                    <widget class="QLabel" name="label_29">
+                     <property name="styleSheet">
+                      <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                     </property>
+                     <property name="text">
+                      <string>Border size</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_41">
+                     <item>
+                      <widget class="QComboBox" name="borderSizeBox">
+                       <property name="styleSheet">
+                        <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer_24">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>40</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </item>
+                 <item row="0" column="1">
+                  <spacer name="horizontalSpacer_12">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeType">
+                    <enum>QSizePolicy::Maximum</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item row="0" column="2">
+                  <layout class="QVBoxLayout" name="verticalLayout_27">
+                   <item>
+                    <widget class="QLabel" name="label_31">
+                     <property name="styleSheet">
+                      <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                     </property>
+                     <property name="text">
+                      <string>Border color</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_14">
+                     <property name="spacing">
+                      <number>1</number>
+                     </property>
+                     <item>
+                      <widget class="QComboBox" name="borderColorBox">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>16777215</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer_19">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>40</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </item>
+                 <item row="0" column="3">
+                  <spacer name="horizontalSpacer_13">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeType">
+                    <enum>QSizePolicy::Maximum</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item row="0" column="4">
+                  <layout class="QVBoxLayout" name="verticalLayout_28">
+                   <item>
+                    <widget class="QLabel" name="bodyBackColorLabel">
+                     <property name="styleSheet">
+                      <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                     </property>
+                     <property name="text">
+                      <string>Background color</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_15">
+                     <property name="spacing">
+                      <number>1</number>
+                     </property>
+                     <item>
+                      <widget class="QComboBox" name="bodyBackColorBox">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>16777215</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer_20">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>40</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </item>
+                 <item row="1" column="0">
+                  <layout class="QVBoxLayout" name="verticalLayout_25">
+                   <item>
+                    <widget class="QLabel" name="label_30">
+                     <property name="styleSheet">
+                      <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                     </property>
+                     <property name="text">
+                      <string>Link color</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_12">
+                     <property name="spacing">
+                      <number>1</number>
+                     </property>
+                     <item>
+                      <widget class="QComboBox" name="linkColorBox">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>16777215</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer_21">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>40</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </item>
+                 <item row="1" column="2">
+                  <layout class="QVBoxLayout" name="verticalLayout_26">
+                   <item>
+                    <widget class="QLabel" name="label_32">
+                     <property name="styleSheet">
+                      <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                     </property>
+                     <property name="text">
+                      <string>Text color</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_13">
+                     <property name="spacing">
+                      <number>1</number>
+                     </property>
+                     <item>
+                      <widget class="QComboBox" name="bodyTextColorBox">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>16777215</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer_22">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>40</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </item>
+                 <item row="1" column="4">
+                  <layout class="QVBoxLayout" name="verticalLayout_29">
+                   <item>
+                    <widget class="QLabel" name="menuInfColorLabel">
+                     <property name="styleSheet">
+                      <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                     </property>
+                     <property name="text">
+                      <string>Info color</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_16">
+                     <property name="spacing">
+                      <number>1</number>
+                     </property>
+                     <item>
+                      <widget class="QComboBox" name="bodyInfColorBox">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>16777215</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer_23">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>40</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </widget>
+               <widget class="QWidget" name="bodyImageTab">
+                <attribute name="title">
+                 <string>Use images</string>
+                </attribute>
+                <layout class="QGridLayout" name="gridLayout_10">
+                 <property name="leftMargin">
+                  <number>1</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>1</number>
+                 </property>
+                 <item row="1" column="0">
+                  <layout class="QHBoxLayout" name="horizontalLayout_17">
+                   <item>
+                    <widget class="QPushButton" name="bodyImgButton">
+                     <property name="styleSheet">
+                      <string notr="true">QPushButton {
+               font: 10pt &quot;MS Shell Dlg 2&quot;;
+              }
+
+QPushButton:hover {
+               color: blue;
+               border: 1px solid grey;
+               }
+
+QPushButton:pressed {
+               color:  darkblue;
+               background: shadow;
+               border-style: inset;
+               }</string>
+                     </property>
+                     <property name="text">
+                      <string>Overview</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="bodyImgNameLabel">
+                     <property name="text">
+                      <string>Files not selected</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <spacer name="horizontalSpacer_14">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                  </layout>
+                 </item>
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label_33">
+                   <property name="text">
+                    <string>Background image</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
+                  <spacer name="verticalSpacer_4">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </widget>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="8" column="0" colspan="2">
+            <widget class="Line" name="line_4">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="0" colspan="2">
+            <layout class="QHBoxLayout" name="horizontalLayout_38">
+             <property name="spacing">
+              <number>20</number>
+             </property>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_36">
+               <item>
+                <widget class="QLabel" name="label_43">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                 </property>
+                 <property name="text">
+                  <string>Search border color</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_24">
+                 <property name="spacing">
+                  <number>1</number>
+                 </property>
+                 <item>
+                  <widget class="QComboBox" name="searchColorBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_25">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_37">
+               <item>
+                <widget class="QLabel" name="label_42">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                 </property>
+                 <property name="text">
+                  <string>Highlight of selected search</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_25">
+                 <property name="spacing">
+                  <number>1</number>
+                 </property>
+                 <item>
+                  <widget class="QComboBox" name="selectedSearchColorBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_26">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="Line" name="line_6">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_38">
+               <item>
+                <widget class="QLabel" name="label_45">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                 </property>
+                 <property name="text">
+                  <string>Field borders color</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_26">
+                 <property name="spacing">
+                  <number>1</number>
+                 </property>
+                 <item>
+                  <widget class="QComboBox" name="fieldColorBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_27">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_39">
+               <item>
+                <widget class="QLabel" name="label_44">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                 </property>
+                 <property name="text">
+                  <string>Highlight of selected field</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_27">
+                 <property name="spacing">
+                  <number>1</number>
+                 </property>
+                 <item>
+                  <widget class="QComboBox" name="fieldSelectedColorBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_28">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+           <item row="7" column="0">
+            <spacer name="verticalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Minimum</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="11" column="0" rowspan="2" colspan="2">
+            <layout class="QHBoxLayout" name="horizontalLayout_40">
+             <property name="spacing">
+              <number>20</number>
+             </property>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_40">
+               <item>
+                <widget class="QLabel" name="label_47">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                 </property>
+                 <property name="text">
+                  <string>Tab selected color</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_28">
+                 <property name="spacing">
+                  <number>1</number>
+                 </property>
+                 <item>
+                  <widget class="QComboBox" name="tabColorBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_29">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_41">
+               <item>
+                <widget class="QLabel" name="label_46">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                 </property>
+                 <property name="text">
+                  <string>Tab unselected color</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_29">
+                 <property name="spacing">
+                  <number>1</number>
+                 </property>
+                 <item>
+                  <widget class="QComboBox" name="tabUnselectedColorBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_30">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="Line" name="line_7">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_42">
+               <item>
+                <widget class="QLabel" name="label_48">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                 </property>
+                 <property name="text">
+                  <string>Message line color</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_30">
+                 <property name="spacing">
+                  <number>1</number>
+                 </property>
+                 <item>
+                  <widget class="QComboBox" name="messageColorBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_31">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_43">
+               <item>
+                <widget class="QLabel" name="label_49">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                 </property>
+                 <property name="text">
+                  <string>Message line background</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_31">
+                 <property name="spacing">
+                  <number>1</number>
+                 </property>
+                 <item>
+                  <widget class="QComboBox" name="messageBackColorBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_32">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+           <item row="16" column="0" rowspan="2" colspan="2">
+            <layout class="QHBoxLayout" name="horizontalLayout_39">
+             <property name="spacing">
+              <number>20</number>
+             </property>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_44">
+               <item>
+                <widget class="QLabel" name="label_51">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                 </property>
+                 <property name="text">
+                  <string>First charts color</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_32">
+                 <property name="spacing">
+                  <number>1</number>
+                 </property>
+                 <item>
+                  <widget class="QComboBox" name="chart_1_ColorBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_33">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_46">
+               <item>
+                <widget class="QLabel" name="label_52">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                 </property>
+                 <property name="text">
+                  <string>Third charts color</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_34">
+                 <property name="spacing">
+                  <number>1</number>
+                 </property>
+                 <item>
+                  <widget class="QComboBox" name="chart_3_ColorBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_35">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="Line" name="line_9">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_45">
+               <item>
+                <widget class="QLabel" name="label_53">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                 </property>
+                 <property name="text">
+                  <string>Second charts color</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_33">
+                 <property name="spacing">
+                  <number>1</number>
+                 </property>
+                 <item>
+                  <widget class="QComboBox" name="chart_2_ColorBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_34">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_47">
+               <item>
+                <widget class="QLabel" name="label_50">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+                 </property>
+                 <property name="text">
+                  <string>Fourth charts color</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_35">
+                 <property name="spacing">
+                  <number>1</number>
+                 </property>
+                 <item>
+                  <widget class="QComboBox" name="chart_4_ColorBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_36">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+          </layout>
          </widget>
         </widget>
        </item>
@@ -1159,67 +3495,35 @@ QToolButton:pressed {
      </widget>
     </widget>
    </item>
-   <item row="2" column="0">
-    <spacer name="horizontalSpacer_3">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="1" column="1">
-    <widget class="QLabel" name="label_18">
-     <property name="styleSheet">
-      <string notr="true">QLabel {
-               color: darkblue;
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 12pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
-     </property>
-     <property name="text">
-      <string>CREATE USER</string>
-     </property>
-    </widget>
-   </item>
   </layout>
  </widget>
  <tabstops>
-  <tabstop>lineEdit</tabstop>
-  <tabstop>lineEdit_2</tabstop>
+  <tabstop>userNameLine</tabstop>
+  <tabstop>passwordLine</tabstop>
   <tabstop>checkBox</tabstop>
-  <tabstop>checkBox_2</tabstop>
-  <tabstop>comboBox</tabstop>
-  <tabstop>comboBox_2</tabstop>
-  <tabstop>comboBox_3</tabstop>
-  <tabstop>lineEdit_3</tabstop>
-  <tabstop>lineEdit_4</tabstop>
-  <tabstop>comboBox_4</tabstop>
-  <tabstop>listView</tabstop>
-  <tabstop>listView_2</tabstop>
-  <tabstop>lineEdit_5</tabstop>
-  <tabstop>lineEdit_6</tabstop>
-  <tabstop>lineEdit_7</tabstop>
-  <tabstop>toolButton</tabstop>
-  <tabstop>toolButton_2</tabstop>
-  <tabstop>comboBox_5</tabstop>
-  <tabstop>comboBox_6</tabstop>
-  <tabstop>comboBox_7</tabstop>
-  <tabstop>comboBox_8</tabstop>
-  <tabstop>comboBox_9</tabstop>
-  <tabstop>comboBox_10</tabstop>
-  <tabstop>toolButton_3</tabstop>
-  <tabstop>toolButton_4</tabstop>
-  <tabstop>scrollArea_2</tabstop>
-  <tabstop>scrollArea</tabstop>
-  <tabstop>tabWidget</tabstop>
-  <tabstop>scrollArea_3</tabstop>
+  <tabstop>accountCheckBox</tabstop>
+  <tabstop>accountTypeBox</tabstop>
+  <tabstop>tenantCodeBox</tabstop>
+  <tabstop>userTypeBox</tabstop>
+  <tabstop>userTypeEdit</tabstop>
+  <tabstop>userTypeEdit_2</tabstop>
+  <tabstop>lastLoginBox</tabstop>
+  <tabstop>groupAreaListView</tabstop>
+  <tabstop>docGroupListView</tabstop>
+  <tabstop>phoneLine</tabstop>
+  <tabstop>emailLine</tabstop>
+  <tabstop>accountNameLine</tabstop>
+  <tabstop>userSubmitButton</tabstop>
+  <tabstop>userBackButton</tabstop>
+  <tabstop>languageBox</tabstop>
+  <tabstop>curFormatBox</tabstop>
+  <tabstop>curTypeBox</tabstop>
+  <tabstop>timeZoneBox</tabstop>
+  <tabstop>timeFormatBox</tabstop>
+  <tabstop>dateFormatBox</tabstop>
+  <tabstop>personalScrollArea</tabstop>
+  <tabstop>mainTabWidget</tabstop>
+  <tabstop>styleScrollArea</tabstop>
  </tabstops>
  <resources/>
  <connections/>

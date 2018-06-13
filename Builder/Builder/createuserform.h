@@ -2,6 +2,7 @@
 #define CREATEUSERFORM_H
 
 #include <QWidget>
+#include <QComboBox>
 
 namespace Ui {
 class CreateUserForm;
@@ -17,6 +18,8 @@ public:
 
 private:
     Ui::CreateUserForm *ui;
+
+    void initComboBox(QList<QComboBox*> elements); // Init comboboxes with colors
 };
 
 #endif // CREATEUSERFORM_H

@@ -108,7 +108,7 @@
          <widget class="QLabel" name="label">
           <property name="styleSheet">
            <string notr="true">QLabel {
-               color: blue;
+               color: rgb(32, 74, 135);
                padding: 4px;
                border-radius: 5px;
                border-style: outset;
@@ -121,7 +121,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit">
+         <widget class="QLineEdit" name="groupNameLine">
           <property name="styleSheet">
            <string notr="true">QLineEdit {
                color: black;
@@ -138,7 +138,7 @@
          <widget class="QLabel" name="label_2">
           <property name="styleSheet">
            <string notr="true">QLabel {
-               color: blue;
+               color: rgb(32, 74, 135);
                padding: 4px;
                border-radius: 5px;
                border-style: outset;
@@ -151,7 +151,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QTextEdit" name="textEdit">
+         <widget class="QTextEdit" name="groupDescrEdit">
           <property name="styleSheet">
            <string notr="true">QTextEdit {
                color: black;
@@ -182,7 +182,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QToolButton" name="toolButton_2">
+         <widget class="QToolButton" name="groupBackButton">
           <property name="minimumSize">
            <size>
             <width>60</width>
@@ -197,7 +197,7 @@
           </property>
           <property name="styleSheet">
            <string notr="true">QToolButton {
-               color: rgb(0, 85, 255);
+               color: darkblue;
                padding: 4px;
                border: 1px solid rgb(0, 85, 255); 
                border-radius: 5px;
@@ -223,7 +223,7 @@ QToolButton:pressed {
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="toolButton">
+         <widget class="QToolButton" name="groupSubmitButton">
           <property name="minimumSize">
            <size>
             <width>60</width>
@@ -232,7 +232,7 @@ QToolButton:pressed {
           </property>
           <property name="maximumSize">
            <size>
-            <width>60</width>
+            <width>130</width>
             <height>16777215</height>
            </size>
           </property>
@@ -249,15 +249,16 @@ QToolButton:pressed {
               }
 
 QToolButton:hover {
-               color: white;
+               color: darkblue;
                border: 1px solid grey;
-               background-color: rgb(0, 78, 235);
+               background-color: rgb(255, 255, 255);
                }
 
 QToolButton:pressed {
                color: rgb(0, 0, 197)
                background: shadow;
                border-style: inset;
+			    background-color: rgb(0, 78, 235);
                }</string>
           </property>
           <property name="text">

@@ -17,8 +17,22 @@
    <iconset resource="res.qrc">
     <normaloff>:/res/Builder.png</normaloff>:/res/Builder.png</iconset>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget {
+               color: rgb(32, 74, 135);
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }
+QMenuBar {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+  </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QGridLayout" name="gridLayout">
+   <layout class="QGridLayout" name="gridLayout_2">
     <property name="leftMargin">
      <number>0</number>
     </property>
@@ -47,7 +61,7 @@
      <x>0</x>
      <y>0</y>
      <width>1242</width>
-     <height>22</height>
+     <height>32</height>
     </rect>
    </property>
    <property name="contextMenuPolicy">
@@ -141,6 +155,7 @@
     <addaction name="actionCustom_query"/>
     <addaction name="actionManagement"/>
     <addaction name="actionImport_files"/>
+    <addaction name="separator"/>
     <addaction name="actionLogout"/>
    </widget>
    <addaction name="menuAccount_settings"/>

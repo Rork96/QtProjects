@@ -32,7 +32,7 @@
    <item row="0" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QToolButton" name="toolButton">
+      <widget class="QToolButton" name="createButton">
        <property name="styleSheet">
         <string notr="true">QToolButton {
                color: white;
@@ -46,9 +46,9 @@
               }
 
 QToolButton:hover {
-               color: white;
+               color: darkblue;
                border: 1px solid grey;
-               background-color: rgb(0, 78, 235);
+               background-color: rgb(255, 255, 255);
                }
 
 QToolButton:pressed {
@@ -63,10 +63,10 @@ QToolButton:pressed {
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="toolButton_2">
+      <widget class="QToolButton" name="builderCreateButton">
        <property name="styleSheet">
         <string notr="true">QToolButton {
-               color: rgb(0, 85, 255);
+                color: darkblue;
                padding: 4px;
                border: 1px solid rgb(0, 85, 255); 
                border-radius: 5px;
@@ -325,18 +325,18 @@ QToolButton:pressed {
     </layout>
    </item>
    <item row="1" column="0">
-    <widget class="QTableView" name="tableView"/>
+    <widget class="QTableView" name="mainTableView"/>
    </item>
   </layout>
  </widget>
  <tabstops>
-  <tabstop>toolButton</tabstop>
-  <tabstop>toolButton_2</tabstop>
+  <tabstop>createButton</tabstop>
+  <tabstop>builderCreateButton</tabstop>
   <tabstop>builderUpdateButton</tabstop>
   <tabstop>editButton</tabstop>
   <tabstop>deleteButton</tabstop>
   <tabstop>searchButton</tabstop>
-  <tabstop>tableView</tabstop>
+  <tabstop>mainTableView</tabstop>
   <tabstop>searchLine</tabstop>
   <tabstop>searchParamBox</tabstop>
  </tabstops>

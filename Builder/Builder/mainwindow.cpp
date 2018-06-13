@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Import files
     connect(ui->actionImport_files, &QAction::triggered, this, [this] {
-        ImportFilesForm * importForm = new ImportFilesForm(this);
+        ImportFilesForm *importForm = new ImportFilesForm(this);
         setCentralWidget(importForm);
     });
 }

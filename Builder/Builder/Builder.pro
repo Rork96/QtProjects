@@ -30,7 +30,15 @@ SOURCES += \
     tableform.cpp \
     creategroupform.cpp \
     createuserform.cpp \
-    importfilesform.cpp
+    importfilesform.cpp \
+    createtenantform.cpp \
+    createlogoform.cpp \
+    createsecurityfilterform.cpp \
+    createmenuform.cpp \
+    creategroupscreenform.cpp \
+    createscreeform.cpp \
+    createdocfamilyform.cpp \
+    createdocgroupsform.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -38,7 +46,15 @@ HEADERS += \
     tableform.h \
     creategroupform.h \
     createuserform.h \
-    importfilesform.h
+    importfilesform.h \
+    createtenantform.h \
+    createlogoform.h \
+    createsecurityfilterform.h \
+    createmenuform.h \
+    creategroupscreenform.h \
+    createscreeform.h \
+    createdocfamilyform.h \
+    createdocgroupsform.h
 
 FORMS += \
         mainwindow.ui \
@@ -46,7 +62,15 @@ FORMS += \
     tableform.ui \
     creategroupform.ui \
     createuserform.ui \
-    importfilesform.ui
+    importfilesform.ui \
+    createtenantform.ui \
+    createlogoform.ui \
+    createsecurityfilterform.ui \
+    createmenuform.ui \
+    creategroupscreenform.ui \
+    createscreeform.ui \
+    createdocfamilyform.ui \
+    createdocgroupsform.ui
 
 RESOURCES += \
     res.qrc

@@ -13,6 +13,31 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QLineEdit {
+               color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+	           font: 10pt &quot;MS Shell Dlg 2&quot;;
+              }
+QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }
+QTableView {
+               color: black;
+               border: 1px solid grey; 
+               border-radius: 5px;
+	           font: 10pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="leftMargin">
     <number>3</number>
@@ -122,15 +147,7 @@ QToolButton:pressed {
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">QLineEdit {
-               color: black;
-               padding: 4px;
-               border: 1px solid black; 
-               border-radius: 5px;
-               border-style: outset;
-               max-width: 120px;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string/>
@@ -146,15 +163,7 @@ QToolButton:pressed {
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid black; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(240, 240, 240);
-              }</string>
+        <string notr="true"/>
        </property>
       </widget>
      </item>

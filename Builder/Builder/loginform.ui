@@ -13,6 +13,50 @@
   <property name="windowTitle">
    <string>LoginForm</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QGroupBox {
+               color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+              }
+QLineEdit {
+               color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               max-width: 120px;
+              font: 10pt &quot;MS Shell Dlg 2&quot;;
+              }
+QPushButton {
+               color: white;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               max-width: 120px;
+               background-color: rgb(0, 85, 255);
+               font: bold 10pt &quot;MS Shell Dlg 2&quot;;
+              }
+QPushButton:hover {
+               color: darkblue;
+               border: 1px solid grey;
+               background-color:rgb(0, 106, 255);
+               }
+
+QPushButton:pressed {
+               color: rgb(0, 0, 197)
+               background: shadow;
+               border-style: inset;
+               background-color:rgb(0, 106, 255);
+               }
+QLabel {
+               color: red;
+              font: 10pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+  </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="4" column="2">
     <spacer name="horizontalSpacer_2">
@@ -75,13 +119,7 @@
       </size>
      </property>
      <property name="styleSheet">
-      <string notr="true">QGroupBox {
-               color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-              }</string>
+      <string notr="true"/>
      </property>
      <property name="title">
       <string/>
@@ -90,10 +128,7 @@
       <item row="2" column="0">
        <widget class="QLabel" name="infoLabel">
         <property name="styleSheet">
-         <string notr="true">QLabel {
-               color: red;
-              font: 10pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+         <string notr="true"/>
         </property>
         <property name="text">
          <string/>
@@ -124,28 +159,7 @@
          <enum>Qt::DefaultContextMenu</enum>
         </property>
         <property name="styleSheet">
-         <string notr="true">QPushButton {
-               color: white;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               max-width: 120px;
-               background-color: rgb(0, 85, 255);
-               font: bold 10pt &quot;MS Shell Dlg 2&quot;;
-              }
-
-QPushButton:hover {
-               color: darkblue;
-               border: 1px solid grey;
-               background-color: rgb(255, 255, 255);
-               }
-
-QPushButton:pressed {
-               color: rgb(0, 0, 197)
-               background: shadow;
-               border-style: inset;
-               }</string>
+         <string notr="true"/>
         </property>
         <property name="text">
          <string>LOG IN</string>
@@ -173,15 +187,7 @@ QPushButton:pressed {
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">QLineEdit {
-               color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               max-width: 120px;
-              font: 10pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+         <string notr="true"/>
         </property>
         <property name="inputMask">
          <string/>
@@ -209,15 +215,7 @@ QPushButton:pressed {
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">QLineEdit {
-               color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               max-width: 120px;
-	           font: 10pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+         <string notr="true"/>
         </property>
         <property name="text">
          <string/>

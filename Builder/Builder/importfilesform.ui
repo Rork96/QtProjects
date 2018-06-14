@@ -98,7 +98,7 @@
         </property>
         <property name="styleSheet">
          <string notr="true">QLabel {
-               color: black;
+               color: darkblue;
                padding: 4px;
                border: 1px solid rgb(0, 170, 255); 
                border-radius: 5px;
@@ -115,6 +115,9 @@
       </item>
       <item row="2" column="0">
        <layout class="QHBoxLayout" name="horizontalLayout">
+        <property name="spacing">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QToolButton" name="uploadButton">
           <property name="enabled">

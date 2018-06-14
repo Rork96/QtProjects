@@ -14,11 +14,155 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">QTabWidget {
+               color: blue;
+               padding: 4px;
+               border-radius: 5px;
+               border: 1px solid grey; 
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }
+QWidget {
+               color: rgb(32, 74, 135);
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }
+QScrollBar {
+			   background-color: rgb(240, 240, 240);
+              }
+QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }
+QLineEdit {
+               color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+	           font: 10pt &quot;MS Shell Dlg 2&quot;;
+              }
+QComboBox {
+			   color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+               font: 9pt &quot;MS Shell Dlg 2&quot;;
+			   background-color: rgb(255, 255, 255);
+              }
+QCheckBox {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }
+QListView {
+               color: black;
+               padding: 4px;
+               border: 1px solid grey; 
+               border-radius: 5px;
+               border-style: outset;
+	           font: 10pt &quot;MS Shell Dlg 2&quot;;
+              }
+QPushButton {
+               font: 10pt &quot;MS Shell Dlg 2&quot;;
+              }
+
+QPushButton:hover {
+               color: blue;
+               border: 1px solid grey;
+               }
+
+QPushButton:pressed {
+               color:  darkblue;
+               background: shadow;
+               border-style: inset;
+               }</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
+   <item row="3" column="2">
+    <spacer name="horizontalSpacer_4">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Expanding</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="3" column="0">
+    <spacer name="horizontalSpacer_3">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Expanding</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="1" column="1">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="2" column="1">
+    <widget class="QLabel" name="label_18">
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+               color: darkblue;
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 12pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
+     </property>
+     <property name="text">
+      <string>CREATE USER</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <spacer name="verticalSpacer_3">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
    <item row="5" column="1">
     <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <property name="spacing">
+      <number>0</number>
+     </property>
      <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
@@ -68,6 +212,22 @@ QToolButton:pressed {
       </widget>
      </item>
      <item>
+      <spacer name="horizontalSpacer_6">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Maximum</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>10</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
       <widget class="QToolButton" name="userSubmitButton">
        <property name="minimumSize">
         <size>
@@ -107,80 +267,6 @@ QToolButton:pressed {
      </item>
     </layout>
    </item>
-   <item row="4" column="1">
-    <spacer name="verticalSpacer_3">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="2" column="1">
-    <widget class="QLabel" name="label_18">
-     <property name="styleSheet">
-      <string notr="true">QLabel {
-               color: darkblue;
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 12pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
-     </property>
-     <property name="text">
-      <string>CREATE USER</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="3" column="0">
-    <spacer name="horizontalSpacer_3">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Expanding</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="3" column="2">
-    <spacer name="horizontalSpacer_4">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Expanding</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
    <item row="3" column="1">
     <widget class="QTabWidget" name="mainTabWidget">
      <property name="sizePolicy">
@@ -191,7 +277,7 @@ QToolButton:pressed {
      </property>
      <property name="minimumSize">
       <size>
-       <width>820</width>
+       <width>800</width>
        <height>850</height>
       </size>
      </property>
@@ -202,21 +288,7 @@ QToolButton:pressed {
       </size>
      </property>
      <property name="styleSheet">
-      <string notr="true">QTabWidget {
-               color: blue;
-               padding: 4px;
-               border-radius: 5px;
-               border: 1px solid grey; 
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }
-QWidget {
-               color: rgb(32, 74, 135);
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }
-QScrollBar {
-			   background-color: rgb(240, 240, 240);
-              }</string>
+      <string notr="true"/>
      </property>
      <property name="currentIndex">
       <number>0</number>
@@ -254,7 +326,7 @@ QScrollBar {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>795</width>
+            <width>775</width>
             <height>888</height>
            </rect>
           </property>
@@ -264,13 +336,7 @@ QScrollBar {
              <item>
               <widget class="QLabel" name="label_8">
                <property name="styleSheet">
-                <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                <string notr="true"/>
                </property>
                <property name="text">
                 <string>Document group</string>
@@ -280,14 +346,7 @@ QScrollBar {
              <item>
               <widget class="QListView" name="docGroupListView">
                <property name="styleSheet">
-                <string notr="true">QListView {
-               color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-	           font: 10pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                <string notr="true"/>
                </property>
               </widget>
              </item>
@@ -300,13 +359,7 @@ QScrollBar {
                <item>
                 <widget class="QLabel" name="label_9">
                  <property name="styleSheet">
-                  <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Phone</string>
@@ -316,14 +369,7 @@ QScrollBar {
                <item>
                 <widget class="QLineEdit" name="phoneLine">
                  <property name="styleSheet">
-                  <string notr="true">QLineEdit {
-               color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-	           font: 10pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                 </widget>
                </item>
@@ -350,13 +396,7 @@ QScrollBar {
                <item>
                 <widget class="QLabel" name="label_10">
                  <property name="styleSheet">
-                  <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Email</string>
@@ -366,14 +406,7 @@ QScrollBar {
                <item>
                 <widget class="QLineEdit" name="emailLine">
                  <property name="styleSheet">
-                  <string notr="true">QLineEdit {
-               color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-	           font: 10pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                 </widget>
                </item>
@@ -386,13 +419,7 @@ QScrollBar {
              <item>
               <widget class="QLabel" name="label_3">
                <property name="styleSheet">
-                <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                <string notr="true"/>
                </property>
                <property name="text">
                 <string>Account type</string>
@@ -402,15 +429,7 @@ QScrollBar {
              <item>
               <widget class="QComboBox" name="accountTypeBox">
                <property name="styleSheet">
-                <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                <string notr="true"/>
                </property>
               </widget>
              </item>
@@ -421,13 +440,7 @@ QScrollBar {
              <item>
               <widget class="QLabel" name="label">
                <property name="styleSheet">
-                <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                <string notr="true"/>
                </property>
                <property name="text">
                 <string>User name</string>
@@ -437,14 +450,7 @@ QScrollBar {
              <item>
               <widget class="QLineEdit" name="userNameLine">
                <property name="styleSheet">
-                <string notr="true">QLineEdit {
-               color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-	           font: 10pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                <string notr="true"/>
                </property>
               </widget>
              </item>
@@ -455,27 +461,14 @@ QScrollBar {
              <item>
               <widget class="QLineEdit" name="passwordLine">
                <property name="styleSheet">
-                <string notr="true">QLineEdit {
-               color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-	           font: 10pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                <string notr="true"/>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QCheckBox" name="checkBox">
                <property name="styleSheet">
-                <string notr="true">QCheckBox {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                <string notr="true"/>
                </property>
                <property name="text">
                 <string>Too short</string>
@@ -489,13 +482,7 @@ QScrollBar {
              <item>
               <widget class="QLabel" name="label_4">
                <property name="styleSheet">
-                <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                <string notr="true"/>
                </property>
                <property name="text">
                 <string>Tenant code</string>
@@ -505,15 +492,7 @@ QScrollBar {
              <item>
               <widget class="QComboBox" name="tenantCodeBox">
                <property name="styleSheet">
-                <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                <string notr="true"/>
                </property>
               </widget>
              </item>
@@ -524,13 +503,7 @@ QScrollBar {
              <item>
               <widget class="QLabel" name="label_6">
                <property name="styleSheet">
-                <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                <string notr="true"/>
                </property>
                <property name="text">
                 <string>Last login</string>
@@ -540,15 +513,7 @@ QScrollBar {
              <item>
               <widget class="QComboBox" name="lastLoginBox">
                <property name="styleSheet">
-                <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                <string notr="true"/>
                </property>
               </widget>
              </item>
@@ -559,13 +524,7 @@ QScrollBar {
              <item>
               <widget class="QLabel" name="label_11">
                <property name="styleSheet">
-                <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                <string notr="true"/>
                </property>
                <property name="text">
                 <string>Account name</string>
@@ -575,14 +534,7 @@ QScrollBar {
              <item>
               <widget class="QLineEdit" name="accountNameLine">
                <property name="styleSheet">
-                <string notr="true">QLineEdit {
-               color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-	           font: 10pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                <string notr="true"/>
                </property>
               </widget>
              </item>
@@ -593,13 +545,7 @@ QScrollBar {
              <item>
               <widget class="QLabel" name="label_7">
                <property name="styleSheet">
-                <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                <string notr="true"/>
                </property>
                <property name="text">
                 <string>Group area</string>
@@ -609,14 +555,7 @@ QScrollBar {
              <item>
               <widget class="QListView" name="groupAreaListView">
                <property name="styleSheet">
-                <string notr="true">QListView {
-               color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-	           font: 10pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                <string notr="true"/>
                </property>
               </widget>
              </item>
@@ -625,13 +564,7 @@ QScrollBar {
            <item row="4" column="0">
             <widget class="QCheckBox" name="accountCheckBox">
              <property name="styleSheet">
-              <string notr="true">QCheckBox {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+              <string notr="true"/>
              </property>
              <property name="text">
               <string>Active account</string>
@@ -646,13 +579,7 @@ QScrollBar {
              <item>
               <widget class="QLabel" name="label_5">
                <property name="styleSheet">
-                <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                <string notr="true"/>
                </property>
                <property name="text">
                 <string>User type</string>
@@ -665,15 +592,7 @@ QScrollBar {
                 <bool>true</bool>
                </property>
                <property name="styleSheet">
-                <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                <string notr="true"/>
                </property>
               </widget>
              </item>
@@ -683,14 +602,7 @@ QScrollBar {
                 <bool>true</bool>
                </property>
                <property name="styleSheet">
-                <string notr="true">QLineEdit {
-               color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-	           font: 10pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                <string notr="true"/>
                </property>
               </widget>
              </item>
@@ -700,14 +612,7 @@ QScrollBar {
                 <bool>true</bool>
                </property>
                <property name="styleSheet">
-                <string notr="true">QLineEdit {
-               color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-	           font: 10pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                <string notr="true"/>
                </property>
               </widget>
              </item>
@@ -716,13 +621,7 @@ QScrollBar {
            <item row="2" column="0">
             <widget class="QLabel" name="label_2">
              <property name="styleSheet">
-              <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+              <string notr="true"/>
              </property>
              <property name="text">
               <string>Password</string>
@@ -765,7 +664,7 @@ QScrollBar {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>812</width>
+            <width>792</width>
             <height>817</height>
            </rect>
           </property>
@@ -773,13 +672,7 @@ QScrollBar {
            <item row="0" column="0">
             <widget class="QLabel" name="label_12">
              <property name="styleSheet">
-              <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+              <string notr="true"/>
              </property>
              <property name="text">
               <string>Language</string>
@@ -791,15 +684,7 @@ QScrollBar {
              <item>
               <widget class="QComboBox" name="languageBox">
                <property name="styleSheet">
-                <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                <string notr="true"/>
                </property>
               </widget>
              </item>
@@ -820,18 +705,15 @@ QScrollBar {
            </item>
            <item row="2" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout_5">
+             <property name="spacing">
+              <number>20</number>
+             </property>
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_12">
                <item>
                 <widget class="QLabel" name="label_13">
                  <property name="styleSheet">
-                  <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Currency format</string>
@@ -841,48 +723,18 @@ QScrollBar {
                <item>
                 <widget class="QComboBox" name="curFormatBox">
                  <property name="styleSheet">
-                  <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                  <string notr="true"/>
                  </property>
                 </widget>
                </item>
               </layout>
              </item>
              <item>
-              <spacer name="horizontalSpacer_7">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeType">
-                <enum>QSizePolicy::Maximum</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
               <layout class="QVBoxLayout" name="verticalLayout_11">
                <item>
                 <widget class="QLabel" name="label_14">
                  <property name="styleSheet">
-                  <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Currency type</string>
@@ -892,15 +744,7 @@ QScrollBar {
                <item>
                 <widget class="QComboBox" name="curTypeBox">
                  <property name="styleSheet">
-                  <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                  <string notr="true"/>
                  </property>
                 </widget>
                </item>
@@ -910,18 +754,15 @@ QScrollBar {
            </item>
            <item row="3" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout_6">
+             <property name="spacing">
+              <number>20</number>
+             </property>
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_13">
                <item>
                 <widget class="QLabel" name="label_15">
                  <property name="styleSheet">
-                  <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Time zone</string>
@@ -931,48 +772,18 @@ QScrollBar {
                <item>
                 <widget class="QComboBox" name="timeZoneBox">
                  <property name="styleSheet">
-                  <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                  <string notr="true"/>
                  </property>
                 </widget>
                </item>
               </layout>
              </item>
              <item>
-              <spacer name="horizontalSpacer_5">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeType">
-                <enum>QSizePolicy::Maximum</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
               <layout class="QVBoxLayout" name="verticalLayout_14">
                <item>
                 <widget class="QLabel" name="label_16">
                  <property name="styleSheet">
-                  <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Time format</string>
@@ -982,48 +793,18 @@ QScrollBar {
                <item>
                 <widget class="QComboBox" name="timeFormatBox">
                  <property name="styleSheet">
-                  <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                  <string notr="true"/>
                  </property>
                 </widget>
                </item>
               </layout>
              </item>
              <item>
-              <spacer name="horizontalSpacer_6">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeType">
-                <enum>QSizePolicy::Maximum</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
               <layout class="QVBoxLayout" name="verticalLayout_15">
                <item>
                 <widget class="QLabel" name="label_17">
                  <property name="styleSheet">
-                  <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Date format</string>
@@ -1033,15 +814,7 @@ QScrollBar {
                <item>
                 <widget class="QComboBox" name="dateFormatBox">
                  <property name="styleSheet">
-                  <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                  <string notr="true"/>
                  </property>
                 </widget>
                </item>
@@ -1101,8 +874,8 @@ QScrollBar {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>795</width>
-            <height>980</height>
+            <width>775</width>
+            <height>982</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_11">
@@ -1122,18 +895,15 @@ QScrollBar {
            </item>
            <item row="1" column="0" colspan="2">
             <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <property name="spacing">
+              <number>20</number>
+             </property>
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_18">
                <item>
                 <widget class="QLabel" name="label_20">
                  <property name="styleSheet">
-                  <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Menu format</string>
@@ -1143,48 +913,18 @@ QScrollBar {
                <item>
                 <widget class="QComboBox" name="btnFormatBox">
                  <property name="styleSheet">
-                  <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                  <string notr="true"/>
                  </property>
                 </widget>
                </item>
               </layout>
              </item>
              <item>
-              <spacer name="horizontalSpacer_9">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeType">
-                <enum>QSizePolicy::Maximum</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
               <layout class="QVBoxLayout" name="verticalLayout_19">
                <item>
                 <widget class="QLabel" name="label_21">
                  <property name="styleSheet">
-                  <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Button style</string>
@@ -1194,15 +934,7 @@ QScrollBar {
                <item>
                 <widget class="QComboBox" name="btnStyleBox">
                  <property name="styleSheet">
-                  <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                  <string notr="true"/>
                  </property>
                 </widget>
                </item>
@@ -1233,13 +965,7 @@ QScrollBar {
                   </sizepolicy>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Section header color</string>
@@ -1263,15 +989,7 @@ QScrollBar {
                     </size>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                    <string notr="true"/>
                    </property>
                   </widget>
                  </item>
@@ -1303,13 +1021,7 @@ QScrollBar {
                   </sizepolicy>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Section header background</string>
@@ -1330,15 +1042,7 @@ QScrollBar {
                     </size>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                    <string notr="true"/>
                    </property>
                   </widget>
                  </item>
@@ -1370,13 +1074,7 @@ QScrollBar {
                   </sizepolicy>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Section background color</string>
@@ -1397,15 +1095,7 @@ QScrollBar {
                     </size>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                    <string notr="true"/>
                    </property>
                   </widget>
                  </item>
@@ -1444,13 +1134,7 @@ QScrollBar {
                   </sizepolicy>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Header border size</string>
@@ -1471,15 +1155,7 @@ QScrollBar {
                     </size>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                    <string notr="true"/>
                    </property>
                   </widget>
                  </item>
@@ -1511,13 +1187,7 @@ QScrollBar {
                   </sizepolicy>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Header color</string>
@@ -1538,15 +1208,7 @@ QScrollBar {
                     </size>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                    <string notr="true"/>
                    </property>
                   </widget>
                  </item>
@@ -1578,13 +1240,7 @@ QScrollBar {
                   </sizepolicy>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Header border color</string>
@@ -1605,15 +1261,7 @@ QScrollBar {
                     </size>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                    <string notr="true"/>
                    </property>
                   </widget>
                  </item>
@@ -1664,13 +1312,7 @@ QScrollBar {
              <item>
               <widget class="QLabel" name="label_19">
                <property name="styleSheet">
-                <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                <string notr="true"/>
                </property>
                <property name="text">
                 <string>Avatar</string>
@@ -1682,20 +1324,7 @@ QScrollBar {
                <item>
                 <widget class="QPushButton" name="avatarButton">
                  <property name="styleSheet">
-                  <string notr="true">QPushButton {
-               font: 10pt &quot;MS Shell Dlg 2&quot;;
-              }
-
-QPushButton:hover {
-               color: blue;
-               border: 1px solid grey;
-               }
-
-QPushButton:pressed {
-               color:  darkblue;
-               background: shadow;
-               border-style: inset;
-               }</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Overview</string>
@@ -1704,6 +1333,9 @@ QPushButton:pressed {
                </item>
                <item>
                 <widget class="QLabel" name="avatarNameLabel">
+                 <property name="styleSheet">
+                  <string notr="true"/>
+                 </property>
                  <property name="text">
                   <string>Files not selected</string>
                  </property>
@@ -1753,6 +1385,9 @@ QPushButton:pressed {
              </item>
              <item>
               <widget class="QTabWidget" name="useStylesTabWidget">
+               <property name="styleSheet">
+                <string notr="true"/>
+               </property>
                <property name="currentIndex">
                 <number>0</number>
                </property>
@@ -1772,13 +1407,7 @@ QPushButton:pressed {
                    <item>
                     <widget class="QLabel" name="label_24">
                      <property name="styleSheet">
-                      <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                      <string notr="true"/>
                      </property>
                      <property name="text">
                       <string>Highlight color selection</string>
@@ -1805,15 +1434,7 @@ QPushButton:pressed {
                         </size>
                        </property>
                        <property name="styleSheet">
-                        <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                        <string notr="true"/>
                        </property>
                       </widget>
                      </item>
@@ -1839,13 +1460,7 @@ QPushButton:pressed {
                    <item>
                     <widget class="QLabel" name="label_23">
                      <property name="styleSheet">
-                      <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                      <string notr="true"/>
                      </property>
                      <property name="text">
                       <string>Menu text color</string>
@@ -1872,15 +1487,7 @@ QPushButton:pressed {
                         </size>
                        </property>
                        <property name="styleSheet">
-                        <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                        <string notr="true"/>
                        </property>
                       </widget>
                      </item>
@@ -1906,13 +1513,7 @@ QPushButton:pressed {
                    <item>
                     <widget class="QLabel" name="label_22">
                      <property name="styleSheet">
-                      <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                      <string notr="true"/>
                      </property>
                      <property name="text">
                       <string>Menu background color</string>
@@ -1945,15 +1546,7 @@ QPushButton:pressed {
                         </size>
                        </property>
                        <property name="styleSheet">
-                        <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                        <string notr="true"/>
                        </property>
                       </widget>
                      </item>
@@ -1975,7 +1568,7 @@ QPushButton:pressed {
                   </layout>
                  </item>
                  <item row="0" column="1">
-                  <spacer name="horizontalSpacer_10">
+                  <spacer name="horizontalSpacer_11">
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
                    </property>
@@ -1991,7 +1584,7 @@ QPushButton:pressed {
                   </spacer>
                  </item>
                  <item row="0" column="3">
-                  <spacer name="horizontalSpacer_11">
+                  <spacer name="horizontalSpacer_5">
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
                    </property>
@@ -2031,20 +1624,7 @@ QPushButton:pressed {
                    <item>
                     <widget class="QPushButton" name="menuImgButton">
                      <property name="styleSheet">
-                      <string notr="true">QPushButton {
-               font: 10pt &quot;MS Shell Dlg 2&quot;;
-              }
-
-QPushButton:hover {
-               color: blue;
-               border: 1px solid grey;
-               }
-
-QPushButton:pressed {
-               color:  darkblue;
-               background: shadow;
-               border-style: inset;
-               }</string>
+                      <string notr="true"/>
                      </property>
                      <property name="text">
                       <string>Overview</string>
@@ -2118,13 +1698,7 @@ QPushButton:pressed {
                    <item>
                     <widget class="QLabel" name="label_29">
                      <property name="styleSheet">
-                      <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                      <string notr="true"/>
                      </property>
                      <property name="text">
                       <string>Border size</string>
@@ -2136,15 +1710,7 @@ QPushButton:pressed {
                      <item>
                       <widget class="QComboBox" name="borderSizeBox">
                        <property name="styleSheet">
-                        <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                        <string notr="true"/>
                        </property>
                       </widget>
                      </item>
@@ -2186,13 +1752,7 @@ QPushButton:pressed {
                    <item>
                     <widget class="QLabel" name="label_31">
                      <property name="styleSheet">
-                      <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                      <string notr="true"/>
                      </property>
                      <property name="text">
                       <string>Border color</string>
@@ -2219,15 +1779,7 @@ QPushButton:pressed {
                         </size>
                        </property>
                        <property name="styleSheet">
-                        <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                        <string notr="true"/>
                        </property>
                       </widget>
                      </item>
@@ -2269,13 +1821,7 @@ QPushButton:pressed {
                    <item>
                     <widget class="QLabel" name="bodyBackColorLabel">
                      <property name="styleSheet">
-                      <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                      <string notr="true"/>
                      </property>
                      <property name="text">
                       <string>Background color</string>
@@ -2302,15 +1848,7 @@ QPushButton:pressed {
                         </size>
                        </property>
                        <property name="styleSheet">
-                        <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                        <string notr="true"/>
                        </property>
                       </widget>
                      </item>
@@ -2336,13 +1874,7 @@ QPushButton:pressed {
                    <item>
                     <widget class="QLabel" name="label_30">
                      <property name="styleSheet">
-                      <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                      <string notr="true"/>
                      </property>
                      <property name="text">
                       <string>Link color</string>
@@ -2369,15 +1901,7 @@ QPushButton:pressed {
                         </size>
                        </property>
                        <property name="styleSheet">
-                        <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                        <string notr="true"/>
                        </property>
                       </widget>
                      </item>
@@ -2403,13 +1927,7 @@ QPushButton:pressed {
                    <item>
                     <widget class="QLabel" name="label_32">
                      <property name="styleSheet">
-                      <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                      <string notr="true"/>
                      </property>
                      <property name="text">
                       <string>Text color</string>
@@ -2436,15 +1954,7 @@ QPushButton:pressed {
                         </size>
                        </property>
                        <property name="styleSheet">
-                        <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                        <string notr="true"/>
                        </property>
                       </widget>
                      </item>
@@ -2470,13 +1980,7 @@ QPushButton:pressed {
                    <item>
                     <widget class="QLabel" name="menuInfColorLabel">
                      <property name="styleSheet">
-                      <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                      <string notr="true"/>
                      </property>
                      <property name="text">
                       <string>Info color</string>
@@ -2503,15 +2007,7 @@ QPushButton:pressed {
                         </size>
                        </property>
                        <property name="styleSheet">
-                        <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                        <string notr="true"/>
                        </property>
                       </widget>
                      </item>
@@ -2550,20 +2046,7 @@ QPushButton:pressed {
                    <item>
                     <widget class="QPushButton" name="bodyImgButton">
                      <property name="styleSheet">
-                      <string notr="true">QPushButton {
-               font: 10pt &quot;MS Shell Dlg 2&quot;;
-              }
-
-QPushButton:hover {
-               color: blue;
-               border: 1px solid grey;
-               }
-
-QPushButton:pressed {
-               color:  darkblue;
-               background: shadow;
-               border-style: inset;
-               }</string>
+                      <string notr="true"/>
                      </property>
                      <property name="text">
                       <string>Overview</string>
@@ -2594,6 +2077,9 @@ QPushButton:pressed {
                  </item>
                  <item row="0" column="0">
                   <widget class="QLabel" name="label_33">
+                   <property name="styleSheet">
+                    <string notr="true"/>
+                   </property>
                    <property name="text">
                     <string>Background image</string>
                    </property>
@@ -2641,13 +2127,7 @@ QPushButton:pressed {
                   </sizepolicy>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Search border color</string>
@@ -2668,15 +2148,7 @@ QPushButton:pressed {
                     </size>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                    <string notr="true"/>
                    </property>
                   </widget>
                  </item>
@@ -2708,13 +2180,7 @@ QPushButton:pressed {
                   </sizepolicy>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Highlight of selected search</string>
@@ -2735,15 +2201,7 @@ QPushButton:pressed {
                     </size>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                    <string notr="true"/>
                    </property>
                   </widget>
                  </item>
@@ -2782,13 +2240,7 @@ QPushButton:pressed {
                   </sizepolicy>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Field borders color</string>
@@ -2809,15 +2261,7 @@ QPushButton:pressed {
                     </size>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                    <string notr="true"/>
                    </property>
                   </widget>
                  </item>
@@ -2849,13 +2293,7 @@ QPushButton:pressed {
                   </sizepolicy>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Highlight of selected field</string>
@@ -2876,15 +2314,7 @@ QPushButton:pressed {
                     </size>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                    <string notr="true"/>
                    </property>
                   </widget>
                  </item>
@@ -2939,13 +2369,7 @@ QPushButton:pressed {
                   </sizepolicy>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Tab selected color</string>
@@ -2966,15 +2390,7 @@ QPushButton:pressed {
                     </size>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                    <string notr="true"/>
                    </property>
                   </widget>
                  </item>
@@ -3006,13 +2422,7 @@ QPushButton:pressed {
                   </sizepolicy>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Tab unselected color</string>
@@ -3033,15 +2443,7 @@ QPushButton:pressed {
                     </size>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                    <string notr="true"/>
                    </property>
                   </widget>
                  </item>
@@ -3080,13 +2482,7 @@ QPushButton:pressed {
                   </sizepolicy>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Message line color</string>
@@ -3107,15 +2503,7 @@ QPushButton:pressed {
                     </size>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                    <string notr="true"/>
                    </property>
                   </widget>
                  </item>
@@ -3147,13 +2535,7 @@ QPushButton:pressed {
                   </sizepolicy>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Message line background</string>
@@ -3174,15 +2556,7 @@ QPushButton:pressed {
                     </size>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                    <string notr="true"/>
                    </property>
                   </widget>
                  </item>
@@ -3221,13 +2595,7 @@ QPushButton:pressed {
                   </sizepolicy>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>First charts color</string>
@@ -3248,15 +2616,7 @@ QPushButton:pressed {
                     </size>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                    <string notr="true"/>
                    </property>
                   </widget>
                  </item>
@@ -3288,13 +2648,7 @@ QPushButton:pressed {
                   </sizepolicy>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Third charts color</string>
@@ -3315,15 +2669,7 @@ QPushButton:pressed {
                     </size>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                    <string notr="true"/>
                    </property>
                   </widget>
                  </item>
@@ -3362,13 +2708,7 @@ QPushButton:pressed {
                   </sizepolicy>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Second charts color</string>
@@ -3389,15 +2729,7 @@ QPushButton:pressed {
                     </size>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                    <string notr="true"/>
                    </property>
                   </widget>
                  </item>
@@ -3429,13 +2761,7 @@ QPushButton:pressed {
                   </sizepolicy>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">QLabel {
-               color: rgb(32, 74, 135);
-               padding: 4px;
-               border-radius: 5px;
-               border-style: outset;
-	           font: 11pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+                  <string notr="true"/>
                  </property>
                  <property name="text">
                   <string>Fourth charts color</string>
@@ -3456,15 +2782,7 @@ QPushButton:pressed {
                     </size>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">QComboBox {
-			   color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-               font: 9pt &quot;MS Shell Dlg 2&quot;;
-			   background-color: rgb(255, 255, 255);
-              }</string>
+                    <string notr="true"/>
                    </property>
                   </widget>
                  </item>

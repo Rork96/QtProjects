@@ -7,7 +7,8 @@ TableForm::TableForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->builderCreateButton->setVisible(false); // Hide "Create with builder" button
+    ui->builderCreateButton->setVisible(false);     // Hide "Create with builder" button
+    ui->builderUpdateButton->setVisible(false);     // Hide "Update with builder" button
     // Hide widgets for search
     ui->searchLine->setVisible(false);
     ui->searchParamBox->setVisible(false);
@@ -43,5 +44,6 @@ void TableForm::setViewType(Type type)
 
     if (type == Type::screens || type == Type::custom_query) {
         ui->builderCreateButton->setVisible(true);  // Show "Create with builder" button
+        ui->builderUpdateButton->setVisible(true);  // Show "Update with builder" button
     }
 }

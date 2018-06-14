@@ -7,6 +7,14 @@
 #include "tableform.h"
 #include "creategroupform.h"
 #include "createuserform.h"
+#include "createtenantform.h"
+#include "createlogoform.h"
+#include "createsecurityfilterform.h"
+#include "createmenuform.h"
+#include "creategroupscreenform.h"
+#include "createscreeform.h"
+#include "createdocfamilyform.h"
+#include "createdocgroupsform.h"
 
 #include "importfilesform.h"
 
@@ -29,6 +37,14 @@ private:
     TableForm *mainForm;
     CreateGroupForm *groupForm;
     CreateUserForm *userForm;
+    CreateTenantForm *tenantForm;
+    CreateLogoForm *logoForm;
+    CreateSecurityFilterForm *securityFilterForm;
+    CreateMenuForm *menuForm;
+    CreateGroupScreenForm *groupScreenForm;
+    CreateScreeForm *screenForm;
+    CreateDocFamilyForm *docFamilyForm;
+    CreateDocGroupsForm *docGroupsForm;
 
     void initUI();                              // Hide main menu and show login screen
     void login(bool value);                     // Login

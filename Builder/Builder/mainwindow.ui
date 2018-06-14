@@ -22,13 +22,17 @@
                color: rgb(32, 74, 135);
 	           font: 11pt &quot;MS Shell Dlg 2&quot;;
 			   background-color: rgb(255, 255, 255);
-              }
-QMenuBar {
-               color: rgb(32, 74, 135);
                padding: 4px;
                border-radius: 5px;
                border-style: outset;
+              }
+QMenuBar {
+               color: rgb(32, 74, 135);
 	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }
+QStatusBar {
+               color: black;
+	           font: 10pt &quot;MS Shell Dlg 2&quot;;
               }</string>
   </property>
   <widget class="QWidget" name="centralWidget">

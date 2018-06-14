@@ -232,7 +232,7 @@ QToolButton:pressed {
            <x>0</x>
            <y>0</y>
            <width>788</width>
-           <height>347</height>
+           <height>351</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
@@ -473,7 +473,7 @@ QToolButton:pressed {
               }</string>
      </property>
      <property name="text">
-      <string>Create logo</string>
+      <string>CREATE LOGO</string>
      </property>
     </widget>
    </item>

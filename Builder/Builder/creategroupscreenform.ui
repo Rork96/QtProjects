@@ -385,7 +385,7 @@ QToolButton:pressed {
               }</string>
      </property>
      <property name="text">
-      <string>Create group screen</string>
+      <string>CREATE GROUP SCREEN</string>
      </property>
     </widget>
    </item>

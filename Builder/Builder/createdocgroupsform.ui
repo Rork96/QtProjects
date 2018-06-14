@@ -371,7 +371,7 @@ QToolButton:pressed {
               }</string>
      </property>
      <property name="text">
-      <string>Create document group</string>
+      <string>CREATE DOCUMENT GROUP</string>
      </property>
     </widget>
    </item>

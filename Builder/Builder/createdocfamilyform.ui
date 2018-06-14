@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>956</width>
-    <height>679</height>
+    <width>884</width>
+    <height>466</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -522,7 +522,7 @@ QToolButton:pressed {
               }</string>
      </property>
      <property name="text">
-      <string>Create document family</string>
+      <string>CREATE DOCUMENT FAMILY</string>
      </property>
     </widget>
    </item>

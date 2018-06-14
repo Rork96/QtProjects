@@ -15,6 +15,8 @@
 #include "createscreeform.h"
 #include "createdocfamilyform.h"
 #include "createdocgroupsform.h"
+#include "createlistform.h"
+#include "createtemplatesform.h"
 
 #include "importfilesform.h"
 
@@ -45,6 +47,8 @@ private:
     CreateScreeForm *screenForm;
     CreateDocFamilyForm *docFamilyForm;
     CreateDocGroupsForm *docGroupsForm;
+    CreateListForm *listForm;
+    CreateTemplatesForm *templatesForm;
 
     void initUI();                              // Hide main menu and show login screen
     void login(bool value);                     // Login

@@ -412,7 +412,7 @@ QToolButton:pressed {
               }</string>
      </property>
      <property name="text">
-      <string>Create screen</string>
+      <string>CREATE SCREEN</string>
      </property>
     </widget>
    </item>

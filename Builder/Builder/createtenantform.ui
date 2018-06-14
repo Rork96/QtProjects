@@ -186,9 +186,9 @@ QScrollBar {
              <property name="geometry">
               <rect>
                <x>0</x>
-               <y>-45</y>
-               <width>755</width>
-               <height>712</height>
+               <y>0</y>
+               <width>760</width>
+               <height>706</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="gridLayout_8">
@@ -556,8 +556,8 @@ QScrollBar {
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>772</width>
-               <height>667</height>
+               <width>774</width>
+               <height>666</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="gridLayout_9">
@@ -711,7 +711,7 @@ QScrollBar {
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>755</width>
+               <width>760</width>
                <height>1005</height>
               </rect>
              </property>
@@ -1332,8 +1332,8 @@ QScrollBar {
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>772</width>
-               <height>667</height>
+               <width>774</width>
+               <height>666</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="gridLayout_10">
@@ -1428,8 +1428,8 @@ QScrollBar {
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>772</width>
-               <height>667</height>
+               <width>774</width>
+               <height>666</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="gridLayout_11">

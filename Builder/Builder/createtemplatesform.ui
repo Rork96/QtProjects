@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>CreateSecurityFilterForm</class>
- <widget class="QWidget" name="CreateSecurityFilterForm">
+ <class>CreateTemplatesForm</class>
+ <widget class="QWidget" name="CreateTemplatesForm">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>979</width>
-    <height>926</height>
+    <width>900</width>
+    <height>475</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -85,15 +85,9 @@ QListView {
 	           font: 10pt &quot;MS Shell Dlg 2&quot;;
               }</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout_2">
+  <layout class="QGridLayout" name="gridLayout_3">
    <item row="1" column="1">
     <widget class="QLabel" name="label">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
      <property name="styleSheet">
       <string notr="true">QLabel {
                color: darkblue;
@@ -104,30 +98,25 @@ QListView {
               }</string>
      </property>
      <property name="text">
-      <string>CREATE SECURITY FILTER</string>
+      <string>CREATE TEMPLATE</string>
      </property>
     </widget>
    </item>
+   <item row="2" column="2">
+    <spacer name="horizontalSpacer_4">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
    <item row="2" column="1">
     <widget class="QGroupBox" name="groupBox">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>800</width>
-       <height>850</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>820</width>
-       <height>850</height>
-      </size>
-     </property>
      <property name="title">
       <string/>
      </property>
@@ -149,22 +138,16 @@ QListView {
       </property>
       <item row="0" column="0">
        <widget class="QScrollArea" name="scrollArea">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
         <property name="minimumSize">
          <size>
-          <width>0</width>
-          <height>800</height>
+          <width>800</width>
+          <height>300</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>16777215</width>
-          <height>820</height>
+          <width>800</width>
+          <height>300</height>
          </size>
         </property>
         <property name="widgetResizable">
@@ -175,67 +158,12 @@ QListView {
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>788</width>
-           <height>798</height>
+           <width>798</width>
+           <height>298</height>
           </rect>
          </property>
-         <layout class="QGridLayout" name="gridLayout_3">
-          <item row="7" column="0">
-           <widget class="QTextEdit" name="descriptionEdit">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>200</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item row="15" column="0">
-           <widget class="QLabel" name="label_13">
-            <property name="text">
-             <string>Registration screen</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="0">
-           <widget class="QLineEdit" name="userTypeLine"/>
-          </item>
-          <item row="16" column="0">
-           <widget class="QLineEdit" name="regScreenLine"/>
-          </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="label_5">
-            <property name="text">
-             <string>User type</string>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="0">
-           <widget class="QLabel" name="label_6">
-            <property name="text">
-             <string>Description</string>
-            </property>
-           </widget>
-          </item>
-          <item row="12" column="0">
-           <layout class="QHBoxLayout" name="horizontalLayout_5">
-            <item>
-             <widget class="QCheckBox" name="changeSetCheckBox_2">
-              <property name="text">
-               <string>Allow change settings</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="ldapCheckBox">
-              <property name="text">
-               <string>LDAP</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item row="10" column="0">
+         <layout class="QGridLayout" name="gridLayout_2">
+          <item row="0" column="0">
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <property name="spacing">
              <number>20</number>
@@ -243,119 +171,34 @@ QListView {
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_3">
               <item>
-               <widget class="QLabel" name="label_9">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>200</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
+               <widget class="QLabel" name="label_2">
                 <property name="text">
-                 <string>Filter 2 label</string>
+                 <string>Library name</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="filter_2_Line">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-               </widget>
+               <widget class="QLineEdit" name="libraryNameline"/>
               </item>
              </layout>
             </item>
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_4">
               <item>
-               <widget class="QLabel" name="label_10">
+               <widget class="QLabel" name="label_7">
                 <property name="text">
-                 <string>Filter 2 length</string>
+                 <string>Function</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSpinBox" name="filter_2_SpinBox">
-                <property name="minimumSize">
-                 <size>
-                  <width>380</width>
-                  <height>0</height>
-                 </size>
-                </property>
-               </widget>
+               <widget class="QLineEdit" name="functionLine"/>
               </item>
              </layout>
             </item>
            </layout>
           </item>
-          <item row="14" column="0">
-           <layout class="QHBoxLayout" name="horizontalLayout_6">
-            <property name="spacing">
-             <number>20</number>
-            </property>
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_5">
-              <item>
-               <widget class="QLabel" name="label_11">
-                <property name="text">
-                 <string>Authorization type</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QListView" name="authTypeListView"/>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_6">
-              <item>
-               <widget class="QLabel" name="label_12">
-                <property name="text">
-                 <string>Secret questions</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QListView" name="questionListView"/>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </item>
-          <item row="11" column="0">
-           <layout class="QHBoxLayout" name="horizontalLayout_4">
-            <item>
-             <widget class="QCheckBox" name="changePasswCheckBox">
-              <property name="text">
-               <string>Allow change password</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="selfRegCheckBox">
-              <property name="text">
-               <string>Allow self registration</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item row="9" column="0">
+          <item row="1" column="0">
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <property name="spacing">
              <number>20</number>
@@ -363,110 +206,56 @@ QListView {
             <item>
              <layout class="QVBoxLayout" name="verticalLayout">
               <item>
-               <widget class="QLabel" name="label_7">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>200</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
+               <widget class="QLabel" name="label_3">
                 <property name="text">
-                 <string>Filter 1 label</string>
+                 <string>Table name</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="filter_1_Line">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-               </widget>
+               <widget class="QLineEdit" name="tableNameLine"/>
               </item>
              </layout>
             </item>
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_2">
               <item>
-               <widget class="QLabel" name="label_8">
+               <widget class="QLabel" name="label_4">
                 <property name="text">
-                 <string>Filter 1 length</string>
+                 <string>Table column</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSpinBox" name="filter_1_SpinBox">
-                <property name="minimumSize">
-                 <size>
-                  <width>380</width>
-                  <height>0</height>
-                 </size>
+               <widget class="QLineEdit" name="tableColumnLine"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_5">
+              <item>
+               <widget class="QLabel" name="label_6">
+                <property name="text">
+                 <string>Column type</string>
                 </property>
                </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="columnTypeLine"/>
               </item>
              </layout>
             </item>
            </layout>
           </item>
-          <item row="1" column="0">
-           <widget class="QComboBox" name="tenantBox"/>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>Description</string>
+            </property>
+           </widget>
           </item>
           <item row="3" column="0">
-           <widget class="QComboBox" name="accountTypeBox"/>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_4">
-            <property name="text">
-             <string>Account type</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_2">
-            <property name="text">
-             <string>Tenant</string>
-            </property>
-           </widget>
-          </item>
-          <item row="13" column="0">
-           <widget class="Line" name="line">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="8" column="0">
-           <spacer name="verticalSpacer_4">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
+           <widget class="QTextEdit" name="descriptionEdit"/>
           </item>
          </layout>
         </widget>
@@ -477,10 +266,13 @@ QListView {
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Minimum</enum>
+        </property>
         <property name="sizeHint" stdset="0">
          <size>
           <width>20</width>
-          <height>6</height>
+          <height>10</height>
          </size>
         </property>
        </spacer>
@@ -539,7 +331,7 @@ QToolButton:pressed {
          </widget>
         </item>
         <item>
-         <spacer name="horizontalSpacer_4">
+         <spacer name="horizontalSpacer_2">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -597,20 +389,7 @@ QToolButton:pressed {
      </layout>
     </widget>
    </item>
-   <item row="0" column="1">
-    <spacer name="verticalSpacer_2">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="2" column="2">
+   <item row="2" column="0">
     <spacer name="horizontalSpacer_3">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -623,15 +402,15 @@ QToolButton:pressed {
      </property>
     </spacer>
    </item>
-   <item row="2" column="0">
-    <spacer name="horizontalSpacer_2">
+   <item row="0" column="1">
+    <spacer name="verticalSpacer_2">
      <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+      <enum>Qt::Vertical</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
-       <width>40</width>
-       <height>20</height>
+       <width>20</width>
+       <height>40</height>
       </size>
      </property>
     </spacer>

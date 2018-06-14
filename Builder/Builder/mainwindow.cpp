@@ -54,6 +54,14 @@ MainWindow::MainWindow(QWidget *parent) :
         setWindowTitle("Builder - Admin groups");
        setMainView(TableForm::document_groups);
     });
+    connect(ui->actionLists, &QAction::triggered, this, [this] {
+        setWindowTitle("Builder - Admin lists");
+       setMainView(TableForm::lists);
+    });
+    connect(ui->actionTemplates, &QAction::triggered, this, [this] {
+        setWindowTitle("Builder - Admin templates");
+       setMainView(TableForm::templates);
+    });
 
     // Import files
     connect(ui->actionImport_files, &QAction::triggered, this, [this] {
@@ -137,6 +145,14 @@ void MainWindow::createView(TableForm::Type type)
     case TableForm::document_groups:
         docGroupsForm = new CreateDocGroupsForm(this);
         setCentralWidget(docGroupsForm);
+        break;
+    case TableForm::lists:
+        listForm = new CreateListForm(this);
+        setCentralWidget(listForm);
+        break;
+    case TableForm::templates:
+        templatesForm = new CreateTemplatesForm(this);
+        setCentralWidget(templatesForm);
         break;
     default:
         break;

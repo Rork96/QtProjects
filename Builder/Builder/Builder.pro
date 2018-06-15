@@ -40,7 +40,8 @@ SOURCES += \
     createdocfamilyform.cpp \
     createdocgroupsform.cpp \
     createlistform.cpp \
-    createtemplatesform.cpp
+    createtemplatesform.cpp \
+    createdatasourceform.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -58,7 +59,8 @@ HEADERS += \
     createdocfamilyform.h \
     createdocgroupsform.h \
     createlistform.h \
-    createtemplatesform.h
+    createtemplatesform.h \
+    createdatasourceform.h
 
 FORMS += \
         mainwindow.ui \
@@ -76,7 +78,8 @@ FORMS += \
     createdocfamilyform.ui \
     createdocgroupsform.ui \
     createlistform.ui \
-    createtemplatesform.ui
+    createtemplatesform.ui \
+    createdatasourceform.ui
 
 RESOURCES += \
     res.qrc

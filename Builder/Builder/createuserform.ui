@@ -18,7 +18,7 @@
                color: blue;
                padding: 4px;
                border-radius: 5px;
-               border: 1px solid grey; 
+               border: 1px solid rgb(63, 127, 191); 
                border-style: outset;
 	           font: 11pt &quot;MS Shell Dlg 2&quot;;
               }
@@ -39,7 +39,7 @@ QLabel {
 QLineEdit {
                color: black;
                padding: 4px;
-               border: 1px solid grey; 
+               border: 1px solid rgb(63, 127, 191); 
                border-radius: 5px;
                border-style: outset;
 	           font: 10pt &quot;MS Shell Dlg 2&quot;;
@@ -47,7 +47,7 @@ QLineEdit {
 QComboBox {
 			   color: black;
                padding: 4px;
-               border: 1px solid grey; 
+               border: 1px solid rgb(63, 127, 191); 
                border-radius: 5px;
                border-style: outset;
                font: 9pt &quot;MS Shell Dlg 2&quot;;
@@ -63,7 +63,7 @@ QCheckBox {
 QListView {
                color: black;
                padding: 4px;
-               border: 1px solid grey; 
+               border: 1px solid rgb(63, 127, 191); 
                border-radius: 5px;
                border-style: outset;
 	           font: 10pt &quot;MS Shell Dlg 2&quot;;
@@ -326,8 +326,8 @@ QToolButton:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>780</width>
-            <height>881</height>
+            <width>775</width>
+            <height>888</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_5">
@@ -664,8 +664,8 @@ QToolButton:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>794</width>
-            <height>816</height>
+            <width>792</width>
+            <height>817</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_6">
@@ -874,8 +874,8 @@ QToolButton:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>871</width>
-            <height>986</height>
+            <width>775</width>
+            <height>982</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_11">

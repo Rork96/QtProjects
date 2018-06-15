@@ -38,6 +38,7 @@ private:
     LoginForm *loginForm;
     TableForm *mainForm;
     CreateGroupForm *groupForm;
+    ImportFilesForm *importForm;
     CreateUserForm *userForm;
     CreateTenantForm *tenantForm;
     CreateLogoForm *logoForm;

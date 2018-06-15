@@ -31,7 +31,7 @@ QPushButton:pressed {
 QGroupBox {
                color: black;
                padding: 4px;
-               border: 1px solid grey; 
+               border: 1px solid rgb(63, 127, 191); 
                border-radius: 5px;
                border-style: outset;
               }
@@ -45,7 +45,7 @@ QLabel {
 QLineEdit {
                color: black;
                padding: 4px;
-               border: 1px solid grey; 
+               border: 1px solid rgb(63, 127, 191); 
                border-radius: 5px;
                border-style: outset;
 	           font: 10pt &quot;MS Shell Dlg 2&quot;;
@@ -60,7 +60,7 @@ QRadioButton {
 QTextEdit {
                color: black;
                padding: 4px;
-               border: 1px solid grey; 
+               border: 1px solid rgb(63, 127, 191); 
                border-radius: 5px;
                border-style: outset;
 	           font: 10pt &quot;MS Shell Dlg 2&quot;;
@@ -232,7 +232,7 @@ QToolButton:pressed {
            <x>0</x>
            <y>0</y>
            <width>788</width>
-           <height>351</height>
+           <height>347</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_2">

@@ -17,14 +17,18 @@
    <string notr="true">QGroupBox {
                color: black;
                padding: 4px;
-               border: 1px solid grey; 
+               border: 1px solid rgb(63, 127, 191); 
                border-radius: 5px;
                border-style: outset;
               }
+Line {
+        border: 1px solid rgb(63, 127, 191);
+		border-style: outset; 
+		}
 QLineEdit {
                color: black;
                padding: 4px;
-               border: 1px solid grey; 
+               border: 1px solid rgb(63, 127, 191); 
                border-radius: 5px;
                border-style: outset;
                max-width: 120px;

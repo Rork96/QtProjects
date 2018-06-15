@@ -17,7 +17,7 @@
    <string notr="true">QLineEdit {
                color: black;
                padding: 4px;
-               border: 1px solid grey; 
+               border: 1px solid  rgb(63, 127, 191); 
                border-radius: 5px;
                border-style: outset;
 	           font: 10pt &quot;MS Shell Dlg 2&quot;;
@@ -25,7 +25,7 @@
 QComboBox {
 			   color: black;
                padding: 4px;
-               border: 1px solid grey; 
+               border: 1px solid  rgb(63, 127, 191); 
                border-radius: 5px;
                border-style: outset;
                font: 9pt &quot;MS Shell Dlg 2&quot;;
@@ -33,7 +33,7 @@ QComboBox {
               }
 QTableView {
                color: black;
-               border: 1px solid grey; 
+               border: 1px solid  rgb(63, 127, 191); 
                border-radius: 5px;
 	           font: 10pt &quot;MS Shell Dlg 2&quot;;
               }</string>

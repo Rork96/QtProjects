@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setWindowState(Qt::WindowMaximized);
 
+    loginForm = new LoginForm(this);    // Login form
+
     initUI();   // Hide main menu and view login screen
 
     connect(loginForm, &LoginForm::isLogin, this, &MainWindow::login);
@@ -66,7 +68,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // Import files
     connect(ui->actionImport_files, &QAction::triggered, this, [this] {
         setWindowTitle("Builder - Import files");
-        ImportFilesForm *importForm = new ImportFilesForm(this);
+        importForm = new ImportFilesForm(this);
         setCentralWidget(importForm);
     });
 }
@@ -79,7 +81,6 @@ MainWindow::~MainWindow()
 void MainWindow::initUI()
 {
     // Hide main menu and show login screen
-    loginForm = new LoginForm(this);
     setCentralWidget(loginForm);
     ui->menuBar->setVisible(false);
 }

@@ -17,7 +17,7 @@
    <string notr="true">QGroupBox {
                color: black;
                padding: 4px;
-               border: 1px solid grey; 
+               border: 1px solid rgb(63, 127, 191); 
                border-radius: 5px;
                border-style: outset;
               }
@@ -31,7 +31,7 @@ QLabel {
 QLineEdit {
                color: black;
                padding: 4px;
-               border: 1px solid grey; 
+               border: 1px solid rgb(63, 127, 191); 
                border-radius: 5px;
                border-style: outset;
 	           font: 10pt &quot;MS Shell Dlg 2&quot;;
@@ -39,7 +39,7 @@ QLineEdit {
 QTextEdit {
                color: black;
                padding: 4px;
-               border: 1px solid grey; 
+               border: 1px solid rgb(63, 127, 191); 
                border-radius: 5px;
                border-style: outset;
 	           font: 10pt &quot;MS Shell Dlg 2&quot;;

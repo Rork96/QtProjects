@@ -8,6 +8,8 @@ LoginForm::LoginForm(QWidget *parent) :
     ui->setupUi(this);
 
     connect(ui->loginButton, &QPushButton::clicked, this, &LoginForm::checkLogin);
+    connect(ui->userLine, &QLineEdit::returnPressed, this, &LoginForm::checkLogin);
+    connect(ui->passwordLine, &QLineEdit::returnPressed, this, &LoginForm::checkLogin);
 
     // Hide worning message in infoLabel
     connect(ui->userLine, &QLineEdit::textChanged, this, [this] {

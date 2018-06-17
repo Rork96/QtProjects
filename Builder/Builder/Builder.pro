@@ -41,7 +41,11 @@ SOURCES += \
     createdocgroupsform.cpp \
     createlistform.cpp \
     createtemplatesform.cpp \
-    createdatasourceform.cpp
+    createdatasourceform.cpp \
+    createextfuncform.cpp \
+    createserverform.cpp \
+    createquestionform.cpp \
+    createqueryform.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -60,7 +64,11 @@ HEADERS += \
     createdocgroupsform.h \
     createlistform.h \
     createtemplatesform.h \
-    createdatasourceform.h
+    createdatasourceform.h \
+    createextfuncform.h \
+    createserverform.h \
+    createquestionform.h \
+    createqueryform.h
 
 FORMS += \
         mainwindow.ui \
@@ -79,7 +87,11 @@ FORMS += \
     createdocgroupsform.ui \
     createlistform.ui \
     createtemplatesform.ui \
-    createdatasourceform.ui
+    createdatasourceform.ui \
+    createextfuncform.ui \
+    createserverform.ui \
+    createquestionform.ui \
+    createqueryform.ui
 
 RESOURCES += \
     res.qrc

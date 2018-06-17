@@ -17,6 +17,11 @@
 #include "createdocgroupsform.h"
 #include "createlistform.h"
 #include "createtemplatesform.h"
+#include "createdatasourceform.h"
+#include "createextfuncform.h"
+#include "createserverform.h"
+#include "createquestionform.h"
+#include "createqueryform.h"
 
 #include "importfilesform.h"
 
@@ -50,6 +55,11 @@ private:
     CreateDocGroupsForm *docGroupsForm;
     CreateListForm *listForm;
     CreateTemplatesForm *templatesForm;
+    CreateDataSourceForm *dataSourceForm;
+    CreateExtFuncForm *extFuncForm;
+    CreateServerForm *serverForm;
+    CreateQuestionForm *questionForm;
+    CreateQueryForm *queryForm;
 
     void initUI();                              // Hide main menu and show login screen
     void login(bool value);                     // Login

@@ -24,8 +24,8 @@ private:
     void submitChanges();
 
 signals:
-    sygnalBack();
-    sygnalSubmit();
+    void sygnalBack();
+    void sygnalSubmit();
 };
 
 #endif // CREATEUSERFORM_H

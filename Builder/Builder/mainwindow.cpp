@@ -124,7 +124,7 @@ void MainWindow::login(bool value)
 
 void MainWindow::setMainView(TableForm::Type type)
 {
-    // Show group table
+    // Show table
     mainForm = new TableForm(this);
     mainForm->setViewType(type);
     setCentralWidget(mainForm);

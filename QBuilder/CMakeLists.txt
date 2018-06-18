@@ -78,9 +78,9 @@ if (NOT MSVC) # MINGW or Clang
 endif ()
 
 # Automatically find all files *.cpp, *.h, *.ui, *.qrc in project directory
-file (GLOB SOURCE_FILES ${PROJECT_SOURCE_DIR}/QBuilder/Sources/*.cpp)
-file (GLOB HEADER_FILES ${PROJECT_SOURCE_DIR}/QBuilder/Headers/*.h)
-file (GLOB UI_SRC_FILES ${PROJECT_SOURCE_DIR}/QBuilder/Forms/*.ui)
+file (GLOB_RECURSE SOURCE_FILES ${PROJECT_SOURCE_DIR}/QBuilder/*.cpp)
+file (GLOB_RECURSE HEADER_FILES ${PROJECT_SOURCE_DIR}/QBuilder/*.h)
+file (GLOB_RECURSE UI_SRC_FILES ${PROJECT_SOURCE_DIR}/QBuilder/*.ui)
 file (GLOB UI_QRCS ${PROJECT_SOURCE_DIR}/QBuilder/*.qrc)
 
 # Find dependencies Qt

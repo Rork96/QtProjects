@@ -1,8 +1,22 @@
-//
-// Created by masterarrow on 14.06.18.
-//
+#ifndef CREATELOGOFORM_H
+#define CREATELOGOFORM_H
 
-#ifndef BUILDER_CREATELOGOFORM_H
-#define BUILDER_CREATELOGOFORM_H
+#include <QWidget>
 
-#endif //BUILDER_CREATELOGOFORM_H
+namespace Ui {
+class CreateLogoForm;
+}
+
+class CreateLogoForm : public QWidget
+{
+    Q_OBJECT
+
+public:
+    explicit CreateLogoForm(QWidget *parent = 0);
+    ~CreateLogoForm();
+
+private:
+    Ui::CreateLogoForm *ui;
+};
+
+#endif //CREATELOGOFORM_H

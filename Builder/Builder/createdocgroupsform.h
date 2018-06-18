@@ -17,6 +17,12 @@ public:
 
 private:
     Ui::CreateDocGroupsForm *ui;
+
+    void submitChanges();
+
+signals:
+    sygnalBack();
+    sygnalSubmit();
 };
 
 #endif // CREATEDOCGROUPSFORM_H

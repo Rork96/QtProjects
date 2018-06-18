@@ -7,7 +7,13 @@ CreateUserForm::CreateUserForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CreateUserForm)
 {
-    ui->setupUi(this);
+    ui->setupUi(this);    
+
+    connect(ui->backButton, &QToolButton::clicked, this, [this] {
+       emit sygnalBack();
+    });
+
+    connect(ui->submitButton, &QToolButton::clicked, this, &CreateUserForm::submitChanges);
 
     QList<QComboBox*> elements = {ui->backColorBox, ui->menuTextColorBox, ui->highlightColorBox, ui->borderColorBox, ui->bodyBackColorBox,
                                   ui->linkColorBox, ui->bodyTextColorBox, ui->bodyInfColorBox, ui->sectionColorBox, ui->sectionHeadColorBox,
@@ -24,30 +30,38 @@ CreateUserForm::~CreateUserForm()
     delete ui;
 }
 
+void CreateUserForm::submitChanges()
+{
+    // Save changes to database
+
+    // Send sygnal
+    emit sygnalSubmit();
+}
+
 void CreateUserForm::initComboBox(QList<QComboBox*> elements)
 {
     // Init comboboxes with colors
-    foreach (QComboBox* element, elements) {
+    foreach (QComboBox *element, elements) {
         QStringList colorNames;
         colorNames = QColor::colorNames();
 
         element ->setFocusPolicy(Qt::NoFocus);
         int size = element ->style()->pixelMetric(QStyle::PM_SmallIconSize);
-        QPixmap pixmap(size,size-5);
+        QPixmap pixmap(size, size-5);
 
-        int con=0;
+        int con = 0;
         foreach (const QString &colorName, colorNames) {
-            element ->addItem(colorName);                   // Color name
+            element->addItem(colorName);                                // Color name
             pixmap.fill(QColor(colorName));
 
-            QRect rBorder(0,0,size-1,size-6);
+            QRect rBorder(0, 0, size-1, size-6);
             QPainter p(&pixmap);
             QPen pen(Qt::lightGray, 1, Qt::SolidLine);
             p.setPen(pen);
             p.drawRect(rBorder);
 
             element->setItemData(con, pixmap, Qt::DecorationRole);      // Color icon
-            con=con+1;
+            con = con + 1;
         }
     }
 }

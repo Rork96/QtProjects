@@ -17,6 +17,12 @@ public:
 
 private:
     Ui::CreateGroupForm *ui;
+
+    void submitChanges();
+
+signals:
+    sygnalBack();
+    sygnalSubmit();
 };
 
 #endif // CREATEGROUPFORM_H

@@ -131,7 +131,7 @@ QTextEdit {
          </spacer>
         </item>
         <item>
-         <widget class="QToolButton" name="groupBackButton">
+         <widget class="QToolButton" name="backButton">
           <property name="minimumSize">
            <size>
             <width>60</width>
@@ -188,7 +188,7 @@ QToolButton:pressed {
          </spacer>
         </item>
         <item>
-         <widget class="QToolButton" name="groupSubmitButton">
+         <widget class="QToolButton" name="submitButton">
           <property name="minimumSize">
            <size>
             <width>60</width>

@@ -17,6 +17,12 @@ public:
 
 private:
     Ui::CreateLogoForm *ui;
+
+    void submitChanges();
+
+signals:
+    sygnalBack();
+    sygnalSubmit();
 };
 
 #endif // CREATELOGOFORM_H

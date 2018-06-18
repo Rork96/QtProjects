@@ -17,6 +17,12 @@ public:
 
 private:
     Ui::CreateMenuForm *ui;
+
+    void submitChanges();
+
+signals:
+    sygnalBack();
+    sygnalSubmit();
 };
 
 #endif // CREATEMENUFORM_H

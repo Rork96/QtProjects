@@ -17,6 +17,12 @@ public:
 
 private:
     Ui::CreateListForm *ui;
+
+    void submitChanges();
+
+signals:
+    sygnalBack();
+    sygnalSubmit();
 };
 
 #endif // CREATELISTFORM_H

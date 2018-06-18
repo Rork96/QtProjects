@@ -177,7 +177,7 @@ QPushButton:pressed {
       </spacer>
      </item>
      <item>
-      <widget class="QToolButton" name="userBackButton">
+      <widget class="QToolButton" name="backButton">
        <property name="minimumSize">
         <size>
          <width>60</width>
@@ -228,7 +228,7 @@ QToolButton:pressed {
       </spacer>
      </item>
      <item>
-      <widget class="QToolButton" name="userSubmitButton">
+      <widget class="QToolButton" name="submitButton">
        <property name="minimumSize">
         <size>
          <width>60</width>
@@ -2831,8 +2831,8 @@ QToolButton:pressed {
   <tabstop>phoneLine</tabstop>
   <tabstop>emailLine</tabstop>
   <tabstop>accountNameLine</tabstop>
-  <tabstop>userSubmitButton</tabstop>
-  <tabstop>userBackButton</tabstop>
+  <tabstop>submitButton</tabstop>
+  <tabstop>backButton</tabstop>
   <tabstop>languageBox</tabstop>
   <tabstop>curFormatBox</tabstop>
   <tabstop>curTypeBox</tabstop>

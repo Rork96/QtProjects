@@ -17,6 +17,12 @@ public:
 
 private:
     Ui::CreateDocFamilyForm *ui;
+
+    void submitChanges();
+
+signals:
+    sygnalBack();
+    sygnalSubmit();
 };
 
 #endif // CREATEDOCFAMILYFORM_H

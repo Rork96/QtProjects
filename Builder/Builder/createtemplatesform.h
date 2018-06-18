@@ -17,6 +17,12 @@ public:
 
 private:
     Ui::CreateTemplatesForm *ui;
+
+    void submitChanges();
+
+signals:
+    sygnalBack();
+    sygnalSubmit();
 };
 
 #endif // CREATETEMPLATESFORM_H

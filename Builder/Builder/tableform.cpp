@@ -19,14 +19,17 @@ TableForm::TableForm(QWidget *parent) :
        emit createData(this->viewType); // Create new data
     });
 
-    connect(ui->builderCreateButton, &QToolButton::clicked, this, [this] {
-       emit createDataWithBuilder(this->viewType);  // Edit existing data
-    });
+    connect(ui->deleteButton, &QToolButton::clicked, this, &TableForm::deleteDatafromDB); // Selected row in table
 }
 
 TableForm::~TableForm()
 {
     delete ui;
+}
+
+void TableForm::loadDataFromDB()
+{
+    // Load data
 }
 
 void TableForm::searchInDB()
@@ -36,6 +39,8 @@ void TableForm::searchInDB()
     ui->searchParamBox->setVisible(!ui->searchParamBox->isVisible());
     ui->searchLine->clear();
     ui->searchParamBox->clear();
+
+    // Interactive search in current database table
 }
 
 void TableForm::setViewType(Type type)
@@ -45,5 +50,16 @@ void TableForm::setViewType(Type type)
     if (type == Type::screens || type == Type::custom_query) {
         ui->builderCreateButton->setVisible(true);  // Show "Create with builder" button
         ui->builderUpdateButton->setVisible(true);  // Show "Update with builder" button
+
+        connect(ui->builderCreateButton, &QToolButton::clicked, this, [this] {
+            emit createDataWithBuilder(this->viewType);  // Create new data with builder
+        });
     }
+
+    loadDataFromDB();
+}
+
+void TableForm::deleteDatafromDB()
+{
+    // Delete current data from database
 }

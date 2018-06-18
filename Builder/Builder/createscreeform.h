@@ -17,6 +17,12 @@ public:
 
 private:
     Ui::CreateScreeForm *ui;
+
+    void submitChanges();
+
+signals:
+    sygnalBack();
+    sygnalSubmit();
 };
 
 #endif // CREATESCREEFORM_H

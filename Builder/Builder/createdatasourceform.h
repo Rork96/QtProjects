@@ -17,6 +17,12 @@ public:
 
 private:
     Ui::CreateDataSourceForm *ui;
+
+    void submitChanges();
+
+signals:
+    sygnalBack();
+    sygnalSubmit();
 };
 
 #endif // CREATEDATASOURCEFORM_H

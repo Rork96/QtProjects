@@ -125,14 +125,15 @@ void MainWindow::login(bool value)
 void MainWindow::setMainView(TableForm::Type type)
 {
     // Show group table
-    if (mainForm != nullptr) {
-        mainForm = new TableForm(this);
-    }
+    mainForm = new TableForm(this);
     mainForm->setViewType(type);
     setCentralWidget(mainForm);
 
     connect(mainForm, &TableForm::createData, this, &MainWindow::createView);
-    connect(mainForm, &TableForm::createDataWithBuilder, this, &MainWindow::createView);
+
+    if (type == TableForm::Type::screens || type == TableForm::Type::custom_query) {
+        connect(mainForm, &TableForm::createDataWithBuilder, this, &MainWindow::createViewWithBuilder);
+    }
 }
 
 void MainWindow::createView(TableForm::Type type)
@@ -141,70 +142,144 @@ void MainWindow::createView(TableForm::Type type)
     case TableForm::groups:
         groupForm = new CreateGroupForm(this);
         setCentralWidget(groupForm);
+        delete mainForm;
+
+        connect(groupForm, &CreateGroupForm::sygnalBack, this, [this, type]() { setMainView(type); });
+        connect(groupForm, &CreateGroupForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
         break;
     case TableForm::users:
         userForm = new CreateUserForm(this);
         setCentralWidget(userForm);
+        delete mainForm;
+
+        connect(userForm, &CreateUserForm::sygnalBack, this, [this, type]() { setMainView(type); });
+        connect(userForm, &CreateUserForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
         break;
     case TableForm::tenant:
         tenantForm = new CreateTenantForm(this);
         setCentralWidget(tenantForm);
+        delete mainForm;
         break;
     case TableForm::logo:
         logoForm = new CreateLogoForm(this);
         setCentralWidget(logoForm);
+        delete mainForm;
+
+        connect(logoForm, &CreateLogoForm::sygnalBack, this, [this, type]() { setMainView(type); });
+        connect(logoForm, &CreateLogoForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
         break;
     case TableForm::security_filters:
         securityFilterForm = new CreateSecurityFilterForm(this);
         setCentralWidget(securityFilterForm);
+        delete mainForm;
+
+        connect(securityFilterForm, &CreateSecurityFilterForm::sygnalBack, this, [this, type]() { setMainView(type); });
+        connect(securityFilterForm, &CreateSecurityFilterForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
         break;
     case TableForm::menu:
         menuForm = new CreateMenuForm(this);
         setCentralWidget(menuForm);
+        delete mainForm;
+
+        connect(menuForm, &CreateMenuForm::sygnalBack, this, [this, type]() { setMainView(type); });
+        connect(menuForm, &CreateMenuForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
         break;
     case TableForm::group_screens:
         groupScreenForm = new CreateGroupScreenForm(this);
         setCentralWidget(groupScreenForm);
+        delete mainForm;
+
+        connect(groupScreenForm, &CreateGroupScreenForm::sygnalBack, this, [this, type]() { setMainView(type); });
+        connect(groupScreenForm, &CreateGroupScreenForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
         break;
     case TableForm::screens:
         screenForm = new CreateScreeForm(this);
         setCentralWidget(screenForm);
+        delete mainForm;
+
+        connect(screenForm, &CreateScreeForm::sygnalBack, this, [this, type]() { setMainView(type); });
+        connect(screenForm, &CreateScreeForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
         break;
     case TableForm::document_family:
         docFamilyForm = new CreateDocFamilyForm(this);
         setCentralWidget(docFamilyForm);
+        delete mainForm;
+
+        connect(docFamilyForm, &CreateDocFamilyForm::sygnalBack, this, [this, type]() { setMainView(type); });
+        connect(docFamilyForm, &CreateDocFamilyForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
         break;
     case TableForm::document_groups:
         docGroupsForm = new CreateDocGroupsForm(this);
         setCentralWidget(docGroupsForm);
+        delete mainForm;
+
+        connect(docGroupsForm, &CreateDocGroupsForm::sygnalBack, this, [this, type]() { setMainView(type); });
+        connect(docGroupsForm, &CreateDocGroupsForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
         break;
     case TableForm::lists:
         listForm = new CreateListForm(this);
         setCentralWidget(listForm);
+        delete mainForm;
+
+        connect(listForm, &CreateListForm::sygnalBack, this, [this, type]() { setMainView(type); });
+        connect(listForm, &CreateListForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
         break;
     case TableForm::templates:
         templatesForm = new CreateTemplatesForm(this);
         setCentralWidget(templatesForm);
+        delete mainForm;
+
+        connect(templatesForm, &CreateTemplatesForm::sygnalBack, this, [this, type]() { setMainView(type); });
+        connect(templatesForm, &CreateTemplatesForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
         break;
     case TableForm::custom_data_sources:
         dataSourceForm = new CreateDataSourceForm(this);
         setCentralWidget(dataSourceForm);
+        delete mainForm;
+
+        connect(dataSourceForm, &CreateDataSourceForm::sygnalBack, this, [this, type]() { setMainView(type); });
+        connect(dataSourceForm, &CreateDataSourceForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
         break;
     case TableForm::extension_functions:
         extFuncForm = new CreateExtFuncForm(this);
         setCentralWidget(extFuncForm);
+        delete mainForm;
+
+        connect(extFuncForm, &CreateExtFuncForm::sygnalBack, this, [this, type]() { setMainView(type); });
+        connect(extFuncForm, &CreateExtFuncForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
         break;
     case TableForm::servers:
         serverForm = new CreateServerForm(this);
         setCentralWidget(serverForm);
+        delete mainForm;
+
+        connect(serverForm, &CreateServerForm::sygnalBack, this, [this, type]() { setMainView(type); });
+        connect(serverForm, &CreateServerForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
         break;
     case TableForm::security_questions:
         questionForm = new CreateQuestionForm(this);
         setCentralWidget(questionForm);
+        delete mainForm;
         break;
     case TableForm::custom_query:
         queryForm = new CreateQueryForm(this);
         setCentralWidget(queryForm);
+        delete mainForm;
+
+        connect(queryForm, &CreateQueryForm::sygnalBack, this, [this, type]() { setMainView(type); });
+        connect(queryForm, &CreateQueryForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
+        break;
+    default:
+        break;
+    }
+}
+
+void MainWindow::createViewWithBuilder(TableForm::Type type)
+{
+    switch (type) {
+    case TableForm::screens:
+        break;
+    case TableForm::custom_query:
         break;
     default:
         break;

@@ -17,6 +17,12 @@ public:
 
 private:
     Ui::CreateGroupScreenForm *ui;
+
+    void submitChanges();
+
+signals:
+    sygnalBack();
+    sygnalSubmit();
 };
 
 #endif // CREATEGROUPSCREENFORM_H

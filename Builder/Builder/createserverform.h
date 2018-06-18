@@ -17,6 +17,12 @@ public:
 
 private:
     Ui::CreateServerForm *ui;
+
+    void submitChanges();
+
+signals:
+    sygnalBack();
+    sygnalSubmit();
 };
 
 #endif // CREATESERVERFORM_H

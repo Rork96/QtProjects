@@ -20,6 +20,12 @@ private:
     Ui::CreateUserForm *ui;
 
     void initComboBox(QList<QComboBox*> elements); // Init comboboxes with colors
+
+    void submitChanges();
+
+signals:
+    sygnalBack();
+    sygnalSubmit();
 };
 
 #endif // CREATEUSERFORM_H

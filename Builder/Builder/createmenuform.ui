@@ -274,7 +274,7 @@ QListView {
          </spacer>
         </item>
         <item>
-         <widget class="QToolButton" name="toolButton_2">
+         <widget class="QToolButton" name="backButton">
           <property name="minimumSize">
            <size>
             <width>60</width>
@@ -325,7 +325,7 @@ QToolButton:pressed {
          </spacer>
         </item>
         <item>
-         <widget class="QToolButton" name="toolButton">
+         <widget class="QToolButton" name="submitButton">
           <property name="minimumSize">
            <size>
             <width>60</width>

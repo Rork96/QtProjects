@@ -17,6 +17,12 @@ public:
 
 private:
     Ui::CreateExtFuncForm *ui;
+
+    void submitChanges();
+
+signals:
+    sygnalBack();
+    sygnalSubmit();
 };
 
 #endif // CREATEEXTFUNCFORM_H

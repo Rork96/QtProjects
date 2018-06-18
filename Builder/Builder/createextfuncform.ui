@@ -208,6 +208,9 @@ QToolButton:pressed {
             <height>0</height>
            </size>
           </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
           <property name="styleSheet">
            <string notr="true">QToolButton {
                color: white;
@@ -236,6 +239,9 @@ QToolButton:pressed {
           <property name="text">
            <string>Submit</string>
           </property>
+          <property name="arrowType">
+           <enum>Qt::NoArrow</enum>
+          </property>
          </widget>
         </item>
        </layout>
@@ -260,7 +266,7 @@ QToolButton:pressed {
            <x>0</x>
            <y>0</y>
            <width>788</width>
-           <height>258</height>
+           <height>247</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_2">

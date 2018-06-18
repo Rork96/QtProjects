@@ -17,6 +17,12 @@ public:
 
 private:
     Ui::CreateSecurityFilterForm *ui;
+
+    void submitChanges();
+
+signals:
+    sygnalBack();
+    sygnalSubmit();
 };
 
 #endif // CREATESECURITYFILTERFORM_H

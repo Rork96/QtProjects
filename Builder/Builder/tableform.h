@@ -44,6 +44,9 @@ private:
     void searchInDB();
     Type viewType;
 
+    void loadDataFromDB();      // Load data
+    void deleteDatafromDB();    // Delete current data from database
+
 signals:
     void createData(Type type);
     void createDataWithBuilder(Type type);

@@ -17,6 +17,12 @@ public:
 
 private:
     Ui::CreateQueryForm *ui;
+
+    void submitChanges();
+
+signals:
+    sygnalBack();
+    sygnalSubmit();
 };
 
 #endif // CREATEQUERYFORM_H

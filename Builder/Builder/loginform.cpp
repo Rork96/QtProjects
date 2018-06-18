@@ -30,11 +30,8 @@ void LoginForm::checkLogin()
     QString userName = ui->userLine->text();
     QString password = ui->passwordLine->text();
 
-    // Get parameters from database
-    QString USER_NAME = "Admin";
-    QString PASSWORD = "123";
-
-    if (userName == USER_NAME && password == PASSWORD) {
+    // Check userName and password in database ...
+    if (userName == "Admin" && password == "123") {
         // Login allowed
         emit isLogin(true);
     }

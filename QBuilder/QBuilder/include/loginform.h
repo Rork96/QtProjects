@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+#include "database.h"
+
 namespace Ui {
 class LoginForm;
 }
@@ -18,10 +20,12 @@ public:
 private:
     Ui::LoginForm *ui;
 
+    DataBase *db;
+
     void checkLogin();
 
 signals:
-    void isLogin(bool value);
+    void isLogin();
 };
 
 #endif // LOGINFORM_H

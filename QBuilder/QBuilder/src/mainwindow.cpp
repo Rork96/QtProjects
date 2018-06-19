@@ -112,14 +112,12 @@ void MainWindow::initUI()
     connect(loginForm, &LoginForm::isLogin, this, &MainWindow::login);
 }
 
-void MainWindow::login(bool value)
+void MainWindow::login()
 {
-    if (value) {
-        // Login
-        setCentralWidget(nullptr);
-        ui->menuBar->setVisible(true);
-        delete loginForm;
-    }
+    // Login
+    setCentralWidget(nullptr);
+    ui->menuBar->setVisible(true);
+    delete loginForm;
 }
 
 void MainWindow::setMainView(TableForm::Type type)

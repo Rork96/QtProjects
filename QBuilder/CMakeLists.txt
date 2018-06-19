@@ -23,7 +23,7 @@ set (QT_MODULES
                     Core
                     Gui
                     Widgets
-                    SQL
+                    Sql
 #                    PrintSupport
 #                    Qml Quick Network # Network needed for QML
                     )

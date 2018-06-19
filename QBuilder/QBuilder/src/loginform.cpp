@@ -31,13 +31,14 @@ void LoginForm::checkLogin()
     QString password = ui->passwordLine->text();
 
     // Check userName and password in database ...
-    if (userName == "postrges" && password == "123") {
+    db = new DataBase();
+    bool result = db->connectToDataBase(userName, password);
+    if (result) {
         // Login allowed
-        emit isLogin(true);
+        emit isLogin();
     }
     else if (userName.isEmpty() || password.isEmpty()) {
         ui->infoLabel->setText("User name or password cannot be blank.");
-
     }
     else {
         ui->infoLabel->setText("Incorrect username or password.");

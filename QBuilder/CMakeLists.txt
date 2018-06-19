@@ -9,7 +9,7 @@ include (generate_product_version)
 generate_product_version (
         VersionFilesOutputVariable
         NAME ${PROJECT_NAME}
-        ICON ${PROJECT_SOURCE_DIR}/pict/${PROJECT_NAME}.ico
+        ICON ${PROJECT_SOURCE_DIR}/QBuilder/res/${PROJECT_NAME}.ico
         VERSION_MAJOR 1
         VERSION_MINOR 0
         VERSION_PATH ${BUILD_COUNTER}
@@ -23,6 +23,7 @@ set (QT_MODULES
                     Core
                     Gui
                     Widgets
+                    SQL
 #                    PrintSupport
 #                    Qml Quick Network # Network needed for QML
                     )
@@ -77,11 +78,13 @@ if (NOT MSVC) # MINGW or Clang
     set (CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")
 endif ()
 
+include_directories(${PROJECT_SOURCE_DIR}/QBuilder/include)
+
 # Automatically find all files *.cpp, *.h, *.ui, *.qrc in project directory
-file (GLOB SOURCE_FILES ${PROJECT_SOURCE_DIR}/QBuilder/Sources/*.cpp)
-file (GLOB HEADER_FILES ${PROJECT_SOURCE_DIR}/QBuilder/Headers/*.h)
-file (GLOB UI_SRC_FILES ${PROJECT_SOURCE_DIR}/QBuilder/Forms/*.ui)
-file (GLOB UI_QRCS ${PROJECT_SOURCE_DIR}/QBuilder/*.qrc)
+file (GLOB SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/QBuilder/src/*.cpp)
+file (GLOB HEADER_FILES ${PROJECT_SOURCE_DIR}/QBuilder/include/*.h)
+file (GLOB UI_SRC_FILES ${PROJECT_SOURCE_DIR}/QBuilder/src/*.ui)
+file (GLOB UI_QRCS ${PROJECT_SOURCE_DIR}/QBuilder/res/*.qrc)
 
 # Find dependencies Qt
 find_package (Qt5 COMPONENTS ${QT_MODULES} REQUIRED)

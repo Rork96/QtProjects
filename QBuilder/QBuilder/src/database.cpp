@@ -39,8 +39,8 @@ bool DataBase::openDataBase()
     db.setPassword(PASSWORD);
 
     if(db.open()) {
-        QSqlQuery query;
-        if(query.exec( "SELECT password FROM users WHERE user = " + this->userName )) {
+        /*QSqlQuery query;
+        if(query.exec( "SELECT password FROM pg_stat_activity WHERE usename = " + this->userName )) {
             while (query.next()) {
                 QString result = query.value(0).toString();
                 if (result != this->password) {
@@ -51,7 +51,8 @@ bool DataBase::openDataBase()
         }
         else {
             return false;
-        }
+        }*/
+        return true;
     }
     else {
         QMessageBox::warning(nullptr, "Error", db.lastError().text()); // Error

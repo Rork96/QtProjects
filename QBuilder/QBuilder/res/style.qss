@@ -1,0 +1,110 @@
+QWidget {
+            color: rgb(32, 74, 135);
+	        font: 11pt "MS Shell Dlg 2";
+			background-color: rgb(255, 255, 255);
+            padding: 4px;
+            border-radius: 5px;
+            border-style: outset;
+        }
+		
+QMenuBar {
+            color: rgb(32, 74, 135);
+	        font: 11pt "MS Shell Dlg 2";
+        }
+			  
+QStatusBar {
+            color: rgb(32, 74, 135);
+            padding: 4px;
+            border-radius: 5px;
+            border-style: outset;
+	        font: 10pt "MS Shell Dlg 2";
+        }
+			  
+QGroupBox {
+               color: black;
+               padding: 4px;
+               border: 1px solid rgb(63, 127, 191); 
+               border-radius: 5px;
+               border-style: outset;
+            }
+			
+QTabWidget {
+               color: blue;
+               padding: 4px;
+               border-radius: 5px;
+               border: 1px solid rgb(63, 127, 191); 
+               border-style: outset;
+	           font: 11pt "MS Shell Dlg 2";
+            }
+
+QLabel {
+            color: rgb(32, 74, 135);
+            padding: 4px;
+            border-radius: 5px;
+            border-style: outset;
+	        font: 11pt "MS Shell Dlg 2";
+        }
+		
+QLineEdit {
+            color: black;
+            padding: 4px;
+            border: 1px solid rgb(63, 127, 191); 
+            border-radius: 5px;
+            border-style: outset;
+	        font: 10pt "MS Shell Dlg 2";
+        }
+		
+QComboBox {
+			color: black;
+            padding: 4px;
+            border: 1px solid rgb(63, 127, 191); 
+            border-radius: 5px;
+            border-style: outset;
+            font: 9pt "MS Shell Dlg 2";
+			background-color: rgb(255, 255, 255);
+            }
+
+QCheckBox {
+            color: rgb(32, 74, 135);
+            padding: 4px;
+            border-radius: 5px;
+            border-style: outset;
+	        font: 11pt "MS Shell Dlg 2";
+            }
+			
+QTextEdit {
+            color: black;
+            padding: 4px;
+            border: 1px solid rgb(63, 127, 191); 
+            border-radius: 5px;
+            border-style: outset;
+	        font: 10pt "MS Shell Dlg 2";
+            }
+			
+QScrollBar {
+			background-color: rgb(240, 240, 240);
+            }
+			
+QListView {
+            color: black;
+            padding: 4px;
+            border: 1px solid rgb(63, 127, 191); 
+            border-radius: 5px;
+            border-style: outset;
+	        font: 10pt "MS Shell Dlg 2";
+            }
+			
+QPushButton {
+               font: 10pt "MS Shell Dlg 2";
+            }
+
+QPushButton:hover {
+               color: blue;
+               border: 1px solid grey;
+            }
+
+QPushButton:pressed {
+               color:  darkblue;
+               background: shadow;
+               border-style: inset;
+            }

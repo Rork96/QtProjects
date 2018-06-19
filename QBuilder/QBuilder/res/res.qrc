@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>delete.png</file>
+        <file>edit.png</file>
+        <file>update.png</file>
+        <file>search.png</file>
+        <file>configure.png</file>
+        <file>download.png</file>
+        <file>features.png</file>
+        <file>log.png</file>
+        <file>view.png</file>
+        <file>QBuilder.png</file>
+    </qresource>
+</RCC>

@@ -17,6 +17,12 @@ public:
 
 private:
     Ui::CreateTenantForm *ui;
+
+    void submitChanges();
+
+signals:
+    void sygnalBack();
+    void sygnalSubmit();
 };
 
 #endif // CREATETENANTFORM_H

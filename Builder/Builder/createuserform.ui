@@ -291,7 +291,7 @@ QToolButton:pressed {
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="personalTab">
       <attribute name="title">
@@ -326,8 +326,8 @@ QToolButton:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>775</width>
-            <height>888</height>
+            <width>780</width>
+            <height>881</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_5">
@@ -664,8 +664,8 @@ QToolButton:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>792</width>
-            <height>817</height>
+            <width>794</width>
+            <height>816</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_6">
@@ -874,8 +874,8 @@ QToolButton:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>775</width>
-            <height>982</height>
+            <width>871</width>
+            <height>986</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_11">

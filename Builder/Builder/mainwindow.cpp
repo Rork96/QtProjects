@@ -159,6 +159,9 @@ void MainWindow::createView(TableForm::Type type)
         tenantForm = new CreateTenantForm(this);
         setCentralWidget(tenantForm);
         delete mainForm;
+
+        connect(tenantForm, &CreateTenantForm::sygnalBack, this, [this, type]() { setMainView(type); });
+        connect(tenantForm, &CreateTenantForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
         break;
     case TableForm::logo:
         logoForm = new CreateLogoForm(this);
@@ -260,6 +263,9 @@ void MainWindow::createView(TableForm::Type type)
         questionForm = new CreateQuestionForm(this);
         setCentralWidget(questionForm);
         delete mainForm;
+
+        connect(questionForm, &CreateQuestionForm::sygnalBack, this, [this, type]() { setMainView(type); });
+        connect(questionForm, &CreateQuestionForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
         break;
     case TableForm::custom_query:
         queryForm = new CreateQueryForm(this);
@@ -278,10 +284,21 @@ void MainWindow::createViewWithBuilder(TableForm::Type type)
 {
     switch (type) {
     case TableForm::screens:
+        scrBuilderForm = new CreateScrBuilderForm(this);
+        setCentralWidget(scrBuilderForm);
+        delete mainForm;
+
+        connect(scrBuilderForm, &CreateScrBuilderForm::sygnalBack, this, [this, type]() { setMainView(type); });
         break;
     case TableForm::custom_query:
+        custQBuilder = new CreateCustQBuildForm(this);
+        setCentralWidget(custQBuilder);
+        delete mainForm;
+
+        connect(custQBuilder, &CreateCustQBuildForm::sygnalBack, this, [this, type]() { setMainView(type); });
+        connect(custQBuilder, &CreateCustQBuildForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
         break;
-    default:
+    default:        
         break;
     }
 }

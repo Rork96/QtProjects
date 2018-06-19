@@ -45,7 +45,9 @@ SOURCES += \
     createextfuncform.cpp \
     createserverform.cpp \
     createquestionform.cpp \
-    createqueryform.cpp
+    createqueryform.cpp \
+    createscrbuilderform.cpp \
+    createcustqbuildform.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -68,7 +70,9 @@ HEADERS += \
     createextfuncform.h \
     createserverform.h \
     createquestionform.h \
-    createqueryform.h
+    createqueryform.h \
+    createscrbuilderform.h \
+    createcustqbuildform.h
 
 FORMS += \
         mainwindow.ui \
@@ -91,7 +95,9 @@ FORMS += \
     createextfuncform.ui \
     createserverform.ui \
     createquestionform.ui \
-    createqueryform.ui
+    createqueryform.ui \
+    createscrbuilderform.ui \
+    createcustqbuildform.ui
 
 RESOURCES += \
     res.qrc

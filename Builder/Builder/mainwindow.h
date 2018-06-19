@@ -22,7 +22,8 @@
 #include "createserverform.h"
 #include "createquestionform.h"
 #include "createqueryform.h"
-
+#include "createscrbuilderform.h"
+#include "createcustqbuildform.h"
 #include "importfilesform.h"
 
 namespace Ui {
@@ -60,6 +61,8 @@ private:
     CreateServerForm *serverForm;
     CreateQuestionForm *questionForm;
     CreateQueryForm *queryForm;
+    CreateScrBuilderForm *scrBuilderForm;
+    CreateCustQBuildForm *custQBuilder;
 
     void initUI();                                          // Hide main menu and show login screen
     void login(bool value);                                 // Login

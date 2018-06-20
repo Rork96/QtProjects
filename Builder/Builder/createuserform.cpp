@@ -2,6 +2,9 @@
 #include "ui_createuserform.h"
 
 #include <QPainter>
+#include <QFileDialog>
+#include <QStandardPaths>
+#include <QFileInfo>
 
 CreateUserForm::CreateUserForm(QWidget *parent) :
     QWidget(parent),
@@ -23,6 +26,10 @@ CreateUserForm::CreateUserForm(QWidget *parent) :
                                   ui->chart_3_ColorBox, ui->chart_4_ColorBox};
 
     initComboBox(elements);   // Init comboboxes with colors
+
+    connect(ui->avatarButton, &QPushButton::clicked, this, &CreateUserForm::openImage);
+    connect(ui->bodyImgButton, &QPushButton::clicked, this, &CreateUserForm::openImage);
+    connect(ui->menuImgButton, &QPushButton::clicked, this, &CreateUserForm::openImage);
 }
 
 CreateUserForm::~CreateUserForm()
@@ -36,6 +43,30 @@ void CreateUserForm::submitChanges()
 
     // Send sygnal
     emit sygnalSubmit();
+}
+
+void CreateUserForm::openImage(/*QWidget *sender*/)
+{
+    // Open image
+
+    QString fName = QFileDialog::getOpenFileName(this, "Choose files",
+                           QStandardPaths::locate(QStandardPaths::HomeLocation, QString()),
+                                                 "Supported files (*.png | *.jpg | *.jpeg);;"
+                                                 "*.png;; *.jpg;; *.jpeg;; All files (*.*)");
+
+    if(fName.isEmpty()) return;
+
+    QPushButton *button = ((QPushButton *)sender());
+
+    if (button == ui->avatarButton) {
+        ui->avatarNameLabel->setText(QFileInfo(fName).fileName());
+    }
+    else if (button == ui->bodyImgButton) {
+        ui->bodyImgNameLabel->setText(QFileInfo(fName).fileName());
+    }
+    else {
+        ui->menuImgNameLabel->setText(QFileInfo(fName).fileName());
+    }
 }
 
 void CreateUserForm::initComboBox(QList<QComboBox*> elements)

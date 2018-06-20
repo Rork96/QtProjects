@@ -22,6 +22,7 @@ private:
     void initComboBox(QList<QComboBox*> elements); // Init comboboxes with colors
 
     void submitChanges();
+    void openImage();
 
 signals:
     void sygnalBack();

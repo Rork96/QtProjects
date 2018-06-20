@@ -1,6 +1,10 @@
 #include "createlogoform.h"
 #include "ui_createlogoform.h"
 
+#include <QFileDialog>
+#include <QStandardPaths>
+#include <QFileInfo>
+
 CreateLogoForm::CreateLogoForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CreateLogoForm)
@@ -12,6 +16,8 @@ CreateLogoForm::CreateLogoForm(QWidget *parent) :
     });
 
     connect(ui->submitButton, &QToolButton::clicked, this, &CreateLogoForm::submitChanges);
+
+    connect(ui->openImageButton, &QPushButton::clicked, this, &CreateLogoForm::openImage);
 }
 
 CreateLogoForm::~CreateLogoForm()
@@ -25,4 +31,18 @@ void CreateLogoForm::submitChanges()
 
     // Send sygnal
     emit sygnalSubmit();
+}
+
+void CreateLogoForm::openImage()
+{
+    // Open image
+
+    QString fName = QFileDialog::getOpenFileName(this, "Choose files",
+                    QStandardPaths::locate(QStandardPaths::HomeLocation, QString()),
+                                                 "Supported files (*.png | *.jpg | *.jpeg);;"
+                                                 "All files (*.*)");
+
+    if(fName.isEmpty()) return;
+
+    ui->imageNameLabel->setText(QFileInfo(fName).fileName());
 }

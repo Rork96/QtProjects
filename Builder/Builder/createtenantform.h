@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+#include <QComboBox>
+
 namespace Ui {
 class CreateTenantForm;
 }
@@ -17,6 +19,8 @@ public:
 
 private:
     Ui::CreateTenantForm *ui;
+
+    void initComboBox(QList<QComboBox*> elements); // Init comboboxes with colors
 
     void submitChanges();
 

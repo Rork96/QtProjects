@@ -65,22 +65,15 @@ void CreateDocFamilyForm::delCategory()
 
     int number = delBtn.indexOf((QToolButton *)sender());
 
-    catL.at(number)->deleteLater();
-    catL.remove(number);
-    descrL.at(number)->deleteLater();
-    descrL.remove(number);
-    kp_1_L.at(number)->deleteLater();
-    kp_1_L.remove(number);
-    kp_2_L.at(number)->deleteLater();
-    kp_2_L.remove(number);
-    kp_3_L.at(number)->deleteLater();
-    kp_3_L.remove(number);
-    kp_4_L.at(number)->deleteLater();
-    kp_4_L.remove(number);
-    kp_5_L.at(number)->deleteLater();
-    kp_5_L.remove(number);
-    searchL.at(number)->deleteLater();
-    searchL.remove(number);
-    delBtn.at(number)->deleteLater();
-    delBtn.remove(number);
+    catL.at(number)->deleteLater();         catL.remove(number);
+    descrL.at(number)->deleteLater();       descrL.remove(number);
+    kp_1_L.at(number)->deleteLater();       kp_1_L.remove(number);
+    kp_2_L.at(number)->deleteLater();       kp_2_L.remove(number);
+    kp_3_L.at(number)->deleteLater();       kp_3_L.remove(number);
+    kp_4_L.at(number)->deleteLater();       kp_4_L.remove(number);
+    kp_5_L.at(number)->deleteLater();       kp_5_L.remove(number);
+    searchL.at(number)->deleteLater();      searchL.remove(number);
+    delBtn.at(number)->deleteLater();       delBtn.remove(number);
+
+
 }

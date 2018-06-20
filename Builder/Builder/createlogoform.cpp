@@ -11,9 +11,7 @@ CreateLogoForm::CreateLogoForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    connect(ui->backButton, &QToolButton::clicked, this, [this] {
-       emit sygnalBack();
-    });
+    connect(ui->backButton, &QToolButton::clicked, this, [this] { emit sygnalBack(); });
 
     connect(ui->submitButton, &QToolButton::clicked, this, &CreateLogoForm::submitChanges);
 

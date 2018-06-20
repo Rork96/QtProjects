@@ -74,6 +74,4 @@ void CreateDocFamilyForm::delCategory()
     kp_5_L.at(number)->deleteLater();       kp_5_L.remove(number);
     searchL.at(number)->deleteLater();      searchL.remove(number);
     delBtn.at(number)->deleteLater();       delBtn.remove(number);
-
-
 }

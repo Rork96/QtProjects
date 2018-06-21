@@ -139,7 +139,7 @@ void MainWindow::setMainView(TableForm::Type type)
 void MainWindow::createView(TableForm::Type type)
 {
     switch (type) {
-        case TableForm::groups:
+    case TableForm::groups:
         groupForm = new CreateGroupForm(this);
         setCentralWidget(groupForm);
         delete mainForm;

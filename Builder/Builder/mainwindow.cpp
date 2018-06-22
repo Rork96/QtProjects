@@ -298,7 +298,7 @@ void MainWindow::createViewWithBuilder(TableForm::Type type)
         connect(custQBuilder, &CreateCustQBuildForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(custQBuilder, &CreateCustQBuildForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
         break;
-    default:        
+    default:
         break;
     }
 }

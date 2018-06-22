@@ -127,7 +127,7 @@ QPushButton:pressed {
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="../res/res.qrc">:/QBuilder.png</pixmap>
+        <pixmap resource="res.qrc">:/res/Builder.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -317,8 +317,7 @@ QPushButton:pressed {
   <tabstop>loginButton</tabstop>
  </tabstops>
  <resources>
-  <include location="../res/res.qrc"/>
-  <include location="../res/res.qrc"/>
+  <include location="res.qrc"/>
  </resources>
  <connections/>
 </ui>

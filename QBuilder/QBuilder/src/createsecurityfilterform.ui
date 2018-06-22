@@ -164,7 +164,7 @@ QListView {
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>820</height>
+          <height>800</height>
          </size>
         </property>
         <property name="widgetResizable">

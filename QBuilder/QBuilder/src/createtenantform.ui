@@ -155,7 +155,7 @@ QScrollBar {
          <string notr="true"/>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="personalTab">
          <attribute name="title">
@@ -710,7 +710,7 @@ QScrollBar {
              <property name="geometry">
               <rect>
                <x>0</x>
-               <y>0</y>
+               <y>-338</y>
                <width>755</width>
                <height>1005</height>
               </rect>
@@ -780,7 +780,7 @@ QScrollBar {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="comboBox"/>
+                   <widget class="QComboBox" name="fChatColorBox"/>
                   </item>
                  </layout>
                 </item>
@@ -794,7 +794,7 @@ QScrollBar {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="comboBox_2"/>
+                   <widget class="QComboBox" name="sChatColorBox"/>
                   </item>
                  </layout>
                 </item>
@@ -983,7 +983,7 @@ QScrollBar {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="comboBox_3"/>
+                   <widget class="QComboBox" name="thChatColorBox"/>
                   </item>
                  </layout>
                 </item>
@@ -997,7 +997,7 @@ QScrollBar {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="comboBox_4"/>
+                   <widget class="QComboBox" name="fourChatColorBox"/>
                   </item>
                  </layout>
                 </item>
@@ -1562,7 +1562,7 @@ QScrollBar {
          </spacer>
         </item>
         <item>
-         <widget class="QToolButton" name="toolButton_2">
+         <widget class="QToolButton" name="backButton">
           <property name="minimumSize">
            <size>
             <width>60</width>
@@ -1613,7 +1613,7 @@ QToolButton:pressed {
          </spacer>
         </item>
         <item>
-         <widget class="QToolButton" name="toolButton">
+         <widget class="QToolButton" name="submitButton">
           <property name="minimumSize">
            <size>
             <width>60</width>

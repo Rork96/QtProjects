@@ -19,6 +19,7 @@ private:
     Ui::CreateLogoForm *ui;
 
     void submitChanges();
+    void openImage();
 
 signals:
     void sygnalBack();

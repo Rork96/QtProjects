@@ -70,6 +70,9 @@ QListView {
               }
 QPushButton {
                font: 10pt &quot;MS Shell Dlg 2&quot;;
+               padding: 4px;
+			   border: 1px solid grey;
+               border-radius: 5px;
               }
 
 QPushButton:hover {
@@ -277,13 +280,13 @@ QToolButton:pressed {
      </property>
      <property name="minimumSize">
       <size>
-       <width>800</width>
+       <width>830</width>
        <height>850</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
-       <width>820</width>
+       <width>830</width>
        <height>16777215</height>
       </size>
      </property>
@@ -326,7 +329,7 @@ QToolButton:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>775</width>
+            <width>805</width>
             <height>888</height>
            </rect>
           </property>
@@ -664,7 +667,7 @@ QToolButton:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>792</width>
+            <width>822</width>
             <height>817</height>
            </rect>
           </property>
@@ -874,7 +877,7 @@ QToolButton:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>775</width>
+            <width>805</width>
             <height>982</height>
            </rect>
           </property>
@@ -1389,7 +1392,7 @@ QToolButton:pressed {
                 <string notr="true"/>
                </property>
                <property name="currentIndex">
-                <number>0</number>
+                <number>1</number>
                </property>
                <widget class="QWidget" name="menuSylesTab">
                 <attribute name="title">
@@ -1680,7 +1683,7 @@ QToolButton:pressed {
              <item>
               <widget class="QTabWidget" name="bodyTabWidget">
                <property name="currentIndex">
-                <number>0</number>
+                <number>1</number>
                </property>
                <widget class="QWidget" name="bodyStyleTab">
                 <attribute name="title">

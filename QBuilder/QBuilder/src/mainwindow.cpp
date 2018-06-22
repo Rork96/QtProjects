@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     setWindowState(Qt::WindowMaximized);
-    setWindowTitle("QBuilder");
+    setWindowTitle("Application");
     ui->statusBar->showMessage("\t\t© 2018 Company.");
 
     initUI();   // Hide main menu and view login screen
@@ -18,78 +18,78 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionLogout, &QAction::triggered, this, &MainWindow::initUI);
 
     connect(ui->actionGroups, &QAction::triggered, this, [this] {
-        setWindowTitle("QBuilder - Admin groups");
+        setWindowTitle("Application - Admin groups");
         setMainView(TableForm::groups);
     });
     connect(ui->actionUsers, &QAction::triggered, this, [this] {
-        setWindowTitle("QBuilder - Admin users");
+        setWindowTitle("Application - Admin users");
         setMainView(TableForm::users);
     });
     connect(ui->actionTenant, &QAction::triggered, this, [this] {
-        setWindowTitle("QBuilder - Admin tenants");
+        setWindowTitle("Application - Admin tenants");
         setMainView(TableForm::tenant);
     });
     connect(ui->actionLogo, &QAction::triggered, this, [this] {
-        setWindowTitle("QBuilder - Admin logo");
+        setWindowTitle("Application - Admin logo");
         setMainView(TableForm::logo);
     });
     connect(ui->actionSecurity_filters, &QAction::triggered, this, [this] {
-        setWindowTitle("QBuilder - Security filters");
+        setWindowTitle("Application - Security filters");
         setMainView(TableForm::security_filters);
     });
     connect(ui->actionMenu, &QAction::triggered, this, [this] {
-        setWindowTitle("QBuilder - Security filters");
+        setWindowTitle("Application - Security filters");
         setMainView(TableForm::menu);
     });
     connect(ui->actionGroup_screens, &QAction::triggered, this, [this] {
-        setWindowTitle("QBuilder - Admin group screen");
+        setWindowTitle("Application - Admin group screen");
         setMainView(TableForm::group_screens);
     });
     connect(ui->actionScreens, &QAction::triggered, this, [this] {
-        setWindowTitle("QBuilder - Admin screen");
+        setWindowTitle("Application - Admin screen");
         setMainView(TableForm::screens);
     });
     connect(ui->actionDocument_family, &QAction::triggered, this, [this] {
-        setWindowTitle("QBuilder - Document family");
+        setWindowTitle("Application - Document family");
         setMainView(TableForm::document_family);
     });
     connect(ui->actionDocument_groups, &QAction::triggered, this, [this] {
-        setWindowTitle("QBuilder - Admin groups");
+        setWindowTitle("Application - Admin groups");
         setMainView(TableForm::document_groups);
     });
     connect(ui->actionLists, &QAction::triggered, this, [this] {
-        setWindowTitle("QBuilder - Admin lists");
+        setWindowTitle("Application - Admin lists");
         setMainView(TableForm::lists);
     });
     connect(ui->actionTemplates, &QAction::triggered, this, [this] {
-        setWindowTitle("QBuilder - Admin templates");
+        setWindowTitle("Application - Admin templates");
         setMainView(TableForm::templates);
     });
     connect(ui->actionCustom_data_sourcess, &QAction::triggered, this, [this] {
-        setWindowTitle("QBuilder - Admin templates");
+        setWindowTitle("Application - Admin templates");
         setMainView(TableForm::custom_data_sources);
     });
     connect(ui->actionExtention_functions, &QAction::triggered, this, [this] {
-        setWindowTitle("QBuilder - Admin extension functions");
+        setWindowTitle("Application - Admin extension functions");
         setMainView(TableForm::extension_functions);
     });
     connect(ui->actionServers, &QAction::triggered, this, [this] {
-        setWindowTitle("QBuilder - Admin servers");
+        setWindowTitle("Application - Admin servers");
         setMainView(TableForm::servers);
     });
     connect(ui->actionSecuriry_questions, &QAction::triggered, this, [this] {
-        setWindowTitle("QBuilder - Admin lists");
+        setWindowTitle("Application - Admin lists");
         setMainView(TableForm::security_questions);
     });
     connect(ui->actionCustom_query, &QAction::triggered, this, [this] {
-        setWindowTitle("QBuilder - Custom query");
+        setWindowTitle("Application - Custom query");
         setMainView(TableForm::custom_query);
     });
 
 
     // Import files
     connect(ui->actionImport_files, &QAction::triggered, this, [this] {
-        setWindowTitle("QBuilder - Import files");
+        setWindowTitle("Application - Import files");
         importForm = new ImportFilesForm(this);
         setCentralWidget(importForm);
     });
@@ -114,7 +114,6 @@ void MainWindow::initUI()
 
 void MainWindow::login()
 {
-    // Login
     setCentralWidget(nullptr);
     ui->menuBar->setVisible(true);
     delete loginForm;
@@ -157,6 +156,9 @@ void MainWindow::createView(TableForm::Type type)
         tenantForm = new CreateTenantForm(this);
         setCentralWidget(tenantForm);
         delete mainForm;
+
+        connect(tenantForm, &CreateTenantForm::sygnalBack, this, [this, type]() { setMainView(type); });
+        connect(tenantForm, &CreateTenantForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
         break;
     case TableForm::logo:
         logoForm = new CreateLogoForm(this);
@@ -258,6 +260,9 @@ void MainWindow::createView(TableForm::Type type)
         questionForm = new CreateQuestionForm(this);
         setCentralWidget(questionForm);
         delete mainForm;
+
+        connect(questionForm, &CreateQuestionForm::sygnalBack, this, [this, type]() { setMainView(type); });
+        connect(questionForm, &CreateQuestionForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
         break;
     case TableForm::custom_query:
         queryForm = new CreateQueryForm(this);
@@ -276,8 +281,19 @@ void MainWindow::createViewWithBuilder(TableForm::Type type)
 {
     switch (type) {
     case TableForm::screens:
+        scrBuilderForm = new CreateScrBuilderForm(this);
+        setCentralWidget(scrBuilderForm);
+        delete mainForm;
+
+        connect(scrBuilderForm, &CreateScrBuilderForm::sygnalBack, this, [this, type]() { setMainView(type); });
         break;
     case TableForm::custom_query:
+        custQBuilder = new CreateCustQBuildForm(this);
+        setCentralWidget(custQBuilder);
+        delete mainForm;
+
+        connect(custQBuilder, &CreateCustQBuildForm::sygnalBack, this, [this, type]() { setMainView(type); });
+        connect(custQBuilder, &CreateCustQBuildForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
         break;
     default:
         break;

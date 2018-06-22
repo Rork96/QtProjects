@@ -16,6 +16,9 @@
   <property name="styleSheet">
    <string notr="true">QPushButton {
                font: 10pt &quot;MS Shell Dlg 2&quot;;
+               padding: 4px;
+			   border: 1px solid grey;
+               border-radius: 5px;
               }
 
 QPushButton:hover {
@@ -78,13 +81,13 @@ QTextEdit {
      <property name="minimumSize">
       <size>
        <width>800</width>
-       <height>400</height>
+       <height>420</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
        <width>700</width>
-       <height>400</height>
+       <height>420</height>
       </size>
      </property>
      <property name="styleSheet">
@@ -232,10 +235,10 @@ QToolButton:pressed {
            <x>0</x>
            <y>0</y>
            <width>788</width>
-           <height>347</height>
+           <height>367</height>
           </rect>
          </property>
-         <layout class="QGridLayout" name="gridLayout_2">
+         <layout class="QGridLayout" name="gridLayout_4">
           <item row="0" column="0">
            <layout class="QHBoxLayout" name="horizontalLayout">
             <item>
@@ -303,41 +306,67 @@ QToolButton:pressed {
            </widget>
           </item>
           <item row="3" column="0">
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
-            <item>
-             <widget class="QRadioButton" name="headLogoRButton">
-              <property name="styleSheet">
-               <string notr="true"/>
-              </property>
-              <property name="text">
-               <string>Header logo</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QRadioButton" name="mainLogoRButton">
-              <property name="styleSheet">
-               <string notr="true"/>
-              </property>
-              <property name="text">
-               <string>Main logo</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_3">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
+           <widget class="QGroupBox" name="groupBox_2">
+            <property name="styleSheet">
+             <string notr="true">QGroupBox {
+               color: black;
+               border: 1px solid rgb(255, 255, 255);
+				}</string>
+            </property>
+            <property name="title">
+             <string/>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_2">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <item row="0" column="0">
+              <widget class="QRadioButton" name="headLogoRButton">
+               <property name="styleSheet">
+                <string notr="true"/>
+               </property>
+               <property name="text">
+                <string>Header logo</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QRadioButton" name="mainLogoRButton">
+               <property name="styleSheet">
+                <string notr="true"/>
+               </property>
+               <property name="text">
+                <string>Main logo</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <spacer name="horizontalSpacer_3">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </widget>
           </item>
           <item row="4" column="0">
            <widget class="QLabel" name="label_6">

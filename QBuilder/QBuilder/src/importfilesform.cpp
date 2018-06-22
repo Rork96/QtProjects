@@ -3,6 +3,8 @@
 
 #include <QFileDialog>
 #include <QStandardPaths>
+#include <QFileInfo>
+#include <QMenu>
 
 ImportFilesForm::ImportFilesForm(QWidget *parent) :
     QWidget(parent),
@@ -12,8 +14,16 @@ ImportFilesForm::ImportFilesForm(QWidget *parent) :
 
     ui->uploadButton->setEnabled(false);
     ui->executeButton->setEnabled(false);
+    ui->clearButton->setVisible(false);
 
-    // Click on import lable
+    // Click on mainButton
+    connect(ui->mainButton, &QPushButton::clicked, this, &ImportFilesForm::importFiles);
+
+    // Click on clear button
+    connect(ui->clearButton, &QToolButton::clicked, this, [this] {
+        ui->mainButton->setText("Drop files here to upload");
+        ui->clearButton->setVisible(false);
+    });
 }
 
 ImportFilesForm::~ImportFilesForm()
@@ -27,10 +37,14 @@ void ImportFilesForm::importFiles()
 
     QString fName = QFileDialog::getOpenFileName(this, "Choose files",
                     QStandardPaths::locate(QStandardPaths::HomeLocation, QString()),
-                                                     "Files (*.*)");
+                                                 "Supported files (*.sql | *.xlsx | *.xls | *.csv);;"
+                                                 "All files (*.*);; *.sql;; *.xlsx;; *.xls;; *.csv;; Text documents (*.txt)");
 
     if(fName.isEmpty()) return;
 
+    ui->mainButton->setText(QFileInfo(fName).fileName());
+
     ui->uploadButton->setEnabled(true);
     ui->executeButton->setEnabled(true);
+    ui->clearButton->setVisible(true);
 }

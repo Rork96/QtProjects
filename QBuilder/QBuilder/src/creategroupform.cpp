@@ -40,11 +40,31 @@ CreateGroupForm::~CreateGroupForm()
 void CreateGroupForm::submitChanges()
 {
     // Save changes to database
-    mapper->submit();
-    model->submitAll();
+
+    QSqlQuery query;
+    QString str = QString("SELECT EXISTS (SELECT 'Group name' FROM admin_groups"
+            " WHERE 'Group name' = '%1' AND key NOT LIKE '%2' )").arg(ui->groupNameLine->text(),
+         model->data(model->index(mapper->currentIndex(), 0),
+                     Qt::DisplayRole).toString());
+
+    query.prepare(str);
+    query.exec();
+    query.next();
+
+    // If exists
+    if(query.value(0) != 0) {
+        QMessageBox::information(this, trUtf8("Error"),
+                                 trUtf8("Group name is already exists"));
+        return;
+    }
+    else {
+        // Insert new data
+        mapper->submit();
+        model->submitAll();
+    }
     model->select();
     mapper->toLast();
 
-    // Send sygnal
+    // Send signal
     emit sygnalSubmit();
 }

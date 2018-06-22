@@ -17,6 +17,12 @@ public:
 
 private:
     Ui::CreateQuestionForm *ui;
+
+    void submitChanges();
+
+signals:
+    void sygnalBack();
+    void sygnalSubmit();
 };
 
 #endif // CREATEQUESTIONFORM_H

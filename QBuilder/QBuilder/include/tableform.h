@@ -2,6 +2,7 @@
 #define TABLEFORM_H
 
 #include <QWidget>
+#include <QSqlTableModel>
 
 namespace Ui {
 class TableForm;
@@ -40,6 +41,8 @@ public:
 
 private:
     Ui::TableForm *ui;
+
+    QSqlTableModel *mainModel;
 
     void searchInDB();
     Type viewType;

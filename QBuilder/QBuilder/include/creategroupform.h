@@ -2,6 +2,8 @@
 #define CREATEGROUPFORM_H
 
 #include <QWidget>
+#include <QSqlTableModel>
+#include <QDataWidgetMapper>
 
 namespace Ui {
 class CreateGroupForm;
@@ -19,6 +21,9 @@ private:
     Ui::CreateGroupForm *ui;
 
     void submitChanges();
+
+    QSqlTableModel *model;
+    QDataWidgetMapper *mapper;
 
 signals:
     void sygnalBack();

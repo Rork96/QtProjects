@@ -36,7 +36,11 @@ QTableView {
                border: 1px solid  rgb(63, 127, 191); 
                border-radius: 5px;
 	           font: 10pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
+              }
+QHeaderView::section {
+   			padding: 4px;
+    		height: 40;
+}</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="leftMargin">

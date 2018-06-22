@@ -36,7 +36,7 @@ QLineEdit {
                border-style: outset;
 	           font: 10pt &quot;MS Shell Dlg 2&quot;;
               }
-QTextEdit {
+QPlainTextEdit {
                color: black;
                padding: 4px;
                border: 1px solid rgb(63, 127, 191); 
@@ -286,7 +286,7 @@ QToolButton:pressed {
          </widget>
         </item>
         <item>
-         <widget class="QTextEdit" name="groupDescrEdit">
+         <widget class="QPlainTextEdit" name="groupDescrEdit">
           <property name="styleSheet">
            <string notr="true"/>
           </property>

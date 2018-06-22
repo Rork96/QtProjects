@@ -1,4 +1,5 @@
 #include <QtWidgets/QMessageBox>
+#include <QtSql/QSqlRecord>
 #include "database.h"
 
 DataBase::DataBase(QObject *parent) : QObject(parent)

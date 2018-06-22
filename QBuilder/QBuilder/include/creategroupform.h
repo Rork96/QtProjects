@@ -17,13 +17,15 @@ public:
     explicit CreateGroupForm(QWidget *parent = 0);
     ~CreateGroupForm();
 
+    void setRowIndex(int rowIndex); // User chose to edit data from the table
+
 private:
     Ui::CreateGroupForm *ui;
 
-    void submitChanges();
-
     QSqlTableModel *model;
     QDataWidgetMapper *mapper;
+
+    void submitChanges();
 
 signals:
     void sygnalBack();

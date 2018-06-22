@@ -1,6 +1,7 @@
 #include "tableform.h"
 #include "ui_tableform.h"
 
+#include "database.h"
 #include <QScreen>
 
 TableForm::TableForm(QWidget *parent) :
@@ -15,13 +16,27 @@ TableForm::TableForm(QWidget *parent) :
     ui->searchLine->setVisible(false);
     ui->searchParamBox->setVisible(false);
 
-    connect(ui->searchButton, &QToolButton::clicked, this, &TableForm::searchInDB); // Search
+    connect(ui->searchButton, &QToolButton::clicked, this, [this] {
+        // Show widgets for providing search
+        ui->searchLine->setVisible(!ui->searchLine->isVisible());
+        ui->searchParamBox->setVisible(!ui->searchParamBox->isVisible());
+        ui->searchLine->clear();
+        ui->searchParamBox->clear();
+        // Get column header names from table
+    });
+
+    connect(ui->searchLine, &QLineEdit::textChanged, this, &TableForm::searchInDB); // Interactive search in database
 
     connect(ui->createButton, &QToolButton::clicked, this, [this] {
         emit createData(this->viewType); // Create new data
     });
 
-    connect(ui->deleteButton, &QToolButton::clicked, this, &TableForm::deleteDatafromDB); // Selected row in table
+    connect(ui->editButton, &QToolButton::clicked, this, [this] {
+        // Edit existing data
+        emit createData(this->viewType, ui->mainTableView->selectionModel()->selectedRows().at(0).row());
+    });
+
+    connect(ui->deleteButton, &QToolButton::clicked, this, &TableForm::deleteDatafromDB); // A row was selected in the table
 }
 
 TableForm::~TableForm()
@@ -87,15 +102,21 @@ void TableForm::loadDataFromDB()
     ui->mainTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
-void TableForm::searchInDB()
+void TableForm::searchInDB(const QString &arg1)
 {
-    // Show widgets for search
-    ui->searchLine->setVisible(!ui->searchLine->isVisible());
-    ui->searchParamBox->setVisible(!ui->searchParamBox->isVisible());
-    ui->searchLine->clear();
-    ui->searchParamBox->clear();
-
     // Interactive search in current database table
+
+    // Set parameters for search
+    QString serchStr = ui->searchParamBox->currentText();
+
+    if ((serchStr.isEmpty()) || (arg1.isEmpty())) {
+        mainModel->setFilter("'%' LIKE '%'");
+    }
+    else {
+        mainModel->setFilter(serchStr + " LIKE '%" + arg1 + "%'");
+    }
+
+    mainModel->select();
 }
 
 void TableForm::setViewType(Type type)

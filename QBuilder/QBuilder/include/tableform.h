@@ -44,14 +44,14 @@ private:
 
     QSqlTableModel *mainModel;
 
-    void searchInDB();
+    void searchInDB(const QString &arg1);   // Interactive search in database
     Type viewType;
 
-    void loadDataFromDB();      // Load data
-    void deleteDatafromDB();    // Delete current data from database
+    void loadDataFromDB();                  // Load data
+    void deleteDatafromDB();                // Delete current data from database
 
 signals:
-    void createData(Type type);
+    void createData(Type type, int row=-1); // Set row if you need to edit existing data in the table (selected row)
     void createDataWithBuilder(Type type);
 };
 

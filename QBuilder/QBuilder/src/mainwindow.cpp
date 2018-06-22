@@ -131,15 +131,26 @@ void MainWindow::setMainView(TableForm::Type type)
     if (type == TableForm::Type::screens || type == TableForm::Type::custom_query) {
         connect(mainForm, &TableForm::createDataWithBuilder, this, &MainWindow::createViewWithBuilder);
     }
+
+    // Delete last view
+    if (this->prewView != nullptr) {
+        delete this->prewView;
+        this->prewView = nullptr;
+    }
 }
 
-void MainWindow::createView(TableForm::Type type)
+void MainWindow::createView(TableForm::Type type, int rowIndex)
 {
     switch (type) {
     case TableForm::groups:
         groupForm = new CreateGroupForm(this);
         setCentralWidget(groupForm);
         delete mainForm;
+        this->prewView = groupForm; // Save current view
+
+        if (rowIndex > -1) {
+            groupForm->setRowIndex(rowIndex); // Edit existing data (current selected row index)
+        }
 
         connect(groupForm, &CreateGroupForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(groupForm, &CreateGroupForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
@@ -148,6 +159,7 @@ void MainWindow::createView(TableForm::Type type)
         userForm = new CreateUserForm(this);
         setCentralWidget(userForm);
         delete mainForm;
+        this->prewView = userForm; // Save current view
 
         connect(userForm, &CreateUserForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(userForm, &CreateUserForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
@@ -156,6 +168,7 @@ void MainWindow::createView(TableForm::Type type)
         tenantForm = new CreateTenantForm(this);
         setCentralWidget(tenantForm);
         delete mainForm;
+        this->prewView = tenantForm; // Save current view
 
         connect(tenantForm, &CreateTenantForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(tenantForm, &CreateTenantForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
@@ -164,6 +177,7 @@ void MainWindow::createView(TableForm::Type type)
         logoForm = new CreateLogoForm(this);
         setCentralWidget(logoForm);
         delete mainForm;
+        this->prewView = logoForm; // Save current view
 
         connect(logoForm, &CreateLogoForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(logoForm, &CreateLogoForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
@@ -172,6 +186,7 @@ void MainWindow::createView(TableForm::Type type)
         securityFilterForm = new CreateSecurityFilterForm(this);
         setCentralWidget(securityFilterForm);
         delete mainForm;
+        this->prewView = securityFilterForm; // Save current view
 
         connect(securityFilterForm, &CreateSecurityFilterForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(securityFilterForm, &CreateSecurityFilterForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
@@ -180,6 +195,7 @@ void MainWindow::createView(TableForm::Type type)
         menuForm = new CreateMenuForm(this);
         setCentralWidget(menuForm);
         delete mainForm;
+        this->prewView = menuForm; // Save current view
 
         connect(menuForm, &CreateMenuForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(menuForm, &CreateMenuForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
@@ -188,6 +204,7 @@ void MainWindow::createView(TableForm::Type type)
         groupScreenForm = new CreateGroupScreenForm(this);
         setCentralWidget(groupScreenForm);
         delete mainForm;
+        this->prewView = groupScreenForm; // Save current view
 
         connect(groupScreenForm, &CreateGroupScreenForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(groupScreenForm, &CreateGroupScreenForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
@@ -196,6 +213,7 @@ void MainWindow::createView(TableForm::Type type)
         screenForm = new CreateScreeForm(this);
         setCentralWidget(screenForm);
         delete mainForm;
+        this->prewView = screenForm; // Save current view
 
         connect(screenForm, &CreateScreeForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(screenForm, &CreateScreeForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
@@ -204,6 +222,7 @@ void MainWindow::createView(TableForm::Type type)
         docFamilyForm = new CreateDocFamilyForm(this);
         setCentralWidget(docFamilyForm);
         delete mainForm;
+        this->prewView = docFamilyForm; // Save current view
 
         connect(docFamilyForm, &CreateDocFamilyForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(docFamilyForm, &CreateDocFamilyForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
@@ -212,6 +231,7 @@ void MainWindow::createView(TableForm::Type type)
         docGroupsForm = new CreateDocGroupsForm(this);
         setCentralWidget(docGroupsForm);
         delete mainForm;
+        this->prewView = docGroupsForm; // Save current view
 
         connect(docGroupsForm, &CreateDocGroupsForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(docGroupsForm, &CreateDocGroupsForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
@@ -220,6 +240,7 @@ void MainWindow::createView(TableForm::Type type)
         listForm = new CreateListForm(this);
         setCentralWidget(listForm);
         delete mainForm;
+        this->prewView = listForm; // Save current view
 
         connect(listForm, &CreateListForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(listForm, &CreateListForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
@@ -228,6 +249,7 @@ void MainWindow::createView(TableForm::Type type)
         templatesForm = new CreateTemplatesForm(this);
         setCentralWidget(templatesForm);
         delete mainForm;
+        this->prewView = templatesForm; // Save current view
 
         connect(templatesForm, &CreateTemplatesForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(templatesForm, &CreateTemplatesForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
@@ -236,6 +258,7 @@ void MainWindow::createView(TableForm::Type type)
         dataSourceForm = new CreateDataSourceForm(this);
         setCentralWidget(dataSourceForm);
         delete mainForm;
+        this->prewView = dataSourceForm; // Save current view
 
         connect(dataSourceForm, &CreateDataSourceForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(dataSourceForm, &CreateDataSourceForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
@@ -244,6 +267,7 @@ void MainWindow::createView(TableForm::Type type)
         extFuncForm = new CreateExtFuncForm(this);
         setCentralWidget(extFuncForm);
         delete mainForm;
+        this->prewView = extFuncForm; // Save current view
 
         connect(extFuncForm, &CreateExtFuncForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(extFuncForm, &CreateExtFuncForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
@@ -252,6 +276,7 @@ void MainWindow::createView(TableForm::Type type)
         serverForm = new CreateServerForm(this);
         setCentralWidget(serverForm);
         delete mainForm;
+        this->prewView = serverForm; // Save current view
 
         connect(serverForm, &CreateServerForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(serverForm, &CreateServerForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
@@ -260,6 +285,7 @@ void MainWindow::createView(TableForm::Type type)
         questionForm = new CreateQuestionForm(this);
         setCentralWidget(questionForm);
         delete mainForm;
+        this->prewView = questionForm; // Save current view
 
         connect(questionForm, &CreateQuestionForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(questionForm, &CreateQuestionForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
@@ -268,6 +294,7 @@ void MainWindow::createView(TableForm::Type type)
         queryForm = new CreateQueryForm(this);
         setCentralWidget(queryForm);
         delete mainForm;
+        this->prewView = queryForm; // Save current view
 
         connect(queryForm, &CreateQueryForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(queryForm, &CreateQueryForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
@@ -284,6 +311,7 @@ void MainWindow::createViewWithBuilder(TableForm::Type type)
         scrBuilderForm = new CreateScrBuilderForm(this);
         setCentralWidget(scrBuilderForm);
         delete mainForm;
+        this->prewView = scrBuilderForm; // Save current view
 
         connect(scrBuilderForm, &CreateScrBuilderForm::sygnalBack, this, [this, type]() { setMainView(type); });
         break;
@@ -291,6 +319,7 @@ void MainWindow::createViewWithBuilder(TableForm::Type type)
         custQBuilder = new CreateCustQBuildForm(this);
         setCentralWidget(custQBuilder);
         delete mainForm;
+        this->prewView = custQBuilder; // Save current view
 
         connect(custQBuilder, &CreateCustQBuildForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(custQBuilder, &CreateCustQBuildForm::sygnalSubmit, this, [this, type]() { setMainView(type); });

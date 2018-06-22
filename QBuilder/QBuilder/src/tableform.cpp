@@ -23,6 +23,13 @@ TableForm::TableForm(QWidget *parent) :
         ui->searchLine->clear();
         ui->searchParamBox->clear();
         // Get column header names from table
+        /*
+         *
+         * 
+         *
+         *
+         * 
+         */
     });
 
     connect(ui->searchLine, &QLineEdit::textChanged, this, &TableForm::searchInDB); // Interactive search in database

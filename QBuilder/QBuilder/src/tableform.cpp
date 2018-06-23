@@ -52,25 +52,26 @@ void TableForm::loadDataFromDB()
             mainModel->setSort(0, Qt::AscendingOrder);
             mainModel->select();
             ui->mainTableView->setModel(mainModel);
-            ui->mainTableView->setColumnHidden(0, true);
+            ui->mainTableView->setColumnHidden(0, true); // Hide
+
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
                 ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
             }
             break;
         case TableForm::users:
-            mainModel = new QSqlTableModel(this);
+            /*mainModel = new QSqlTableModel(this);
             this->table = "user";
             mainModel->setTable(this->table);
 
             mainModel->setSort(0, Qt::AscendingOrder);
             mainModel->select();
             ui->mainTableView->setModel(mainModel);
-            ui->mainTableView->setColumnHidden(0, true);
+            ui->mainTableView->setColumnHidden(0, true);    // Hide
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
                 ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-            }
+            }*/
             break;
         case TableForm::tenant:
             break;
@@ -89,12 +90,55 @@ void TableForm::loadDataFromDB()
         case TableForm::document_groups:
             break;
         case TableForm::lists:
+            mainModel = new QSqlTableModel(this);
+            this->table = "lists";
+            mainModel->setTable(this->table);
+
+            mainModel->setSort(0, Qt::AscendingOrder);
+            mainModel->select();
+            ui->mainTableView->setModel(mainModel);
+
+            // Columns size
+            for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
+                ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+                if (i < 1 || i > 3)
+                    ui->mainTableView->setColumnHidden(i, true);    // Hide columns
+            }
             break;
         case TableForm::templates:
+            mainModel = new QSqlTableModel(this);
+            this->table = "templates";
+            mainModel->setTable(this->table);
+
+            mainModel->setSort(0, Qt::AscendingOrder);
+            mainModel->select();
+            ui->mainTableView->setModel(mainModel);
+
+            // Columns size
+            for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
+                ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+                if (i < 1 || i > 5)
+                    ui->mainTableView->setColumnHidden(i, true);    // Hide columns
+            }
             break;
         case TableForm::custom_data_sources:
             break;
         case TableForm::extension_functions:
+            mainModel = new QSqlTableModel(this);
+            this->table = "extension_functions";
+            mainModel->setTable(this->table);
+
+            mainModel->setSort(0, Qt::AscendingOrder);
+            mainModel->select();
+            ui->mainTableView->setModel(mainModel);
+
+            ui->mainTableView->setColumnHidden(0, true);    // Hide columns
+            ui->mainTableView->setColumnHidden(3, true);    // Hide columns
+
+            // Columns size
+            for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
+                ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+            }
             break;
         case TableForm::servers:
             break;
@@ -121,7 +165,7 @@ void TableForm::showSearchWidgets()
     // Get column header names from table
     QSqlQuery query;
     if (query.exec( "SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '" +
-                    this->table + "' AND NOT column_name LIKE '%key%'" )) {
+                    this->table + "' AND NOT column_name LIKE '%id%'" )) {
         while (query.next()) {
             ui->searchParamBox->addItem(query.value(0).toString());
         }

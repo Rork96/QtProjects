@@ -65,7 +65,7 @@ void CreateUserForm::submitChanges()
 
     QSqlQuery query;
     QString str = QString("SELECT EXISTS (SELECT 'Group name' FROM" TABLE
-                          " WHERE '" RECORD "' = '%1' AND key NOT LIKE '%2' )").arg(ui->userNameLine->text(),
+                          " WHERE '" RECORD "' = '%1' AND id NOT LIKE '%2' )").arg(ui->userNameLine->text(),
                                       model->data(model->index(mapper->currentIndex(), 0), Qt::DisplayRole).toInt());
 
     query.prepare(str);
@@ -152,7 +152,7 @@ void CreateUserForm::checkPasswordLength(const QString &arg1)
 {
     // Check password length
 
-    int length = ui->passwordLine->text().size();
+    int length = ui->passwordLine->text().length();
 
     if (length > 5 && !ui->passwordLengthBox->isChecked()) {
         ui->passwordLabel->setText("Password - Too short");

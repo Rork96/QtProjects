@@ -2,6 +2,10 @@
 #define CREATETEMPLATESFORM_H
 
 #include <QWidget>
+#include <QSqlTableModel>
+#include <QDataWidgetMapper>
+
+#define TABLE   "templates"
 
 namespace Ui {
 class CreateTemplatesForm;
@@ -15,8 +19,13 @@ public:
     explicit CreateTemplatesForm(QWidget *parent = 0);
     ~CreateTemplatesForm();
 
+    void setRowIndex(int rowIndex); // User chose to edit data from the table
+
 private:
     Ui::CreateTemplatesForm *ui;
+
+    QSqlTableModel *model;
+    QDataWidgetMapper *mapper;
 
     void submitChanges();
 

@@ -2,6 +2,10 @@
 #define CREATEEXTFUNCFORM_H
 
 #include <QWidget>
+#include <QSqlTableModel>
+#include <QDataWidgetMapper>
+
+#define TABLE   "extension_functions"
 
 namespace Ui {
 class CreateExtFuncForm;
@@ -15,8 +19,13 @@ public:
     explicit CreateExtFuncForm(QWidget *parent = 0);
     ~CreateExtFuncForm();
 
+    void setRowIndex(int rowIndex); // User chose to edit data from the table
+
 private:
     Ui::CreateExtFuncForm *ui;
+
+    QSqlTableModel *model;
+    QDataWidgetMapper *mapper;
 
     void submitChanges();
 

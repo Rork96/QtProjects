@@ -329,8 +329,8 @@ QToolButton:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>805</width>
-            <height>888</height>
+            <width>810</width>
+            <height>881</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_5">
@@ -667,8 +667,8 @@ QToolButton:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>822</width>
-            <height>817</height>
+            <width>379</width>
+            <height>220</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_6">
@@ -877,8 +877,8 @@ QToolButton:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>805</width>
-            <height>982</height>
+            <width>871</width>
+            <height>986</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_11">

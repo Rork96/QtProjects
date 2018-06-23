@@ -35,7 +35,7 @@ QTableView {
                color: black;
                border: 1px solid  rgb(63, 127, 191); 
                border-radius: 5px;
-	           font: 10pt &quot;MS Shell Dlg 2&quot;;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
               }
 QHeaderView::section {
    			padding: 4px;

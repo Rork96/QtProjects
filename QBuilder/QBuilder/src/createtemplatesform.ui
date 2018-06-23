@@ -60,7 +60,7 @@ QComboBox {
                font: 9pt &quot;MS Shell Dlg 2&quot;;
 			   background-color: rgb(255, 255, 255);
               }
-QTextEdit {
+QPlainTextEdit {
                color: black;
                padding: 4px;
                border: 1px solid rgb(63, 127, 191); 
@@ -255,7 +255,7 @@ QListView {
            </widget>
           </item>
           <item row="3" column="0">
-           <widget class="QTextEdit" name="descriptionEdit"/>
+           <widget class="QPlainTextEdit" name="descriptionEdit"/>
           </item>
          </layout>
         </widget>

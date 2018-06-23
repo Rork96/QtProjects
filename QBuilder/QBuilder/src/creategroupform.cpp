@@ -45,7 +45,7 @@ void CreateGroupForm::submitChanges()
 
     QSqlQuery query;
     QString str = QString("SELECT EXISTS (SELECT 'Group name' FROM" TABLE
-            " WHERE '" RECORD "' = '%1' AND key NOT LIKE '%2' )").arg(ui->groupNameLine->text(),
+            " WHERE '" RECORD "' = '%1' AND id NOT LIKE '%2' )").arg(ui->groupNameLine->text(),
                         model->data(model->index(mapper->currentIndex(), 0), Qt::DisplayRole).toInt());
 
     query.prepare(str);

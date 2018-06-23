@@ -161,6 +161,10 @@ void MainWindow::createView(TableForm::Type type, int rowIndex)
         delete mainForm;
         this->prewView = userForm; // Save current view
 
+        if (rowIndex > -1) {
+            userForm->setRowIndex(rowIndex); // Edit existing data (current selected row index)
+        }
+
         connect(userForm, &CreateUserForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(userForm, &CreateUserForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
         break;
@@ -242,6 +246,10 @@ void MainWindow::createView(TableForm::Type type, int rowIndex)
         delete mainForm;
         this->prewView = listForm; // Save current view
 
+        if (rowIndex > -1) {
+            listForm->setRowIndex(rowIndex); // Edit existing data (current selected row index)
+        }
+
         connect(listForm, &CreateListForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(listForm, &CreateListForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
         break;
@@ -250,6 +258,10 @@ void MainWindow::createView(TableForm::Type type, int rowIndex)
         setCentralWidget(templatesForm);
         delete mainForm;
         this->prewView = templatesForm; // Save current view
+
+        if (rowIndex > -1) {
+            templatesForm->setRowIndex(rowIndex); // Edit existing data (current selected row index)
+        }
 
         connect(templatesForm, &CreateTemplatesForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(templatesForm, &CreateTemplatesForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
@@ -268,6 +280,10 @@ void MainWindow::createView(TableForm::Type type, int rowIndex)
         setCentralWidget(extFuncForm);
         delete mainForm;
         this->prewView = extFuncForm; // Save current view
+
+        if (rowIndex > -1) {
+            extFuncForm->setRowIndex(rowIndex); // Edit existing data (current selected row index)
+        }
 
         connect(extFuncForm, &CreateExtFuncForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(extFuncForm, &CreateExtFuncForm::sygnalSubmit, this, [this, type]() { setMainView(type); });

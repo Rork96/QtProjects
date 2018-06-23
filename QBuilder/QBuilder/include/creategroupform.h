@@ -5,6 +5,9 @@
 #include <QSqlTableModel>
 #include <QDataWidgetMapper>
 
+#define TABLE   "admin_groups"
+#define RECORD  "Group name"
+
 namespace Ui {
 class CreateGroupForm;
 }

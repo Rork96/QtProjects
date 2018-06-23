@@ -11,7 +11,7 @@ CreateGroupForm::CreateGroupForm(QWidget *parent) :
     ui->setupUi(this);
 
     model = new QSqlTableModel(this);
-    model->setTable("admin_groups");
+    model->setTable(TABLE);
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model->setSort(0, Qt::AscendingOrder);
     model->select();
@@ -44,8 +44,8 @@ void CreateGroupForm::submitChanges()
     // Save changes to database
 
     QSqlQuery query;
-    QString str = QString("SELECT EXISTS (SELECT 'Group name' FROM admin_groups"
-            " WHERE 'Group name' = '%1' AND key NOT LIKE '%2' )").arg(ui->groupNameLine->text(),
+    QString str = QString("SELECT EXISTS (SELECT 'Group name' FROM" TABLE
+            " WHERE '" RECORD "' = '%1' AND key NOT LIKE '%2' )").arg(ui->groupNameLine->text(),
                         model->data(model->index(mapper->currentIndex(), 0), Qt::DisplayRole).toInt());
 
     query.prepare(str);
@@ -55,7 +55,7 @@ void CreateGroupForm::submitChanges()
     // If exists
     if (mapper->currentIndex() > model->rowCount() && query.value(0) != 0) {
         QMessageBox::information(this, trUtf8("Error"),
-                                 trUtf8("Group name is already exists"));
+                                 trUtf8(RECORD " is already exists"));
         return;
     }
     else {

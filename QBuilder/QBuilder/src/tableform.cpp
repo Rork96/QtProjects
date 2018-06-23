@@ -16,21 +16,7 @@ TableForm::TableForm(QWidget *parent) :
     ui->searchLine->setVisible(false);
     ui->searchParamBox->setVisible(false);
 
-    connect(ui->searchButton, &QToolButton::clicked, this, [this] {
-        // Show widgets for providing search
-        ui->searchLine->setVisible(!ui->searchLine->isVisible());
-        ui->searchParamBox->setVisible(!ui->searchParamBox->isVisible());
-        ui->searchLine->clear();
-        ui->searchParamBox->clear();
-        // Get column header names from table
-        /*
-         *
-         * 
-         *
-         *
-         * 
-         */
-    });
+    connect(ui->searchButton, &QToolButton::clicked, this, &TableForm::showSearchWidgets);
 
     connect(ui->searchLine, &QLineEdit::textChanged, this, &TableForm::searchInDB); // Interactive search in database
 
@@ -39,7 +25,7 @@ TableForm::TableForm(QWidget *parent) :
     });
 
     connect(ui->editButton, &QToolButton::clicked, this, [this] {
-        // Edit existing data
+        // Edit existing data, second parameter - selected row in the table
         emit createData(this->viewType, ui->mainTableView->selectionModel()->selectedRows().at(0).row());
     });
 
@@ -60,14 +46,17 @@ void TableForm::loadDataFromDB()
     switch (this->viewType) {
         case TableForm::groups:
             mainModel = new QSqlTableModel(this);
-            mainModel->setTable("admin_groups");
+            this->table = "admin_groups";
+            mainModel->setTable(this->table);
 
             mainModel->setSort(0, Qt::AscendingOrder);
             mainModel->select();
             ui->mainTableView->setModel(mainModel);
             ui->mainTableView->setColumnHidden(0, true);
-            ui->mainTableView->horizontalHeader()->setStretchLastSection(true);
-            ui->mainTableView->setColumnWidth(1, static_cast<int>(QApplication::primaryScreen()->size().width() / 3));
+            // Columns size
+            for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
+                ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+            }
             break;
         case TableForm::users:
             break;
@@ -109,18 +98,39 @@ void TableForm::loadDataFromDB()
     ui->mainTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
+void TableForm::showSearchWidgets()
+{
+    // Show widgets for providing search
+    ui->searchLine->setVisible(!ui->searchLine->isVisible());
+    ui->searchParamBox->setVisible(!ui->searchParamBox->isVisible());
+    ui->searchLine->clear();
+    ui->searchParamBox->clear();
+
+    // Get column header names from table
+    QSqlQuery query;
+    if (query.exec( "SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '" +
+                    this->table + "' AND NOT column_name LIKE '%key%'" )) {
+        while (query.next()) {
+            ui->searchParamBox->addItem(query.value(0).toString());
+        }
+    }
+}
+
 void TableForm::searchInDB(const QString &arg1)
 {
     // Interactive search in current database table
 
     // Set parameters for search
-    QString serchStr = ui->searchParamBox->currentText();
+    QString searchStr = ui->searchParamBox->currentText();
 
-    if ((serchStr.isEmpty()) || (arg1.isEmpty())) {
+    qDebug() << searchStr;
+    qDebug() << arg1;
+
+    if ((searchStr.isEmpty()) || (arg1.isEmpty())) {
         mainModel->setFilter("'%' LIKE '%'");
     }
     else {
-        mainModel->setFilter(serchStr + " LIKE '%" + arg1 + "%'");
+        mainModel->setFilter("'" + searchStr + "' LIKE '%" + arg1 + "%'");
     }
 
     mainModel->select();
@@ -130,7 +140,7 @@ void TableForm::setViewType(Type type)
 {
     this->viewType = type;
 
-    if (type == Type::screens || type == Type::custom_query) {
+    if (this->viewType == Type::screens || this->viewType == Type::custom_query) {
         ui->builderCreateButton->setVisible(true);  // Show "Create with builder" button
         ui->builderUpdateButton->setVisible(true);  // Show "Update with builder" button
 

@@ -44,6 +44,9 @@ private:
 
     QSqlTableModel *mainModel;
 
+    QString table;
+
+    void showSearchWidgets();               // Show widgets for providing search
     void searchInDB(const QString &arg1);   // Interactive search in database
     Type viewType;
 

@@ -9,12 +9,11 @@
 #include <QFile>
 #include <QDate>
 #include <QDebug>
-
 #include <QDir>
 
 /* Connection parameters */
 #define DATABASE_HOSTNAME   "localhost"
-#define DATABASE_NAME       "postgres"
+#define DATABASE_NAME       "BuilderBase"
 #define PORT                5432
 #define USER_NAME           "postgres"
 #define PASSWORD            "123"

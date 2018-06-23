@@ -469,7 +469,7 @@ QToolButton:pressed {
               </widget>
              </item>
              <item>
-              <widget class="QCheckBox" name="checkBox">
+              <widget class="QCheckBox" name="passwordLengthBox">
                <property name="styleSheet">
                 <string notr="true"/>
                </property>
@@ -622,7 +622,7 @@ QToolButton:pressed {
             </layout>
            </item>
            <item row="2" column="0">
-            <widget class="QLabel" name="label_2">
+            <widget class="QLabel" name="passwordLabel">
              <property name="styleSheet">
               <string notr="true"/>
              </property>
@@ -2821,7 +2821,7 @@ QToolButton:pressed {
  <tabstops>
   <tabstop>userNameLine</tabstop>
   <tabstop>passwordLine</tabstop>
-  <tabstop>checkBox</tabstop>
+  <tabstop>passwordLengthBox</tabstop>
   <tabstop>accountCheckBox</tabstop>
   <tabstop>accountTypeBox</tabstop>
   <tabstop>tenantCodeBox</tabstop>

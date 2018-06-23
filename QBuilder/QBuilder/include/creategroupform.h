@@ -5,7 +5,7 @@
 #include <QSqlTableModel>
 #include <QDataWidgetMapper>
 
-#define TABLE   "admin_groups"
+#define TABLE   "groups"
 #define RECORD  "Group name"
 
 namespace Ui {

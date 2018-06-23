@@ -3,6 +3,11 @@
 
 #include <QWidget>
 #include <QComboBox>
+#include <QSqlTableModel>
+#include <QDataWidgetMapper>
+
+#define TABLE   "user"
+#define RECORD  "User name"
 
 namespace Ui {
 class CreateUserForm;
@@ -16,10 +21,16 @@ public:
     explicit CreateUserForm(QWidget *parent = 0);
     ~CreateUserForm();
 
+    void setRowIndex(int rowIndex); // User chose to edit data from the table
+
 private:
     Ui::CreateUserForm *ui;
 
-    void initComboBox(QList<QComboBox*> elements); // Init comboboxes with colors
+    QSqlTableModel *model;
+    QDataWidgetMapper *mapper;
+
+    void initComboBox(QList<QComboBox*> elements);  // Init comboboxes with colors
+    void checkPasswordLength(const QString &arg1);
 
     void submitChanges();
     void openImage();

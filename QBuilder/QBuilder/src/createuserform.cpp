@@ -5,12 +5,32 @@
 #include <QFileDialog>
 #include <QStandardPaths>
 #include <QFileInfo>
+#include <QMessageBox>
+#include <QSqlQuery>
 
 CreateUserForm::CreateUserForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CreateUserForm)
 {
-    ui->setupUi(this);    
+    ui->setupUi(this);
+
+    model = new QSqlTableModel(this);
+    model->setTable(TABLE);
+    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    model->setSort(0, Qt::AscendingOrder);
+    model->select();
+
+    // View data with mapper
+    mapper = new QDataWidgetMapper();
+    mapper->setModel(model);
+    mapper->addMapping(ui->userNameLine, 1);
+
+
+    mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
+
+    model->insertRow(model->rowCount(QModelIndex()));
+
+    mapper->toLast();
 
     connect(ui->backButton, &QToolButton::clicked, this, [this] {
        emit sygnalBack();
@@ -30,6 +50,8 @@ CreateUserForm::CreateUserForm(QWidget *parent) :
     connect(ui->avatarButton, &QPushButton::clicked, this, &CreateUserForm::openImage);
     connect(ui->bodyImgButton, &QPushButton::clicked, this, &CreateUserForm::openImage);
     connect(ui->menuImgButton, &QPushButton::clicked, this, &CreateUserForm::openImage);
+
+    connect(ui->passwordLine, &QLineEdit::textChanged, this, &CreateUserForm::checkPasswordLength);
 }
 
 CreateUserForm::~CreateUserForm()
@@ -41,7 +63,30 @@ void CreateUserForm::submitChanges()
 {
     // Save changes to database
 
-    // Send sygnal
+    QSqlQuery query;
+    QString str = QString("SELECT EXISTS (SELECT 'Group name' FROM" TABLE
+                          " WHERE '" RECORD "' = '%1' AND key NOT LIKE '%2' )").arg(ui->userNameLine->text(),
+                                      model->data(model->index(mapper->currentIndex(), 0), Qt::DisplayRole).toInt());
+
+    query.prepare(str);
+    query.exec();
+    query.next();
+
+    // If exists
+    if (mapper->currentIndex() > model->rowCount() && query.value(0) != 0) {
+        QMessageBox::information(this, trUtf8("Error"),
+                                 trUtf8(RECORD " is already exists"));
+        return;
+    }
+    else {
+        // Insert new data
+        mapper->submit();
+        model->submitAll();
+    }
+    model->select();
+    mapper->toLast();
+
+    // Send signal
     emit sygnalSubmit();
 }
 
@@ -94,5 +139,22 @@ void CreateUserForm::initComboBox(QList<QComboBox*> elements)
             element->setItemData(con, pixmap, Qt::DecorationRole);      // Color icon
             con = con + 1;
         }
+    }
+}
+
+void CreateUserForm::setRowIndex(int rowIndex)
+{
+    // User chose to edit data from the table
+    mapper->setCurrentIndex(rowIndex);
+}
+
+void CreateUserForm::checkPasswordLength(const QString &arg1)
+{
+    // Check password length
+
+    int length = ui->passwordLine->text().size();
+
+    if (length > 5 && !ui->passwordLengthBox->isChecked()) {
+        ui->passwordLabel->setText("Password - Too short");
     }
 }

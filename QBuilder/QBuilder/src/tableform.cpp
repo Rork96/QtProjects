@@ -46,7 +46,7 @@ void TableForm::loadDataFromDB()
     switch (this->viewType) {
         case TableForm::groups:
             mainModel = new QSqlTableModel(this);
-            this->table = "admin_groups";
+            this->table = "groups";
             mainModel->setTable(this->table);
 
             mainModel->setSort(0, Qt::AscendingOrder);
@@ -59,6 +59,18 @@ void TableForm::loadDataFromDB()
             }
             break;
         case TableForm::users:
+            mainModel = new QSqlTableModel(this);
+            this->table = "user";
+            mainModel->setTable(this->table);
+
+            mainModel->setSort(0, Qt::AscendingOrder);
+            mainModel->select();
+            ui->mainTableView->setModel(mainModel);
+            ui->mainTableView->setColumnHidden(0, true);
+            // Columns size
+            for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
+                ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+            }
             break;
         case TableForm::tenant:
             break;
@@ -121,6 +133,16 @@ void TableForm::searchInDB(const QString &arg1)
     // Interactive search in current database table
 
     // Set parameters for search
+
+    /*
+     *
+     *
+     * Is'n work properly
+     *
+     *
+     */
+
+
     QString searchStr = ui->searchParamBox->currentText();
 
     qDebug() << searchStr;

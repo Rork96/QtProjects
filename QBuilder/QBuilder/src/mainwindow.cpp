@@ -294,6 +294,10 @@ void MainWindow::createView(TableForm::Type type, int rowIndex)
         delete mainForm;
         this->prewView = serverForm; // Save current view
 
+        if (rowIndex > -1) {
+            serverForm->setRowIndex(rowIndex); // Edit existing data (current selected row index)
+        }
+
         connect(serverForm, &CreateServerForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(serverForm, &CreateServerForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
         break;
@@ -303,6 +307,10 @@ void MainWindow::createView(TableForm::Type type, int rowIndex)
         delete mainForm;
         this->prewView = questionForm; // Save current view
 
+        if (rowIndex > -1) {
+            questionForm->setRowIndex(rowIndex); // Edit existing data (current selected row index)
+        }
+
         connect(questionForm, &CreateQuestionForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(questionForm, &CreateQuestionForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
         break;
@@ -311,6 +319,10 @@ void MainWindow::createView(TableForm::Type type, int rowIndex)
         setCentralWidget(queryForm);
         delete mainForm;
         this->prewView = queryForm; // Save current view
+
+        if (rowIndex > -1) {
+            queryForm->setRowIndex(rowIndex); // Edit existing data (current selected row index)
+        }
 
         connect(queryForm, &CreateQueryForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(queryForm, &CreateQueryForm::sygnalSubmit, this, [this, type]() { setMainView(type); });

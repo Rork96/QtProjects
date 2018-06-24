@@ -2,6 +2,11 @@
 #define CREATEQUERYFORM_H
 
 #include <QWidget>
+#include <QSqlTableModel>
+#include <QDataWidgetMapper>
+
+#define TABLE   "query"
+#define RECORD  "Query name"
 
 namespace Ui {
 class CreateQueryForm;
@@ -15,8 +20,13 @@ public:
     explicit CreateQueryForm(QWidget *parent = 0);
     ~CreateQueryForm();
 
+    void setRowIndex(int rowIndex); // User chose to edit data from the table
+
 private:
     Ui::CreateQueryForm *ui;
+
+    QSqlTableModel *model;
+    QDataWidgetMapper *mapper;
 
     void submitChanges();
 

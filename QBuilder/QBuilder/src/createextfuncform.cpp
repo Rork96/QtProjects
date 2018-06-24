@@ -24,7 +24,16 @@ CreateExtFuncForm::CreateExtFuncForm(QWidget *parent) :
     mapper->addMapping(ui->extLibLine, 3);
     mapper->addMapping(ui->extFuncLine, 4);
     mapper->addMapping(ui->extFreeMemline, 5);
-    mapper->addMapping(ui->extTypeBox, 6);      // Extension type ? (maybe type integer and link to comboBox, or type integer and link to record un other table)
+    //mapper->addMapping(ui->extTypeBox, 6);      // Extension type ? (maybe type integer and link to comboBox, or type integer and link to record un other table)
+
+    QSqlQueryModel *select = new QSqlQueryModel(this);
+    select->setQuery("select type from extension_type");
+    ui->extTypeBox->setModel(select);
+
+    mapper->addMapping(ui->extTypeBox, model->fieldIndex("Extension type"), "currentIndex");
+
+    //ui->extTypeBox->setCurrentIndex(mapper->currentIndex());
+
     mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
 
     model->insertRow(model->rowCount(QModelIndex()));
@@ -47,15 +56,6 @@ void CreateExtFuncForm::submitChanges()
 {
     // Save changes to database
 
-    QSqlQuery query;
-    QString str = QString("SELECT EXISTS (SELECT 'Group name' FROM" TABLE
-        " WHERE id NOT LIKE '%1' )").arg(model->data(model->index(mapper->currentIndex(), 0), Qt::DisplayRole).toInt());
-
-    query.prepare(str);
-    query.exec();
-    query.next();
-
-    // Insert new data
     mapper->submit();
     model->submitAll();
 

@@ -3,6 +3,7 @@
 
 #include "database.h"
 #include <QScreen>
+#include <QSqlRelationalDelegate>
 
 TableForm::TableForm(QWidget *parent) :
     QWidget(parent),
@@ -45,7 +46,7 @@ void TableForm::loadDataFromDB()
 
     switch (this->viewType) {
         case TableForm::groups:
-            mainModel = new QSqlTableModel(this);
+            mainModel = new QSqlRelationalTableModel(this);
             this->table = "groups";
             mainModel->setTable(this->table);
 
@@ -61,7 +62,7 @@ void TableForm::loadDataFromDB()
             break;
         case TableForm::users:
             /*mainModel = new QSqlTableModel(this);
-            this->table = "user";
+            this->table = "users";
             mainModel->setTable(this->table);
 
             mainModel->setSort(0, Qt::AscendingOrder);
@@ -90,7 +91,7 @@ void TableForm::loadDataFromDB()
         case TableForm::document_groups:
             break;
         case TableForm::lists:
-            mainModel = new QSqlTableModel(this);
+            mainModel = new QSqlRelationalTableModel(this);
             this->table = "lists";
             mainModel->setTable(this->table);
 
@@ -106,7 +107,7 @@ void TableForm::loadDataFromDB()
             }
             break;
         case TableForm::templates:
-            mainModel = new QSqlTableModel(this);
+            mainModel = new QSqlRelationalTableModel(this);
             this->table = "templates";
             mainModel->setTable(this->table);
 
@@ -124,7 +125,7 @@ void TableForm::loadDataFromDB()
         case TableForm::custom_data_sources:
             break;
         case TableForm::extension_functions:
-            mainModel = new QSqlTableModel(this);
+            mainModel = new QSqlRelationalTableModel(this);
             this->table = "extension_functions";
             mainModel->setTable(this->table);
 
@@ -132,8 +133,14 @@ void TableForm::loadDataFromDB()
             mainModel->select();
             ui->mainTableView->setModel(mainModel);
 
-            ui->mainTableView->setColumnHidden(0, true);    // Hide columns
-            ui->mainTableView->setColumnHidden(3, true);    // Hide columns
+            // Select extension type from extension_type table by id
+            mainModel->setRelation(6, QSqlRelation("extension_type", "id", "type"));
+            ui->mainTableView->setItemDelegate(new QSqlRelationalDelegate(ui->mainTableView));
+            mainModel->select();
+
+            // Hide columns
+            ui->mainTableView->setColumnHidden(0, true);
+            ui->mainTableView->setColumnHidden(3, true);
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
@@ -141,10 +148,62 @@ void TableForm::loadDataFromDB()
             }
             break;
         case TableForm::servers:
+            mainModel = new QSqlRelationalTableModel(this);
+            this->table = "servers";
+            mainModel->setTable(this->table);
+
+            mainModel->setSort(0, Qt::AscendingOrder);
+            mainModel->select();
+            ui->mainTableView->setModel(mainModel);
+
+            // Hide columns
+            ui->mainTableView->setColumnHidden(0, true);
+            ui->mainTableView->setColumnHidden(4, true);
+
+            // Columns size
+            for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
+                ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+            }
             break;
         case TableForm::security_questions:
+            mainModel = new QSqlRelationalTableModel(this);
+            this->table = "security_question";
+            mainModel->setTable(this->table);
+
+            mainModel->setSort(0, Qt::AscendingOrder);
+            mainModel->select();
+            ui->mainTableView->setModel(mainModel);
+
+            // Select question type from question table by id
+            mainModel->setRelation(1, QSqlRelation("question", "id", "type"));
+            ui->mainTableView->setItemDelegate(new QSqlRelationalDelegate(ui->mainTableView));
+            mainModel->select();
+
+            ui->mainTableView->setColumnHidden(0, true); // Hide column
+
+            // Columns size
+            for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
+                ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+            }
             break;
         case TableForm::custom_query:
+            mainModel = new QSqlRelationalTableModel(this);
+            this->table = "query";
+            mainModel->setTable(this->table);
+
+            mainModel->setSort(0, Qt::AscendingOrder);
+            mainModel->select();
+            ui->mainTableView->setModel(mainModel);
+
+            // Hide columns
+            ui->mainTableView->setColumnHidden(0, true);
+            ui->mainTableView->setColumnHidden(2, true);
+            ui->mainTableView->setColumnHidden(3, true);
+
+            // Columns size
+            for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
+                ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+            }
             break;
         default:
             break;

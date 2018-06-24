@@ -2,6 +2,10 @@
 #define CREATEQUESTIONFORM_H
 
 #include <QWidget>
+#include <QSqlTableModel>
+#include <QDataWidgetMapper>
+
+#define TABLE   "security_question"
 
 namespace Ui {
 class CreateQuestionForm;
@@ -15,8 +19,13 @@ public:
     explicit CreateQuestionForm(QWidget *parent = 0);
     ~CreateQuestionForm();
 
+    void setRowIndex(int rowIndex); // User chose to edit data from the table
+
 private:
     Ui::CreateQuestionForm *ui;
+
+    QSqlTableModel *model;
+    QDataWidgetMapper *mapper;
 
     void submitChanges();
 

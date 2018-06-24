@@ -2,7 +2,7 @@
 #define TABLEFORM_H
 
 #include <QWidget>
-#include <QSqlTableModel>
+#include <QSqlRelationalTableModel>
 
 namespace Ui {
 class TableForm;
@@ -42,7 +42,7 @@ public:
 private:
     Ui::TableForm *ui;
 
-    QSqlTableModel *mainModel;
+    QSqlRelationalTableModel *mainModel;    // For providing relations between tables
 
     QString table;
 

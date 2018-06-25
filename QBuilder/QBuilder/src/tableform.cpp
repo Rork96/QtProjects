@@ -90,7 +90,7 @@ void TableForm::loadDataFromDB()
             ui->mainTableView->setModel(mainModel);
 
             // Select Group name from groups table by id
-            //mainModel->setRelation(1, QSqlRelation("groups", "id", "Group name"));
+            mainModel->setRelation(1, QSqlRelation("groups", "id", "Group name"));
             ui->mainTableView->setItemDelegate(new QSqlRelationalDelegate(ui->mainTableView));
             mainModel->select();
 

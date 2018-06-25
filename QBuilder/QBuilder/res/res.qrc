@@ -10,5 +10,6 @@
         <file>log.png</file>
         <file>view.png</file>
         <file>QBuilder.png</file>
+        <file>gear.png</file>
     </qresource>
 </RCC>

@@ -2,7 +2,7 @@
 #define CREATEQUESTIONFORM_H
 
 #include <QWidget>
-#include <QSqlTableModel>
+#include <QSqlRelationalTableModel>
 #include <QDataWidgetMapper>
 
 #define TABLE   "security_question"
@@ -24,7 +24,7 @@ public:
 private:
     Ui::CreateQuestionForm *ui;
 
-    QSqlTableModel *model;
+    QSqlRelationalTableModel *model;
     QDataWidgetMapper *mapper;
 
     void submitChanges();

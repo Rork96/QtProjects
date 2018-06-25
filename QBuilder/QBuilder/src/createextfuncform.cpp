@@ -3,6 +3,7 @@
 
 #include <QSqlQuery>
 #include <QMessageBox>
+#include <QSqlRelationalDelegate>
 
 CreateExtFuncForm::CreateExtFuncForm(QWidget *parent) :
     QWidget(parent),
@@ -10,34 +11,35 @@ CreateExtFuncForm::CreateExtFuncForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    model = new QSqlTableModel(this);
+    model = new QSqlRelationalTableModel(this);
     model->setTable(TABLE);
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model->setSort(0, Qt::AscendingOrder);
+
+    // Set relation between tables
+    int typeIndex = model->fieldIndex("Extension type");
+    model->setRelation(typeIndex, QSqlRelation("extension_type", "id", "type"));
     model->select();
 
-    // View data in lineEdit with mapper
-    mapper = new QDataWidgetMapper();
+    // New relation model for combobox
+    QSqlTableModel *relModel = model->relationModel(typeIndex); // Relation index
+    ui->extTypeBox->setModel(relModel);
+    ui->extTypeBox->setModelColumn(relModel->fieldIndex("type"));
+
+    // Mapper
+    mapper = new QDataWidgetMapper(this);
     mapper->setModel(model);
+    mapper->setItemDelegate(new QSqlRelationalDelegate(this));
+    // View data with mapper
     mapper->addMapping(ui->dataLibLine, 1);
     mapper->addMapping(ui->dataFuncLine, 2);
     mapper->addMapping(ui->extLibLine, 3);
     mapper->addMapping(ui->extFuncLine, 4);
     mapper->addMapping(ui->extFreeMemline, 5);
-    //mapper->addMapping(ui->extTypeBox, 6);      // Extension type ? (maybe type integer and link to comboBox, or type integer and link to record un other table)
-
-    QSqlQueryModel *select = new QSqlQueryModel(this);
-    select->setQuery("select type from extension_type");
-    ui->extTypeBox->setModel(select);
-
-    mapper->addMapping(ui->extTypeBox, model->fieldIndex("Extension type"), "currentIndex");
-
-    //ui->extTypeBox->setCurrentIndex(mapper->currentIndex());
+    mapper->addMapping(ui->extTypeBox, typeIndex);    // Relation by index
 
     mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
-
     model->insertRow(model->rowCount(QModelIndex()));
-
     mapper->toLast();
 
     connect(ui->backButton, &QToolButton::clicked, this, [this] {

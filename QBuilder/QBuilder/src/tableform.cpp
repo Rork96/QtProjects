@@ -81,6 +81,27 @@ void TableForm::loadDataFromDB()
         case TableForm::security_filters:
             break;
         case TableForm::menu:
+            mainModel = new QSqlRelationalTableModel(this);
+            this->table = "menu";
+            mainModel->setTable(this->table);
+
+            mainModel->setSort(0, Qt::AscendingOrder);
+            mainModel->select();
+            ui->mainTableView->setModel(mainModel);
+
+            // Select Group name from groups table by id
+            //mainModel->setRelation(1, QSqlRelation("groups", "id", "Group name"));
+            ui->mainTableView->setItemDelegate(new QSqlRelationalDelegate(ui->mainTableView));
+            mainModel->select();
+
+            // Hide columns
+            ui->mainTableView->setColumnHidden(0, true);
+            ui->mainTableView->setColumnHidden(3, true);
+
+            // Columns size
+            for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
+                ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+            }
             break;
         case TableForm::group_screens:
             break;

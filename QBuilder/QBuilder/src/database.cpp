@@ -45,11 +45,13 @@ bool DataBase::openDataBase()
             while (query.next()) {
                 QString result = query.value(0).toString();
                 qDebug() << result;
-                if (result != this->password) {
+                return !(result != this->password);
+                /*if (result != this->password) {
                     return false;
                 }
+                else return true;*/
             }
-            return true;
+            return false;
         }
         else {
             return false;

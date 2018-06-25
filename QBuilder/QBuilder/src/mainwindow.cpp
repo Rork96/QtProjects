@@ -201,6 +201,10 @@ void MainWindow::createView(TableForm::Type type, int rowIndex)
         delete mainForm;
         this->prewView = menuForm; // Save current view
 
+        if (rowIndex > -1) {
+            menuForm->setRowIndex(rowIndex); // Edit existing data (current selected row index)
+        }
+
         connect(menuForm, &CreateMenuForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(menuForm, &CreateMenuForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
         break;

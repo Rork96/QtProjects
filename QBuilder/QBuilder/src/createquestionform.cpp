@@ -3,6 +3,7 @@
 
 #include <QSqlQuery>
 #include <QMessageBox>
+#include <QSqlRelationalDelegate>
 
 CreateQuestionForm::CreateQuestionForm(QWidget *parent) :
     QWidget(parent),
@@ -10,28 +11,31 @@ CreateQuestionForm::CreateQuestionForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    model = new QSqlTableModel(this);
+    model = new QSqlRelationalTableModel(this);
     model->setTable(TABLE);
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model->setSort(0, Qt::AscendingOrder);
+
+    // Set relation between tables
+    int typeIndex = model->fieldIndex("Security question");
+    model->setRelation(typeIndex, QSqlRelation("question", "id", "type"));
     model->select();
 
-    // View data in lineEdit with mapper
-    mapper = new QDataWidgetMapper();
+    // New relation model for combobox
+    QSqlTableModel *relModel = model->relationModel(typeIndex); // Relation index
+    ui->sQuestionBox->setModel(relModel);
+    ui->sQuestionBox->setModelColumn(relModel->fieldIndex("type"));
+
+    // Mapper
+    mapper = new QDataWidgetMapper(this);
     mapper->setModel(model);
-    //mapper->addMapping(ui->sQuestionBox, 1);
+    mapper->setItemDelegate(new QSqlRelationalDelegate(this));
+    // View data with mapper
+    mapper->addMapping(ui->sQuestionBox, typeIndex);    // Relation by index
     mapper->addMapping(ui->answerLine, 2);
 
-    QSqlQueryModel *select = new QSqlQueryModel(this);
-    select->setQuery("select type from question");
-    ui->sQuestionBox->setModel(select);
-
-    mapper->addMapping(ui->sQuestionBox, model->fieldIndex("Security question"), "currentIndex");
-
     mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
-
     model->insertRow(model->rowCount(QModelIndex()));
-
     mapper->toLast();
 
     connect(ui->backButton, &QToolButton::clicked, this, [this] {

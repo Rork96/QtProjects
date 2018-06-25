@@ -2,7 +2,7 @@
 #define CREATEEXTFUNCFORM_H
 
 #include <QWidget>
-#include <QSqlTableModel>
+#include <QSqlRelationalTableModel>
 #include <QDataWidgetMapper>
 
 #define TABLE   "extension_functions"
@@ -24,7 +24,7 @@ public:
 private:
     Ui::CreateExtFuncForm *ui;
 
-    QSqlTableModel *model;
+    QSqlRelationalTableModel *model;
     QDataWidgetMapper *mapper;
 
     void submitChanges();

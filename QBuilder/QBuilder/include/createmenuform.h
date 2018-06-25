@@ -2,6 +2,10 @@
 #define CREATEMENUFORM_H
 
 #include <QWidget>
+#include <QSqlRelationalTableModel>
+#include <QDataWidgetMapper>
+
+#define TABLE   "menu"
 
 namespace Ui {
 class CreateMenuForm;
@@ -15,8 +19,13 @@ public:
     explicit CreateMenuForm(QWidget *parent = 0);
     ~CreateMenuForm();
 
+    void setRowIndex(int rowIndex); // User chose to edit data from the table
+
 private:
     Ui::CreateMenuForm *ui;
+
+    QSqlRelationalTableModel *model;
+    QDataWidgetMapper *mapper;
 
     void submitChanges();
 

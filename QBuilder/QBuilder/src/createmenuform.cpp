@@ -17,9 +17,9 @@ CreateMenuForm::CreateMenuForm(QWidget *parent) :
 
     // Set relation between tables
     int typeIndex = model->fieldIndex("Group name");
-    int iconIndex = model->fieldIndex("Group name");
+    int iconIndex = model->fieldIndex("Menu icon");
     model->setRelation(typeIndex, QSqlRelation("groups", "id", "Group name"));
-    model->setRelation(iconIndex, QSqlRelation("icons", "id", "icon"));
+    model->setRelation(iconIndex, QSqlRelation("ico", "id", "icon"));
     model->select();
 
     // New relation model for combobox

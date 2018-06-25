@@ -82,7 +82,7 @@ void TableForm::loadDataFromDB()
             break;
         case TableForm::menu:
             mainModel = new QSqlRelationalTableModel(this);
-            this->table = "menu";
+            this->table = "menus";
             mainModel->setTable(this->table);
 
             mainModel->setSort(0, Qt::AscendingOrder);
@@ -91,6 +91,7 @@ void TableForm::loadDataFromDB()
 
             // Select Group name from groups table by id
             mainModel->setRelation(1, QSqlRelation("groups", "id", "Group name"));
+            //PostgreSQL 9.6.7
             ui->mainTableView->setItemDelegate(new QSqlRelationalDelegate(ui->mainTableView));
             mainModel->select();
 

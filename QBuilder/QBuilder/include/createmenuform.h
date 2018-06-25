@@ -5,7 +5,7 @@
 #include <QSqlRelationalTableModel>
 #include <QDataWidgetMapper>
 
-#define TABLE   "menu"
+#define TABLE   "menus"
 
 namespace Ui {
 class CreateMenuForm;

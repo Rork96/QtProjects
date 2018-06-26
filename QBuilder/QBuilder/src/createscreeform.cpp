@@ -16,8 +16,8 @@ CreateScreeForm::CreateScreeForm(QWidget *parent) :
     model->setSort(0, Qt::AscendingOrder);
 
     // Set relation between tables
-    int scrIndex = model->fieldIndex("scr_name");
-    model->setRelation(scrIndex, QSqlRelation("group_screen", "id", "scr_text"));
+    int scrIndex = model->fieldIndex("Screen name");
+    model->setRelation(scrIndex, QSqlRelation("group_screen", "id", "scr_name"));
     int libIndex = model->fieldIndex("library");
     model->setRelation(libIndex, QSqlRelation("libraries", "id", "lib_name"));
 
@@ -26,7 +26,7 @@ CreateScreeForm::CreateScreeForm(QWidget *parent) :
     // New relation model for groupNameBox
     QSqlTableModel *relModel = model->relationModel(scrIndex); // Relation index
     ui->scrNameBox->setModel(relModel);
-    ui->scrNameBox->setModelColumn(relModel->fieldIndex("scr_text"));
+    ui->scrNameBox->setModelColumn(relModel->fieldIndex("scr_name"));
 
     // New relation model for menuNameBox
     QSqlTableModel *rModel = model->relationModel(libIndex); // Relation index
@@ -73,7 +73,7 @@ void CreateScreeForm::submitChanges()
     // n_name (integer) from group_screen table
     // scr_name (text) from group_screen table
 
-    
+    //select 'n_name' from 'group_screen' where 'scr_name'=" + ui->scrNameBox.text()
 
     mapper->submit();
     model->submitAll();

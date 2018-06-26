@@ -2,6 +2,10 @@
 #define CREATEGROUPSCREENFORM_H
 
 #include <QWidget>
+#include <QSqlRelationalTableModel>
+#include <QDataWidgetMapper>
+
+#define TABLE   "group_screen"
 
 namespace Ui {
 class CreateGroupScreenForm;
@@ -15,8 +19,13 @@ public:
     explicit CreateGroupScreenForm(QWidget *parent = 0);
     ~CreateGroupScreenForm();
 
+    void setRowIndex(int rowIndex); // User chose to edit data from the table
+
 private:
     Ui::CreateGroupScreenForm *ui;
+
+    QSqlRelationalTableModel *model;
+    QDataWidgetMapper *mapper;
 
     void submitChanges();
 

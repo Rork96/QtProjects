@@ -42,7 +42,7 @@ void TableForm::loadDataFromDB()
 {
     // Load data
 
-    QStringList headers;
+    //QStringList headers;
 
     switch (this->viewType) {
         case TableForm::groups:
@@ -90,8 +90,7 @@ void TableForm::loadDataFromDB()
             ui->mainTableView->setModel(mainModel);
 
             // Select Group name from groups table by id
-            mainModel->setRelation(1, QSqlRelation("groups", "id", "Group name"));
-            //PostgreSQL 9.6.7
+            mainModel->setRelation(1, QSqlRelation("groups", "id", "name"));
             ui->mainTableView->setItemDelegate(new QSqlRelationalDelegate(ui->mainTableView));
             mainModel->select();
 
@@ -105,8 +104,50 @@ void TableForm::loadDataFromDB()
             }
             break;
         case TableForm::group_screens:
+            mainModel = new QSqlRelationalTableModel(this);
+            this->table = "group_screen";
+            mainModel->setTable(this->table);
+
+            mainModel->setSort(0, Qt::AscendingOrder);
+            mainModel->select();
+            ui->mainTableView->setModel(mainModel);
+
+            // Select Group name from groups table by id
+            mainModel->setRelation(13, QSqlRelation("groups", "id", "name"));
+            mainModel->setRelation(14, QSqlRelation("menus", "id", "text"));
+            ui->mainTableView->setItemDelegate(new QSqlRelationalDelegate(ui->mainTableView));
+            mainModel->select();
+
+            // Columns size
+            for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
+                ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+                if (i < 1 || (i > 6 && i < 13))
+                    ui->mainTableView->setColumnHidden(i, true);    // Hide columns
+            };
             break;
         case TableForm::screens:
+            // Problem in displaying
+            mainModel = new QSqlRelationalTableModel(this);
+            this->table = "screens";
+            mainModel->setTable(this->table);
+
+            mainModel->setSort(0, Qt::AscendingOrder);
+            mainModel->select();
+            ui->mainTableView->setModel(mainModel);
+
+            // Select Group name from groups table by id
+            mainModel->setRelation(1, QSqlRelation("menus", "id", "text"));
+            mainModel->setRelation(2, QSqlRelation("group_screen", "id", "s_text"));
+            mainModel->setRelation(3, QSqlRelation("libraries", "id", "lib_name"));
+            ui->mainTableView->setItemDelegate(new QSqlRelationalDelegate(ui->mainTableView));
+            mainModel->select();
+
+            // Columns size
+            for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
+                ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+                if (i < 1 || (i == 7))
+                    ui->mainTableView->setColumnHidden(i, true);    // Hide columns
+            };
             break;
         case TableForm::document_family:
             break;
@@ -145,6 +186,26 @@ void TableForm::loadDataFromDB()
             }
             break;
         case TableForm::custom_data_sources:
+            mainModel = new QSqlRelationalTableModel(this);
+            this->table = "data_sources";
+            mainModel->setTable(this->table);
+
+            mainModel->setSort(0, Qt::AscendingOrder);
+            mainModel->select();
+            ui->mainTableView->setModel(mainModel);
+
+            // Select Group name from groups table by id
+            mainModel->setRelation(4, QSqlRelation("function_type", "id", "func_type"));
+            mainModel->setRelation(5, QSqlRelation("direction_type", "id", "direct_type"));
+            ui->mainTableView->setItemDelegate(new QSqlRelationalDelegate(ui->mainTableView));
+            mainModel->select();
+
+            // Columns size
+            for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
+                ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+                if (i < 1 || i == 3 || i > 5)
+                    ui->mainTableView->setColumnHidden(i, true);    // Hide columns
+            }
             break;
         case TableForm::extension_functions:
             mainModel = new QSqlRelationalTableModel(this);
@@ -267,7 +328,6 @@ void TableForm::searchInDB(const QString &arg1)
      *
      */
 
-
     QString searchStr = ui->searchParamBox->currentText();
 
     qDebug() << searchStr;
@@ -277,7 +337,7 @@ void TableForm::searchInDB(const QString &arg1)
         mainModel->setFilter("'%' LIKE '%'");
     }
     else {
-        mainModel->setFilter("'" + searchStr + "' LIKE '%" + arg1 + "%'");
+        mainModel->setFilter("'" + this->table + "." + searchStr + "' LIKE '%" + arg1 + "%'");
     }
 
     mainModel->select();

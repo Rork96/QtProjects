@@ -60,7 +60,7 @@ QComboBox {
                font: 9pt &quot;MS Shell Dlg 2&quot;;
 			   background-color: rgb(255, 255, 255);
               }
-QTextEdit {
+QPlainTextEdit {
                color: black;
                padding: 4px;
                border: 1px solid rgb(63, 127, 191); 
@@ -200,7 +200,7 @@ QListView {
            </widget>
           </item>
           <item row="5" column="0">
-           <widget class="QComboBox" name="LibraryBox"/>
+           <widget class="QComboBox" name="libraryBox"/>
           </item>
           <item row="6" column="0">
            <widget class="QLabel" name="label_5">
@@ -219,9 +219,6 @@ QListView {
             </property>
            </widget>
           </item>
-          <item row="9" column="0">
-           <widget class="QTextEdit" name="descriptionEdit"/>
-          </item>
           <item row="10" column="0">
            <widget class="QLabel" name="label_7">
             <property name="text">
@@ -239,8 +236,11 @@ QListView {
             </property>
            </widget>
           </item>
+          <item row="9" column="0">
+           <widget class="QPlainTextEdit" name="descriptionEdit"/>
+          </item>
           <item row="13" column="0">
-           <widget class="QTextEdit" name="templateEdit">
+           <widget class="QPlainTextEdit" name="templateEdit">
             <property name="minimumSize">
              <size>
               <width>0</width>

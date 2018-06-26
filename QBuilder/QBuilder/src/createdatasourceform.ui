@@ -57,7 +57,7 @@ QRadioButton {
                border-style: outset;
 	           font: 11pt &quot;MS Shell Dlg 2&quot;;
               }
-QTextEdit {
+QPlainTextEdit {
                color: black;
                padding: 4px;
                border: 1px solid rgb(63, 127, 191); 
@@ -241,7 +241,7 @@ QToolButton:pressed {
            <x>0</x>
            <y>0</y>
            <width>788</width>
-           <height>448</height>
+           <height>447</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
@@ -290,7 +290,7 @@ QToolButton:pressed {
              </widget>
             </item>
             <item>
-             <widget class="QTextEdit" name="descreptionEdit">
+             <widget class="QPlainTextEdit" name="descreptionEdit">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                 <horstretch>0</horstretch>
@@ -322,7 +322,7 @@ QToolButton:pressed {
                </widget>
               </item>
               <item>
-               <widget class="QComboBox" name="funcTypeBox"/>
+               <widget class="QComboBox" name="fTypeBox"/>
               </item>
              </layout>
             </item>
@@ -336,7 +336,7 @@ QToolButton:pressed {
                </widget>
               </item>
               <item>
-               <widget class="QComboBox" name="descriptionTypeBox"/>
+               <widget class="QComboBox" name="dTypeBox"/>
               </item>
              </layout>
             </item>

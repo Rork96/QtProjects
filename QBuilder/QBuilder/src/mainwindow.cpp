@@ -214,6 +214,10 @@ void MainWindow::createView(TableForm::Type type, int rowIndex)
         delete mainForm;
         this->prewView = groupScreenForm; // Save current view
 
+        if (rowIndex > -1) {
+            groupScreenForm->setRowIndex(rowIndex); // Edit existing data (current selected row index)
+        }
+
         connect(groupScreenForm, &CreateGroupScreenForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(groupScreenForm, &CreateGroupScreenForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
         break;
@@ -222,6 +226,10 @@ void MainWindow::createView(TableForm::Type type, int rowIndex)
         setCentralWidget(screenForm);
         delete mainForm;
         this->prewView = screenForm; // Save current view
+
+        if (rowIndex > -1) {
+            screenForm->setRowIndex(rowIndex); // Edit existing data (current selected row index)
+        }
 
         connect(screenForm, &CreateScreeForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(screenForm, &CreateScreeForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
@@ -275,6 +283,10 @@ void MainWindow::createView(TableForm::Type type, int rowIndex)
         setCentralWidget(dataSourceForm);
         delete mainForm;
         this->prewView = dataSourceForm; // Save current view
+
+        if (rowIndex > -1) {
+            dataSourceForm->setRowIndex(rowIndex); // Edit existing data (current selected row index)
+        }
 
         connect(dataSourceForm, &CreateDataSourceForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(dataSourceForm, &CreateDataSourceForm::sygnalSubmit, this, [this, type]() { setMainView(type); });

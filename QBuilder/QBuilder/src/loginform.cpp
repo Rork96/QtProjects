@@ -30,7 +30,7 @@ void LoginForm::checkLogin()
     QString userName = ui->userLine->text();
     QString password = ui->passwordLine->text();
 
-    // Check userName and password in database ...
+    // Check userName and password in database
     db = new DataBase();
     bool result = db->connectToDataBase(userName, password);
     if (result) {

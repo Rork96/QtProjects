@@ -4,6 +4,8 @@
 #include <QMessageBox>
 #include <QSqlRelationalDelegate>
 
+#include <QDebug>
+
 CreateMenuForm::CreateMenuForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CreateMenuForm)
@@ -13,7 +15,7 @@ CreateMenuForm::CreateMenuForm(QWidget *parent) :
     /*
      *
      *
-     * Save new data but doesn't edit existing
+     * Saving new data correct, doesn't edit existing
      *
      *
      *
@@ -25,20 +27,20 @@ CreateMenuForm::CreateMenuForm(QWidget *parent) :
     model->setSort(0, Qt::AscendingOrder);
 
     // Set relation between tables
-    int groupTypeIndex = model->fieldIndex("Group name");
-    model->setRelation(groupTypeIndex, QSqlRelation("groups", "id", "name"));
-    int iconTypeIndex = model->fieldIndex("Menu icon");
-    model->setRelation(iconTypeIndex, QSqlRelation("ico", "id", "icon"));
+    int groupIndex = model->fieldIndex("group_name");
+    model->setRelation(groupIndex, QSqlRelation("groups", "id", "name"));
+    int iconIndex = model->fieldIndex("menu_icon");
+    model->setRelation(iconIndex, QSqlRelation("ico", "id", "icon"));
 
     model->select();
 
     // New relation model for fTypeBox
-    QSqlTableModel *relModel = model->relationModel(groupTypeIndex); // Relation index
+    QSqlTableModel *relModel = model->relationModel(groupIndex); // Relation index
     ui->groupNameBox->setModel(relModel);
     ui->groupNameBox->setModelColumn(relModel->fieldIndex("name"));
 
     // New relation model for dTypeBox
-    QSqlTableModel *rModel = model->relationModel(iconTypeIndex); // Relation index
+    QSqlTableModel *rModel = model->relationModel(iconIndex); // Relation index
     ui->menuIconBox->setModel(rModel);
     ui->menuIconBox->setModelColumn(rModel->fieldIndex("icon"));
 
@@ -47,9 +49,9 @@ CreateMenuForm::CreateMenuForm(QWidget *parent) :
     mapper->setModel(model);
     mapper->setItemDelegate(new QSqlRelationalDelegate(this));
     // View data with mapper
-    mapper->addMapping(ui->groupNameBox, groupTypeIndex);   // Relation by index
+    mapper->addMapping(ui->groupNameBox, groupIndex);   // Relation by index
     mapper->addMapping(ui->menuTextLine, 2);
-    mapper->addMapping(ui->menuIconBox, iconTypeIndex);     // Relation by index
+    mapper->addMapping(ui->menuIconBox, iconIndex);     // Relation by index
     mapper->addMapping(ui->descriptionEdit, 4);
     mapper->addMapping(ui->weightSpinBox, 5);
 

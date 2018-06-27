@@ -2,8 +2,14 @@
 #define CREATEDOCFAMILYFORM_H
 
 #include <QWidget>
-#include <QLineEdit>
-#include <QToolButton>
+//#include <QLineEdit>
+//#include <QToolButton>
+#include <QSqlTableModel>
+#include <QDataWidgetMapper>
+#include <QSqlRelationalTableModel>
+
+#define TABLE       "document_family"
+#define CATEGORY    "categories"
 
 namespace Ui {
 class CreateDocFamilyForm;
@@ -17,24 +23,29 @@ public:
     explicit CreateDocFamilyForm(QWidget *parent = 0);
     ~CreateDocFamilyForm();
 
+    void setRowIndex(int rowIndex); // User chose to edit data from the table
+
 private:
     Ui::CreateDocFamilyForm *ui;
+
+    QSqlTableModel *model;
+    QDataWidgetMapper *mapper;
+    QSqlRelationalTableModel *categoryModel;
 
     void submitChanges();
 
     void addCategory();
-
     void delCategory();
 
-    QVector<QLineEdit*> catL;
-    QVector<QLineEdit*> descrL;
-    QVector<QLineEdit*> kp_1_L;
-    QVector<QLineEdit*> kp_2_L;
-    QVector<QLineEdit*> kp_3_L;
-    QVector<QLineEdit*> kp_4_L;
-    QVector<QLineEdit*> kp_5_L;
-    QVector<QLineEdit*> searchL;
-    QVector<QToolButton*> delBtn;
+//    QVector<QLineEdit*> catL;
+//    QVector<QLineEdit*> descrL;
+//    QVector<QLineEdit*> kp_1_L;
+//    QVector<QLineEdit*> kp_2_L;
+//    QVector<QLineEdit*> kp_3_L;
+//    QVector<QLineEdit*> kp_4_L;
+//    QVector<QLineEdit*> kp_5_L;
+//    QVector<QLineEdit*> searchL;
+//    QVector<QToolButton*> delBtn;
 
 signals:
     void sygnalBack();

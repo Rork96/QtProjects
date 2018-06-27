@@ -75,6 +75,9 @@ void CreateGroupScreenForm::submitChanges()
 {
     // Save changes to database
 
+    model->select();
+    mapper->toLast();
+
     mapper->submit();
     model->submitAll();
 

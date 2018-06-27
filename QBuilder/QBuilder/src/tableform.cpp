@@ -112,7 +112,7 @@ void TableForm::loadDataFromDB()
             mainModel->select();
             ui->mainTableView->setModel(mainModel);
 
-            // Select Group name from groups table by id
+            // Select
             mainModel->setRelation(13, QSqlRelation("groups", "id", "name"));
             mainModel->setRelation(14, QSqlRelation("menus", "id", "text"));
             ui->mainTableView->setItemDelegate(new QSqlRelationalDelegate(ui->mainTableView));
@@ -126,7 +126,6 @@ void TableForm::loadDataFromDB()
             };
             break;
         case TableForm::screens:
-            // Problem in displaying
             mainModel = new QSqlRelationalTableModel(this);
             this->table = "screens";
             mainModel->setTable(this->table);
@@ -135,7 +134,7 @@ void TableForm::loadDataFromDB()
             mainModel->select();
             ui->mainTableView->setModel(mainModel);
 
-            // Select Group name from groups table by id
+            // Select
             mainModel->setRelation(1, QSqlRelation("menus", "id", "text"));
             mainModel->setRelation(2, QSqlRelation("group_screen", "id", "scr_name"));
             mainModel->setRelation(3, QSqlRelation("libraries", "id", "lib_name"));
@@ -150,6 +149,20 @@ void TableForm::loadDataFromDB()
             };
             break;
         case TableForm::document_family:
+            mainModel = new QSqlRelationalTableModel(this);
+            this->table = "document_family";
+            mainModel->setTable(this->table);
+
+            mainModel->setSort(0, Qt::AscendingOrder);
+            mainModel->select();
+            ui->mainTableView->setModel(mainModel);
+
+            ui->mainTableView->setColumnHidden(0, true);    // Hide column
+
+            // Columns size
+            for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
+                ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+            }
             break;
         case TableForm::document_groups:
             break;
@@ -194,7 +207,7 @@ void TableForm::loadDataFromDB()
             mainModel->select();
             ui->mainTableView->setModel(mainModel);
 
-            // Select Group name from groups table by id
+            // Select
             mainModel->setRelation(4, QSqlRelation("function_type", "id", "func_type"));
             mainModel->setRelation(5, QSqlRelation("direction_type", "id", "direct_type"));
             ui->mainTableView->setItemDelegate(new QSqlRelationalDelegate(ui->mainTableView));
@@ -216,7 +229,7 @@ void TableForm::loadDataFromDB()
             mainModel->select();
             ui->mainTableView->setModel(mainModel);
 
-            // Select extension type from extension_type table by id
+            // Select
             mainModel->setRelation(6, QSqlRelation("extension_type", "id", "type"));
             ui->mainTableView->setItemDelegate(new QSqlRelationalDelegate(ui->mainTableView));
             mainModel->select();
@@ -367,4 +380,6 @@ void TableForm::deleteDatafromDB()
     mainModel->submitAll();
     mainModel->select();
     ui->mainTableView->selectRow(row);
+
+    // Delete linked records from "categories" table when deleting records from "document_family" table
 }

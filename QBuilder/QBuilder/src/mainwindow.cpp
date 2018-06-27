@@ -240,6 +240,10 @@ void MainWindow::createView(TableForm::Type type, int rowIndex)
         delete mainForm;
         this->prewView = docFamilyForm; // Save current view
 
+        if (rowIndex > -1) {
+            docFamilyForm->setRowIndex(rowIndex); // Edit existing data (current selected row index)
+        }
+
         connect(docFamilyForm, &CreateDocFamilyForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(docFamilyForm, &CreateDocFamilyForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
         break;

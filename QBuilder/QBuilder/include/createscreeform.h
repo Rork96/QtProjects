@@ -26,6 +26,7 @@ private:
 
     QSqlRelationalTableModel *model;
     QDataWidgetMapper *mapper;
+    bool isEdit = false;
 
     void submitChanges();
 

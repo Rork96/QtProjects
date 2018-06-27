@@ -253,6 +253,49 @@ QListView {
               <height>350</height>
              </size>
             </property>
+            <property name="plainText">
+             <string>{
+  &quot;layout_type&quot;: null,
+  &quot;search_configuration&quot;: null,
+  &quot;search_custom_query&quot;: null,
+  &quot;template_layout&quot;: null,
+  &quot;screen_extensions&quot;: {
+    &quot;add&quot;: {
+      &quot;pre&quot;: null,
+      &quot;post&quot;: null
+    },
+    &quot;delete&quot;: {
+      &quot;pre&quot;: null,
+      &quot;post&quot;: null
+    },
+    &quot;edit&quot;: {
+      &quot;pre&quot;: null,
+      &quot;post&quot;: null
+    },
+    &quot;inquire&quot;: {
+      &quot;pre&quot;: null,
+      &quot;post&quot;: null
+    },
+    &quot;execute&quot;: {
+      &quot;pre&quot;: null,
+      &quot;post&quot;: null
+    },
+    &quot;executeFunction&quot;: {
+      &quot;library&quot;: null,
+      &quot;function&quot;: null,
+      &quot;custom&quot;: null
+    }
+  },
+  &quot;step_screen&quot;: {
+    &quot;enable&quot;: false,
+    &quot;icon&quot;: null
+  },
+  &quot;alias_framework&quot;: {
+    &quot;enable&quot;: false,
+    &quot;transaction_request&quot;: null
+  }
+}</string>
+            </property>
            </widget>
           </item>
          </layout>

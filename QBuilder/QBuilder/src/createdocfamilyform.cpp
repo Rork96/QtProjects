@@ -1,11 +1,74 @@
 #include "createdocfamilyform.h"
 #include "ui_createdocfamilyform.h"
 
+#include <QSqlQuery>
+#include <QMessageBox>
+#include <QSqlRecord>
+#include <QSqlField>
+
 CreateDocFamilyForm::CreateDocFamilyForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CreateDocFamilyForm)
 {
     ui->setupUi(this);
+
+    // region document_family table
+    model = new QSqlTableModel(this);
+    model->setTable(TABLE);
+    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    model->setSort(0, Qt::AscendingOrder);
+    model->select();
+
+    // View data in lineEdit with mapper
+    mapper = new QDataWidgetMapper();
+    mapper->setModel(model);
+    mapper->addMapping(ui->familyNameLine, 1);
+    mapper->addMapping(ui->familyDescrText, 2);
+    mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
+    model->insertRow(model->rowCount(QModelIndex()));
+    mapper->toLast();
+    // endregion document_family table
+
+    // region categories table
+    categoryModel = new QSqlRelationalTableModel(this);
+    categoryModel->setTable(CATEGORY);
+
+    categoryModel->setSort(0, Qt::AscendingOrder);
+    categoryModel->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    categoryModel->select();
+
+    // Filter data - doesn't work
+    //categoryModel->setFilter("family=" + model->record().value("id").toInt());
+    int familyIndex = categoryModel->fieldIndex("family");
+    categoryModel->setRelation(familyIndex, QSqlRelation(TABLE, "id", "id"));
+    categoryModel->select();
+
+    // Select data from table (selection by family field=id from TABLE table)
+    //categoryModel->setQuery("SELECT * FROM " CATEGORY);// "WHERE family = " + model->record().value("id").toInt());
+    ui->categotyTableView->setModel(categoryModel);
+
+    // Hide columns
+    ui->categotyTableView->setColumnHidden(0, true);
+    ui->categotyTableView->setColumnHidden(1, true);
+
+    // Columns size
+    for (int i = 0; i < ui->categotyTableView->horizontalHeader()->count(); i++) {
+        ui->categotyTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+    }
+
+    ui->categotyTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->categotyTableView->setSelectionMode(QAbstractItemView::SingleSelection);
+
+    connect(categoryModel, &QSqlTableModel::dataChanged, this, [this] {
+        categoryModel->submitAll();
+        categoryModel->select();
+        QSqlQuery query;
+        query.prepare( "UPDATE " CATEGORY " SET family = ? WHERE id = ?");
+        query.addBindValue(query.lastInsertId().toInt());   // id - doesn't work
+        query.exec();
+        ui->categotyTableView->update();
+    });
+    // endregion categories table
 
     connect(ui->backButton, &QToolButton::clicked, this, [this] {
        emit sygnalBack();
@@ -14,6 +77,7 @@ CreateDocFamilyForm::CreateDocFamilyForm(QWidget *parent) :
     connect(ui->submitButton, &QToolButton::clicked, this, &CreateDocFamilyForm::submitChanges);
 
     connect(ui->addCategoryButton, &QToolButton::clicked, this, &CreateDocFamilyForm::addCategory);
+    connect(ui->delCategoryButton, &QToolButton::clicked, this, &CreateDocFamilyForm::delCategory);
 }
 
 CreateDocFamilyForm::~CreateDocFamilyForm()
@@ -25,10 +89,42 @@ void CreateDocFamilyForm::submitChanges()
 {
     // Save changes to database
 
+    mapper->submit();
+    model->submitAll();
+
+    model->select();
+    mapper->toLast();
+
+    categoryModel->submitAll();
+    categoryModel->select();
+
     // Send sygnal
     emit sygnalSubmit();
 }
 
+void CreateDocFamilyForm::addCategory()
+{
+    // Add new category
+    categoryModel->insertRow(categoryModel->rowCount(QModelIndex()));
+}
+
+void CreateDocFamilyForm::delCategory()
+{
+    // Delete category
+    int row = ui->categotyTableView->selectionModel()->selectedRows().at(0).row();
+    categoryModel->removeRow(row);
+    categoryModel->submitAll();
+    categoryModel->select();
+    ui->categotyTableView->selectRow(row);
+}
+
+void CreateDocFamilyForm::setRowIndex(int rowIndex)
+{
+    // User chose to edit data from the table
+    mapper->setCurrentIndex(rowIndex);
+}
+
+/*
 void CreateDocFamilyForm::addCategory()
 {
     // Add new category
@@ -75,3 +171,4 @@ void CreateDocFamilyForm::delCategory()
     searchL.at(number)->deleteLater();      searchL.remove(number);
     delBtn.at(number)->deleteLater();       delBtn.remove(number);
 }
+*/

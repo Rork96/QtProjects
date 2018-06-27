@@ -43,6 +43,7 @@ CreateDocFamilyForm::CreateDocFamilyForm(QWidget *parent) :
     categoryModel->setRelation(familyIndex, QSqlRelation(TABLE, "id", "id"));
     categoryModel->select();
 
+    // Set model
     // Select data from table (selection by family field=id from TABLE table)
     //categoryModel->setQuery("SELECT * FROM " CATEGORY);// "WHERE family = " + model->record().value("id").toInt());
     ui->categotyTableView->setModel(categoryModel);

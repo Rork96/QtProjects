@@ -136,7 +136,7 @@ void TableForm::loadDataFromDB()
 
             // Select
             mainModel->setRelation(1, QSqlRelation("menus", "id", "text"));
-            mainModel->setRelation(2, QSqlRelation("group_screen", "id", "scr_name"));
+            mainModel->setRelation(2, QSqlRelation("group_screen", "id", "s_text"));
             mainModel->setRelation(3, QSqlRelation("libraries", "id", "lib_name"));
             ui->mainTableView->setItemDelegate(new QSqlRelationalDelegate(ui->mainTableView));
             mainModel->select();

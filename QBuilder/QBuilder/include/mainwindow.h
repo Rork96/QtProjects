@@ -66,11 +66,11 @@ private:
 
     QWidget *prewView = nullptr; // Current view
 
-    void initUI();                                          // Hide main menu and show login screen
-    void login();                                           // Login
-    void setMainView(TableForm::Type type);                 // Set view type
-    void createView(TableForm::Type type, int rowIndex);    // Create view in dependency of needed view type
-    void createViewWithBuilder(TableForm::Type type);       // Create view with builder
+    void initUI();                                                      // Hide main menu and show login screen
+    void login();                                                       // Login
+    void setMainView(TableForm::Type type);                             // Set view type
+    void createView(TableForm::Type type, int rowIndex, int id);      // Create view in dependency of needed view type
+    void createViewWithBuilder(TableForm::Type type);                   // Create view with builder
 };
 
 #endif // MAINWINDOW_H

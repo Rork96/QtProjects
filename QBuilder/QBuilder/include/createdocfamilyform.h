@@ -23,7 +23,7 @@ public:
     explicit CreateDocFamilyForm(QWidget *parent = 0);
     ~CreateDocFamilyForm();
 
-    void setRowIndex(int rowIndex); // User chose to edit data from the table
+    void setRowIndex(int rowIndex, int id);     // User chose to edit data from the table
 
 private:
     Ui::CreateDocFamilyForm *ui;
@@ -31,6 +31,9 @@ private:
     QSqlTableModel *model;
     QDataWidgetMapper *mapper;
     QSqlRelationalTableModel *categoryModel;
+
+    int currentId = -1;
+    bool isEdit = false;
 
     void submitChanges();
 

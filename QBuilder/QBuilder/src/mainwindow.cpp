@@ -139,7 +139,7 @@ void MainWindow::setMainView(TableForm::Type type)
     }
 }
 
-void MainWindow::createView(TableForm::Type type, int rowIndex)
+void MainWindow::createView(TableForm::Type type, int rowIndex, int id)
 {
     switch (type) {
     case TableForm::groups:
@@ -241,7 +241,10 @@ void MainWindow::createView(TableForm::Type type, int rowIndex)
         this->prewView = docFamilyForm; // Save current view
 
         if (rowIndex > -1) {
-            docFamilyForm->setRowIndex(rowIndex); // Edit existing data (current selected row index)
+            docFamilyForm->setRowIndex(rowIndex, id);   // Edit existing data (current selected row index)
+        }
+        else {
+            docFamilyForm->setRowIndex(rowIndex, -1);
         }
 
         connect(docFamilyForm, &CreateDocFamilyForm::sygnalBack, this, [this, type]() { setMainView(type); });
@@ -252,6 +255,10 @@ void MainWindow::createView(TableForm::Type type, int rowIndex)
         setCentralWidget(docGroupsForm);
         delete mainForm;
         this->prewView = docGroupsForm; // Save current view
+
+        if (rowIndex > -1) {
+            docGroupsForm->setRowIndex(rowIndex); // Edit existing data (current selected row index)
+        }
 
         connect(docGroupsForm, &CreateDocGroupsForm::sygnalBack, this, [this, type]() { setMainView(type); });
         connect(docGroupsForm, &CreateDocGroupsForm::sygnalSubmit, this, [this, type]() { setMainView(type); });

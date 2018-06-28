@@ -3,8 +3,6 @@
 
 #include <QSqlQuery>
 #include <QMessageBox>
-#include <QSqlRecord>
-#include <QSqlField>
 
 CreateDocFamilyForm::CreateDocFamilyForm(QWidget *parent) :
     QWidget(parent),
@@ -25,7 +23,6 @@ CreateDocFamilyForm::CreateDocFamilyForm(QWidget *parent) :
     mapper->addMapping(ui->familyNameLine, 1);
     mapper->addMapping(ui->familyDescrText, 2);
     mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
-    model->insertRow(model->rowCount(QModelIndex()));
     mapper->toLast();
     // endregion document_family table
 
@@ -37,15 +34,6 @@ CreateDocFamilyForm::CreateDocFamilyForm(QWidget *parent) :
     categoryModel->setEditStrategy(QSqlTableModel::OnManualSubmit);
     categoryModel->select();
 
-    // Filter data - doesn't work
-    //categoryModel->setFilter("family=" + model->record().value("id").toInt());
-    int familyIndex = categoryModel->fieldIndex("family");
-    categoryModel->setRelation(familyIndex, QSqlRelation(TABLE, "id", "id"));
-    categoryModel->select();
-
-    // Set model
-    // Select data from table (selection by family field=id from TABLE table)
-    //categoryModel->setQuery("SELECT * FROM " CATEGORY);// "WHERE family = " + model->record().value("id").toInt());
     ui->categotyTableView->setModel(categoryModel);
 
     // Hide columns
@@ -63,16 +51,33 @@ CreateDocFamilyForm::CreateDocFamilyForm(QWidget *parent) :
     connect(categoryModel, &QSqlTableModel::dataChanged, this, [this] {
         categoryModel->submitAll();
         categoryModel->select();
+        // Insert currentId into table (for filtering | see "setRowIndex()")
         QSqlQuery query;
-        query.prepare( "UPDATE " CATEGORY " SET family = ? WHERE id = ?");
-        query.addBindValue(query.lastInsertId().toInt());   // id - doesn't work
+        query.prepare( "UPDATE " CATEGORY " SET family = ? WHERE id = ?" );
+        query.addBindValue(currentId);
+        query.addBindValue(query.lastInsertId().toInt());
         query.exec();
+
+        categoryModel->select();
         ui->categotyTableView->update();
     });
     // endregion categories table
 
     connect(ui->backButton, &QToolButton::clicked, this, [this] {
-       emit sygnalBack();
+        // Delete current data from database
+        if (!isEdit) {
+            QSqlQuery query;
+            query.prepare("DELETE FROM " TABLE " WHERE id = ?");
+            query.addBindValue(currentId);
+            query.exec();
+            // Delete linked data from CATEGORY
+            //QSqlQuery query;
+            query.prepare("DELETE FROM " CATEGORY " WHERE family = ?");
+            query.addBindValue(currentId);
+            query.exec();
+        }
+
+        emit sygnalBack();
     });
 
     connect(ui->submitButton, &QToolButton::clicked, this, &CreateDocFamilyForm::submitChanges);
@@ -119,10 +124,33 @@ void CreateDocFamilyForm::delCategory()
     ui->categotyTableView->selectRow(row);
 }
 
-void CreateDocFamilyForm::setRowIndex(int rowIndex)
+void CreateDocFamilyForm::setRowIndex(int rowIndex, int id)
 {
     // User chose to edit data from the table
+
+    currentId = id;
     mapper->setCurrentIndex(rowIndex);
+
+    QString filterString;
+
+    if (currentId == -1) {
+        // Create new item
+        QSqlQuery query;
+        query.exec( "INSERT INTO " TABLE " DEFAULT VALUES" );
+        mapper->submit();
+        model->submitAll();
+        mapper->toLast();
+        currentId = query.lastInsertId().toInt();
+        filterString = QString("%1=%2").arg("family").arg(currentId);
+        isEdit = false;
+    }
+    else {
+        isEdit = true;
+        filterString = QString("%1=%2").arg("family").arg(currentId);
+    }
+
+    // Set filter
+    categoryModel->setFilter(filterString);
 }
 
 /*

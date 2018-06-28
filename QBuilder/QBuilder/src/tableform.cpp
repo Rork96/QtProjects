@@ -27,7 +27,14 @@ TableForm::TableForm(QWidget *parent) :
 
     connect(ui->editButton, &QToolButton::clicked, this, [this] {
         // Edit existing data, second parameter - selected row in the table
-        emit createData(this->viewType, ui->mainTableView->selectionModel()->selectedRows().at(0).row());
+        if (this->table == "document_family") {
+            auto id = mainModel->data(mainModel->index(ui->mainTableView->selectionModel()->selectedRows().at(0).row(), 0)); // id
+            qDebug() << id.toInt();
+            emit createData(this->viewType, ui->mainTableView->selectionModel()->selectedRows().at(0).row(), id.toInt());
+        }
+        else {
+            emit createData(this->viewType, ui->mainTableView->selectionModel()->selectedRows().at(0).row());
+        }
     });
 
     connect(ui->deleteButton, &QToolButton::clicked, this, &TableForm::deleteDatafromDB); // A row was selected in the table
@@ -165,6 +172,20 @@ void TableForm::loadDataFromDB()
             }
             break;
         case TableForm::document_groups:
+            mainModel = new QSqlRelationalTableModel(this);
+            this->table = "document_group";
+            mainModel->setTable(this->table);
+
+            mainModel->setSort(0, Qt::AscendingOrder);
+            mainModel->select();
+            ui->mainTableView->setModel(mainModel);
+
+            // Columns size
+            for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
+                ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+                if (i < 1 || i > 2)
+                    ui->mainTableView->setColumnHidden(i, true);    // Hide columns
+            }
             break;
         case TableForm::lists:
             mainModel = new QSqlRelationalTableModel(this);
@@ -333,25 +354,10 @@ void TableForm::searchInDB(const QString &arg1)
 
     // Set parameters for search
 
-    /*
-     *
-     *
-     * Is'n work properly
-     *
-     *
-     */
-
     QString searchStr = ui->searchParamBox->currentText();
+    QString filterString = QString("%1 LIKE '%%2%'").arg(searchStr).arg(arg1);
 
-    qDebug() << searchStr;
-    qDebug() << arg1;
-
-    if ((searchStr.isEmpty()) || (arg1.isEmpty())) {
-        mainModel->setFilter("'%' LIKE '%'");
-    }
-    else {
-        mainModel->setFilter("'" + this->table + "." + searchStr + "' LIKE '%" + arg1 + "%'");
-    }
+    mainModel->setFilter(filterString);
 
     mainModel->select();
 }
@@ -380,6 +386,4 @@ void TableForm::deleteDatafromDB()
     mainModel->submitAll();
     mainModel->select();
     ui->mainTableView->selectRow(row);
-
-    // Delete linked records from "categories" table when deleting records from "document_family" table
 }

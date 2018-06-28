@@ -54,7 +54,7 @@ private:
     void deleteDatafromDB();                // Delete current data from database
 
 signals:
-    void createData(Type type, int row=-1); // Set row if you need to edit existing data in the table (selected row)
+    void createData(Type type, int row=-1, int id=-1);  // Set row if you need to edit existing data in the table (selected row)
     void createDataWithBuilder(Type type);
 };
 

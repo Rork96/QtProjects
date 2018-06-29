@@ -16,7 +16,7 @@ DataBase::~DataBase()
 bool DataBase::connectToDataBase(QString userName, QString password)
 {
     /* Before connecting to the database, verify its existence.
-     * */
+     */
     if (!userName.isEmpty()) {
         this->userName = userName;
         this->password = password;
@@ -30,8 +30,8 @@ bool DataBase::connectToDataBase(QString userName, QString password)
 // Open database
 bool DataBase::openDataBase()
 {
-    /* База данных открывается по имени, если она существует
-     * */
+    /* Open database as superuser
+     */
     db = QSqlDatabase::addDatabase("QPSQL");
     db.setHostName(DATABASE_HOSTNAME);
     db.setDatabaseName(DATABASE_NAME);
@@ -39,6 +39,7 @@ bool DataBase::openDataBase()
     db.setUserName(USER_NAME);
     db.setPassword(PASSWORD);
 
+    // Check username and password
     if(db.open()) {
         QSqlQuery query;
         if (query.exec( "SELECT password FROM users WHERE username = '" + this->userName + "'" )) {
@@ -51,16 +52,13 @@ bool DataBase::openDataBase()
                 }
                 else return true;*/
             }
-            return false;
-        }
-        else {
-            return false;
         }
     }
     else {
         QMessageBox::warning(nullptr, "Error", db.lastError().text()); // Error
         return false;
     }
+    return false;
 }
 
 // Close database

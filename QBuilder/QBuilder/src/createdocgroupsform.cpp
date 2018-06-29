@@ -59,10 +59,6 @@ void CreateDocGroupsForm::submitChanges()
 {
     // Save changes to database
 
-
-    /// Save radioButton state !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
     QSqlQuery query;
     QString str = QString("SELECT EXISTS (SELECT 'Group name' FROM" TABLE
         " WHERE '" RECORD "' = '%1' AND id NOT LIKE '%2' )").arg(ui->groupNameline->text(),
@@ -81,7 +77,18 @@ void CreateDocGroupsForm::submitChanges()
         // Insert new data
         mapper->submit();
         model->submitAll();
+
+        // Write access type
+        int value;
+        if (ui->fullAccessButton->isChecked()) value = 1;
+        else if (ui->readOnlyButton->isChecked()) value = 2;
+        else value = 3;
+
+        query.prepare( "UPDATE " TABLE " SET access = ?");
+        query.addBindValue(value);
+        query.exec();
     }
+
     model->select();
     mapper->toLast();
 

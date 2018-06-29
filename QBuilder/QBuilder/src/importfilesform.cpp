@@ -4,7 +4,7 @@
 #include <QFileDialog>
 #include <QStandardPaths>
 #include <QFileInfo>
-#include <QMenu>
+#include <QMessageBox>
 
 ImportFilesForm::ImportFilesForm(QWidget *parent) :
     QWidget(parent),
@@ -16,14 +16,17 @@ ImportFilesForm::ImportFilesForm(QWidget *parent) :
     ui->executeButton->setEnabled(false);
     ui->clearButton->setVisible(false);
 
-    // Click on mainButton
-    connect(ui->mainButton, &QPushButton::clicked, this, &ImportFilesForm::importFiles);
+    // Select file
+    connect(ui->mainButton, &QToolButton::clicked, this, &ImportFilesForm::importFiles);
 
-    // Click on clear button
+    // Delete selected file
     connect(ui->clearButton, &QToolButton::clicked, this, [this] {
         ui->mainButton->setText("Drop files here to upload");
         ui->clearButton->setVisible(false);
     });
+
+    // Execute selected file
+    connect(ui->executeButton, &QToolButton::clicked, this, &ImportFilesForm::executeFile);
 }
 
 ImportFilesForm::~ImportFilesForm()
@@ -47,4 +50,10 @@ void ImportFilesForm::importFiles()
     ui->uploadButton->setEnabled(true);
     ui->executeButton->setEnabled(true);
     ui->clearButton->setVisible(true);
+}
+
+void ImportFilesForm::executeFile()
+{
+    // Execute selected file
+    QMessageBox::information(this, "Information", "File was successfully executed ", QMessageBox::Ok);
 }

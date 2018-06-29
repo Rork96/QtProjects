@@ -13,12 +13,7 @@ CreateMenuForm::CreateMenuForm(QWidget *parent) :
     ui->setupUi(this);
 
     /*
-     *
-     *
-     * Saving new data correct, doesn't edit existing
-     *
-     *
-     *
+     * Images for menu iconBox and database
      */
 
     model = new QSqlRelationalTableModel(this);
@@ -29,8 +24,8 @@ CreateMenuForm::CreateMenuForm(QWidget *parent) :
     // Set relation between tables
     int groupIndex = model->fieldIndex("group_name");
     model->setRelation(groupIndex, QSqlRelation("groups", "id", "name"));
-    int iconIndex = model->fieldIndex("menu_icon");
-    model->setRelation(iconIndex, QSqlRelation("ico", "id", "icon"));
+//    int iconIndex = model->fieldIndex("menu_icon");
+//    model->setRelation(iconIndex, QSqlRelation("ico", "id", "icon"));
 
     model->select();
 
@@ -40,9 +35,9 @@ CreateMenuForm::CreateMenuForm(QWidget *parent) :
     ui->groupNameBox->setModelColumn(relModel->fieldIndex("name"));
 
     // New relation model for dTypeBox
-    QSqlTableModel *rModel = model->relationModel(iconIndex); // Relation index
-    ui->menuIconBox->setModel(rModel);
-    ui->menuIconBox->setModelColumn(rModel->fieldIndex("icon"));
+//    QSqlTableModel *rModel = model->relationModel(iconIndex); // Relation index
+//    ui->menuIconBox->setModel(rModel);
+//    ui->menuIconBox->setModelColumn(rModel->fieldIndex("icon"));
 
     // Mapper
     mapper = new QDataWidgetMapper(this);
@@ -51,7 +46,7 @@ CreateMenuForm::CreateMenuForm(QWidget *parent) :
     // View data with mapper
     mapper->addMapping(ui->groupNameBox, groupIndex);   // Relation by index
     mapper->addMapping(ui->menuTextLine, 2);
-    mapper->addMapping(ui->menuIconBox, iconIndex);     // Relation by index
+    //mapper->addMapping(ui->menuIconBox, iconIndex);     // Relation by index
     mapper->addMapping(ui->descriptionEdit, 4);
     mapper->addMapping(ui->weightSpinBox, 5);
 

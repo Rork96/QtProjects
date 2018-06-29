@@ -19,6 +19,7 @@ private:
     Ui::ImportFilesForm *ui;
 
     void importFiles(); // Import files
+    void executeFile(); // Execute selected file
 };
 
 #endif // IMPORTFILESFORM_H

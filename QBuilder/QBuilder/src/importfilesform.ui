@@ -77,7 +77,6 @@
          <string notr="true">QToolButton {
                color: darkblue;
                padding: 4px;
-               border: 1px solid rgb(85, 85, 255); 
                border-radius: 5px;
                font: 10pt &quot;MS Shell Dlg 2&quot;;
               }
@@ -99,48 +98,50 @@ QToolButton:pressed {
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="res.qrc">
-          <normaloff>:/res/clear.png</normaloff>:/res/clear.png</iconset>
+         <iconset resource="../res/res.qrc">
+          <normaloff>:/clear.png</normaloff>:/clear.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
         </property>
        </widget>
       </item>
       <item row="1" column="0" colspan="2">
-       <widget class="QPushButton" name="mainButton">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
+       <widget class="QToolButton" name="mainButton">
         <property name="minimumSize">
          <size>
-          <width>0</width>
-          <height>300</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
+          <width>580</width>
           <height>300</height>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">QPushButton {
+         <string notr="true">QToolButton {
                color: darkblue;
                padding: 4px;
                border: 1px solid rgb(85, 85, 255); 
                border-radius: 5px;
-               font: 10pt &quot;MS Shell Dlg 2&quot;;
+               font: 11pt &quot;MS Shell Dlg 2&quot;;
               }
-
-QPushButton:pressed {
-               color: rgb(0, 0, 197)
-               background: shadow;
-               border-style: inset;
+QToolButton:hover {
+               color: darkblue;
+               padding: 4px;
+               border: 1px solid rgb(85, 85, 255); 
+               border-radius: 5px;
+               font: 11pt &quot;MS Shell Dlg 2&quot;;
+               }
+QToolButton:pressed {
+			    color: darkblue;
+               padding: 4px;
+               border: 1px solid rgb(85, 85, 255); 
+               border-radius: 5px;
+               font: 11pt &quot;MS Shell Dlg 2&quot;;
                }</string>
         </property>
         <property name="text">
          <string>Drop files here to upload</string>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
         </property>
        </widget>
       </item>
@@ -243,7 +244,7 @@ QToolButton:pressed {
   </layout>
  </widget>
  <resources>
-  <include location="res.qrc"/>
+  <include location="../res/res.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -4,8 +4,6 @@
 #include <QMessageBox>
 #include <QSqlRelationalDelegate>
 
-#include <QDebug>
-
 CreateMenuForm::CreateMenuForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CreateMenuForm)

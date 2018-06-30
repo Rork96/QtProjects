@@ -4,7 +4,6 @@
 #include <QWidget>
 //#include <QLineEdit>
 //#include <QToolButton>
-#include <QSqlTableModel>
 #include <QDataWidgetMapper>
 #include <QSqlRelationalTableModel>
 

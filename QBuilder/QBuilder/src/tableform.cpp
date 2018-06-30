@@ -3,7 +3,7 @@
 
 #include "database.h"
 #include <QScreen>
-#include <QSqlRelationalDelegate>
+#include <QSqlQuery>
 
 TableForm::TableForm(QWidget *parent) :
     QWidget(parent),
@@ -29,7 +29,6 @@ TableForm::TableForm(QWidget *parent) :
         // Edit existing data, second parameter - selected row in the table
         if (this->table == "document_family") {
             auto id = mainModel->data(mainModel->index(ui->mainTableView->selectionModel()->selectedRows().at(0).row(), 0)); // id
-            qDebug() << id.toInt();
             emit createData(this->viewType, ui->mainTableView->selectionModel()->selectedRows().at(0).row(), id.toInt());
         }
         else {
@@ -66,6 +65,12 @@ void TableForm::loadDataFromDB()
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
                 ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
             }
+
+            /*QStringList headers;
+            headers.append(QStringList() << trUtf8("id") << trUtf8("Group name") << trUtf8("Group description"));
+            for(int i = 0, j = 0; i < mainModel->columnCount(); i++, j++) {
+                mainModel->setHeaderData(i,Qt::Horizontal,headers[j]);
+            }*/
             break;
         case TableForm::users:
             /*mainModel = new QSqlTableModel(this);

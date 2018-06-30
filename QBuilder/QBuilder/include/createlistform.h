@@ -2,7 +2,6 @@
 #define CREATELISTFORM_H
 
 #include <QWidget>
-
 #include <QSqlTableModel>
 #include <QDataWidgetMapper>
 

@@ -1,7 +1,6 @@
 #include "createscreeform.h"
 #include "ui_createscreeform.h"
 
-#include <QMessageBox>
 #include <QSqlRelationalDelegate>
 #include <QSqlQuery>
 #include <QSqlRecord>

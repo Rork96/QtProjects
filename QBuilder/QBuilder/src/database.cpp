@@ -1,6 +1,8 @@
-#include <QtWidgets/QMessageBox>
-#include <QtSql/QSqlRecord>
 #include "database.h"
+
+#include <QMessageBox>
+#include <QSqlQuery>
+#include <QSqlError>
 
 DataBase::DataBase(QObject *parent) : QObject(parent)
 {
@@ -45,7 +47,6 @@ bool DataBase::openDataBase()
         if (query.exec( "SELECT password FROM users WHERE username = '" + this->userName + "'" )) {
             while (query.next()) {
                 QString result = query.value(0).toString();
-                qDebug() << result;
                 return !(result != this->password);
                 /*if (result != this->password) {
                     return false;

@@ -5,8 +5,6 @@
 #include <QSqlRelationalDelegate>
 #include <QSqlQuery>
 
-#include <QDebug>
-
 CreateDocGroupsForm::CreateDocGroupsForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CreateDocGroupsForm)

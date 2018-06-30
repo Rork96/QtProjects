@@ -2,14 +2,7 @@
 #define DATABASE_H
 
 #include <QObject>
-#include <QSql>
-#include <QSqlQuery>
-#include <QSqlError>
-#include <QSqlDatabase>
-#include <QFile>
-#include <QDate>
-#include <QDebug>
-#include <QDir>
+#include <QSqlRelationalDelegate>
 
 /* Connection parameters */
 #define DATABASE_HOSTNAME   "localhost"

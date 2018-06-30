@@ -2,7 +2,6 @@
 #define CREATETENANTFORM_H
 
 #include <QWidget>
-
 #include <QComboBox>
 
 namespace Ui {

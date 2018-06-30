@@ -48,7 +48,7 @@ void TableForm::loadDataFromDB()
 {
     // Load data
 
-    //QStringList headers;
+    QStringList headers;
 
     switch (this->viewType) {
         case TableForm::groups:
@@ -61,16 +61,13 @@ void TableForm::loadDataFromDB()
             ui->mainTableView->setModel(mainModel);
             ui->mainTableView->setColumnHidden(0, true); // Hide
 
+            headers << trUtf8("id") << trUtf8("Group name") << trUtf8("Group description");
+
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
                 ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+                mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
             }
-
-            /*QStringList headers;
-            headers.append(QStringList() << trUtf8("id") << trUtf8("Group name") << trUtf8("Group description"));
-            for(int i = 0, j = 0; i < mainModel->columnCount(); i++, j++) {
-                mainModel->setHeaderData(i,Qt::Horizontal,headers[j]);
-            }*/
             break;
         case TableForm::users:
             /*mainModel = new QSqlTableModel(this);

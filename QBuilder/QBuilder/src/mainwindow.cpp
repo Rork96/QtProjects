@@ -141,218 +141,91 @@ void MainWindow::setMainView(TableForm::Type type)
 
 void MainWindow::createView(TableForm::Type type, int rowIndex, int id)
 {
+    auto initForm = [this, &rowIndex, &type](auto form) {
+    //auto initForm = [this](auto form) {
+        setCentralWidget(form);
+        delete mainForm;
+        this->prewView = form;  // Save current view
+
+        if (rowIndex > -1) {
+            form->setRowIndex(rowIndex);    // Edit existing data (current selected row index)
+        }
+        /*else {
+            form->setRowIndex(rowIndex, -1);
+        }*/
+
+        connect(form, &CreateUserForm::sygnalBack, this, [this, type]() { setMainView(type); });
+        connect(form, &CreateUserForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
+    };
+
     switch (type) {
     case TableForm::groups:
         groupForm = new CreateGroupForm(this);
-        setCentralWidget(groupForm);
-        delete mainForm;
-        this->prewView = groupForm; // Save current view
-
-        if (rowIndex > -1) {
-            groupForm->setRowIndex(rowIndex); // Edit existing data (current selected row index)
-        }
-
-        connect(groupForm, &CreateGroupForm::sygnalBack, this, [this, type]() { setMainView(type); });
-        connect(groupForm, &CreateGroupForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
+        initForm(groupForm);
         break;
     case TableForm::users:
         userForm = new CreateUserForm(this);
-        setCentralWidget(userForm);
-        delete mainForm;
-        this->prewView = userForm; // Save current view
-
-        if (rowIndex > -1) {
-            userForm->setRowIndex(rowIndex); // Edit existing data (current selected row index)
-        }
-
-        connect(userForm, &CreateUserForm::sygnalBack, this, [this, type]() { setMainView(type); });
-        connect(userForm, &CreateUserForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
+        initForm(userForm);
         break;
     case TableForm::tenant:
         tenantForm = new CreateTenantForm(this);
-        setCentralWidget(tenantForm);
-        delete mainForm;
-        this->prewView = tenantForm; // Save current view
-
-        connect(tenantForm, &CreateTenantForm::sygnalBack, this, [this, type]() { setMainView(type); });
-        connect(tenantForm, &CreateTenantForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
+        initForm(tenantForm);
         break;
     case TableForm::logo:
         logoForm = new CreateLogoForm(this);
-        setCentralWidget(logoForm);
-        delete mainForm;
-        this->prewView = logoForm; // Save current view
-
-        connect(logoForm, &CreateLogoForm::sygnalBack, this, [this, type]() { setMainView(type); });
-        connect(logoForm, &CreateLogoForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
+        initForm(logoForm);
         break;
     case TableForm::security_filters:
         securityFilterForm = new CreateSecurityFilterForm(this);
-        setCentralWidget(securityFilterForm);
-        delete mainForm;
-        this->prewView = securityFilterForm; // Save current view
-
-        connect(securityFilterForm, &CreateSecurityFilterForm::sygnalBack, this, [this, type]() { setMainView(type); });
-        connect(securityFilterForm, &CreateSecurityFilterForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
+        initForm(securityFilterForm);
         break;
     case TableForm::menu:
         menuForm = new CreateMenuForm(this);
-        setCentralWidget(menuForm);
-        delete mainForm;
-        this->prewView = menuForm; // Save current view
-
-        if (rowIndex > -1) {
-            menuForm->setRowIndex(rowIndex); // Edit existing data (current selected row index)
-        }
-
-        connect(menuForm, &CreateMenuForm::sygnalBack, this, [this, type]() { setMainView(type); });
-        connect(menuForm, &CreateMenuForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
+        initForm(menuForm);
         break;
     case TableForm::group_screens:
         groupScreenForm = new CreateGroupScreenForm(this);
-        setCentralWidget(groupScreenForm);
-        delete mainForm;
-        this->prewView = groupScreenForm; // Save current view
-
-        if (rowIndex > -1) {
-            groupScreenForm->setRowIndex(rowIndex); // Edit existing data (current selected row index)
-        }
-
-        connect(groupScreenForm, &CreateGroupScreenForm::sygnalBack, this, [this, type]() { setMainView(type); });
-        connect(groupScreenForm, &CreateGroupScreenForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
+        initForm(groupScreenForm);
         break;
     case TableForm::screens:
         screenForm = new CreateScreeForm(this);
-        setCentralWidget(screenForm);
-        delete mainForm;
-        this->prewView = screenForm; // Save current view
-
-        if (rowIndex > -1) {
-            screenForm->setRowIndex(rowIndex); // Edit existing data (current selected row index)
-        }
-
-        connect(screenForm, &CreateScreeForm::sygnalBack, this, [this, type]() { setMainView(type); });
-        connect(screenForm, &CreateScreeForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
+        initForm(screenForm);
         break;
     case TableForm::document_family:
         docFamilyForm = new CreateDocFamilyForm(this);
-        setCentralWidget(docFamilyForm);
-        delete mainForm;
-        this->prewView = docFamilyForm; // Save current view
-
-        if (rowIndex > -1) {
-            docFamilyForm->setRowIndex(rowIndex, id);   // Edit existing data (current selected row index)
-        }
-        else {
-            docFamilyForm->setRowIndex(rowIndex, -1);
-        }
-
-        connect(docFamilyForm, &CreateDocFamilyForm::sygnalBack, this, [this, type]() { setMainView(type); });
-        connect(docFamilyForm, &CreateDocFamilyForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
+        initForm(docFamilyForm);
         break;
     case TableForm::document_groups:
         docGroupsForm = new CreateDocGroupsForm(this);
-        setCentralWidget(docGroupsForm);
-        delete mainForm;
-        this->prewView = docGroupsForm; // Save current view
-
-        if (rowIndex > -1) {
-            docGroupsForm->setRowIndex(rowIndex); // Edit existing data (current selected row index)
-        }
-
-        connect(docGroupsForm, &CreateDocGroupsForm::sygnalBack, this, [this, type]() { setMainView(type); });
-        connect(docGroupsForm, &CreateDocGroupsForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
+        initForm(docGroupsForm);
         break;
     case TableForm::lists:
         listForm = new CreateListForm(this);
-        setCentralWidget(listForm);
-        delete mainForm;
-        this->prewView = listForm; // Save current view
-
-        if (rowIndex > -1) {
-            listForm->setRowIndex(rowIndex); // Edit existing data (current selected row index)
-        }
-
-        connect(listForm, &CreateListForm::sygnalBack, this, [this, type]() { setMainView(type); });
-        connect(listForm, &CreateListForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
+        initForm(listForm);
         break;
     case TableForm::templates:
         templatesForm = new CreateTemplatesForm(this);
-        setCentralWidget(templatesForm);
-        delete mainForm;
-        this->prewView = templatesForm; // Save current view
-
-        if (rowIndex > -1) {
-            templatesForm->setRowIndex(rowIndex); // Edit existing data (current selected row index)
-        }
-
-        connect(templatesForm, &CreateTemplatesForm::sygnalBack, this, [this, type]() { setMainView(type); });
-        connect(templatesForm, &CreateTemplatesForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
+        initForm(templatesForm);
         break;
     case TableForm::custom_data_sources:
         dataSourceForm = new CreateDataSourceForm(this);
-        setCentralWidget(dataSourceForm);
-        delete mainForm;
-        this->prewView = dataSourceForm; // Save current view
-
-        if (rowIndex > -1) {
-            dataSourceForm->setRowIndex(rowIndex); // Edit existing data (current selected row index)
-        }
-
-        connect(dataSourceForm, &CreateDataSourceForm::sygnalBack, this, [this, type]() { setMainView(type); });
-        connect(dataSourceForm, &CreateDataSourceForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
+        initForm(dataSourceForm);
         break;
     case TableForm::extension_functions:
         extFuncForm = new CreateExtFuncForm(this);
-        setCentralWidget(extFuncForm);
-        delete mainForm;
-        this->prewView = extFuncForm; // Save current view
-
-        if (rowIndex > -1) {
-            extFuncForm->setRowIndex(rowIndex); // Edit existing data (current selected row index)
-        }
-
-        connect(extFuncForm, &CreateExtFuncForm::sygnalBack, this, [this, type]() { setMainView(type); });
-        connect(extFuncForm, &CreateExtFuncForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
+        initForm(extFuncForm);
         break;
     case TableForm::servers:
         serverForm = new CreateServerForm(this);
-        setCentralWidget(serverForm);
-        delete mainForm;
-        this->prewView = serverForm; // Save current view
-
-        if (rowIndex > -1) {
-            serverForm->setRowIndex(rowIndex); // Edit existing data (current selected row index)
-        }
-
-        connect(serverForm, &CreateServerForm::sygnalBack, this, [this, type]() { setMainView(type); });
-        connect(serverForm, &CreateServerForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
+        initForm(serverForm);
         break;
     case TableForm::security_questions:
         questionForm = new CreateQuestionForm(this);
-        setCentralWidget(questionForm);
-        delete mainForm;
-        this->prewView = questionForm; // Save current view
-
-        if (rowIndex > -1) {
-            questionForm->setRowIndex(rowIndex); // Edit existing data (current selected row index)
-        }
-
-        connect(questionForm, &CreateQuestionForm::sygnalBack, this, [this, type]() { setMainView(type); });
-        connect(questionForm, &CreateQuestionForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
+        initForm(questionForm);
         break;
     case TableForm::custom_query:
         queryForm = new CreateQueryForm(this);
-        setCentralWidget(queryForm);
-        delete mainForm;
-        this->prewView = queryForm; // Save current view
-
-        if (rowIndex > -1) {
-            queryForm->setRowIndex(rowIndex); // Edit existing data (current selected row index)
-        }
-
-        connect(queryForm, &CreateQueryForm::sygnalBack, this, [this, type]() { setMainView(type); });
-        connect(queryForm, &CreateQueryForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
+        initForm(queryForm);
         break;
     default:
         break;

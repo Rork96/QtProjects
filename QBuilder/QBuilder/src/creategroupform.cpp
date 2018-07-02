@@ -54,8 +54,7 @@ void CreateGroupForm::submitChanges()
 
     // If exists
     if (mapper->currentIndex() > model->rowCount() && query.value(0) != 0) {
-        QMessageBox::information(this, trUtf8("Error"),
-                                 trUtf8(RECORD " is already exists"));
+        QMessageBox::information(this, trUtf8("Error"), trUtf8(RECORD " is already exists"));
         return;
     }
     else {

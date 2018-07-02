@@ -15,6 +15,8 @@ public:
     explicit CreateSecurityFilterForm(QWidget *parent = 0);
     ~CreateSecurityFilterForm();
 
+    void setRowIndex(int rowIndex, int id);     // User chose to edit data from the table
+
 private:
     Ui::CreateSecurityFilterForm *ui;
 

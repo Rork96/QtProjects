@@ -16,6 +16,8 @@ public:
     explicit CreateTenantForm(QWidget *parent = 0);
     ~CreateTenantForm();
 
+    void setRowIndex(int rowIndex, int id);     // User chose to edit data from the table
+
 private:
     Ui::CreateTenantForm *ui;
 

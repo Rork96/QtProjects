@@ -15,6 +15,8 @@ public:
     explicit CreateLogoForm(QWidget *parent = 0);
     ~CreateLogoForm();
 
+    void setRowIndex(int rowIndex, int id);     // User chose to edit data from the table
+
 private:
     Ui::CreateLogoForm *ui;
 

@@ -147,15 +147,15 @@ void MainWindow::createView(TableForm::Type type, int rowIndex, int id)
         delete mainForm;
         this->prewView = form;  // Save current view
 
-        if (rowIndex > -1) {
+        /*if (rowIndex > -1) {
             form->setRowIndex(rowIndex);    // Edit existing data (current selected row index)
-        }
+        }*/
         /*else {
             form->setRowIndex(rowIndex, -1);
         }*/
 
-        connect(form, &CreateUserForm::sygnalBack, this, [this, type]() { setMainView(type); });
-        connect(form, &CreateUserForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
+        //connect(form, &CreateUserForm::sygnalBack, this, [this, type]() { setMainView(type); });
+        //connect(form, &CreateUserForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
     };
 
     switch (type) {

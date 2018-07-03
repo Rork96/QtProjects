@@ -9,6 +9,27 @@ CreateTenantForm::CreateTenantForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    model = new QSqlTableModel(this);
+    model->setTable(Table);
+    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    model->setSort(0, Qt::AscendingOrder);
+    model->select();
+
+    // View data in lineEdit with mapper
+    mapper = new QDataWidgetMapper();
+    mapper->setModel(model);
+    mapper->addMapping(ui->tenantCodeLine, 1);
+    mapper->addMapping(ui->tenantNameLine, 2);
+    mapper->addMapping(ui->expTimeLine, 3);
+    mapper->addMapping(ui->contactLine, 4);
+    mapper->addMapping(ui->emailLine, 5);
+    mapper->addMapping(ui->phoneLine, 6);
+    mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
+
+    model->insertRow(model->rowCount(QModelIndex()));
+
+    mapper->toLast();
+
     connect(ui->backButton, &QToolButton::clicked, this, [this] {
        emit sygnalBack();
     });
@@ -33,6 +54,9 @@ CreateTenantForm::~CreateTenantForm()
 void CreateTenantForm::submitChanges()
 {
     // Save changes to database
+
+    mapper->submit();
+    model->submitAll();
 
     // Send sygnal
     emit sygnalSubmit();

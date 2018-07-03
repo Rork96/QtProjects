@@ -60,7 +60,7 @@ QRadioButton {
                border-style: outset;
 	           font: 11pt &quot;MS Shell Dlg 2&quot;;
               }
-QTextEdit {
+QPlainTextEdit {
                color: black;
                padding: 4px;
                border: 1px solid rgb(63, 127, 191); 
@@ -281,7 +281,7 @@ QToolButton:pressed {
              </widget>
             </item>
             <item>
-             <widget class="QTextEdit" name="descreptionEdit">
+             <widget class="QPlainTextEdit" name="descreptionEdit">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                 <horstretch>0</horstretch>
@@ -339,6 +339,9 @@ QToolButton:pressed {
                </property>
                <property name="text">
                 <string>Header logo</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
                </property>
               </widget>
              </item>
@@ -508,14 +511,14 @@ QToolButton:pressed {
    </item>
   </layout>
  </widget>
-    <customwidgets>
-        <customwidget>
-            <class>BaseForm</class>
-            <extends>QWidget</extends>
-            <header>BaseForm.h</header>
-            <container>1</container>
-        </customwidget>
-    </customwidgets>
+ <customwidgets>
+  <customwidget>
+   <class>BaseForm</class>
+   <extends>QWidget</extends>
+   <header>BaseForm.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

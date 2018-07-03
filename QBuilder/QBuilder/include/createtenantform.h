@@ -26,6 +26,8 @@ private:
     QSqlTableModel *model;
     QDataWidgetMapper *mapper;
 
+    const QString Table = "tenant";
+
     void initComboBox(QList<QComboBox*> elements); // Init comboboxes with colors
 
     void submitChanges() override;

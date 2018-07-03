@@ -155,7 +155,7 @@ QScrollBar {
          <string notr="true"/>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="personalTab">
          <attribute name="title">
@@ -710,7 +710,7 @@ QScrollBar {
              <property name="geometry">
               <rect>
                <x>0</x>
-               <y>-338</y>
+               <y>0</y>
                <width>755</width>
                <height>1005</height>
               </rect>

@@ -408,6 +408,9 @@ QToolButton:pressed {
                      <property name="text">
                       <string>Read only</string>
                      </property>
+                     <property name="checked">
+                      <bool>true</bool>
+                     </property>
                     </widget>
                    </item>
                    <item row="0" column="2">
@@ -542,14 +545,14 @@ QToolButton:pressed {
    </item>
   </layout>
  </widget>
-    <customwidgets>
-        <customwidget>
-            <class>BaseForm</class>
-            <extends>QWidget</extends>
-            <header>BaseForm.h</header>
-            <container>1</container>
-        </customwidget>
-    </customwidgets>
+ <customwidgets>
+  <customwidget>
+   <class>BaseForm</class>
+   <extends>QWidget</extends>
+   <header>BaseForm.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

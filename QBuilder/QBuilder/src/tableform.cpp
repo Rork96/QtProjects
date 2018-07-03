@@ -26,14 +26,8 @@ TableForm::TableForm(QWidget *parent) :
     });
 
     connect(ui->editButton, &QToolButton::clicked, this, [this] {
-        // Edit existing data, second parameter - selected row in the table
-        if (this->table == "document_family") {
-            auto id = mainModel->data(mainModel->index(ui->mainTableView->selectionModel()->selectedRows().at(0).row(), 0)); // id
-            emit createData(this->viewType, ui->mainTableView->selectionModel()->selectedRows().at(0).row(), id.toInt());
-        }
-        else {
-            emit createData(this->viewType, ui->mainTableView->selectionModel()->selectedRows().at(0).row());
-        }
+        auto id = mainModel->data(mainModel->index(ui->mainTableView->selectionModel()->selectedRows().at(0).row(), 0)); // id
+        emit createData(this->viewType, ui->mainTableView->selectionModel()->selectedRows().at(0).row(), id.toInt());
     });
 
     connect(ui->deleteButton, &QToolButton::clicked, this, &TableForm::deleteDatafromDB); // A row was selected in the table
@@ -74,22 +68,45 @@ void TableForm::loadDataFromDB()
             }
             break;
         case TableForm::users:
-            /*mainModel = new QSqlTableModel(this);
-            this->table = "users";
-            mainModel->setTable(this->table);
+            /*initTable("users");
 
-            mainModel->setSort(0, Qt::AscendingOrder);
-            mainModel->select();
-            ui->mainTableView->setModel(mainModel);
-            ui->mainTableView->setColumnHidden(0, true);    // Hide
+            headers << trUtf8("id") << trUtf8("User name") << trUtf8("Group area") << trUtf8("Email")
+                    << trUtf8("Account type") << trUtf8("Active account") << trUtf8("Account name");
+
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
                 ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+                mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
             }*/
             break;
         case TableForm::tenant:
+            initTable("tenant");
+
+            headers << trUtf8("id") << trUtf8("Tenant code") << trUtf8("Name") << trUtf8("Email") << trUtf8("Phone")
+                    << trUtf8("Country") << trUtf8("City");
+
+            // Columns size
+            for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
+                ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+                if (i <= 6) mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
+                if (i > 6)
+                    ui->mainTableView->setColumnHidden(i, true);    // Hide columns
+            }
+            break;
             break;
         case TableForm::logo:
+            initTable("logo");
+
+            ui->mainTableView->setColumnHidden(5, true); // Hide
+
+            headers << trUtf8("id") << trUtf8("List name") << trUtf8("Entry name") << trUtf8("Description")
+                    << trUtf8("Type") << trUtf8("");
+
+            // Columns size
+            for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
+                ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+                mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
+            }
             break;
         case TableForm::security_filters:
             break;

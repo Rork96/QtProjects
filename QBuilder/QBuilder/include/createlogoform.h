@@ -17,10 +17,13 @@ public:
     explicit CreateLogoForm(QWidget *parent = 0);
     ~CreateLogoForm();
 
-    void setRowIndex(int rowIndex, int) override;     // User chose to edit data from the table
+    void setRowIndex(int rowIndex, int id) override;     // User chose to edit data from the table
 
 private:
     Ui::CreateLogoForm *ui;
+
+    const QString Table = "logo";
+    const QString Record = "Entry name";
 
     QSqlTableModel *model;
     QDataWidgetMapper *mapper;

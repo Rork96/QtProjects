@@ -1,17 +1,15 @@
 #ifndef CREATETEMPLATESFORM_H
 #define CREATETEMPLATESFORM_H
 
-#include <QWidget>
+#include "BaseForm.h"
 #include <QSqlTableModel>
 #include <QDataWidgetMapper>
-
-#define TABLE   "templates"
 
 namespace Ui {
 class CreateTemplatesForm;
 }
 
-class CreateTemplatesForm : public QWidget
+class CreateTemplatesForm : public BaseForm
 {
     Q_OBJECT
 
@@ -19,19 +17,21 @@ public:
     explicit CreateTemplatesForm(QWidget *parent = 0);
     ~CreateTemplatesForm();
 
-    void setRowIndex(int rowIndex); // User chose to edit data from the table
+    void setRowIndex(int rowIndex, int) override; // User chose to edit data from the table
 
 private:
     Ui::CreateTemplatesForm *ui;
 
+    const QString Table = "templates";
+
     QSqlTableModel *model;
     QDataWidgetMapper *mapper;
 
-    void submitChanges();
+    void submitChanges() override;
 
-signals:
-    void sygnalBack();
-    void sygnalSubmit();
+//signals:
+//    void sygnalBack() override;
+//    void sygnalSubmit() override;
 };
 
 #endif // CREATETEMPLATESFORM_H

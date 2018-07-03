@@ -6,13 +6,13 @@
 #include <QSqlRelationalDelegate>
 
 CreateExtFuncForm::CreateExtFuncForm(QWidget *parent) :
-    QWidget(parent),
+    BaseForm(parent),
     ui(new Ui::CreateExtFuncForm)
 {
     ui->setupUi(this);
 
     model = new QSqlRelationalTableModel(this);
-    model->setTable(TABLE);
+    model->setTable(Table);
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model->setSort(0, Qt::AscendingOrder);
 
@@ -68,7 +68,7 @@ void CreateExtFuncForm::submitChanges()
     emit sygnalSubmit();
 }
 
-void CreateExtFuncForm::setRowIndex(int rowIndex)
+void CreateExtFuncForm::setRowIndex(int rowIndex, int)
 {
     // User chose to edit data from the table
     mapper->setCurrentIndex(rowIndex);

@@ -1,20 +1,17 @@
 #ifndef CREATEDOCFAMILYFORM_H
 #define CREATEDOCFAMILYFORM_H
 
-#include <QWidget>
+#include "BaseForm.h"
 //#include <QLineEdit>
 //#include <QToolButton>
 #include <QDataWidgetMapper>
 #include <QSqlRelationalTableModel>
 
-#define TABLE       "document_family"
-#define CATEGORY    "categories"
-
 namespace Ui {
 class CreateDocFamilyForm;
 }
 
-class CreateDocFamilyForm : public QWidget
+class CreateDocFamilyForm : public BaseForm
 {
     Q_OBJECT
 
@@ -22,10 +19,13 @@ public:
     explicit CreateDocFamilyForm(QWidget *parent = 0);
     ~CreateDocFamilyForm();
 
-    void setRowIndex(int rowIndex, int id);     // User chose to edit data from the table
+    void setRowIndex(int rowIndex, int id) override;     // User chose to edit data from the table
 
 private:
     Ui::CreateDocFamilyForm *ui;
+
+    const QString Table = "document_family";    // Base table name
+    const QString Category = "categories";      // Second table
 
     QSqlTableModel *model;
     QDataWidgetMapper *mapper;
@@ -34,7 +34,7 @@ private:
     int currentId = -1;
     bool isEdit = false;
 
-    void submitChanges();
+    void submitChanges() override;
 
     void addCategory();
     void delCategory();
@@ -49,9 +49,9 @@ private:
 //    QVector<QLineEdit*> searchL;
 //    QVector<QToolButton*> delBtn;
 
-signals:
-    void sygnalBack();
-    void sygnalSubmit();
+//signals:
+//    void sygnalBack() override;
+//    void sygnalSubmit() override;
 };
 
 #endif // CREATEDOCFAMILYFORM_H

@@ -1,17 +1,15 @@
 #ifndef CREATEDATASOURCEFORM_H
 #define CREATEDATASOURCEFORM_H
 
-#include <QWidget>
+#include "BaseForm.h"
 #include <QSqlRelationalTableModel>
 #include <QDataWidgetMapper>
-
-#define TABLE   "data_sources"
 
 namespace Ui {
 class CreateDataSourceForm;
 }
 
-class CreateDataSourceForm : public QWidget
+class CreateDataSourceForm : public BaseForm
 {
     Q_OBJECT
 
@@ -19,19 +17,21 @@ public:
     explicit CreateDataSourceForm(QWidget *parent = 0);
     ~CreateDataSourceForm();
 
-    void setRowIndex(int rowIndex); // User chose to edit data from the table
+    void setRowIndex(int rowIndex, int) override;     // User chose to edit data from the table
 
 private:
     Ui::CreateDataSourceForm *ui;
 
+    const QString Table = "data_sources";   // Base table name
+
     QSqlRelationalTableModel *model;
     QDataWidgetMapper *mapper;
 
-    void submitChanges();
+    void submitChanges() override;
 
-signals:
-    void sygnalBack();
-    void sygnalSubmit();
+//signals:
+//    void sygnalBack() override;
+//    void sygnalSubmit() override;
 };
 
 #endif // CREATEDATASOURCEFORM_H

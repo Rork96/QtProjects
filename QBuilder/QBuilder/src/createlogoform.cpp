@@ -6,7 +6,7 @@
 #include <QFileInfo>
 
 CreateLogoForm::CreateLogoForm(QWidget *parent) :
-    QWidget(parent),
+    BaseForm(parent),
     ui(new Ui::CreateLogoForm)
 {
     ui->setupUi(this);
@@ -43,4 +43,10 @@ void CreateLogoForm::openImage()
     if(fName.isEmpty()) return;
 
     ui->imageNameLabel->setText(QFileInfo(fName).fileName());
+}
+
+void CreateLogoForm::setRowIndex(int rowIndex, int)
+{
+    // User chose to edit data from the table
+    mapper->setCurrentIndex(rowIndex);
 }

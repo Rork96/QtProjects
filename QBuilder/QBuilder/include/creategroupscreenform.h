@@ -1,17 +1,15 @@
 #ifndef CREATEGROUPSCREENFORM_H
 #define CREATEGROUPSCREENFORM_H
 
-#include <QWidget>
+#include "BaseForm.h"
 #include <QSqlRelationalTableModel>
 #include <QDataWidgetMapper>
-
-#define TABLE   "group_screen"
 
 namespace Ui {
 class CreateGroupScreenForm;
 }
 
-class CreateGroupScreenForm : public QWidget
+class CreateGroupScreenForm : public BaseForm
 {
     Q_OBJECT
 
@@ -19,19 +17,21 @@ public:
     explicit CreateGroupScreenForm(QWidget *parent = 0);
     ~CreateGroupScreenForm();
 
-    void setRowIndex(int rowIndex); // User chose to edit data from the table
+    void setRowIndex(int rowIndex, int) override; // User chose to edit data from the table
 
 private:
     Ui::CreateGroupScreenForm *ui;
 
+    const QString Table = "group_screen";
+
     QSqlRelationalTableModel *model;
     QDataWidgetMapper *mapper;
 
-    void submitChanges();
+    void submitChanges() override;
 
-signals:
-    void sygnalBack();
-    void sygnalSubmit();
+//signals:
+//    void sygnalBack() override;
+//    void sygnalSubmit() override;
 };
 
 #endif // CREATEGROUPSCREENFORM_H

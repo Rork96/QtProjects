@@ -4,7 +4,7 @@
 #include <QPainter>
 
 CreateTenantForm::CreateTenantForm(QWidget *parent) :
-    QWidget(parent),
+    BaseForm(parent),
     ui(new Ui::CreateTenantForm)
 {
     ui->setupUi(this);
@@ -64,4 +64,10 @@ void CreateTenantForm::initComboBox(QList<QComboBox*> elements)
             con = con + 1;
         }
     }
+}
+
+void CreateTenantForm::setRowIndex(int rowIndex, int)
+{
+    // User chose to edit data from the table
+    mapper->setCurrentIndex(rowIndex);
 }

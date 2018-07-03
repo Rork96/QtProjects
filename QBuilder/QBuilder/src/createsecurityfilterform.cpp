@@ -2,7 +2,7 @@
 #include "ui_createsecurityfilterform.h"
 
 CreateSecurityFilterForm::CreateSecurityFilterForm(QWidget *parent) :
-    QWidget(parent),
+    BaseForm(parent),
     ui(new Ui::CreateSecurityFilterForm)
 {
     ui->setupUi(this);
@@ -25,4 +25,10 @@ void CreateSecurityFilterForm::submitChanges()
 
     // Send sygnal
     emit sygnalSubmit();
+}
+
+void CreateSecurityFilterForm::setRowIndex(int rowIndex, int)
+{
+    // User chose to edit data from the table
+    mapper->setCurrentIndex(rowIndex);
 }

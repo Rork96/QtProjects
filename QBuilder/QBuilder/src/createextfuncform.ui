@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>CreateExtFuncForm</class>
- <widget class="QWidget" name="CreateExtFuncForm">
+ <widget class="BaseForm" name="CreateExtFuncForm">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -468,6 +468,14 @@ QToolButton:pressed {
    </item>
   </layout>
  </widget>
+    <customwidgets>
+        <customwidget>
+            <class>BaseFrom</class>
+            <extends>QWidget</extends>
+            <header>BaseForm.h</header>
+            <container>1</container>
+        </customwidget>
+    </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -15,7 +15,7 @@ generate_product_version (
         VERSION_PATH ${BUILD_COUNTER}
         VERSION_REVISION ${BUILD_REVISION}
         COMPANY_NAME "Company"
-        FILE_DESCRIPTION "Program description"
+        FILE_DESCRIPTION "Application"
 )
 
 #Qt modules

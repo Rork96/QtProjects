@@ -1,18 +1,15 @@
 #ifndef CREATEGROUPFORM_H
 #define CREATEGROUPFORM_H
 
-#include <QWidget>
+#include "BaseForm.h"
 #include <QSqlTableModel>
 #include <QDataWidgetMapper>
-
-#define TABLE   "groups"
-#define RECORD  "Group name"
 
 namespace Ui {
 class CreateGroupForm;
 }
 
-class CreateGroupForm : public QWidget
+class CreateGroupForm : public BaseForm
 {
     Q_OBJECT
 
@@ -20,19 +17,22 @@ public:
     explicit CreateGroupForm(QWidget *parent = 0);
     ~CreateGroupForm();
 
-    void setRowIndex(int rowIndex); // User chose to edit data from the table
+    void setRowIndex(int rowIndex, int) override; // User chose to edit data from the table
 
 private:
     Ui::CreateGroupForm *ui;
 
+    const QString Table = "groups";
+    const QString Record = "Group name";
+
     QSqlTableModel *model;
     QDataWidgetMapper *mapper;
 
-    void submitChanges();
+    void submitChanges() override;
 
-signals:
-    void sygnalBack();
-    void sygnalSubmit();
+//signals:
+//    void sygnalBack() override;
+//    void sygnalSubmit() override;
 };
 
 #endif // CREATEGROUPFORM_H

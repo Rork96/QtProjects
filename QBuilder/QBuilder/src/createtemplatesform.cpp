@@ -5,13 +5,13 @@
 #include <QMessageBox>
 
 CreateTemplatesForm::CreateTemplatesForm(QWidget *parent) :
-    QWidget(parent),
+    BaseForm(parent),
     ui(new Ui::CreateTemplatesForm)
 {
     ui->setupUi(this);
 
     model = new QSqlTableModel(this);
-    model->setTable(TABLE);
+    model->setTable(Table);
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model->setSort(0, Qt::AscendingOrder);
     model->select();
@@ -48,7 +48,7 @@ void CreateTemplatesForm::submitChanges()
     // Save changes to database
 
     QSqlQuery query;
-    QString str = QString("SELECT EXISTS (SELECT 'Group name' FROM" TABLE
+    QString str = QString("SELECT EXISTS (SELECT 'Group name' FROM" + Table +
         " WHERE id NOT LIKE '%1' )").arg(model->data(model->index(mapper->currentIndex(), 0), Qt::DisplayRole).toInt());
 
     query.prepare(str);
@@ -66,7 +66,7 @@ void CreateTemplatesForm::submitChanges()
     emit sygnalSubmit();
 }
 
-void CreateTemplatesForm::setRowIndex(int rowIndex)
+void CreateTemplatesForm::setRowIndex(int rowIndex, int)
 {
     // User chose to edit data from the table
     mapper->setCurrentIndex(rowIndex);

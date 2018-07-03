@@ -5,13 +5,13 @@
 #include <QSqlRelationalDelegate>
 
 CreateGroupScreenForm::CreateGroupScreenForm(QWidget *parent) :
-    QWidget(parent),
+    BaseForm(parent),
     ui(new Ui::CreateGroupScreenForm)
 {
     ui->setupUi(this);
 
     model = new QSqlRelationalTableModel(this);
-    model->setTable(TABLE);
+    model->setTable(Table);
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model->setSort(0, Qt::AscendingOrder);
 
@@ -88,7 +88,7 @@ void CreateGroupScreenForm::submitChanges()
     emit sygnalSubmit();
 }
 
-void CreateGroupScreenForm::setRowIndex(int rowIndex)
+void CreateGroupScreenForm::setRowIndex(int rowIndex, int)
 {
     // User chose to edit data from the table
     mapper->setCurrentIndex(rowIndex);

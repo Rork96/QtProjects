@@ -86,7 +86,6 @@ MainWindow::MainWindow(QWidget *parent) :
         setMainView(TableForm::custom_query);
     });
 
-
     // Import files
     connect(ui->actionImport_files, &QAction::triggered, this, [this] {
         setWindowTitle("Application - Import files");
@@ -141,21 +140,20 @@ void MainWindow::setMainView(TableForm::Type type)
 
 void MainWindow::createView(TableForm::Type type, int rowIndex, int id)
 {
-    auto initForm = [this, &rowIndex, &type](auto form) {
-    //auto initForm = [this](auto form) {
+    auto initForm = [this, &rowIndex, &type, &id](auto form) {
         setCentralWidget(form);
         delete mainForm;
         this->prewView = form;  // Save current view
 
         if (rowIndex > -1) {
-            form->setRowIndex(rowIndex);    // Edit existing data (current selected row index)
+            form->setRowIndex(rowIndex, id);   // Edit existing data (current selected row index)
         }
         else {
             form->setRowIndex(rowIndex, -1);
         }
 
-        connect(form, &CreateUserForm::sygnalBack, this, [this, type]() { setMainView(type); });
-        connect(form, &CreateUserForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
+        connect(form, &BaseForm::sygnalBack, this, [this, type]() { setMainView(type); });
+        connect(form, &BaseForm::sygnalSubmit, this, [this, type]() { setMainView(type); });
     };
 
     switch (type) {

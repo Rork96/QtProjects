@@ -5,14 +5,14 @@
 #include <QMessageBox>
 
 CreateDocFamilyForm::CreateDocFamilyForm(QWidget *parent) :
-    QWidget(parent),
+    BaseForm(parent),
     ui(new Ui::CreateDocFamilyForm)
 {
     ui->setupUi(this);
 
     // region document_family table
     model = new QSqlTableModel(this);
-    model->setTable(TABLE);
+    model->setTable(Table);
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model->setSort(0, Qt::AscendingOrder);
     model->select();
@@ -28,7 +28,7 @@ CreateDocFamilyForm::CreateDocFamilyForm(QWidget *parent) :
 
     // region categories table
     categoryModel = new QSqlRelationalTableModel(this);
-    categoryModel->setTable(CATEGORY);
+    categoryModel->setTable(Category);
 
     categoryModel->setSort(0, Qt::AscendingOrder);
     categoryModel->setEditStrategy(QSqlTableModel::OnManualSubmit);
@@ -53,7 +53,7 @@ CreateDocFamilyForm::CreateDocFamilyForm(QWidget *parent) :
         categoryModel->select();
         // Insert currentId into table (for filtering | see "setRowIndex()")
         QSqlQuery query;
-        query.prepare( "UPDATE " CATEGORY " SET family = ? WHERE id = ?" );
+        query.prepare( "UPDATE " + Category + " SET family = ? WHERE id = ?" );
         query.addBindValue(currentId);
         query.addBindValue(query.lastInsertId().toInt());
         query.exec();
@@ -67,12 +67,12 @@ CreateDocFamilyForm::CreateDocFamilyForm(QWidget *parent) :
         // Delete current data from database
         if (!isEdit) {
             QSqlQuery query;
-            query.prepare("DELETE FROM " TABLE " WHERE id = ?");
+            query.prepare("DELETE FROM " + Table + " WHERE id = ?");
             query.addBindValue(currentId);
             query.exec();
             // Delete linked data from CATEGORY
             //QSqlQuery query;
-            query.prepare("DELETE FROM " CATEGORY " WHERE family = ?");
+            query.prepare("DELETE FROM " + Category + " WHERE family = ?");
             query.addBindValue(currentId);
             query.exec();
         }
@@ -136,7 +136,7 @@ void CreateDocFamilyForm::setRowIndex(int rowIndex, int id)
     if (currentId == -1) {
         // Create new item
         QSqlQuery query;
-        query.exec( "INSERT INTO " TABLE " DEFAULT VALUES" );
+        query.exec( "INSERT INTO " + Table + " DEFAULT VALUES" );
         mapper->submit();
         model->submitAll();
         mapper->toLast();

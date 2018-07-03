@@ -1,17 +1,16 @@
 #include "createdatasourceform.h"
 #include "ui_createdatasourceform.h"
 
-#include <QMessageBox>
 #include <QSqlRelationalDelegate>
 
 CreateDataSourceForm::CreateDataSourceForm(QWidget *parent) :
-    QWidget(parent),
+    BaseForm(parent),
     ui(new Ui::CreateDataSourceForm)
 {
     ui->setupUi(this);
 
     model = new QSqlRelationalTableModel(this);
-    model->setTable(TABLE);
+    model->setTable(Table);
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model->setSort(0, Qt::AscendingOrder);
 
@@ -77,7 +76,7 @@ void CreateDataSourceForm::submitChanges()
     emit sygnalSubmit();
 }
 
-void CreateDataSourceForm::setRowIndex(int rowIndex)
+void CreateDataSourceForm::setRowIndex(int rowIndex, int)
 {
     // User chose to edit data from the table
     mapper->setCurrentIndex(rowIndex);

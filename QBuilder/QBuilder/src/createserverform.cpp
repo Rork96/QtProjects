@@ -5,13 +5,13 @@
 #include <QMessageBox>
 
 CreateServerForm::CreateServerForm(QWidget *parent) :
-    QWidget(parent),
+    BaseForm(parent),
     ui(new Ui::CreateServerForm)
 {
     ui->setupUi(this);
 
     model = new QSqlTableModel(this);
-    model->setTable(TABLE);
+    model->setTable(Table);
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model->setSort(0, Qt::AscendingOrder);
     model->select();
@@ -55,7 +55,7 @@ void CreateServerForm::submitChanges()
     emit sygnalSubmit();
 }
 
-void CreateServerForm::setRowIndex(int rowIndex)
+void CreateServerForm::setRowIndex(int rowIndex, int)
 {
     // User chose to edit data from the table
     mapper->setCurrentIndex(rowIndex);

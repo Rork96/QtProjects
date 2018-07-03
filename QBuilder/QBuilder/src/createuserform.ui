@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>CreateUserForm</class>
- <widget class="QWidget" name="CreateUserForm">
+ <widget class="BaseForm" name="CreateUserForm">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -2846,6 +2846,14 @@ QToolButton:pressed {
   <tabstop>mainTabWidget</tabstop>
   <tabstop>styleScrollArea</tabstop>
  </tabstops>
+    <customwidgets>
+        <customwidget>
+            <class>BaseForm</class>
+            <extends>QWidget</extends>
+            <header>BaseForm.h</header>
+            <container>1</container>
+        </customwidget>
+    </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -6,13 +6,13 @@
 #include <QSqlRecord>
 
 CreateScreeForm::CreateScreeForm(QWidget *parent) :
-    QWidget(parent),
+    BaseForm(parent),
     ui(new Ui::CreateScreeForm)
 {
     ui->setupUi(this);
 
     model = new QSqlRelationalTableModel(this);
-    model->setTable(TABLE);
+    model->setTable(Table);
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model->setSort(0, Qt::AscendingOrder);
 
@@ -76,7 +76,7 @@ void CreateScreeForm::submitChanges()
             int result = query.value(0).toInt();
             mapper->submit();
             model->submitAll();
-            query.prepare( "UPDATE " TABLE " SET m_name = ? WHERE id = ?");
+            query.prepare( "UPDATE " + Table + " SET m_name = ? WHERE id = ?");
             query.addBindValue(result);                         // m_name
             if (isEdit) {
                 // If existing record is editing, get id
@@ -97,7 +97,7 @@ void CreateScreeForm::submitChanges()
     emit sygnalSubmit();
 }
 
-void CreateScreeForm::setRowIndex(int rowIndex)
+void CreateScreeForm::setRowIndex(int rowIndex, int)
 {
     // User chose to edit data from the table
     mapper->setCurrentIndex(rowIndex);

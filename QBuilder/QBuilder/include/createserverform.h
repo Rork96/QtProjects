@@ -1,18 +1,15 @@
 #ifndef CREATESERVERFORM_H
 #define CREATESERVERFORM_H
 
-#include <QWidget>
+#include "BaseForm.h"
 #include <QSqlTableModel>
 #include <QDataWidgetMapper>
-
-#define TABLE   "servers"
-
 
 namespace Ui {
 class CreateServerForm;
 }
 
-class CreateServerForm : public QWidget
+class CreateServerForm : public BaseForm
 {
     Q_OBJECT
 
@@ -20,19 +17,21 @@ public:
     explicit CreateServerForm(QWidget *parent = 0);
     ~CreateServerForm();
 
-    void setRowIndex(int rowIndex); // User chose to edit data from the table
+    void setRowIndex(int rowIndex, int) override; // User chose to edit data from the table
 
 private:
     Ui::CreateServerForm *ui;
 
+    const QString Table = "servers";
+
     QSqlTableModel *model;
     QDataWidgetMapper *mapper;
 
-    void submitChanges();
+    void submitChanges() override;
 
-signals:
-    void sygnalBack();
-    void sygnalSubmit();
+//signals:
+//    void sygnalBack() override;
+//    void sygnalSubmit() override;
 };
 
 #endif // CREATESERVERFORM_H

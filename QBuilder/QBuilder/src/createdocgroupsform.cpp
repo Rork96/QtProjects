@@ -6,13 +6,13 @@
 #include <QSqlQuery>
 
 CreateDocGroupsForm::CreateDocGroupsForm(QWidget *parent) :
-    QWidget(parent),
+    BaseForm(parent),
     ui(new Ui::CreateDocGroupsForm)
 {
     ui->setupUi(this);
 
     model = new QSqlRelationalTableModel(this);
-    model->setTable(TABLE);
+    model->setTable(Table);
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model->setSort(0, Qt::AscendingOrder);
 
@@ -58,8 +58,8 @@ void CreateDocGroupsForm::submitChanges()
     // Save changes to database
 
     QSqlQuery query;
-    QString str = QString("SELECT EXISTS (SELECT 'Group name' FROM" TABLE
-        " WHERE '" RECORD "' = '%1' AND id NOT LIKE '%2' )").arg(ui->groupNameline->text(),
+    QString str = QString("SELECT EXISTS (SELECT 'Group name' FROM" + Table +
+        " WHERE '" + Record + "' = '%1' AND id NOT LIKE '%2' )").arg(ui->groupNameline->text(),
                     model->data(model->index(mapper->currentIndex(), 0), Qt::DisplayRole).toInt());
 
     query.prepare(str);
@@ -68,7 +68,7 @@ void CreateDocGroupsForm::submitChanges()
 
     // If exists
     if (mapper->currentIndex() > model->rowCount() && query.value(0) != 0) {
-        QMessageBox::information(this, trUtf8("Error"), trUtf8(RECORD " is already exists"));
+        QMessageBox::information(this, trUtf8("Error"), Record + trUtf8(" is already exists"));
         return;
     }
     else {
@@ -82,7 +82,7 @@ void CreateDocGroupsForm::submitChanges()
         else if (ui->readOnlyButton->isChecked()) value = 2;
         else value = 3;
 
-        query.prepare( "UPDATE " TABLE " SET access = ?");
+        query.prepare( "UPDATE " + Table + " SET access = ?");
         query.addBindValue(value);
         query.exec();
     }
@@ -94,14 +94,14 @@ void CreateDocGroupsForm::submitChanges()
     emit sygnalSubmit();
 }
 
-void CreateDocGroupsForm::setRowIndex(int rowIndex)
+void CreateDocGroupsForm::setRowIndex(int rowIndex, int)
 {
     // User chose to edit data from the table
     mapper->setCurrentIndex(rowIndex);
 
     // Connect radioButtons
     QSqlQuery query;
-    query.prepare( "SELECT access FROM " TABLE " WHERE " RECORD " = '" + ui->groupNameline->text() + "'" );
+    query.prepare( "SELECT access FROM " + Table + " WHERE " + Record + " = '" + ui->groupNameline->text() + "'" );
     query.exec();
 
     while (query.next()) {

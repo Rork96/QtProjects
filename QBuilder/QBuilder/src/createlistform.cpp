@@ -5,13 +5,13 @@
 #include <QMessageBox>
 
 CreateListForm::CreateListForm(QWidget *parent) :
-    QWidget(parent),
+    BaseForm(parent),
     ui(new Ui::CreateListForm)
 {
     ui->setupUi(this);
 
     model = new QSqlTableModel(this);
-    model->setTable(TABLE);
+    model->setTable(Table);
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model->setSort(0, Qt::AscendingOrder);
     model->select();
@@ -49,8 +49,8 @@ void CreateListForm::submitChanges()
     // Save changes to database
 
     QSqlQuery query;
-    QString str = QString("SELECT EXISTS (SELECT 'Entry name' FROM" TABLE
-                          " WHERE '" RECORD "' = '%1' AND id NOT LIKE '%2' )").arg(ui->entryNameline->text(),
+    QString str = QString("SELECT EXISTS (SELECT 'Entry name' FROM" + Table +
+                          " WHERE '" + Record + "' = '%1' AND id NOT LIKE '%2' )").arg(ui->entryNameline->text(),
                                       model->data(model->index(mapper->currentIndex(), 0), Qt::DisplayRole).toInt());
 
     query.prepare(str);
@@ -59,8 +59,7 @@ void CreateListForm::submitChanges()
 
     // If exists
     if (mapper->currentIndex() > model->rowCount() && query.value(0) != 0) {
-        QMessageBox::information(this, trUtf8("Error"),
-                                 trUtf8(RECORD " is already exists"));
+        QMessageBox::information(this, trUtf8("Error"), Record + trUtf8(" is already exists"));
         return;
     }
     else {
@@ -75,7 +74,7 @@ void CreateListForm::submitChanges()
     emit sygnalSubmit();
 }
 
-void CreateListForm::setRowIndex(int rowIndex)
+void CreateListForm::setRowIndex(int rowIndex, int)
 {
     // User chose to edit data from the table
     mapper->setCurrentIndex(rowIndex);

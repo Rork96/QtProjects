@@ -9,12 +9,23 @@ CreateTenantForm::CreateTenantForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    model = new QSqlTableModel(this);
+    model = new QSqlRelationalTableModel(this);
     model->setTable(Table);
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model->setSort(0, Qt::AscendingOrder);
     model->select();
+/*
+    // Set relation between tables
+    int groupIndex = model->fieldIndex("group_name");
+    model->setRelation(groupIndex, QSqlRelation("groups", "id", "name"));
 
+    // New relation model for fTypeBox
+    QSqlTableModel *relModel = model->relationModel(groupIndex); // Relation index
+    ui->groupNameBox->setModel(relModel);
+    ui->groupNameBox->setModelColumn(relModel->fieldIndex("name"));
+
+    mapper->addMapping(ui->groupNameBox, groupIndex);   // Relation by index
+*/
     // View data in lineEdit with mapper
     mapper = new QDataWidgetMapper();
     mapper->setModel(model);

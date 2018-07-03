@@ -23,7 +23,7 @@ public:
 private:
     Ui::CreateTenantForm *ui;
 
-    QSqlTableModel *model;
+    QSqlRelationalTableModel *model;
     QDataWidgetMapper *mapper;
 
     const QString Table = "tenant";

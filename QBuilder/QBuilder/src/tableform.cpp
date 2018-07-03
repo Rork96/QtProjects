@@ -82,6 +82,12 @@ void TableForm::loadDataFromDB()
         case TableForm::tenant:
             initTable("tenant");
 
+            // Select
+            mainModel->setRelation(5, QSqlRelation("location_country", "id", "country_name"));
+            mainModel->setRelation(6, QSqlRelation("location_city", "id", "city_name"));
+            ui->mainTableView->setItemDelegate(new QSqlRelationalDelegate(ui->mainTableView));
+            mainModel->select();
+
             headers << trUtf8("id") << trUtf8("Tenant code") << trUtf8("Name") << trUtf8("Email") << trUtf8("Phone")
                     << trUtf8("Country") << trUtf8("City");
 

@@ -14,27 +14,38 @@ CreateTenantForm::CreateTenantForm(QWidget *parent) :
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model->setSort(0, Qt::AscendingOrder);
     model->select();
-/*
+
+    // region Country
     // Set relation between tables
-    int groupIndex = model->fieldIndex("group_name");
-    model->setRelation(groupIndex, QSqlRelation("groups", "id", "name"));
+    int countryIndex = model->fieldIndex("country");
+    model->setRelation(countryIndex, QSqlRelation("location_country", "id", "country_name"));
 
     // New relation model for fTypeBox
-    QSqlTableModel *relModel = model->relationModel(groupIndex); // Relation index
-    ui->groupNameBox->setModel(relModel);
-    ui->groupNameBox->setModelColumn(relModel->fieldIndex("name"));
+    QSqlTableModel *countryModel = model->relationModel(countryIndex); // Relation index
+    ui->countryBox->setModel(countryModel);
+    ui->countryBox->setModelColumn(countryModel->fieldIndex("country_name"));
+    // endregion Country
 
-    mapper->addMapping(ui->groupNameBox, groupIndex);   // Relation by index
-*/
+    // region City
+    // Set relation between tables
+    int cityIndex = model->fieldIndex("city");
+    model->setRelation(cityIndex, QSqlRelation("location_city", "id", "city_name"));
+
+    // New relation model for fTypeBox
+    QSqlTableModel *cityModel = model->relationModel(cityIndex); // Relation index
+    ui->cityBox->setModel(cityModel);
+    ui->cityBox->setModelColumn(cityModel->fieldIndex("city_name"));
+    // endregion City
+
     // View data in lineEdit with mapper
     mapper = new QDataWidgetMapper();
     mapper->setModel(model);
     mapper->addMapping(ui->tenantCodeLine, 1);
     mapper->addMapping(ui->tenantNameLine, 2);
-    mapper->addMapping(ui->expTimeLine, 3);
-    mapper->addMapping(ui->contactLine, 4);
-    mapper->addMapping(ui->emailLine, 5);
-    mapper->addMapping(ui->phoneLine, 6);
+    mapper->addMapping(ui->emailLine, 3);
+    mapper->addMapping(ui->phoneLine, 4);
+    mapper->addMapping(ui->countryBox, countryIndex);   // Relation by index
+    mapper->addMapping(ui->cityBox, cityIndex);   // Relation by index
     mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
 
     model->insertRow(model->rowCount(QModelIndex()));

@@ -39,7 +39,7 @@ void CreateQueryForm::submitChanges()
     // Save changes to database
 
     QSqlQuery query;
-    QString str = QString("SELECT EXISTS (SELECT 'Group name' FROM" + Table +
+    QString str = QString("SELECT EXISTS (SELECT 'Query name' FROM" + Table +
         " WHERE '" + Record + "' = '%1' AND id NOT LIKE '%2' )").arg(ui->nameLine->text(),
                     model->data(model->index(mapper->currentIndex(), 0), Qt::DisplayRole).toInt());
 

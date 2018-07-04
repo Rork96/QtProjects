@@ -2,6 +2,10 @@
 #include "ui_createtenantform.h"
 
 #include <QPainter>
+#include <QSqlRelationalDelegate>
+#include <QSqlRecord>
+
+#include "basecombomodel.h"
 
 CreateTenantForm::CreateTenantForm(QWidget *parent) :
     BaseForm(parent),
@@ -9,47 +13,15 @@ CreateTenantForm::CreateTenantForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    model = new QSqlRelationalTableModel(this);
-    model->setTable(Table);
-    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
-    model->setSort(0, Qt::AscendingOrder);
-    model->select();
-
-    // region Country
-    // Set relation between tables
-    int countryIndex = model->fieldIndex("country");
-    model->setRelation(countryIndex, QSqlRelation("location_country", "id", "country_name"));
-
-    // New relation model for fTypeBox
-    QSqlTableModel *countryModel = model->relationModel(countryIndex); // Relation index
-    ui->countryBox->setModel(countryModel);
-    ui->countryBox->setModelColumn(countryModel->fieldIndex("country_name"));
-    // endregion Country
-
-    // region City
-    // Set relation between tables
-    int cityIndex = model->fieldIndex("city");
-    model->setRelation(cityIndex, QSqlRelation("location_city", "id", "city_name"));
-
-    // New relation model for fTypeBox
-    QSqlTableModel *cityModel = model->relationModel(cityIndex); // Relation index
-    ui->cityBox->setModel(cityModel);
-    ui->cityBox->setModelColumn(cityModel->fieldIndex("city_name"));
-    // endregion City
+    initData(Table);
 
     // View data in lineEdit with mapper
-    mapper = new QDataWidgetMapper();
-    mapper->setModel(model);
     mapper->addMapping(ui->tenantCodeLine, 1);
     mapper->addMapping(ui->tenantNameLine, 2);
     mapper->addMapping(ui->emailLine, 3);
     mapper->addMapping(ui->phoneLine, 4);
-    mapper->addMapping(ui->countryBox, countryIndex);   // Relation by index
-    mapper->addMapping(ui->cityBox, cityIndex);   // Relation by index
-    mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
 
     model->insertRow(model->rowCount(QModelIndex()));
-
     mapper->toLast();
 
     connect(ui->backButton, &QToolButton::clicked, this, [this] {
@@ -79,6 +51,19 @@ void CreateTenantForm::submitChanges()
 
     mapper->submit();
     model->submitAll();
+
+    BaseComboModel *countryCModel = new BaseComboModel("country_name", "location_country", this, Table, "country");
+    BaseComboModel *cityCModel = new BaseComboModel("city_name", "location_city", this, Table, "city");
+
+    int id = -1;
+    if (isEdit) {
+        id = model->record(mapper->currentIndex()).value("id").toInt();
+    }
+    countryCModel->saveToDB(ui->countryBox->currentIndex(), id);
+    cityCModel->saveToDB(ui->cityBox->currentIndex(), id);
+
+    model->select();
+    mapper->toLast();
 
     // Send sygnal
     emit sygnalSubmit();
@@ -112,8 +97,16 @@ void CreateTenantForm::initComboBox(QList<QComboBox*> elements)
     }
 }
 
-void CreateTenantForm::setRowIndex(int rowIndex, int)
+void CreateTenantForm::setRowIndex(int rowIndex, int id)
 {
     // User chose to edit data from the table
-    mapper->setCurrentIndex(rowIndex);
+    BaseForm::setRowIndex(rowIndex, id);
+
+    BaseComboModel *countryCModel = new BaseComboModel("country_name", "location_country", this, Table, "country");
+    ui->countryBox->setModel(countryCModel);
+    ui->countryBox->setCurrentIndex(countryCModel->getIndex(id));
+
+    BaseComboModel *cityCModel = new BaseComboModel("city_name", "location_city", this, Table, "city");
+    ui->cityBox->setModel(cityCModel);
+    ui->cityBox->setCurrentIndex(cityCModel->getIndex(id));
 }

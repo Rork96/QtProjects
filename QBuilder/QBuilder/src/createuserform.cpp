@@ -14,19 +14,10 @@ CreateUserForm::CreateUserForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    model = new QSqlTableModel(this);
-    model->setTable(Table);
-    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
-    model->setSort(0, Qt::AscendingOrder);
-    model->select();
+    initData(Table);
 
     // View data with mapper
-    mapper = new QDataWidgetMapper();
-    mapper->setModel(model);
     mapper->addMapping(ui->userNameLine, 1);
-
-
-    mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
 
     model->insertRow(model->rowCount(QModelIndex()));
 
@@ -140,13 +131,13 @@ void CreateUserForm::initComboBox(QList<QComboBox*> elements)
         }
     }
 }
-
+/*
 void CreateUserForm::setRowIndex(int rowIndex, int)
 {
     // User chose to edit data from the table
     mapper->setCurrentIndex(rowIndex);
 }
-
+*/
 void CreateUserForm::checkPasswordLength(const QString &arg1)
 {
     // Check password length

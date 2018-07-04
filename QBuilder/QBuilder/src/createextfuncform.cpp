@@ -4,6 +4,8 @@
 #include <QSqlQuery>
 #include <QMessageBox>
 #include <QSqlRelationalDelegate>
+#include <QSqlRecord>
+#include "basecombomodel.h"
 
 CreateExtFuncForm::CreateExtFuncForm(QWidget *parent) :
     BaseForm(parent),
@@ -11,13 +13,10 @@ CreateExtFuncForm::CreateExtFuncForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    model = new QSqlRelationalTableModel(this);
-    model->setTable(Table);
-    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
-    model->setSort(0, Qt::AscendingOrder);
+    initData(Table);
 
     // Set relation between tables
-    int typeIndex = model->fieldIndex("Extension type");
+    int typeIndex = model->fieldIndex("extension_type");
     model->setRelation(typeIndex, QSqlRelation("extension_type", "id", "type"));
     model->select();
 
@@ -26,10 +25,6 @@ CreateExtFuncForm::CreateExtFuncForm(QWidget *parent) :
     ui->extTypeBox->setModel(relModel);
     ui->extTypeBox->setModelColumn(relModel->fieldIndex("type"));
 
-    // Mapper
-    mapper = new QDataWidgetMapper(this);
-    mapper->setModel(model);
-    mapper->setItemDelegate(new QSqlRelationalDelegate(this));
     // View data with mapper
     mapper->addMapping(ui->dataLibLine, 1);
     mapper->addMapping(ui->dataFuncLine, 2);
@@ -38,7 +33,6 @@ CreateExtFuncForm::CreateExtFuncForm(QWidget *parent) :
     mapper->addMapping(ui->extFreeMemline, 5);
     mapper->addMapping(ui->extTypeBox, typeIndex);    // Relation by index
 
-    mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
     model->insertRow(model->rowCount(QModelIndex()));
     mapper->toLast();
 
@@ -57,9 +51,16 @@ CreateExtFuncForm::~CreateExtFuncForm()
 void CreateExtFuncForm::submitChanges()
 {
     // Save changes to database
-
     mapper->submit();
     model->submitAll();
+
+    BaseComboModel *extTypeCModel = new BaseComboModel("type", "extension_type", this, Table, "extension_type");
+
+    int id = -1;
+    if (isEdit) {
+        id = model->record(mapper->currentIndex()).value("id").toInt();
+    }
+    extTypeCModel->saveToDB(ui->extTypeBox->currentIndex(), id);
 
     model->select();
     mapper->toLast();
@@ -68,8 +69,12 @@ void CreateExtFuncForm::submitChanges()
     emit sygnalSubmit();
 }
 
-void CreateExtFuncForm::setRowIndex(int rowIndex, int)
+void CreateExtFuncForm::setRowIndex(int rowIndex, int id)
 {
     // User chose to edit data from the table
-    mapper->setCurrentIndex(rowIndex);
+    BaseForm::setRowIndex(rowIndex, id);
+
+    BaseComboModel *extTypeCModel = new BaseComboModel("type", "extension_type", this, Table, "extension_type");
+    ui->extTypeBox->setModel(extTypeCModel);
+    ui->extTypeBox->setCurrentIndex(extTypeCModel->getIndex(id));
 }

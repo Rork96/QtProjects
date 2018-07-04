@@ -11,10 +11,7 @@ CreateDocGroupsForm::CreateDocGroupsForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    model = new QSqlRelationalTableModel(this);
-    model->setTable(Table);
-    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
-    model->setSort(0, Qt::AscendingOrder);
+    initData(Table);;
 
     // Set relation between tables
     int docFamilyIndex = model->fieldIndex("doc_family");
@@ -27,17 +24,12 @@ CreateDocGroupsForm::CreateDocGroupsForm(QWidget *parent) :
     ui->docFamilyBox->setModel(relModel);
     ui->docFamilyBox->setModelColumn(relModel->fieldIndex("family_name"));
 
-    // Mapper
-    mapper = new QDataWidgetMapper(this);
-    mapper->setModel(model);
-    mapper->setItemDelegate(new QSqlRelationalDelegate(this));
     // View data with mapper
     // First not displayed
     mapper->addMapping(ui->groupNameline, 1);
     mapper->addMapping(ui->groupDescrEdit, 2);
     mapper->addMapping(ui->docFamilyBox, docFamilyIndex);
 
-    mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
     model->insertRow(model->rowCount(QModelIndex()));
     mapper->toLast();
 

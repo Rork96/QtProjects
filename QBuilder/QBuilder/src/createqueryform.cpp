@@ -10,20 +10,13 @@ CreateQueryForm::CreateQueryForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    model = new QSqlTableModel(this);
-    model->setTable(Table);
-    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
-    model->setSort(0, Qt::AscendingOrder);
-    model->select();
+    initData(Table);
 
     // View data in lineEdit with mapper
-    mapper = new QDataWidgetMapper();
-    mapper->setModel(model);
     mapper->addMapping(ui->nameLine, 1);
     mapper->addMapping(ui->valueEdit, 2);
     mapper->addMapping(ui->paramline, 3);
     mapper->addMapping(ui->descrEdit, 4);
-    mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
 
     model->insertRow(model->rowCount(QModelIndex()));
 
@@ -69,10 +62,4 @@ void CreateQueryForm::submitChanges()
 
     // Send sygnal
     emit sygnalSubmit();
-}
-
-void CreateQueryForm::setRowIndex(int rowIndex, int)
-{
-    // User chose to edit data from the table
-    mapper->setCurrentIndex(rowIndex);
 }

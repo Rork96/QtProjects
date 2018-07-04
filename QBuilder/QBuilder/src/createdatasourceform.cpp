@@ -2,6 +2,8 @@
 #include "ui_createdatasourceform.h"
 
 #include <QSqlRelationalDelegate>
+#include <QSqlRecord>
+#include "basecombomodel.h"
 
 CreateDataSourceForm::CreateDataSourceForm(QWidget *parent) :
     BaseForm(parent),
@@ -9,44 +11,16 @@ CreateDataSourceForm::CreateDataSourceForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    model = new QSqlRelationalTableModel(this);
-    model->setTable(Table);
-    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
-    model->setSort(0, Qt::AscendingOrder);
+    initData(Table);
 
-    // Set relation between tables
-    int funcTypeIndex = model->fieldIndex("Function type");
-    model->setRelation(funcTypeIndex, QSqlRelation("function_type", "id", "func_type"));
-    int directTypeIndex = model->fieldIndex("Direction type");
-    model->setRelation(directTypeIndex, QSqlRelation("direction_type", "id", "direct_type"));
-
-    model->select();
-
-    // New relation model for fTypeBox
-    QSqlTableModel *relModel = model->relationModel(funcTypeIndex); // Relation index
-    ui->fTypeBox->setModel(relModel);
-    ui->fTypeBox->setModelColumn(relModel->fieldIndex("func_type"));
-
-    // New relation model for dTypeBox
-    QSqlTableModel *rModel = model->relationModel(directTypeIndex); // Relation index
-    ui->dTypeBox->setModel(rModel);
-    ui->dTypeBox->setModelColumn(rModel->fieldIndex("direct_type"));
-
-    // Mapper
-    mapper = new QDataWidgetMapper(this);
-    mapper->setModel(model);
-    mapper->setItemDelegate(new QSqlRelationalDelegate(this));
     // View data with mapper
     mapper->addMapping(ui->nameLine, 1);
     mapper->addMapping(ui->tableLine, 2);
     mapper->addMapping(ui->descreptionEdit, 3);
-    mapper->addMapping(ui->fTypeBox, funcTypeIndex);        // Relation by index
-    mapper->addMapping(ui->dTypeBox, directTypeIndex);      // Relation by index
     mapper->addMapping(ui->layoutTypeLine, 6);
     mapper->addMapping(ui->relFuncLine, 7);
     mapper->addMapping(ui->relFieldLine, 8);
 
-    mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
     model->insertRow(model->rowCount(QModelIndex()));
     mapper->toLast();
 
@@ -65,9 +39,18 @@ CreateDataSourceForm::~CreateDataSourceForm()
 void CreateDataSourceForm::submitChanges()
 {
     // Save changes to database
-
     mapper->submit();
     model->submitAll();
+
+    BaseComboModel *fTypeCModel = new BaseComboModel("func_type", "function_type", this, Table, "function_type");
+    BaseComboModel *dTypeCModel = new BaseComboModel("direct_type", "direction_type", this, Table, "direction_type");
+
+    int id = -1;
+    if (isEdit) {
+        id = model->record(mapper->currentIndex()).value("id").toInt();
+    }
+    fTypeCModel->saveToDB(ui->fTypeBox->currentIndex(), id);
+    dTypeCModel->saveToDB(ui->dTypeBox->currentIndex(), id);
 
     model->select();
     mapper->toLast();
@@ -76,8 +59,16 @@ void CreateDataSourceForm::submitChanges()
     emit sygnalSubmit();
 }
 
-void CreateDataSourceForm::setRowIndex(int rowIndex, int)
+void CreateDataSourceForm::setRowIndex(int rowIndex, int id)
 {
     // User chose to edit data from the table
-    mapper->setCurrentIndex(rowIndex);
+    BaseForm::setRowIndex(rowIndex, id);
+
+    BaseComboModel *fTypeCModel = new BaseComboModel("func_type", "function_type", this, Table, "function_type");
+    ui->fTypeBox->setModel(fTypeCModel);
+    ui->fTypeBox->setCurrentIndex(fTypeCModel->getIndex(id));
+
+    BaseComboModel *dTypeCModel = new BaseComboModel("direct_type", "direction_type", this, Table, "direction_type");
+    ui->dTypeBox->setModel(dTypeCModel);
+    ui->dTypeBox->setCurrentIndex(dTypeCModel->getIndex(id));
 }

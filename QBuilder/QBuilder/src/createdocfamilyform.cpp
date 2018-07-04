@@ -3,6 +3,7 @@
 
 #include <QSqlQuery>
 #include <QMessageBox>
+#include <QSqlRecord>
 
 CreateDocFamilyForm::CreateDocFamilyForm(QWidget *parent) :
     BaseForm(parent),
@@ -10,21 +11,12 @@ CreateDocFamilyForm::CreateDocFamilyForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    // region document_family table
-    model = new QSqlTableModel(this);
-    model->setTable(Table);
-    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
-    model->setSort(0, Qt::AscendingOrder);
-    model->select();
+    initData(Table);
 
     // View data in lineEdit with mapper
-    mapper = new QDataWidgetMapper();
-    mapper->setModel(model);
     mapper->addMapping(ui->familyNameLine, 1);
     mapper->addMapping(ui->familyDescrText, 2);
-    mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
     mapper->toLast();
-    // endregion document_family table
 
     // region categories table
     categoryModel = new QSqlRelationalTableModel(this);
@@ -71,7 +63,6 @@ CreateDocFamilyForm::CreateDocFamilyForm(QWidget *parent) :
             query.addBindValue(currentId);
             query.exec();
             // Delete linked data from CATEGORY
-            //QSqlQuery query;
             query.prepare("DELETE FROM " + Category + " WHERE family = ?");
             query.addBindValue(currentId);
             query.exec();
@@ -95,17 +86,10 @@ void CreateDocFamilyForm::submitChanges()
 {
     // Save changes to database
 
-    mapper->submit();
-    model->submitAll();
-
-    model->select();
-    mapper->toLast();
-
     categoryModel->submitAll();
     categoryModel->select();
 
-    // Send sygnal
-    emit sygnalSubmit();
+    BaseForm::submitChanges();
 }
 
 void CreateDocFamilyForm::addCategory()
@@ -127,9 +111,7 @@ void CreateDocFamilyForm::delCategory()
 void CreateDocFamilyForm::setRowIndex(int rowIndex, int id)
 {
     // User chose to edit data from the table
-
-    currentId = id;
-    mapper->setCurrentIndex(rowIndex);
+    BaseForm::setRowIndex(rowIndex, id);
 
     QString filterString;
 

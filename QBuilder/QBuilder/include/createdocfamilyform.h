@@ -2,10 +2,6 @@
 #define CREATEDOCFAMILYFORM_H
 
 #include "BaseForm.h"
-//#include <QLineEdit>
-//#include <QToolButton>
-#include <QDataWidgetMapper>
-#include <QSqlRelationalTableModel>
 
 namespace Ui {
 class CreateDocFamilyForm;
@@ -27,12 +23,7 @@ private:
     const QString Table = "document_family";    // Base table name
     const QString Category = "categories";      // Second table
 
-    QSqlTableModel *model;
-    QDataWidgetMapper *mapper;
     QSqlRelationalTableModel *categoryModel;
-
-    int currentId = -1;
-    bool isEdit = false;
 
     void submitChanges() override;
 
@@ -48,10 +39,6 @@ private:
 //    QVector<QLineEdit*> kp_5_L;
 //    QVector<QLineEdit*> searchL;
 //    QVector<QToolButton*> delBtn;
-
-//signals:
-//    void sygnalBack() override;
-//    void sygnalSubmit() override;
 };
 
 #endif // CREATEDOCFAMILYFORM_H

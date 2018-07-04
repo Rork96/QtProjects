@@ -10,15 +10,9 @@ CreateListForm::CreateListForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    model = new QSqlTableModel(this);
-    model->setTable(Table);
-    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
-    model->setSort(0, Qt::AscendingOrder);
-    model->select();
+    initData(Table);
 
     // View data in lineEdit with mapper
-    mapper = new QDataWidgetMapper();
-    mapper->setModel(model);
     mapper->addMapping(ui->listNameline, 1);
     mapper->addMapping(ui->descriptionEdit, 2);
     mapper->addMapping(ui->entryNameline, 3);
@@ -26,7 +20,6 @@ CreateListForm::CreateListForm(QWidget *parent) :
     mapper->addMapping(ui->noteEdit, 5);
     mapper->addMapping(ui->productsLine, 6);
     mapper->addMapping(ui->restrictCodeLine, 7);
-    mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
 
     model->insertRow(model->rowCount(QModelIndex()));
 
@@ -72,10 +65,4 @@ void CreateListForm::submitChanges()
 
     // Send signal
     emit sygnalSubmit();
-}
-
-void CreateListForm::setRowIndex(int rowIndex, int)
-{
-    // User chose to edit data from the table
-    mapper->setCurrentIndex(rowIndex);
 }

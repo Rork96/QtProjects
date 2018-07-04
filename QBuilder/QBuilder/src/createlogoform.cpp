@@ -13,19 +13,12 @@ CreateLogoForm::CreateLogoForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    model = new QSqlTableModel(this);
-    model->setTable(Table);
-    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
-    model->setSort(0, Qt::AscendingOrder);
-    model->select();
+    initData(Table);
 
     // View data in lineEdit with mapper
-    mapper = new QDataWidgetMapper();
-    mapper->setModel(model);
     mapper->addMapping(ui->listNameLine, 1);
     mapper->addMapping(ui->entryNameLine, 2);
     mapper->addMapping(ui->descreptionEdit, 3);
-    mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
 
     model->insertRow(model->rowCount(QModelIndex()));
 
@@ -100,7 +93,7 @@ void CreateLogoForm::openImage()
 void CreateLogoForm::setRowIndex(int rowIndex, int id)
 {
     // User chose to edit data from the table
-    mapper->setCurrentIndex(rowIndex);
+    BaseForm::setRowIndex(rowIndex, id);
 
     // Connect radioButtons
     QSqlQuery query;

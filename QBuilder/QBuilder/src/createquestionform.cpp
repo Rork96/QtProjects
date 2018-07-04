@@ -11,13 +11,10 @@ CreateQuestionForm::CreateQuestionForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    model = new QSqlRelationalTableModel(this);
-    model->setTable(Table);
-    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
-    model->setSort(0, Qt::AscendingOrder);
+    initData(Table);
 
     // Set relation between tables
-    int typeIndex = model->fieldIndex("Security question");
+    int typeIndex = model->fieldIndex("security_question");
     model->setRelation(typeIndex, QSqlRelation("question", "id", "type"));
     model->select();
 
@@ -26,15 +23,10 @@ CreateQuestionForm::CreateQuestionForm(QWidget *parent) :
     ui->sQuestionBox->setModel(relModel);
     ui->sQuestionBox->setModelColumn(relModel->fieldIndex("type"));
 
-    // Mapper
-    mapper = new QDataWidgetMapper(this);
-    mapper->setModel(model);
-    mapper->setItemDelegate(new QSqlRelationalDelegate(this));
     // View data with mapper
     mapper->addMapping(ui->sQuestionBox, typeIndex);    // Relation by index
     mapper->addMapping(ui->answerLine, 2);
 
-    mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
     model->insertRow(model->rowCount(QModelIndex()));
     mapper->toLast();
 
@@ -48,24 +40,4 @@ CreateQuestionForm::CreateQuestionForm(QWidget *parent) :
 CreateQuestionForm::~CreateQuestionForm()
 {
     delete ui;
-}
-
-void CreateQuestionForm::submitChanges()
-{
-    // Save changes to database
-
-    mapper->submit();
-    model->submitAll();
-
-    model->select();
-    mapper->toLast();
-
-    // Send sygnal
-    emit sygnalSubmit();
-}
-
-void CreateQuestionForm::setRowIndex(int rowIndex, int)
-{
-    // User chose to edit data from the table
-    mapper->setCurrentIndex(rowIndex);
 }

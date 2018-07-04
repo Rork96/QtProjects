@@ -4,6 +4,7 @@
 #include <QSqlRelationalDelegate>
 #include <QSqlQuery>
 #include <QSqlRecord>
+#include "basecombomodel.h"
 
 CreateScreeForm::CreateScreeForm(QWidget *parent) :
     BaseForm(parent),
@@ -11,10 +12,7 @@ CreateScreeForm::CreateScreeForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    model = new QSqlRelationalTableModel(this);
-    model->setTable(Table);
-    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
-    model->setSort(0, Qt::AscendingOrder);
+    initData(Table);
 
     // Set relation between tables
     int scrIndex = model->fieldIndex("scr_name");
@@ -34,10 +32,6 @@ CreateScreeForm::CreateScreeForm(QWidget *parent) :
     ui->libraryBox->setModel(rModel);
     ui->libraryBox->setModelColumn(rModel->fieldIndex("lib_name"));
 
-    // Mapper
-    mapper = new QDataWidgetMapper(this);
-    mapper->setModel(model);
-    mapper->setItemDelegate(new QSqlRelationalDelegate(this));
     // View data with mapper
     // First not displayed
     mapper->addMapping(ui->scrNameBox, scrIndex);
@@ -50,7 +44,6 @@ CreateScreeForm::CreateScreeForm(QWidget *parent) :
     mapper->addMapping(ui->mobileBox, 9);
     mapper->addMapping(ui->webBox, 10);
 
-    mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
     model->insertRow(model->rowCount(QModelIndex()));
     mapper->toLast();
 
@@ -95,11 +88,4 @@ void CreateScreeForm::submitChanges()
 
     // Send sygnal
     emit sygnalSubmit();
-}
-
-void CreateScreeForm::setRowIndex(int rowIndex, int)
-{
-    // User chose to edit data from the table
-    mapper->setCurrentIndex(rowIndex);
-    isEdit = true;
 }

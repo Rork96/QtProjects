@@ -25,8 +25,8 @@ private:
     const QString Table = "logo";
     const QString Record = "Entry name";
 
-    QSqlTableModel *model;
-    QDataWidgetMapper *mapper;
+//    QSqlTableModel *model;
+//    QDataWidgetMapper *mapper;
 
     void submitChanges() override;
     void openImage();

@@ -119,6 +119,9 @@ void TableForm::loadDataFromDB()
         case TableForm::menu:
             initTable("menus");
 
+            mainModel->setRelation(1, QSqlRelation("groups", "id", "name"));
+            mainModel->select();
+
             ui->mainTableView->setColumnHidden(3, true); // Hide
 
             headers << trUtf8("id") << trUtf8("Group name") << trUtf8("Description") << trUtf8("") << trUtf8("Menu name")

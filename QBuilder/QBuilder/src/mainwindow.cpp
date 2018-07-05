@@ -8,8 +8,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     setWindowState(Qt::WindowMaximized);
-    setWindowTitle("Application");
-    ui->statusBar->showMessage("\t\t© 2018 Company.");
+    setWindowTitle(appName);
+    ui->statusBar->showMessage(company);
 
     initUI();   // Hide main menu and view login screen
 
@@ -18,19 +18,19 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionLogout, &QAction::triggered, this, &MainWindow::initUI);
 
     connect(ui->actionGroups, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - Admin groups");
+        setWindowTitle("Application - " + userName + " groups");
         setMainView(TableForm::groups);
     });
     connect(ui->actionUsers, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - Admin users");
+        setWindowTitle("Application - " + userName + " users");
         setMainView(TableForm::users);
     });
     connect(ui->actionTenant, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - Admin tenants");
+        setWindowTitle("Application - " + userName + " tenants");
         setMainView(TableForm::tenant);
     });
     connect(ui->actionLogo, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - Admin logo");
+        setWindowTitle("Application - " + userName + " logo");
         setMainView(TableForm::logo);
     });
     connect(ui->actionSecurity_filters, &QAction::triggered, this, [this] {
@@ -42,11 +42,11 @@ MainWindow::MainWindow(QWidget *parent) :
         setMainView(TableForm::menu);
     });
     connect(ui->actionGroup_screens, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - Admin group screen");
+        setWindowTitle("Application - " + userName + " group screen");
         setMainView(TableForm::group_screens);
     });
     connect(ui->actionScreens, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - Admin screen");
+        setWindowTitle("Application - " + userName + " screen");
         setMainView(TableForm::screens);
     });
     connect(ui->actionDocument_family, &QAction::triggered, this, [this] {
@@ -54,31 +54,31 @@ MainWindow::MainWindow(QWidget *parent) :
         setMainView(TableForm::document_family);
     });
     connect(ui->actionDocument_groups, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - Admin groups");
+        setWindowTitle("Application - " + userName + " groups");
         setMainView(TableForm::document_groups);
     });
     connect(ui->actionLists, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - Admin lists");
+        setWindowTitle("Application - " + userName + " lists");
         setMainView(TableForm::lists);
     });
     connect(ui->actionTemplates, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - Admin templates");
+        setWindowTitle("Application - " + userName + " templates");
         setMainView(TableForm::templates);
     });
     connect(ui->actionCustom_data_sourcess, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - Admin templates");
+        setWindowTitle("Application - " + userName + " templates");
         setMainView(TableForm::custom_data_sources);
     });
     connect(ui->actionExtention_functions, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - Admin extension functions");
+        setWindowTitle("Application - " + userName + " extension functions");
         setMainView(TableForm::extension_functions);
     });
     connect(ui->actionServers, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - Admin servers");
+        setWindowTitle("Application - " + userName + " servers");
         setMainView(TableForm::servers);
     });
     connect(ui->actionSecuriry_questions, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - Admin lists");
+        setWindowTitle("Application - " + userName + " lists");
         setMainView(TableForm::security_questions);
     });
     connect(ui->actionCustom_query, &QAction::triggered, this, [this] {
@@ -92,7 +92,6 @@ MainWindow::MainWindow(QWidget *parent) :
         importForm = new ImportFilesForm(this);
         setCentralWidget(importForm);
     });
-
     // endregion MenuBar connections
 }
 
@@ -111,8 +110,9 @@ void MainWindow::initUI()
     connect(loginForm, &LoginForm::isLogin, this, &MainWindow::login);
 }
 
-void MainWindow::login()
+void MainWindow::login(const QString &user)
 {
+    this->userName = user;
     setCentralWidget(nullptr);
     ui->menuBar->setVisible(true);
     delete loginForm;
@@ -124,6 +124,7 @@ void MainWindow::setMainView(TableForm::Type type)
     mainForm = new TableForm(this);
     mainForm->setViewType(type);
     setCentralWidget(mainForm);
+    ui->statusBar->showMessage(company);
 
     connect(mainForm, &TableForm::createData, this, &MainWindow::createView);
 

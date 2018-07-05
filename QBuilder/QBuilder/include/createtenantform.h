@@ -3,6 +3,7 @@
 
 #include "BaseForm.h"
 #include <QComboBox>
+#include "basecombomodel.h"
 
 namespace Ui {
 class CreateTenantForm;
@@ -26,6 +27,22 @@ private:
     void initComboBox(QList<QComboBox*> elements); // Init comboboxes with colors
 
     void submitChanges() override;
+
+    QList<QComboBox*> combo;            // ComboBoxes
+    QList<BaseComboModel*> cbModel;     // Combobox models
+
+    /* Combobox models */
+    BaseComboModel *countryCModel;
+    BaseComboModel *cityCModel;
+    BaseComboModel *stateCModel;
+    BaseComboModel *langCModel;
+    BaseComboModel *currencyModel;
+    BaseComboModel *currencyTypeModel;
+    BaseComboModel *timezoneModel;
+    BaseComboModel *timeFormatModel;
+    BaseComboModel *dateModel;
+    BaseComboModel *bntModel;
+    BaseComboModel *menuModel;
 };
 
 #endif // CREATETENANTFORM_H

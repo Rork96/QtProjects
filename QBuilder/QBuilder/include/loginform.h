@@ -25,7 +25,7 @@ private:
     void checkLogin();
 
 signals:
-    void isLogin();
+    void isLogin(const QString &user);
 };
 
 #endif // LOGINFORM_H

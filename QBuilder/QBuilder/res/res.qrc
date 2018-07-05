@@ -12,5 +12,6 @@
         <file>QBuilder.png</file>
         <file>gear.png</file>
         <file>clear.png</file>
+        <file>index.png</file>
     </qresource>
 </RCC>

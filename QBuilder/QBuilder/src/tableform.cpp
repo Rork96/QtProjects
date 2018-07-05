@@ -99,7 +99,6 @@ void TableForm::loadDataFromDB()
                     ui->mainTableView->setColumnHidden(i, true);    // Hide columns
             }
             break;
-            break;
         case TableForm::logo:
             initTable("logo");
 

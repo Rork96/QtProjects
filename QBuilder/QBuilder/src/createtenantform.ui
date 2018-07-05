@@ -57,7 +57,7 @@ QComboBox {
                font: 9pt &quot;MS Shell Dlg 2&quot;;
 			   background-color: rgb(255, 255, 255);
               }
-QTextEdit {
+QPlainTextEdit {
                color: black;
                padding: 4px;
                border: 1px solid rgb(63, 127, 191); 
@@ -67,6 +67,14 @@ QTextEdit {
               }
 QScrollBar {
 			   background-color: rgb(240, 240, 240);
+              }
+QSpinBox {
+               color: black;
+               padding: 4px;
+               border: 1px solid rgb(63, 127, 191); 
+               border-radius: 5px;
+               border-style: outset;
+	           font: 10pt &quot;MS Shell Dlg 2&quot;;
               }</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_7">
@@ -248,7 +256,7 @@ QScrollBar {
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="expTimeLine"/>
+                 <widget class="QSpinBox" name="expTimeLine"/>
                 </item>
                </layout>
               </item>
@@ -476,7 +484,7 @@ QScrollBar {
                  </widget>
                 </item>
                 <item>
-                 <widget class="QTextEdit" name="commentsEdit">
+                 <widget class="QPlainTextEdit" name="commentsEdit">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                     <horstretch>0</horstretch>
@@ -576,7 +584,20 @@ QScrollBar {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="timezoneBox"/>
+                   <widget class="QComboBox" name="timezoneBox">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>250</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </item>
@@ -590,7 +611,20 @@ QScrollBar {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="timeFormatBox"/>
+                   <widget class="QComboBox" name="timeFormatBox">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>250</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </item>
@@ -604,7 +638,20 @@ QScrollBar {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="dateBox"/>
+                   <widget class="QComboBox" name="dateBox">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>250</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </item>
@@ -1471,7 +1518,7 @@ QScrollBar {
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="lineEdit_3"/>
+                 <widget class="QLineEdit" name="twPhoneLine"/>
                 </item>
                </layout>
               </item>
@@ -1671,18 +1718,7 @@ QToolButton:pressed {
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="tenantCodeLine">
-          <property name="styleSheet">
-           <string notr="true">QLineEdit {
-               color: black;
-               padding: 4px;
-               border: 1px solid grey; 
-               border-radius: 5px;
-               border-style: outset;
-	           font: 10pt &quot;MS Shell Dlg 2&quot;;
-              }</string>
-          </property>
-         </widget>
+         <widget class="QSpinBox" name="tenantCodeSBox"/>
         </item>
        </layout>
       </item>

@@ -16,13 +16,48 @@ CreateTenantForm::CreateTenantForm(QWidget *parent) :
     initData(Table);
 
     // View data in lineEdit with mapper
-    mapper->addMapping(ui->tenantCodeLine, 1);
+    mapper->addMapping(ui->tenantCodeSBox, 1);
     mapper->addMapping(ui->tenantNameLine, 2);
     mapper->addMapping(ui->emailLine, 3);
     mapper->addMapping(ui->phoneLine, 4);
+    mapper->addMapping(ui->expTimeLine, 7);
+    mapper->addMapping(ui->contactLine, 8);
+    // 9 - header logo
+    // 10 - main logo
+    mapper->addMapping(ui->address_1_Line, 11);
+    mapper->addMapping(ui->address_2_Line, 12);
+    mapper->addMapping(ui->address_3_Line, 13);
+    mapper->addMapping(ui->postalCodeLine, 15);
+    mapper->addMapping(ui->postalExtendsLine, 16);
+    mapper->addMapping(ui->commentsEdit, 17);
+    mapper->addMapping(ui->emailServerLine, 24);
+    mapper->addMapping(ui->emailAccountLine, 25);
+    mapper->addMapping(ui->emailpasswLine, 26);
+    mapper->addMapping(ui->twilioSidLine, 27);
+    mapper->addMapping(ui->twilioTokenLine, 28);
+    mapper->addMapping(ui->twPhoneLine, 29);
 
     model->insertRow(model->rowCount(QModelIndex()));
     mapper->toLast();
+
+    // Init comboBox models with data
+    countryCModel = new BaseComboModel("country_name", "location_country", this, Table, "country");
+    cityCModel = new BaseComboModel("city_name", "location_city", this, Table, "city");
+    stateCModel = new BaseComboModel("state_name", "location_state", this, Table, "state");
+    langCModel = new BaseComboModel("language_name", "language_table", this, Table, "language");
+    currencyModel = new BaseComboModel("currency_format", "currency_table", this, Table, "currency");
+    currencyTypeModel = new BaseComboModel("curr_type", "currency_type_table", this, Table, "currency_type");
+    timezoneModel = new BaseComboModel("timezone_name", "timezone_table", this, Table, "timezone");
+    timeFormatModel = new BaseComboModel("standard_format", "time_format_table", this, Table, "time_format");
+    dateModel = new BaseComboModel("date_format", "date_table", this, Table, "date");
+    bntModel = new BaseComboModel("style", "button_style_table", this, Table, "button_style");
+    menuModel = new BaseComboModel("m_type", "menu_type_table", this, Table, "menu_type");
+
+    // Add comboboxes and their models to QLists
+    combo = {ui->countryBox, ui->cityBox, ui->regionBox, ui->languageBox, ui->currencyBox, ui->currencyTypeBox,
+             ui->timezoneBox, ui->timeFormatBox, ui->dateBox, ui->buttonsStyleBox, ui->menuTypeBox};
+    cbModel = {countryCModel, cityCModel, stateCModel, langCModel, currencyModel, currencyTypeModel, timezoneModel,
+               timeFormatModel, dateModel, bntModel, menuModel};
 
     connect(ui->backButton, &QToolButton::clicked, this, [this] {
        emit sygnalBack();
@@ -52,15 +87,15 @@ void CreateTenantForm::submitChanges()
     mapper->submit();
     model->submitAll();
 
-    BaseComboModel *countryCModel = new BaseComboModel("country_name", "location_country", this, Table, "country");
-    BaseComboModel *cityCModel = new BaseComboModel("city_name", "location_city", this, Table, "city");
-
     int id = -1;
     if (isEdit) {
         id = model->record(mapper->currentIndex()).value("id").toInt();
     }
-    countryCModel->saveToDB(ui->countryBox->currentIndex(), id);
-    cityCModel->saveToDB(ui->cityBox->currentIndex(), id);
+
+    // Save data from comboBoxes to database
+    for (int i = 0; i < cbModel.count(); i++) {
+        cbModel.at(i)->saveToDB(combo.at(i)->currentIndex(), id);
+    }
 
     model->select();
     mapper->toLast();
@@ -102,11 +137,14 @@ void CreateTenantForm::setRowIndex(int rowIndex, int id)
     // User chose to edit data from the table
     BaseForm::setRowIndex(rowIndex, id);
 
-    BaseComboModel *countryCModel = new BaseComboModel("country_name", "location_country", this, Table, "country");
-    ui->countryBox->setModel(countryCModel);
-    ui->countryBox->setCurrentIndex(countryCModel->getIndex(id));
+    // Init comboBoxes with data from database
+    auto initComboBox = [&id](QComboBox *box, BaseComboModel *comboModel)
+    {
+        box->setModel(comboModel);
+        box->setCurrentIndex(comboModel->getIndex(id));
+    };
 
-    BaseComboModel *cityCModel = new BaseComboModel("city_name", "location_city", this, Table, "city");
-    ui->cityBox->setModel(cityCModel);
-    ui->cityBox->setCurrentIndex(cityCModel->getIndex(id));
+    for (int i = 0; i < cbModel.count(); i++) {
+        initComboBox(combo.at(i), cbModel.at(i));
+    }
 }

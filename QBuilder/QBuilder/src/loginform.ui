@@ -119,7 +119,7 @@ QPushButton:pressed {
       <widget class="QLabel" name="label_2">
        <property name="maximumSize">
         <size>
-         <width>40</width>
+         <width>170</width>
          <height>40</height>
         </size>
        </property>
@@ -127,7 +127,7 @@ QPushButton:pressed {
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="res.qrc">:/res/Builder.png</pixmap>
+        <pixmap resource="../res/res.qrc">:/index.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -317,7 +317,8 @@ QPushButton:pressed {
   <tabstop>loginButton</tabstop>
  </tabstops>
  <resources>
-  <include location="res.qrc"/>
+  <include location="../res/res.qrc"/>
+  <include location="../res/res.qrc"/>
  </resources>
  <connections/>
 </ui>

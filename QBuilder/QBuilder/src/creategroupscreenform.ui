@@ -127,9 +127,6 @@ QListView {
             </property>
            </widget>
           </item>
-          <item row="13" column="0" colspan="2">
-           <widget class="QLineEdit" name="weightLine"/>
-          </item>
           <item row="11" column="0" colspan="2">
            <widget class="QLineEdit" name="screenTextLine"/>
           </item>
@@ -236,6 +233,9 @@ QListView {
              <string>Show add button</string>
             </property>
            </widget>
+          </item>
+          <item row="13" column="0" colspan="2">
+           <widget class="QSpinBox" name="weightLine"/>
           </item>
          </layout>
         </widget>
@@ -443,14 +443,14 @@ QToolButton:pressed {
    </item>
   </layout>
  </widget>
-    <customwidgets>
-        <customwidget>
-            <class>BaseForm</class>
-            <extends>QWidget</extends>
-            <header>BaseForm.h</header>
-            <container>1</container>
-        </customwidget>
-    </customwidgets>
+ <customwidgets>
+  <customwidget>
+   <class>BaseForm</class>
+   <extends>QWidget</extends>
+   <header>BaseForm.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

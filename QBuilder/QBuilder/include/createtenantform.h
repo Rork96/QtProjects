@@ -30,6 +30,8 @@ private:
 
     QList<QComboBox*> combo;            // ComboBoxes
     QList<BaseComboModel*> cbModel;     // Combobox models
+    QList<QComboBox*> colourBox;        // Colour comboBoxes
+    QList<BaseComboModel*> colourModel; // Colour models
 
     /* Combobox models */
     BaseComboModel *countryCModel;
@@ -43,6 +45,10 @@ private:
     BaseComboModel *dateModel;
     BaseComboModel *bntModel;
     BaseComboModel *menuModel;
+    BaseComboModel *borderModel;
+    BaseComboModel *headerLogoModel;
+    BaseComboModel *mainLogoModel;
+    BaseComboModel *coloursModel;
 };
 
 #endif // CREATETENANTFORM_H

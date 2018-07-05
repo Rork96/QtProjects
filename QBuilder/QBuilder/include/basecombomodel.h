@@ -11,7 +11,7 @@ Q_OBJECT
 
 public:
     explicit BaseComboModel( const QString& visualColumn, const QString& queryTail, QObject *parent,
-                             QString baseTable, QString baseColumn );
+                             const QString baseTable, const QString baseColumn );
     virtual QVariant data(const QModelIndex &item, int role = Qt::DisplayRole) const;
     virtual int rowCount(const QModelIndex &parent) const;
     void saveToDB(int index, int id);
@@ -20,8 +20,6 @@ public:
 private:
     QString mainTable;
     QString mainColumn;
-    QString selectTable;
-    QString selectColumn;
 };
 
 #endif // BASECOMBOMODEL_H

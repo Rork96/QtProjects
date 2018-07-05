@@ -11,9 +11,9 @@ namespace
 }
 
 BaseComboModel::BaseComboModel( const QString& visualColumn, const QString& queryTail, QObject *parent,
-        QString baseTable, QString baseColumn ) :
+        const QString baseTable, const QString baseColumn ) :
         QSqlQueryModel( parent ),
-        mainTable(baseTable), mainColumn(baseColumn), selectTable(queryTail), selectColumn(visualColumn)
+        mainTable(baseTable), mainColumn(baseColumn)
 {
     QSqlQuery query;
     query.prepare( QString( "SELECT %1.id, %2 FROM %3" ).arg( queryTail.split( ' ' ).first() ).arg( visualColumn ).arg( queryTail ) );

@@ -169,6 +169,7 @@ void CreateTenantForm::setRowIndex(int rowIndex, int id)
     ui->menuBackColorBox->addItem("(please select)");
     while (query.next()) {
         //ui->menuBackColorBox. query.value(index).toInt();
+        qDebug() << query.value(index).toString();
         QColor color = QColor(query.value(index).toString());
         ui->menuBackColorBox->addItem(color.name());
 

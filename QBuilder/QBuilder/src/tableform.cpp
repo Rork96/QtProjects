@@ -68,16 +68,18 @@ void TableForm::loadDataFromDB()
             }
             break;
         case TableForm::users:
-            /*initTable("users");
+            initTable("users");
 
-            headers << trUtf8("id") << trUtf8("User name") << trUtf8("Group area") << trUtf8("Email")
-                    << trUtf8("Account type") << trUtf8("Active account") << trUtf8("Account name");
+            ui->mainTableView->setColumnHidden(2, true); // Hide
+
+            headers << trUtf8("id") << trUtf8("User name") << trUtf8("Group area"); /*<< trUtf8("Email")
+                    << trUtf8("Account type") << trUtf8("Active account") << trUtf8("Account name");*/
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
                 ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
                 mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
-            }*/
+            }
             break;
         case TableForm::tenant:
             initTable("tenant");
@@ -114,6 +116,25 @@ void TableForm::loadDataFromDB()
             }
             break;
         case TableForm::security_filters:
+            initTable("security_filters");
+
+            // Select
+            mainModel->setRelation(1, QSqlRelation("tenant", "id", "name"));
+            //mainModel->setRelation(14, QSqlRelation("menus", "id", "text"));
+            //ui->mainTableView->setItemDelegate(new QSqlRelationalDelegate(ui->mainTableView));
+            mainModel->select();
+
+            headers << trUtf8("id") << trUtf8("Tenant") << trUtf8("Account type") << trUtf8("User type") << trUtf8("Description")
+                    << trUtf8("") << trUtf8("") << trUtf8("") << trUtf8("") << trUtf8("") << trUtf8("") << trUtf8("")
+                    << trUtf8("") << trUtf8("") << trUtf8("") << trUtf8("") << trUtf8("");
+
+            // Columns size
+            for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
+                ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+                mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
+                if (i > 4)
+                    ui->mainTableView->setColumnHidden(i, true);    // Hide columns
+            };
             break;
         case TableForm::menu:
             initTable("menus");

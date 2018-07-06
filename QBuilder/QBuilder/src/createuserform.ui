@@ -329,8 +329,8 @@ QToolButton:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>810</width>
-            <height>881</height>
+            <width>805</width>
+            <height>954</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_5">
@@ -514,11 +514,7 @@ QToolButton:pressed {
               </widget>
              </item>
              <item>
-              <widget class="QComboBox" name="lastLoginBox">
-               <property name="styleSheet">
-                <string notr="true"/>
-               </property>
-              </widget>
+              <widget class="QLineEdit" name="lineEdit"/>
              </item>
             </layout>
            </item>
@@ -600,12 +596,26 @@ QToolButton:pressed {
               </widget>
              </item>
              <item>
+              <widget class="QLabel" name="label_2">
+               <property name="text">
+                <string>John Gold Company (length:5)</string>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QLineEdit" name="userTypeEdit">
                <property name="enabled">
                 <bool>true</bool>
                </property>
                <property name="styleSheet">
                 <string notr="true"/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_12">
+               <property name="text">
+                <string>John Gold Product (length:5)</string>
                </property>
               </widget>
              </item>
@@ -667,46 +677,12 @@ QToolButton:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>379</width>
-            <height>220</height>
+            <width>822</width>
+            <height>817</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_6">
            <item row="0" column="0">
-            <widget class="QLabel" name="label_12">
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
-             <property name="text">
-              <string>Language</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_42">
-             <item>
-              <widget class="QComboBox" name="languageBox">
-               <property name="styleSheet">
-                <string notr="true"/>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_43">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
-           </item>
-           <item row="2" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout_5">
              <property name="spacing">
               <number>20</number>
@@ -755,7 +731,7 @@ QToolButton:pressed {
              </item>
             </layout>
            </item>
-           <item row="3" column="0">
+           <item row="1" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout_6">
              <property name="spacing">
               <number>20</number>
@@ -825,7 +801,7 @@ QToolButton:pressed {
              </item>
             </layout>
            </item>
-           <item row="4" column="0">
+           <item row="2" column="0">
             <spacer name="verticalSpacer_2">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
@@ -877,8 +853,8 @@ QToolButton:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>871</width>
-            <height>986</height>
+            <width>805</width>
+            <height>976</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_11">
@@ -955,7 +931,7 @@ QToolButton:pressed {
            <item row="4" column="0" colspan="2">
             <layout class="QHBoxLayout" name="horizontalLayout_36">
              <property name="spacing">
-              <number>20</number>
+              <number>10</number>
              </property>
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_30">
@@ -976,40 +952,7 @@ QToolButton:pressed {
                 </widget>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_18">
-                 <property name="spacing">
-                  <number>0</number>
-                 </property>
-                 <property name="sizeConstraint">
-                  <enum>QLayout::SetDefaultConstraint</enum>
-                 </property>
-                 <item>
-                  <widget class="QComboBox" name="sectionColorBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true"/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer_37">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                </layout>
+                <widget class="ClickeLineEdit" name="sectionColorLine"/>
                </item>
               </layout>
              </item>
@@ -1032,37 +975,7 @@ QToolButton:pressed {
                 </widget>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_19">
-                 <property name="spacing">
-                  <number>1</number>
-                 </property>
-                 <item>
-                  <widget class="QComboBox" name="sectionHeadColorBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true"/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer_38">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                </layout>
+                <widget class="ClickeLineEdit" name="sectionHeadColorLine"/>
                </item>
               </layout>
              </item>
@@ -1085,37 +998,7 @@ QToolButton:pressed {
                 </widget>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_20">
-                 <property name="spacing">
-                  <number>1</number>
-                 </property>
-                 <item>
-                  <widget class="QComboBox" name="sectionBackColorBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true"/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer_41">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                </layout>
+                <widget class="ClickeLineEdit" name="sectionBackColorLine"/>
                </item>
               </layout>
              </item>
@@ -1124,7 +1007,7 @@ QToolButton:pressed {
            <item row="6" column="0" colspan="2">
             <layout class="QHBoxLayout" name="horizontalLayout_37">
              <property name="spacing">
-              <number>20</number>
+              <number>10</number>
              </property>
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -1162,19 +1045,6 @@ QToolButton:pressed {
                    </property>
                   </widget>
                  </item>
-                 <item>
-                  <spacer name="horizontalSpacer_39">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
                 </layout>
                </item>
               </layout>
@@ -1198,37 +1068,14 @@ QToolButton:pressed {
                 </widget>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_22">
-                 <property name="spacing">
-                  <number>1</number>
+                <widget class="ClickeLineEdit" name="headColorLine">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
                  </property>
-                 <item>
-                  <widget class="QComboBox" name="sectionHeadColorBox_2">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true"/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer_40">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                </layout>
+                </widget>
                </item>
               </layout>
              </item>
@@ -1251,37 +1098,14 @@ QToolButton:pressed {
                 </widget>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_21">
-                 <property name="spacing">
-                  <number>1</number>
+                <widget class="ClickeLineEdit" name="hBorderColorLine">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
                  </property>
-                 <item>
-                  <widget class="QComboBox" name="sectionBackColorBox_2">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true"/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer_42">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                </layout>
+                </widget>
                </item>
               </layout>
              </item>
@@ -1392,7 +1216,7 @@ QToolButton:pressed {
                 <string notr="true"/>
                </property>
                <property name="currentIndex">
-                <number>1</number>
+                <number>0</number>
                </property>
                <widget class="QWidget" name="menuSylesTab">
                 <attribute name="title">
@@ -1418,43 +1242,7 @@ QToolButton:pressed {
                     </widget>
                    </item>
                    <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_10">
-                     <property name="spacing">
-                      <number>1</number>
-                     </property>
-                     <item>
-                      <widget class="QComboBox" name="highlightColorBox">
-                       <property name="minimumSize">
-                        <size>
-                         <width>0</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>16777215</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true"/>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <spacer name="horizontalSpacer_17">
-                       <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>40</width>
-                         <height>20</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                    </layout>
+                    <widget class="ClickeLineEdit" name="highlightColorLine"/>
                    </item>
                   </layout>
                  </item>
@@ -1471,43 +1259,7 @@ QToolButton:pressed {
                     </widget>
                    </item>
                    <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_9">
-                     <property name="spacing">
-                      <number>1</number>
-                     </property>
-                     <item>
-                      <widget class="QComboBox" name="menuTextColorBox">
-                       <property name="minimumSize">
-                        <size>
-                         <width>0</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>16777215</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true"/>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <spacer name="horizontalSpacer_18">
-                       <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>40</width>
-                         <height>20</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                    </layout>
+                    <widget class="ClickeLineEdit" name="menuTextColorLine"/>
                    </item>
                   </layout>
                  </item>
@@ -1524,49 +1276,7 @@ QToolButton:pressed {
                     </widget>
                    </item>
                    <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_8">
-                     <property name="spacing">
-                      <number>1</number>
-                     </property>
-                     <item>
-                      <widget class="QComboBox" name="backColorBox">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="minimumSize">
-                        <size>
-                         <width>0</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>16777215</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true"/>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <spacer name="horizontalSpacer_16">
-                       <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>40</width>
-                         <height>20</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                    </layout>
+                    <widget class="ClickeLineEdit" name="backColorLine"/>
                    </item>
                   </layout>
                  </item>
@@ -1580,7 +1290,7 @@ QToolButton:pressed {
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
-                     <width>20</width>
+                     <width>2</width>
                      <height>20</height>
                     </size>
                    </property>
@@ -1596,7 +1306,7 @@ QToolButton:pressed {
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
-                     <width>20</width>
+                     <width>2</width>
                      <height>20</height>
                     </size>
                    </property>
@@ -1664,6 +1374,9 @@ QToolButton:pressed {
            </item>
            <item row="3" column="0" colspan="2">
             <layout class="QVBoxLayout" name="verticalLayout_48">
+             <property name="spacing">
+              <number>0</number>
+             </property>
              <item>
               <widget class="QLabel" name="label_28">
                <property name="styleSheet">
@@ -1683,7 +1396,7 @@ QToolButton:pressed {
              <item>
               <widget class="QTabWidget" name="bodyTabWidget">
                <property name="currentIndex">
-                <number>1</number>
+                <number>0</number>
                </property>
                <widget class="QWidget" name="bodyStyleTab">
                 <attribute name="title">
@@ -1717,38 +1430,9 @@ QToolButton:pressed {
                        </property>
                       </widget>
                      </item>
-                     <item>
-                      <spacer name="horizontalSpacer_24">
-                       <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>40</width>
-                         <height>20</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
                     </layout>
                    </item>
                   </layout>
-                 </item>
-                 <item row="0" column="1">
-                  <spacer name="horizontalSpacer_12">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeType">
-                    <enum>QSizePolicy::Maximum</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>20</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
                  </item>
                  <item row="0" column="2">
                   <layout class="QVBoxLayout" name="verticalLayout_27">
@@ -1763,61 +1447,16 @@ QToolButton:pressed {
                     </widget>
                    </item>
                    <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_14">
-                     <property name="spacing">
-                      <number>1</number>
+                    <widget class="ClickeLineEdit" name="borderColorLine">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
                      </property>
-                     <item>
-                      <widget class="QComboBox" name="borderColorBox">
-                       <property name="minimumSize">
-                        <size>
-                         <width>0</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>16777215</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true"/>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <spacer name="horizontalSpacer_19">
-                       <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>40</width>
-                         <height>20</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                    </layout>
+                    </widget>
                    </item>
                   </layout>
-                 </item>
-                 <item row="0" column="3">
-                  <spacer name="horizontalSpacer_13">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeType">
-                    <enum>QSizePolicy::Maximum</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>20</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
                  </item>
                  <item row="0" column="4">
                   <layout class="QVBoxLayout" name="verticalLayout_28">
@@ -1832,43 +1471,14 @@ QToolButton:pressed {
                     </widget>
                    </item>
                    <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_15">
-                     <property name="spacing">
-                      <number>1</number>
+                    <widget class="ClickeLineEdit" name="bodyBackColorLine">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
                      </property>
-                     <item>
-                      <widget class="QComboBox" name="bodyBackColorBox">
-                       <property name="minimumSize">
-                        <size>
-                         <width>0</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>16777215</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true"/>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <spacer name="horizontalSpacer_20">
-                       <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>40</width>
-                         <height>20</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                    </layout>
+                    </widget>
                    </item>
                   </layout>
                  </item>
@@ -1885,43 +1495,7 @@ QToolButton:pressed {
                     </widget>
                    </item>
                    <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_12">
-                     <property name="spacing">
-                      <number>1</number>
-                     </property>
-                     <item>
-                      <widget class="QComboBox" name="linkColorBox">
-                       <property name="minimumSize">
-                        <size>
-                         <width>0</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>16777215</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true"/>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <spacer name="horizontalSpacer_21">
-                       <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>40</width>
-                         <height>20</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                    </layout>
+                    <widget class="ClickeLineEdit" name="linkColorLine"/>
                    </item>
                   </layout>
                  </item>
@@ -1938,43 +1512,7 @@ QToolButton:pressed {
                     </widget>
                    </item>
                    <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_13">
-                     <property name="spacing">
-                      <number>1</number>
-                     </property>
-                     <item>
-                      <widget class="QComboBox" name="bodyTextColorBox">
-                       <property name="minimumSize">
-                        <size>
-                         <width>0</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>16777215</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true"/>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <spacer name="horizontalSpacer_22">
-                       <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>40</width>
-                         <height>20</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                    </layout>
+                    <widget class="ClickeLineEdit" name="bodyTextColorLine"/>
                    </item>
                   </layout>
                  </item>
@@ -1991,45 +1529,41 @@ QToolButton:pressed {
                     </widget>
                    </item>
                    <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_16">
-                     <property name="spacing">
-                      <number>1</number>
-                     </property>
-                     <item>
-                      <widget class="QComboBox" name="bodyInfColorBox">
-                       <property name="minimumSize">
-                        <size>
-                         <width>0</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>16777215</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true"/>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <spacer name="horizontalSpacer_23">
-                       <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>40</width>
-                         <height>20</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                    </layout>
+                    <widget class="ClickeLineEdit" name="bodyInfColorLine"/>
                    </item>
                   </layout>
+                 </item>
+                 <item row="1" column="1">
+                  <spacer name="horizontalSpacer_7">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeType">
+                    <enum>QSizePolicy::Fixed</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>2</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item row="1" column="3">
+                  <spacer name="horizontalSpacer_9">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeType">
+                    <enum>QSizePolicy::Fixed</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>2</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
                  </item>
                 </layout>
                </widget>
@@ -2117,7 +1651,7 @@ QToolButton:pressed {
            <item row="9" column="0" colspan="2">
             <layout class="QHBoxLayout" name="horizontalLayout_38">
              <property name="spacing">
-              <number>20</number>
+              <number>10</number>
              </property>
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -2138,37 +1672,7 @@ QToolButton:pressed {
                 </widget>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_24">
-                 <property name="spacing">
-                  <number>1</number>
-                 </property>
-                 <item>
-                  <widget class="QComboBox" name="searchColorBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true"/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer_25">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                </layout>
+                <widget class="ClickeLineEdit" name="searchColorLine"/>
                </item>
               </layout>
              </item>
@@ -2191,46 +1695,9 @@ QToolButton:pressed {
                 </widget>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_25">
-                 <property name="spacing">
-                  <number>1</number>
-                 </property>
-                 <item>
-                  <widget class="QComboBox" name="selectedSearchColorBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true"/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer_26">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                </layout>
+                <widget class="ClickeLineEdit" name="selectedSearchColorLine"/>
                </item>
               </layout>
-             </item>
-             <item>
-              <widget class="Line" name="line_6">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-              </widget>
              </item>
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_38">
@@ -2251,37 +1718,7 @@ QToolButton:pressed {
                 </widget>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_26">
-                 <property name="spacing">
-                  <number>1</number>
-                 </property>
-                 <item>
-                  <widget class="QComboBox" name="fieldColorBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true"/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer_27">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                </layout>
+                <widget class="ClickeLineEdit" name="fieldColorLine"/>
                </item>
               </layout>
              </item>
@@ -2304,37 +1741,7 @@ QToolButton:pressed {
                 </widget>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_27">
-                 <property name="spacing">
-                  <number>1</number>
-                 </property>
-                 <item>
-                  <widget class="QComboBox" name="fieldSelectedColorBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true"/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer_28">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                </layout>
+                <widget class="ClickeLineEdit" name="fieldSelectedColorLine"/>
                </item>
               </layout>
              </item>
@@ -2359,7 +1766,7 @@ QToolButton:pressed {
            <item row="11" column="0" rowspan="2" colspan="2">
             <layout class="QHBoxLayout" name="horizontalLayout_40">
              <property name="spacing">
-              <number>20</number>
+              <number>10</number>
              </property>
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_40">
@@ -2380,37 +1787,7 @@ QToolButton:pressed {
                 </widget>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_28">
-                 <property name="spacing">
-                  <number>1</number>
-                 </property>
-                 <item>
-                  <widget class="QComboBox" name="tabColorBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true"/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer_29">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                </layout>
+                <widget class="ClickeLineEdit" name="tabColorLine"/>
                </item>
               </layout>
              </item>
@@ -2433,46 +1810,9 @@ QToolButton:pressed {
                 </widget>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_29">
-                 <property name="spacing">
-                  <number>1</number>
-                 </property>
-                 <item>
-                  <widget class="QComboBox" name="tabUnselectedColorBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true"/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer_30">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                </layout>
+                <widget class="ClickeLineEdit" name="tabUnselectedColorLine"/>
                </item>
               </layout>
-             </item>
-             <item>
-              <widget class="Line" name="line_7">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-              </widget>
              </item>
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_42">
@@ -2493,37 +1833,7 @@ QToolButton:pressed {
                 </widget>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_30">
-                 <property name="spacing">
-                  <number>1</number>
-                 </property>
-                 <item>
-                  <widget class="QComboBox" name="messageColorBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true"/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer_31">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                </layout>
+                <widget class="ClickeLineEdit" name="messageColorLine"/>
                </item>
               </layout>
              </item>
@@ -2546,37 +1856,7 @@ QToolButton:pressed {
                 </widget>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_31">
-                 <property name="spacing">
-                  <number>1</number>
-                 </property>
-                 <item>
-                  <widget class="QComboBox" name="messageBackColorBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true"/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer_32">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                </layout>
+                <widget class="ClickeLineEdit" name="messageBackColorLine"/>
                </item>
               </layout>
              </item>
@@ -2585,7 +1865,7 @@ QToolButton:pressed {
            <item row="16" column="0" rowspan="2" colspan="2">
             <layout class="QHBoxLayout" name="horizontalLayout_39">
              <property name="spacing">
-              <number>20</number>
+              <number>10</number>
              </property>
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_44">
@@ -2606,37 +1886,7 @@ QToolButton:pressed {
                 </widget>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_32">
-                 <property name="spacing">
-                  <number>1</number>
-                 </property>
-                 <item>
-                  <widget class="QComboBox" name="chart_1_ColorBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true"/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer_33">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                </layout>
+                <widget class="ClickeLineEdit" name="chart_1_ColorLine"/>
                </item>
               </layout>
              </item>
@@ -2659,46 +1909,9 @@ QToolButton:pressed {
                 </widget>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_34">
-                 <property name="spacing">
-                  <number>1</number>
-                 </property>
-                 <item>
-                  <widget class="QComboBox" name="chart_3_ColorBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true"/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer_35">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                </layout>
+                <widget class="ClickeLineEdit" name="chart_3_ColorLine"/>
                </item>
               </layout>
-             </item>
-             <item>
-              <widget class="Line" name="line_9">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-              </widget>
              </item>
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_45">
@@ -2719,37 +1932,7 @@ QToolButton:pressed {
                 </widget>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_33">
-                 <property name="spacing">
-                  <number>1</number>
-                 </property>
-                 <item>
-                  <widget class="QComboBox" name="chart_2_ColorBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true"/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer_34">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                </layout>
+                <widget class="ClickeLineEdit" name="chart_2_ColorLine"/>
                </item>
               </layout>
              </item>
@@ -2772,37 +1955,7 @@ QToolButton:pressed {
                 </widget>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_35">
-                 <property name="spacing">
-                  <number>1</number>
-                 </property>
-                 <item>
-                  <widget class="QComboBox" name="chart_4_ColorBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true"/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer_36">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                </layout>
+                <widget class="ClickeLineEdit" name="chart_4_ColorLine"/>
                </item>
               </layout>
              </item>
@@ -2818,6 +1971,19 @@ QToolButton:pressed {
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>BaseForm</class>
+   <extends>QWidget</extends>
+   <header>BaseForm.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ClickeLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header location="global">clickelineedit.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>userNameLine</tabstop>
   <tabstop>passwordLine</tabstop>
@@ -2828,7 +1994,6 @@ QToolButton:pressed {
   <tabstop>userTypeBox</tabstop>
   <tabstop>userTypeEdit</tabstop>
   <tabstop>userTypeEdit_2</tabstop>
-  <tabstop>lastLoginBox</tabstop>
   <tabstop>groupAreaListView</tabstop>
   <tabstop>docGroupListView</tabstop>
   <tabstop>phoneLine</tabstop>
@@ -2836,7 +2001,6 @@ QToolButton:pressed {
   <tabstop>accountNameLine</tabstop>
   <tabstop>submitButton</tabstop>
   <tabstop>backButton</tabstop>
-  <tabstop>languageBox</tabstop>
   <tabstop>curFormatBox</tabstop>
   <tabstop>curTypeBox</tabstop>
   <tabstop>timeZoneBox</tabstop>
@@ -2846,14 +2010,6 @@ QToolButton:pressed {
   <tabstop>mainTabWidget</tabstop>
   <tabstop>styleScrollArea</tabstop>
  </tabstops>
-    <customwidgets>
-        <customwidget>
-            <class>BaseForm</class>
-            <extends>QWidget</extends>
-            <header>BaseForm.h</header>
-            <container>1</container>
-        </customwidget>
-    </customwidgets>
  <resources/>
  <connections/>
 </ui>

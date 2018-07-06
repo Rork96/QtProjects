@@ -21,8 +21,8 @@ public:
 private:
     Ui::CreateUserForm *ui;
 
-    const  QString Table = "user";
-    const  QString Record = "User name";
+    const  QString Table = "users";
+    const  QString Record = "username";
 
     void initComboBox(QList<QComboBox*> elements);  // Init comboboxes with colors
     void checkPasswordLength(const QString &arg1);

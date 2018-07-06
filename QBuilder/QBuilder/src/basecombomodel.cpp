@@ -96,3 +96,16 @@ int BaseComboModel::getIndex(int id)
         return query.value(0).toInt();
     }
 }
+
+int BaseComboModel::getId(const QString &text)
+{
+    if (text.isEmpty())
+        return -1;
+
+    QSqlQuery query;
+    QString str = QString("SELECT id FROM " + mainTable + " WHERE " + mainColumn + " = %1").arg(text);
+    query.exec(str);
+    while (query.next()) {
+        return query.value(0).toInt();
+    }
+}

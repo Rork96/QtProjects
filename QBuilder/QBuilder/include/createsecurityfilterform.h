@@ -2,8 +2,7 @@
 #define CREATESECURITYFILTERFORM_H
 
 #include "BaseForm.h"
-#include <QDataWidgetMapper>
-#include <QSqlRelationalTableModel>
+#include "basecombomodel.h"
 
 namespace Ui {
 class CreateSecurityFilterForm;
@@ -17,19 +16,21 @@ public:
     explicit CreateSecurityFilterForm(QWidget *parent = 0);
     ~CreateSecurityFilterForm();
 
-    void setRowIndex(int rowIndex, int) override;     // User chose to edit data from the table
+    void setRowIndex(int rowIndex, int id) override;     // User chose to edit data from the table
 
 private:
     Ui::CreateSecurityFilterForm *ui;
 
-    QSqlTableModel *model;
-    QDataWidgetMapper *mapper;
+    const QString Table = "security_filters";
 
     void submitChanges() override;
 
-//signals:
-//    void sygnalBack() override;
-//    void sygnalSubmit() override;
+    QList<QComboBox*> combo;            // ComboBoxes
+    QList<BaseComboModel*> cbModel;     // Combobox models
+
+    /* Combobox models */
+    BaseComboModel *tenantCModel;
+    BaseComboModel *acTypeCModel;
 };
 
 #endif // CREATESECURITYFILTERFORM_H

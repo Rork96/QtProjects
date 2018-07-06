@@ -2,7 +2,6 @@
 #define CREATETENANTFORM_H
 
 #include "BaseForm.h"
-#include <QComboBox>
 #include "basecombomodel.h"
 
 namespace Ui {
@@ -24,14 +23,10 @@ private:
 
     const QString Table = "tenant";
 
-    void initComboBox(QList<QComboBox*> elements); // Init comboboxes with colors
-
     void submitChanges() override;
 
     QList<QComboBox*> combo;            // ComboBoxes
     QList<BaseComboModel*> cbModel;     // Combobox models
-    QList<QComboBox*> colourBox;        // Colour comboBoxes
-    QList<BaseComboModel*> colourModel; // Colour models
 
     /* Combobox models */
     BaseComboModel *countryCModel;
@@ -48,7 +43,7 @@ private:
     BaseComboModel *borderModel;
     BaseComboModel *headerLogoModel;
     BaseComboModel *mainLogoModel;
-    BaseComboModel *coloursModel;
+    BaseComboModel *headerBorderModel;
 };
 
 #endif // CREATETENANTFORM_H

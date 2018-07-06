@@ -759,7 +759,7 @@ QSpinBox {
                <x>0</x>
                <y>0</y>
                <width>755</width>
-               <height>1005</height>
+               <height>1027</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="gridLayout_12">
@@ -778,7 +778,14 @@ QSpinBox {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="sectHeaderColorBox"/>
+                   <widget class="ClickeLineEdit" name="sectHeaderColorLine">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </item>
@@ -792,7 +799,14 @@ QSpinBox {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="sectHeaderBackBox"/>
+                   <widget class="ClickeLineEdit" name="sectHeaderBackColorLine">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </item>
@@ -806,7 +820,14 @@ QSpinBox {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="sectBackColorBox"/>
+                   <widget class="ClickeLineEdit" name="sectBackColorLine">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </item>
@@ -827,7 +848,7 @@ QSpinBox {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="fChatColorBox"/>
+                   <widget class="ClickeLineEdit" name="fChatColorLine"/>
                   </item>
                  </layout>
                 </item>
@@ -841,7 +862,7 @@ QSpinBox {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="sChatColorBox"/>
+                   <widget class="ClickeLineEdit" name="sChatColorLine"/>
                   </item>
                  </layout>
                 </item>
@@ -862,7 +883,7 @@ QSpinBox {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="tabSelectColorBox"/>
+                   <widget class="ClickeLineEdit" name="tabSelectColorLine"/>
                   </item>
                  </layout>
                 </item>
@@ -876,7 +897,7 @@ QSpinBox {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="tabUnselectColorBox"/>
+                   <widget class="ClickeLineEdit" name="tabUnselectColorLine"/>
                   </item>
                  </layout>
                 </item>
@@ -911,7 +932,14 @@ QSpinBox {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="borderColorBox"/>
+                   <widget class="ClickeLineEdit" name="borderColorLine">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </item>
@@ -925,7 +953,14 @@ QSpinBox {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="backColorBox"/>
+                   <widget class="ClickeLineEdit" name="backColorLine">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </item>
@@ -960,7 +995,7 @@ QSpinBox {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="msgColorBox"/>
+                   <widget class="ClickeLineEdit" name="msgColorLine"/>
                   </item>
                  </layout>
                 </item>
@@ -974,7 +1009,7 @@ QSpinBox {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="msgBackBox"/>
+                   <widget class="ClickeLineEdit" name="msgBackLine"/>
                   </item>
                  </layout>
                 </item>
@@ -995,7 +1030,7 @@ QSpinBox {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="fieldsBordColorBox"/>
+                   <widget class="ClickeLineEdit" name="fieldsBordColorLine"/>
                   </item>
                  </layout>
                 </item>
@@ -1009,7 +1044,7 @@ QSpinBox {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="selectedFieldBox"/>
+                   <widget class="ClickeLineEdit" name="selectedFieldLine"/>
                   </item>
                  </layout>
                 </item>
@@ -1030,7 +1065,7 @@ QSpinBox {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="thChatColorBox"/>
+                   <widget class="ClickeLineEdit" name="thChatColorLine"/>
                   </item>
                  </layout>
                 </item>
@@ -1044,7 +1079,7 @@ QSpinBox {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="fourChatColorBox"/>
+                   <widget class="ClickeLineEdit" name="fourChatColorLine"/>
                   </item>
                  </layout>
                 </item>
@@ -1065,7 +1100,14 @@ QSpinBox {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="menuBackColorBox"/>
+                   <widget class="ClickeLineEdit" name="menuBackColorLine">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </item>
@@ -1079,7 +1121,14 @@ QSpinBox {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="menuTextColorBox"/>
+                   <widget class="ClickeLineEdit" name="menuTextColorLine">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </item>
@@ -1093,7 +1142,14 @@ QSpinBox {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="selectionColorBox"/>
+                   <widget class="ClickeLineEdit" name="selectionColorLine">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </item>
@@ -1128,7 +1184,7 @@ QSpinBox {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="searchBordColorBox"/>
+                   <widget class="ClickeLineEdit" name="searchBordColorLine"/>
                   </item>
                  </layout>
                 </item>
@@ -1142,7 +1198,7 @@ QSpinBox {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="selectedSearchBox"/>
+                   <widget class="ClickeLineEdit" name="selectedSearchLine"/>
                   </item>
                  </layout>
                 </item>
@@ -1163,7 +1219,7 @@ QSpinBox {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="headBordSizeBox"/>
+                   <widget class="QComboBox" name="headBorderSizeBox"/>
                   </item>
                  </layout>
                 </item>
@@ -1177,7 +1233,14 @@ QSpinBox {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="headColorBox"/>
+                   <widget class="ClickeLineEdit" name="headColorLine">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </item>
@@ -1191,7 +1254,14 @@ QSpinBox {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="headBordColorBox"/>
+                   <widget class="ClickeLineEdit" name="headBordColorLine">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </item>
@@ -1212,7 +1282,14 @@ QSpinBox {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="linkColorBox"/>
+                   <widget class="ClickeLineEdit" name="linkColorLine">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </item>
@@ -1226,7 +1303,14 @@ QSpinBox {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="textColorBox"/>
+                   <widget class="ClickeLineEdit" name="textColorLine">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </item>
@@ -1240,7 +1324,14 @@ QSpinBox {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="infoColorBox"/>
+                   <widget class="ClickeLineEdit" name="infoColorLine">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </item>
@@ -1749,6 +1840,11 @@ QToolButton:pressed {
    <extends>QWidget</extends>
    <header>BaseForm.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ClickeLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header location="global">clickelineedit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

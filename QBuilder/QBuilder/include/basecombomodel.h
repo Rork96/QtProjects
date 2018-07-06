@@ -16,6 +16,7 @@ public:
     virtual int rowCount(const QModelIndex &parent) const;
     void saveToDB(int index, int id);
     int getIndex(int id);
+    int getId(const QString &text);
 
 private:
     QString mainTable;

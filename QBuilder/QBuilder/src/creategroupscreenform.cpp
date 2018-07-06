@@ -52,15 +52,17 @@ void CreateGroupScreenForm::submitChanges()
     mapper->submit();
     model->submitAll();
 
-    BaseComboModel *groupCModel = new BaseComboModel("name", "groups", this, Table, "group_name");
-    BaseComboModel *menuCModel = new BaseComboModel("text", "menus", this, Table, "menu_name");
+    BaseComboModel *groupCModel = new BaseComboModel("name", "groups", this, Table, "group_name", "groups");
+    BaseComboModel *menuCModel = new BaseComboModel("text", "menus", this, Table, "menu_name", "menus");
 
     int id = -1;
     if (isEdit) {
         id = model->record(mapper->currentIndex()).value("id").toInt();
     }
-    groupCModel->saveToDB(ui->groupNameBox->currentIndex(), id);
-    menuCModel->saveToDB(ui->menuNameBox->currentIndex(), id);
+    groupCModel->saveToDB(groupCModel->getId(ui->groupNameBox->currentText()), id);
+    menuCModel->saveToDB(menuCModel->getId(ui->menuNameBox->currentText()), id);
+    //groupCModel->saveToDB(ui->groupNameBox->currentIndex(), id);
+    //menuCModel->saveToDB(ui->menuNameBox->currentIndex(), id);
 
     model->select();
     mapper->toLast();
@@ -74,11 +76,11 @@ void CreateGroupScreenForm::setRowIndex(int rowIndex, int id)
     // User chose to edit data from the table
     BaseForm::setRowIndex(rowIndex, id);
 
-    BaseComboModel *groupCModel = new BaseComboModel("name", "groups", this, Table, "group_name");
+    BaseComboModel *groupCModel = new BaseComboModel("name", "groups", this, Table, "group_name", "groups");
     ui->groupNameBox->setModel(groupCModel);
     ui->groupNameBox->setCurrentIndex(groupCModel->getIndex(id));
 
-    BaseComboModel *menuCModel = new BaseComboModel("text", "menus", this, Table, "menu_name");
+    BaseComboModel *menuCModel = new BaseComboModel("text", "menus", this, Table, "menu_name", "menus");
     ui->menuNameBox->setModel(menuCModel);
     ui->menuNameBox->setCurrentIndex(menuCModel->getIndex(id));
 }

@@ -10,11 +10,12 @@ namespace
     };
 }
 
-BaseComboModel::BaseComboModel( const QString& visualColumn, const QString& queryTail, QObject *parent,
-        const QString baseTable, const QString baseColumn ) :
+BaseComboModel::BaseComboModel( const QString &visualColumn, const QString &queryTail, QObject *parent,
+        const QString &baseTable, const QString &baseColumn, const QString &selTable ) :
         QSqlQueryModel( parent ),
-        mainTable(baseTable), mainColumn(baseColumn)
+        mainTable(baseTable), mainColumn(baseColumn), selectionTable(selTable)
 {
+    selectionColumn = visualColumn;
     QSqlQuery query;
     query.prepare( QString( "SELECT %1.id, %2 FROM %3" ).arg( queryTail.split( ' ' ).first() ).arg( visualColumn ).arg( queryTail ) );
     // I.e. query.prepare( "SELECT country.id, countryname || ' - ' || countrycode  FROM country" );
@@ -33,7 +34,7 @@ int BaseComboModel::rowCount(const QModelIndex &parent) const
     return QSqlQueryModel::rowCount( parent ) + 1; // Add info about first empty row
 }
 
-QVariant BaseComboModel::data(const QModelIndex & item, int role /* = Qt::DisplayRole */) const
+QVariant BaseComboModel::data(const QModelIndex &item, int role /* = Qt::DisplayRole */) const
 {
     QVariant result;
 
@@ -95,6 +96,8 @@ int BaseComboModel::getIndex(int id)
     while (query.next()) {
         return query.value(0).toInt();
     }
+
+    // Required index not id
 }
 
 int BaseComboModel::getId(const QString &text)
@@ -103,7 +106,7 @@ int BaseComboModel::getId(const QString &text)
         return -1;
 
     QSqlQuery query;
-    QString str = QString("SELECT id FROM " + mainTable + " WHERE " + mainColumn + " = %1").arg(text);
+    QString str = QString("SELECT id FROM " + selectionTable + " WHERE " + selectionColumn + " = '%1'").arg(text);
     query.exec(str);
     while (query.next()) {
         return query.value(0).toInt();

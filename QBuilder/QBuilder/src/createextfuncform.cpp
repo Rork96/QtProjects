@@ -54,13 +54,14 @@ void CreateExtFuncForm::submitChanges()
     mapper->submit();
     model->submitAll();
 
-    BaseComboModel *extTypeCModel = new BaseComboModel("type", "extension_type", this, Table, "extension_type");
+    BaseComboModel *extTypeCModel = new BaseComboModel("type", "extension_type", this, Table, "extension_type", "extension_type");
 
     int id = -1;
     if (isEdit) {
         id = model->record(mapper->currentIndex()).value("id").toInt();
     }
-    extTypeCModel->saveToDB(ui->extTypeBox->currentIndex(), id);
+    extTypeCModel->saveToDB(extTypeCModel->getId(ui->extTypeBox->currentText()), id);
+    //extTypeCModel->saveToDB(ui->extTypeBox->currentIndex(), id);
 
     model->select();
     mapper->toLast();
@@ -74,7 +75,7 @@ void CreateExtFuncForm::setRowIndex(int rowIndex, int id)
     // User chose to edit data from the table
     BaseForm::setRowIndex(rowIndex, id);
 
-    BaseComboModel *extTypeCModel = new BaseComboModel("type", "extension_type", this, Table, "extension_type");
+    BaseComboModel *extTypeCModel = new BaseComboModel("type", "extension_type", this, Table, "extension_type", "extension_type");
     ui->extTypeBox->setModel(extTypeCModel);
     ui->extTypeBox->setCurrentIndex(extTypeCModel->getIndex(id));
 }

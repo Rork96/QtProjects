@@ -42,15 +42,17 @@ void CreateDataSourceForm::submitChanges()
     mapper->submit();
     model->submitAll();
 
-    BaseComboModel *fTypeCModel = new BaseComboModel("func_type", "function_type", this, Table, "function_type");
-    BaseComboModel *dTypeCModel = new BaseComboModel("direct_type", "direction_type", this, Table, "direction_type");
+    BaseComboModel *fTypeCModel = new BaseComboModel("func_type", "function_type", this, Table, "function_type", "function_type");
+    BaseComboModel *dTypeCModel = new BaseComboModel("direct_type", "direction_type", this, Table, "direction_type", "direction_type");
 
     int id = -1;
     if (isEdit) {
         id = model->record(mapper->currentIndex()).value("id").toInt();
     }
-    fTypeCModel->saveToDB(ui->fTypeBox->currentIndex(), id);
-    dTypeCModel->saveToDB(ui->dTypeBox->currentIndex(), id);
+    fTypeCModel->saveToDB(fTypeCModel->getId(ui->fTypeBox->currentText()), id);
+    dTypeCModel->saveToDB(dTypeCModel->getId(ui->dTypeBox->currentText()), id);
+    //fTypeCModel->saveToDB(ui->fTypeBox->currentIndex(), id);
+    //dTypeCModel->saveToDB(ui->dTypeBox->currentIndex(), id);
 
     model->select();
     mapper->toLast();
@@ -64,11 +66,11 @@ void CreateDataSourceForm::setRowIndex(int rowIndex, int id)
     // User chose to edit data from the table
     BaseForm::setRowIndex(rowIndex, id);
 
-    BaseComboModel *fTypeCModel = new BaseComboModel("func_type", "function_type", this, Table, "function_type");
+    BaseComboModel *fTypeCModel = new BaseComboModel("func_type", "function_type", this, Table, "function_type", "function_type");
     ui->fTypeBox->setModel(fTypeCModel);
     ui->fTypeBox->setCurrentIndex(fTypeCModel->getIndex(id));
 
-    BaseComboModel *dTypeCModel = new BaseComboModel("direct_type", "direction_type", this, Table, "direction_type");
+    BaseComboModel *dTypeCModel = new BaseComboModel("direct_type", "direction_type", this, Table, "direction_type", "direction_type");
     ui->dTypeBox->setModel(dTypeCModel);
     ui->dTypeBox->setCurrentIndex(dTypeCModel->getIndex(id));
 }

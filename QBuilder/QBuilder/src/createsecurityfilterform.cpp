@@ -15,7 +15,6 @@ CreateSecurityFilterForm::CreateSecurityFilterForm(QWidget *parent) :
 
     mapper->addMapping(ui->userTypeLine, 3);
     mapper->addMapping(ui->descriptionEdit, 4);
-
     mapper->addMapping(ui->filter_1_Line, 5);
     mapper->addMapping(ui->filter_1_SpinBox, 6);
     mapper->addMapping(ui->filter_2_Line, 7);
@@ -25,6 +24,9 @@ CreateSecurityFilterForm::CreateSecurityFilterForm(QWidget *parent) :
     mapper->addMapping(ui->selfRegCheckBox, 11);
     mapper->addMapping(ui->ldapCheckBox, 12);
     mapper->addMapping(ui->chatCheckBox, 13);
+    // 14
+    // 15
+    // 16
 
 
     model->insertRow(model->rowCount(QModelIndex()));

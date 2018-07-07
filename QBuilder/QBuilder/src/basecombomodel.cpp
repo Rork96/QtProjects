@@ -1,6 +1,8 @@
 #include "basecombomodel.h"
 #include <QSqlQuery>
 
+#include <QDebug>
+
 namespace
 {
     enum Columns // Depends with 'query.prepare( QString( "SELECT ... '
@@ -11,11 +13,12 @@ namespace
 }
 
 BaseComboModel::BaseComboModel( const QString &visualColumn, const QString &queryTail, QObject *parent,
-        const QString &baseTable, const QString &baseColumn, const QString &selTable ) :
+        const QString &baseTable, const QString &baseColumn ) :
         QSqlQueryModel( parent ),
-        mainTable(baseTable), mainColumn(baseColumn), selectionTable(selTable)
+        mainTable(baseTable), mainColumn(baseColumn)
 {
     selectionColumn = visualColumn;
+    selectionTable = queryTail.mid(0, queryTail.indexOf(" "));
     QSqlQuery query;
     query.prepare( QString( "SELECT %1.id, %2 FROM %3" ).arg( queryTail.split( ' ' ).first() ).arg( visualColumn ).arg( queryTail ) );
     // I.e. query.prepare( "SELECT country.id, countryname || ' - ' || countrycode  FROM country" );
@@ -70,45 +73,48 @@ QVariant BaseComboModel::data(const QModelIndex &item, int role /* = Qt::Display
     return result;
 }
 
-void BaseComboModel::saveToDB(int index, int id)
+void BaseComboModel::saveToDB(const int &comboId, const int &tableId)
 {
+    // Save data to databese
+    /*
+     * comboId - row id from table from which data loaded to comboBox
+     * tableid - main table id
+     *
+     * Save to database:
+     * comboBoxbModel->saveToDB(comboBox->itemData(comboBox->currentIndex(), Qt::UserRole).toInt(), id);
+     *
+     */
     QSqlQuery query;
     query.prepare( "UPDATE " + mainTable + " SET " + mainColumn + " = ? WHERE id = ?" );
-    query.addBindValue(index);
-    if (id == -1) {
+    query.addBindValue(comboId);
+    if (tableId == -1) {
         query.addBindValue(query.lastInsertId().toInt());
     }
     else {
-        query.addBindValue(id);
+        query.addBindValue(tableId);
     }
     query.exec();
 }
 
-int BaseComboModel::getIndex(int id)
+QString BaseComboModel::getTextValue(const int &tableId)
 {
-    if (id == -1) {
-        return 0;
-    }
+    // Get text value from database to get correct index in comboBox
+    /*
+     * tableid - main table id
+     *
+     * Index in comboBox:
+     * comboBox->setCurrentIndex(comboBox->findText(comboBoxModel->getTextValue(tableId)));
+     */
+    if (tableId == -1) return 0;
 
     QSqlQuery query;
-    QString str = QString("SELECT " + mainColumn + " FROM " + mainTable + " WHERE id = %1").arg(id);
+    QString str = QString("SELECT " + mainColumn + " FROM " +  mainTable + " WHERE id = %1").arg(tableId);
     query.exec(str);
-    while (query.next()) {
-        return query.value(0).toInt();
-    }
 
-    // Required index not id
-}
-
-int BaseComboModel::getId(const QString &text)
-{
-    if (text.isEmpty())
-        return -1;
-
-    QSqlQuery query;
-    QString str = QString("SELECT id FROM " + selectionTable + " WHERE " + selectionColumn + " = '%1'").arg(text);
+    query.next();
+    str = QString("SELECT " + selectionColumn + " FROM " + selectionTable + " WHERE id = %1").arg(query.value(0).toInt());
     query.exec(str);
-    while (query.next()) {
-        return query.value(0).toInt();
-    }
+    query.next();
+
+    return query.value(0).toString();
 }

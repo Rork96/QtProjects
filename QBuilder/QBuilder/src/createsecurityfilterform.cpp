@@ -31,8 +31,8 @@ CreateSecurityFilterForm::CreateSecurityFilterForm(QWidget *parent) :
     mapper->toLast();
 
     // Init comboBox models with data
-    tenantCModel = new BaseComboModel("tenant_code || ': ' || name", "tenant", this, Table, "tenant", "tenant");
-    //acTypeCModel = new BaseComboModel("entry_name || ': ' || list_name", "location_city", this, Table, "city", "location_city");
+    tenantCModel = new BaseComboModel("tenant_code || ': ' || name", "tenant", this, Table, "tenant");
+    //acTypeCModel = new BaseComboModel("entry_name || ': ' || list_name", "location_city", this, Table, "city");
 
     // Add comboBoxes and their models to QLists
     combo = {ui->tenantBox /*, ui->accountTypeBox*/};
@@ -64,10 +64,7 @@ void CreateSecurityFilterForm::submitChanges()
 
     // Save data from comboBoxes to database
     for (int i = 0; i < cbModel.count(); i++) {
-        qDebug() << id;
-        qDebug() << combo.at(i)->currentText();
-        qDebug() << cbModel.at(i)->getId(combo.at(i)->currentText());
-        cbModel.at(i)->saveToDB(cbModel.at(i)->getId(combo.at(i)->currentText()), id);
+        cbModel.at(i)->saveToDB(combo.at(i)->itemData(combo.at(i)->currentIndex(), Qt::UserRole).toInt(), id);
     }
 
     model->select();
@@ -86,8 +83,7 @@ void CreateSecurityFilterForm::setRowIndex(int rowIndex, int id)
     auto initComboBox = [&id](QComboBox *box, BaseComboModel *comboModel)
     {
         box->setModel(comboModel);
-        // Correct index needed not id
-        box->setCurrentIndex(comboModel->getIndex(id));
+        box->setCurrentIndex(box->findText(comboModel->getTextValue(id)));
     };
 
     for (int i = 0; i < cbModel.count(); i++) {

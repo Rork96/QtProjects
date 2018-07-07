@@ -11,18 +11,21 @@ Q_OBJECT
 
 public:
     explicit BaseComboModel( const QString &visualColumn, const QString &queryTail, QObject *parent,
-                             const QString &baseTable, const QString &baseColumn, const QString &selTable );
+                             const QString &baseTable, const QString &baseColumn );
     virtual QVariant data(const QModelIndex &item, int role = Qt::DisplayRole) const;
     virtual int rowCount(const QModelIndex &parent) const;
-    void saveToDB(int index, int id);
-    int getIndex(int id);
-    int getId(const QString &text);
+
+    // Save data to databese
+    void saveToDB(const int &comboId, const int &tableId);
+
+    // Get text value from database to get correct index in comboBox
+    QString getTextValue(const int &tableId);
 
 private:
-    QString mainTable;
-    QString mainColumn;
-    QString selectionTable;
-    QString selectionColumn;
+    QString mainTable;              // main table name
+    QString mainColumn;             // column name from main table
+    QString selectionTable;         // table from which data loaded to comboBox
+    QString selectionColumn;        // column from table from which data loaded to comboBox
 };
 
 #endif // BASECOMBOMODEL_H

@@ -119,9 +119,8 @@ void TableForm::loadDataFromDB()
             initTable("security_filters");
 
             // Select
-            mainModel->setRelation(1, QSqlRelation("tenant", "id", "name"));
-            //mainModel->setRelation(14, QSqlRelation("menus", "id", "text"));
-            //ui->mainTableView->setItemDelegate(new QSqlRelationalDelegate(ui->mainTableView));
+            mainModel->setRelation(1, QSqlRelation("tenant", "id", "name")); // tenant_code
+            //mainModel->setRelation(14, QSqlRelation("menus", "id", "text")); // account_type
             mainModel->select();
 
             headers << trUtf8("id") << trUtf8("Tenant") << trUtf8("Account type") << trUtf8("User type") << trUtf8("Description")

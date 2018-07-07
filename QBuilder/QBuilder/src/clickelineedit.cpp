@@ -28,7 +28,7 @@ void ClickeLineEdit::mousePressEvent(QMouseEvent *event)
 void ClickeLineEdit::setText(const QString &text)
 {
     if (QColor(text).isValid()) {
-        setStyleSheet("QLineEdit { background-color: " + text + ";} ");
+        setStyleSheet("ClickeLineEdit { background-color: " + text + ";} ");
     }
 
     QLineEdit::setText(text);

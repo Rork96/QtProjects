@@ -60,21 +60,21 @@ CreateTenantForm::CreateTenantForm(QWidget *parent) :
     mapper->toLast();
 
     // Init comboBox models with data
-    countryCModel = new BaseComboModel("country_name", "location_country", this, Table, "country", "location_country");
-    cityCModel = new BaseComboModel("city_name", "location_city", this, Table, "city", "location_city");
-    stateCModel = new BaseComboModel("state_name", "location_state", this, Table, "state", "location_state");
-    langCModel = new BaseComboModel("language_name", "language_table", this, Table, "language", "language_table");
-    currencyModel = new BaseComboModel("currency_format", "currency_table", this, Table, "currency", "currency_table");
-    currencyTypeModel = new BaseComboModel("curr_type", "currency_type_table", this, Table, "currency_type", "currency_type_table");
-    timezoneModel = new BaseComboModel("timezone_name", "timezone_table", this, Table, "timezone", "timezone_table");
-    timeFormatModel = new BaseComboModel("standard_format", "time_format_table", this, Table, "time_format", "time_format_table");
-    dateModel = new BaseComboModel("date_format", "date_table", this, Table, "date", "date_table");
-    bntModel = new BaseComboModel("style", "button_style_table", this, Table, "button_style", "button_style_table");
-    menuModel = new BaseComboModel("m_type", "menu_type_table", this, Table, "menu_type", "menu_type_table");
-    borderModel = new BaseComboModel("size", "border_size_table", this, Table, "border_size", "border_size_table");
-    headerLogoModel = new BaseComboModel("entry_name || ': ' || list_name", "logo WHERE type = 'LOGO_HEADER'", this, Table, "header_logo", "logo");
-    mainLogoModel = new BaseComboModel("entry_name || ': ' || list_name", "logo WHERE type = 'LOGO_MAIN'", this, Table, "main_logo", "logo");
-    headerBorderModel = new BaseComboModel("size", "border_size_table", this, Table, "header_border_size", "border_size_table");
+    countryCModel = new BaseComboModel("country_name", "location_country", this, Table, "country");
+    cityCModel = new BaseComboModel("city_name", "location_city", this, Table, "city");
+    stateCModel = new BaseComboModel("state_name", "location_state", this, Table, "state");
+    langCModel = new BaseComboModel("language_name", "language_table", this, Table, "language");
+    currencyModel = new BaseComboModel("currency_format", "currency_table", this, Table, "currency");
+    currencyTypeModel = new BaseComboModel("curr_type", "currency_type_table", this, Table, "currency_type");
+    timezoneModel = new BaseComboModel("timezone_name", "timezone_table", this, Table, "timezone");
+    timeFormatModel = new BaseComboModel("standard_format", "time_format_table", this, Table, "time_format");
+    dateModel = new BaseComboModel("date_format", "date_table", this, Table, "date");
+    bntModel = new BaseComboModel("style", "button_style_table", this, Table, "button_style");
+    menuModel = new BaseComboModel("m_type", "menu_type_table", this, Table, "menu_type");
+    borderModel = new BaseComboModel("size", "border_size_table", this, Table, "border_size");
+    headerLogoModel = new BaseComboModel("entry_name || ': ' || list_name", "logo WHERE type = 'LOGO_HEADER'", this, Table, "header_logo");
+    mainLogoModel = new BaseComboModel("entry_name || ': ' || list_name", "logo WHERE type = 'LOGO_MAIN'", this, Table, "main_logo");
+    headerBorderModel = new BaseComboModel("size", "border_size_table", this, Table, "header_border_size");
 
     // Add comboBoxes and their models to QLists
     combo = {ui->countryBox, ui->cityBox, ui->regionBox, ui->languageBox, ui->currencyBox, ui->currencyTypeBox,
@@ -109,7 +109,7 @@ void CreateTenantForm::submitChanges()
 
     // Save data from comboBoxes to database
     for (int i = 0; i < cbModel.count(); i++) {
-        cbModel.at(i)->saveToDB(cbModel.at(i)->getId(combo.at(i)->currentText()), id);
+        cbModel.at(i)->saveToDB(combo.at(i)->itemData(combo.at(i)->currentIndex(), Qt::UserRole).toInt(), id);
     }
 
     model->select();
@@ -128,13 +128,13 @@ void CreateTenantForm::setRowIndex(int rowIndex, int id)
     auto initComboBox = [&id](QComboBox *box, BaseComboModel *comboModel)
     {
         box->setModel(comboModel);
-        box->setCurrentIndex(comboModel->getIndex(id));
+        box->setCurrentIndex(box->findText(comboModel->getTextValue(id)));
     };
 
     for (int i = 0; i < cbModel.count(); i++) {
         initComboBox(combo.at(i), cbModel.at(i));
     }
-/*
+
     ui->menuBackColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->menuBackColorLine->text() + ";} ");
     ui->menuTextColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->menuTextColorLine->text() + ";} ");
     ui->selectionColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->selectionColorLine->text() + ";} ");
@@ -159,5 +159,5 @@ void CreateTenantForm::setRowIndex(int rowIndex, int id)
     ui->fChatColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->fChatColorLine->text() + ";} ");
     ui->sChatColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->sChatColorLine->text() + ";} ");
     ui->thChatColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->thChatColorLine->text() + ";} ");
-    ui->fourChatColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->fourChatColorLine->text() + ";} ");*/
+    ui->fourChatColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->fourChatColorLine->text() + ";} ");
 }

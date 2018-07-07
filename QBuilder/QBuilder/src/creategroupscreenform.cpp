@@ -52,17 +52,15 @@ void CreateGroupScreenForm::submitChanges()
     mapper->submit();
     model->submitAll();
 
-    BaseComboModel *groupCModel = new BaseComboModel("name", "groups", this, Table, "group_name", "groups");
-    BaseComboModel *menuCModel = new BaseComboModel("text", "menus", this, Table, "menu_name", "menus");
+    BaseComboModel *groupCModel = new BaseComboModel("name", "groups", this, Table, "group_name");
+    BaseComboModel *menuCModel = new BaseComboModel("text", "menus", this, Table, "menu_name");
 
     int id = -1;
     if (isEdit) {
         id = model->record(mapper->currentIndex()).value("id").toInt();
     }
-    groupCModel->saveToDB(groupCModel->getId(ui->groupNameBox->currentText()), id);
-    menuCModel->saveToDB(menuCModel->getId(ui->menuNameBox->currentText()), id);
-    //groupCModel->saveToDB(ui->groupNameBox->currentIndex(), id);
-    //menuCModel->saveToDB(ui->menuNameBox->currentIndex(), id);
+    groupCModel->saveToDB(ui->groupNameBox->itemData(ui->groupNameBox->currentIndex(), Qt::UserRole).toInt(), id);
+    menuCModel->saveToDB(ui->menuNameBox->itemData(ui->menuNameBox->currentIndex(), Qt::UserRole).toInt(), id);
 
     model->select();
     mapper->toLast();
@@ -76,11 +74,11 @@ void CreateGroupScreenForm::setRowIndex(int rowIndex, int id)
     // User chose to edit data from the table
     BaseForm::setRowIndex(rowIndex, id);
 
-    BaseComboModel *groupCModel = new BaseComboModel("name", "groups", this, Table, "group_name", "groups");
+    BaseComboModel *groupCModel = new BaseComboModel("name", "groups", this, Table, "group_name");
     ui->groupNameBox->setModel(groupCModel);
-    ui->groupNameBox->setCurrentIndex(groupCModel->getIndex(id));
+    ui->groupNameBox->setCurrentIndex(ui->groupNameBox->findText(groupCModel->getTextValue(id)));
 
-    BaseComboModel *menuCModel = new BaseComboModel("text", "menus", this, Table, "menu_name", "menus");
+    BaseComboModel *menuCModel = new BaseComboModel("text", "menus", this, Table, "menu_name");
     ui->menuNameBox->setModel(menuCModel);
-    ui->menuNameBox->setCurrentIndex(menuCModel->getIndex(id));
+    ui->menuNameBox->setCurrentIndex(ui->menuNameBox->findText(menuCModel->getTextValue(id)));
 }

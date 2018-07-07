@@ -22,6 +22,8 @@ private:
     Ui::CreateSecurityFilterForm *ui;
 
     const QString Table = "security_filters";
+    const QString QuestionTable = "question";
+    const QString AuthTable = "authorization_table";
 
     void submitChanges() override;
 
@@ -31,6 +33,11 @@ private:
     /* Combobox models */
     BaseComboModel *tenantCModel;
     BaseComboModel *acTypeCModel;
+    BaseComboModel *regSceenModel;
+
+    // ListView Models
+    BaseComboModel *questionModel;
+    BaseComboModel *authModel;
 };
 
 #endif // CREATESECURITYFILTERFORM_H

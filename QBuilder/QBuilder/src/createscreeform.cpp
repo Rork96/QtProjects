@@ -18,7 +18,7 @@ CreateScreeForm::CreateScreeForm(QWidget *parent) :
     int scrIndex = model->fieldIndex("scr_name");
     model->setRelation(scrIndex, QSqlRelation("group_screen", "id", "s_text"));
     int libIndex = model->fieldIndex("library");
-    model->setRelation(libIndex, QSqlRelation("libraries", "id", "lib_name"));
+    model->setRelation(libIndex, QSqlRelation("templates", "id", "library_name"));
 
     model->select();
 
@@ -30,7 +30,7 @@ CreateScreeForm::CreateScreeForm(QWidget *parent) :
     // New relation model for menuNameBox
     QSqlTableModel *rModel = model->relationModel(libIndex); // Relation index
     ui->libraryBox->setModel(rModel);
-    ui->libraryBox->setModelColumn(rModel->fieldIndex("lib_name"));
+    ui->libraryBox->setModelColumn(rModel->fieldIndex("library_name"));
 
     // View data with mapper
     // First not displayed

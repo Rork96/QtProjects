@@ -119,8 +119,8 @@ void TableForm::loadDataFromDB()
             initTable("security_filters");
 
             // Select
-            mainModel->setRelation(1, QSqlRelation("tenant", "id", "name")); // tenant_code
-            //mainModel->setRelation(14, QSqlRelation("menus", "id", "text")); // account_type
+            mainModel->setRelation(1, QSqlRelation("tenant", "id", "name"));
+            mainModel->setRelation(2, QSqlRelation("account_table", "id", "acc_type"));
             mainModel->select();
 
             headers << trUtf8("id") << trUtf8("Tenant") << trUtf8("Account type") << trUtf8("User type") << trUtf8("Description")
@@ -180,7 +180,7 @@ void TableForm::loadDataFromDB()
             // Select
             mainModel->setRelation(1, QSqlRelation("menus", "id", "text"));
             mainModel->setRelation(2, QSqlRelation("group_screen", "id", "s_text"));
-            mainModel->setRelation(3, QSqlRelation("libraries", "id", "lib_name"));
+            mainModel->setRelation(3, QSqlRelation("templates", "id", "library_name"));
             ui->mainTableView->setItemDelegate(new QSqlRelationalDelegate(ui->mainTableView));
             mainModel->select();
 

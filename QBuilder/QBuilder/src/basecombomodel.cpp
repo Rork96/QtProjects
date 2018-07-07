@@ -110,8 +110,8 @@ QString BaseComboModel::getTextValue(const int &tableId)
     QSqlQuery query;
     QString str = QString("SELECT " + mainColumn + " FROM " +  mainTable + " WHERE id = %1").arg(tableId);
     query.exec(str);
-
     query.next();
+
     str = QString("SELECT " + selectionColumn + " FROM " + selectionTable + " WHERE id = %1").arg(query.value(0).toInt());
     query.exec(str);
     query.next();

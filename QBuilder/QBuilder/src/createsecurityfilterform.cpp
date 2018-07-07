@@ -2,6 +2,7 @@
 #include "ui_createsecurityfilterform.h"
 
 #include <QSqlRecord>
+#include <QSqlQuery>
 
 #include <QDebug>
 
@@ -26,19 +27,27 @@ CreateSecurityFilterForm::CreateSecurityFilterForm(QWidget *parent) :
     mapper->addMapping(ui->chatCheckBox, 13);
     // 14
     // 15
-    // 16
 
 
     model->insertRow(model->rowCount(QModelIndex()));
     mapper->toLast();
 
+    questionModel = new BaseComboModel("type", "question", this, Table, "secret_questions");
+    ui->questionListView->setModel(questionModel);
+    ui->questionListView->setRowHidden(0, true);
+
+    authModel = new BaseComboModel("auth_type", "authorization_table", this, Table, "authorization_type");
+    ui->authTypeListView->setModel(authModel);
+    ui->authTypeListView->setRowHidden(0, true);
+
     // Init comboBox models with data
     tenantCModel = new BaseComboModel("tenant_code || ': ' || name", "tenant", this, Table, "tenant");
-    //acTypeCModel = new BaseComboModel("entry_name || ': ' || list_name", "location_city", this, Table, "city");
+    acTypeCModel = new BaseComboModel("acc_type", "account_table", this, Table, "account_type");
+    regSceenModel = new BaseComboModel("data_source_library", "extension_functions", this, Table, "registration_screen");
 
     // Add comboBoxes and their models to QLists
-    combo = {ui->tenantBox /*, ui->accountTypeBox*/};
-    cbModel = {tenantCModel /*, acTypeCModel*/};
+    combo = {ui->tenantBox, ui->accountTypeBox, ui->regScreenBox};
+    cbModel = {tenantCModel, acTypeCModel, regSceenModel};
 
     connect(ui->backButton, &QToolButton::clicked, this, [this] {
        emit sygnalBack();
@@ -69,6 +78,42 @@ void CreateSecurityFilterForm::submitChanges()
         cbModel.at(i)->saveToDB(combo.at(i)->itemData(combo.at(i)->currentIndex(), Qt::UserRole).toInt(), id);
     }
 
+    auto saveListData = [&id](BaseComboModel *model, QListView *view, QString table)
+    {
+        qDebug() << table;
+
+        QModelIndex index = view->currentIndex();
+        qDebug() << index;
+        QString itemText = index.data(Qt::DisplayRole).toString();
+        qDebug() << itemText;
+
+        QString str = QString("SELECT id FROM " + table + " WHERE type = '%1'").arg(itemText);
+        qDebug() << str;
+        QSqlQuery query;
+        query.exec(str);
+        query.next(); // Query doesn't work properly in second time
+        qDebug() << query.value(0).toInt();
+        qDebug() << query.value(1).toInt();
+        model->saveToDB(query.value(0).toInt(), id);
+    };
+
+/*
+    // ListView
+    QModelIndex index = ui->questionListView->currentIndex();
+    QString itemText = index.data(Qt::DisplayRole).toString();
+    QSqlQuery query;
+    QString str = QString("SELECT id FROM " + QuestionTable + " WHERE type = '%1'").arg(itemText);
+    query.exec(str);
+    query.next();
+    questionModel->saveToDB(query.value(0).toInt(), id);
+*/
+
+    saveListData(questionModel, ui->questionListView, QuestionTable);
+    QSqlQuery que;
+    saveListData(authModel, ui->authTypeListView, AuthTable);
+
+    // model, listView, table, itemText,
+
     model->select();
     mapper->toLast();
 
@@ -91,4 +136,6 @@ void CreateSecurityFilterForm::setRowIndex(int rowIndex, int id)
     for (int i = 0; i < cbModel.count(); i++) {
         initComboBox(combo.at(i), cbModel.at(i));
     }
+
+    //ui->questionListView->setCurrentIndex();
 }

@@ -32,9 +32,14 @@ CreateDocFamilyForm::CreateDocFamilyForm(QWidget *parent) :
     ui->categotyTableView->setColumnHidden(0, true);
     ui->categotyTableView->setColumnHidden(1, true);
 
+    QStringList headers;
+    headers << trUtf8("id") << trUtf8("") << trUtf8("Category") << trUtf8("Description") << trUtf8("K.P. 1") << trUtf8("K.P. 2")
+            << trUtf8("K.P. 3") << trUtf8("K.P. 4") << trUtf8("K.P. 5") << trUtf8("Search text ");
+
     // Columns size
     for (int i = 0; i < ui->categotyTableView->horizontalHeader()->count(); i++) {
         ui->categotyTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+        categoryModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
     }
 
     ui->categotyTableView->setSelectionBehavior(QAbstractItemView::SelectRows);

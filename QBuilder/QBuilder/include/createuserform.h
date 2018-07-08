@@ -2,6 +2,7 @@
 #define CREATEUSERFORM_H
 
 #include "BaseForm.h"
+#include "basecombomodel.h"
 #include <QComboBox>
 
 namespace Ui {
@@ -16,19 +17,34 @@ public:
     explicit CreateUserForm(QWidget *parent = 0);
     ~CreateUserForm();
 
-    //void setRowIndex(int rowIndex, int) override; // User chose to edit data from the table
+    void setRowIndex(int rowIndex, int id) override; // User chose to edit data from the table
 
 private:
     Ui::CreateUserForm *ui;
 
     const  QString Table = "users";
     const  QString Record = "username";
+    const  QString GroupsTable = "groups";
+    const  QString DocTable = "document_group";
 
-    void initComboBox(QList<QComboBox*> elements);  // Init comboboxes with colors
     void checkPasswordLength(const QString &arg1);
 
     void submitChanges() override;
     void openImage();
+
+    QList<QComboBox*> combo;            // ComboBoxes
+    QList<BaseComboModel*> cbModel;     // Combobox models
+
+    BaseComboModel *groupModel;
+    BaseComboModel *accountModel;
+    BaseComboModel *tenantModel;
+    BaseComboModel *userModel;
+    BaseComboModel *currencyModel;
+    BaseComboModel *currencyTypeModel;
+    BaseComboModel *timezoneModel;
+    BaseComboModel *timeFormatModel;
+    BaseComboModel *dateModel;
+    BaseComboModel *docModel;
 };
 
 #endif // CREATEUSERFORM_H

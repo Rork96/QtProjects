@@ -329,8 +329,8 @@ QToolButton:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>805</width>
-            <height>954</height>
+            <width>810</width>
+            <height>946</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_5">
@@ -466,6 +466,9 @@ QToolButton:pressed {
                <property name="styleSheet">
                 <string notr="true"/>
                </property>
+               <property name="text">
+                <string/>
+               </property>
               </widget>
              </item>
              <item>
@@ -514,7 +517,11 @@ QToolButton:pressed {
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit"/>
+              <widget class="QLineEdit" name="lastLoginLine">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -603,7 +610,7 @@ QToolButton:pressed {
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="userTypeEdit">
+              <widget class="QLineEdit" name="companyLine">
                <property name="enabled">
                 <bool>true</bool>
                </property>
@@ -620,7 +627,7 @@ QToolButton:pressed {
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="userTypeEdit_2">
+              <widget class="QLineEdit" name="productLine">
                <property name="enabled">
                 <bool>true</bool>
                </property>
@@ -677,8 +684,8 @@ QToolButton:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>822</width>
-            <height>817</height>
+            <width>824</width>
+            <height>816</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_6">
@@ -853,8 +860,8 @@ QToolButton:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>805</width>
-            <height>976</height>
+            <width>818</width>
+            <height>974</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_11">
@@ -1992,8 +1999,8 @@ QToolButton:pressed {
   <tabstop>accountTypeBox</tabstop>
   <tabstop>tenantCodeBox</tabstop>
   <tabstop>userTypeBox</tabstop>
-  <tabstop>userTypeEdit</tabstop>
-  <tabstop>userTypeEdit_2</tabstop>
+  <tabstop>companyLine</tabstop>
+  <tabstop>productLine</tabstop>
   <tabstop>groupAreaListView</tabstop>
   <tabstop>docGroupListView</tabstop>
   <tabstop>phoneLine</tabstop>

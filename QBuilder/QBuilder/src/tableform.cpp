@@ -70,15 +70,24 @@ void TableForm::loadDataFromDB()
         case TableForm::users:
             initTable("users");
 
+            // Select
+            mainModel->setRelation(3, QSqlRelation("groups", "id", "name"));
+            mainModel->setRelation(5, QSqlRelation("account_table", "id", "acc_type"));
+            mainModel->select();
+
             ui->mainTableView->setColumnHidden(2, true); // Hide
 
-            headers << trUtf8("id") << trUtf8("User name") << trUtf8("Group area"); /*<< trUtf8("Email")
-                    << trUtf8("Account type") << trUtf8("Active account") << trUtf8("Account name");*/
+            headers << trUtf8("id") << trUtf8("User name") << trUtf8("") << trUtf8("Group area") << trUtf8("Email")
+                    << trUtf8("Account type") << trUtf8("Active account") << trUtf8("Account name") << trUtf8("")
+                    << trUtf8("") << trUtf8("") << trUtf8("") << trUtf8("") << trUtf8("") << trUtf8("") << trUtf8("")
+                    << trUtf8("") << trUtf8("") << trUtf8("") << trUtf8("");
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
                 ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
                 mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
+                if (i > 7)
+                    ui->mainTableView->setColumnHidden(i, true);    // Hide columns
             }
             break;
         case TableForm::tenant:

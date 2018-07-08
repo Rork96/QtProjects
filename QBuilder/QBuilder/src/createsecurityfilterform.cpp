@@ -25,9 +25,6 @@ CreateSecurityFilterForm::CreateSecurityFilterForm(QWidget *parent) :
     mapper->addMapping(ui->selfRegCheckBox, 11);
     mapper->addMapping(ui->ldapCheckBox, 12);
     mapper->addMapping(ui->chatCheckBox, 13);
-    // 14
-    // 15
-
 
     model->insertRow(model->rowCount(QModelIndex()));
     mapper->toLast();
@@ -78,7 +75,7 @@ void CreateSecurityFilterForm::submitChanges()
         cbModel.at(i)->saveToDB(combo.at(i)->itemData(combo.at(i)->currentIndex(), Qt::UserRole).toInt(), id);
     }
 
-    auto saveListData = [&id](BaseComboModel *model, QListView *view, QString table)
+    auto saveListData = [&id](BaseComboModel *model, QListView *view, QString table, QString column)
     {
         qDebug() << table;
 
@@ -87,7 +84,7 @@ void CreateSecurityFilterForm::submitChanges()
         QString itemText = index.data(Qt::DisplayRole).toString();
         qDebug() << itemText;
 
-        QString str = QString("SELECT id FROM " + table + " WHERE type = '%1'").arg(itemText);
+        QString str = QString("SELECT id FROM " + table + " WHERE " + column + " = '%1'").arg(itemText);
         qDebug() << str;
         QSqlQuery query;
         query.exec(str);
@@ -108,11 +105,8 @@ void CreateSecurityFilterForm::submitChanges()
     questionModel->saveToDB(query.value(0).toInt(), id);
 */
 
-    saveListData(questionModel, ui->questionListView, QuestionTable);
-    QSqlQuery que;
-    saveListData(authModel, ui->authTypeListView, AuthTable);
-
-    // model, listView, table, itemText,
+    //saveListData(questionModel, ui->questionListView, QuestionTable, "type");
+    //saveListData(authModel, ui->authTypeListView, AuthTable, "auth_type");
 
     model->select();
     mapper->toLast();
@@ -138,4 +132,6 @@ void CreateSecurityFilterForm::setRowIndex(int rowIndex, int id)
     }
 
     //ui->questionListView->setCurrentIndex();
+    // ui->questionListView, questionModel
+    // ui->authTypeListView, authModel
 }

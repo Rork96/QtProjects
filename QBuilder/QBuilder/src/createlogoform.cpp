@@ -6,6 +6,8 @@
 #include <QFileInfo>
 #include <QSqlQuery>
 #include <QMessageBox>
+#include <QSqlRecord>
+#include <QBuffer>
 
 CreateLogoForm::CreateLogoForm(QWidget *parent) :
     BaseForm(parent),
@@ -19,6 +21,7 @@ CreateLogoForm::CreateLogoForm(QWidget *parent) :
     mapper->addMapping(ui->listNameLine, 1);
     mapper->addMapping(ui->entryNameLine, 2);
     mapper->addMapping(ui->descreptionEdit, 3);
+    mapper->addMapping(ui->imageNameLabel, 6);
 
     model->insertRow(model->rowCount(QModelIndex()));
 
@@ -59,6 +62,12 @@ void CreateLogoForm::submitChanges()
 
         mapper->submit();
         model->submitAll();
+
+        int id = -1;
+        if (isEdit) {
+            id = model->record(mapper->currentIndex()).value("id").toInt();
+        }
+
         // Write access type
         QString value;
         if (ui->headLogoRButton->isChecked()) value = "LOGO_HEADER";
@@ -66,8 +75,22 @@ void CreateLogoForm::submitChanges()
 
         query.prepare( "UPDATE " + Table + " SET type = ? WHERE id = ?" );
         query.addBindValue(value);
-        query.addBindValue(query.lastInsertId().toInt());
+        query.addBindValue(id);
         query.exec();
+
+        // Save image
+        if (imageChanged) {
+            QPixmap pix = QPixmap(*ui->imageLabel->pixmap());
+            QByteArray byteArray;
+            QBuffer buffer(&byteArray);
+            buffer.open(QIODevice::WriteOnly);
+            pix.save(&buffer, "PNG");
+            QVariant data = byteArray;
+            query.prepare( "UPDATE " + Table + " SET image = ? WHERE id = ?" );
+            query.addBindValue(data.toByteArray());
+            query.addBindValue(id);
+            query.exec();
+        }
     }
     model->select();
     mapper->toLast();
@@ -88,6 +111,10 @@ void CreateLogoForm::openImage()
     if(fName.isEmpty()) return;
 
     ui->imageNameLabel->setText(QFileInfo(fName).fileName());
+    QPixmap pix = QPixmap(fName);
+    ui->imageLabel->setPixmap(pix.scaled(400, 100, Qt::KeepAspectRatio));
+
+    imageChanged = true;    // Write new image into database
 }
 
 void CreateLogoForm::setRowIndex(int rowIndex, int id)
@@ -109,4 +136,18 @@ void CreateLogoForm::setRowIndex(int rowIndex, int id)
             ui->mainLogoRButton->setChecked(true);
         }
     }
+
+    // Image logo name
+    QString str = QString("SELECT image_name FROM %1 WHERE id = %2").arg(Table).arg(id);
+    query.exec(str);
+    query.next();
+    ui->imageNameLabel->setText(query.value(0).toString());
+
+    // Image
+    QPixmap img = QPixmap();
+    str = QString("SELECT image FROM %1 WHERE id = %2").arg(Table).arg(id);
+    query.exec(str);
+    query.next();
+    img.loadFromData(query.value(0).toByteArray());
+    ui->imageLabel->setPixmap(img.scaled(400, 100, Qt::KeepAspectRatio));
 }

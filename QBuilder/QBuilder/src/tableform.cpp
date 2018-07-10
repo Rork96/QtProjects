@@ -78,14 +78,12 @@ void TableForm::loadDataFromDB()
             ui->mainTableView->setColumnHidden(2, true); // Hide
 
             headers << trUtf8("id") << trUtf8("User name") << trUtf8("") << trUtf8("Group area") << trUtf8("Email")
-                    << trUtf8("Account type") << trUtf8("Active account") << trUtf8("Account name") << trUtf8("")
-                    << trUtf8("") << trUtf8("") << trUtf8("") << trUtf8("") << trUtf8("") << trUtf8("") << trUtf8("")
-                    << trUtf8("") << trUtf8("") << trUtf8("") << trUtf8("");
+                    << trUtf8("Account type") << trUtf8("Active account") << trUtf8("Account name");
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
                 ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-                mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
+                if (i <= 7) mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
                 if (i > 7)
                     ui->mainTableView->setColumnHidden(i, true);    // Hide columns
             }
@@ -116,12 +114,14 @@ void TableForm::loadDataFromDB()
             ui->mainTableView->setColumnHidden(5, true); // Hide
 
             headers << trUtf8("id") << trUtf8("List name") << trUtf8("Entry name") << trUtf8("Description")
-                    << trUtf8("Type") << trUtf8("");
+                    << trUtf8("Type");
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
                 ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-                mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
+                if (i <= 4) mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
+                if (i > 4)
+                    ui->mainTableView->setColumnHidden(i, true);    // Hide columns
             }
             break;
         case TableForm::security_filters:
@@ -132,14 +132,12 @@ void TableForm::loadDataFromDB()
             mainModel->setRelation(2, QSqlRelation("account_table", "id", "acc_type"));
             mainModel->select();
 
-            headers << trUtf8("id") << trUtf8("Tenant") << trUtf8("Account type") << trUtf8("User type") << trUtf8("Description")
-                    << trUtf8("") << trUtf8("") << trUtf8("") << trUtf8("") << trUtf8("") << trUtf8("") << trUtf8("")
-                    << trUtf8("") << trUtf8("") << trUtf8("") << trUtf8("") << trUtf8("");
+            headers << trUtf8("id") << trUtf8("Tenant") << trUtf8("Account type") << trUtf8("User type") << trUtf8("Description");
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
                 ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-                mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
+                if (i <= 4) mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
                 if (i > 4)
                     ui->mainTableView->setColumnHidden(i, true);    // Hide columns
             };
@@ -219,12 +217,12 @@ void TableForm::loadDataFromDB()
         case TableForm::document_groups:
             initTable("document_group");
 
-            headers << trUtf8("id") << trUtf8("Group Name") << trUtf8("Group Description") << trUtf8("") << trUtf8("");
+            headers << trUtf8("id") << trUtf8("Group Name") << trUtf8("Group Description");
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
                 ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-                mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
+                if (i <= 2) mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
                 if (i > 2)
                     ui->mainTableView->setColumnHidden(i, true);    // Hide columns
             }
@@ -232,13 +230,12 @@ void TableForm::loadDataFromDB()
         case TableForm::lists:
             initTable("lists");
 
-            headers << trUtf8("id") << trUtf8("List name") << trUtf8("Description") << trUtf8("Entry name") << trUtf8("")
-                    << trUtf8("") << trUtf8("") << trUtf8("");
+            headers << trUtf8("id") << trUtf8("List name") << trUtf8("Description") << trUtf8("Entry name");
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
                 ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-                mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
+                if (i <= 3) mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
                 if (i > 3)
                     ui->mainTableView->setColumnHidden(i, true);    // Hide columns
             }
@@ -247,12 +244,12 @@ void TableForm::loadDataFromDB()
             initTable("templates");
 
             headers << trUtf8("id") << trUtf8("Library name") << trUtf8("Function") << trUtf8("Table name")
-                    << trUtf8("Table column") << trUtf8("Column type") << trUtf8("");
+                    << trUtf8("Table column") << trUtf8("Column type");
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
                 ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-                mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
+                if (i <= 5) mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
                 if (i > 5)
                     ui->mainTableView->setColumnHidden(i, true);    // Hide columns
             }
@@ -269,12 +266,12 @@ void TableForm::loadDataFromDB()
             ui->mainTableView->setColumnHidden(3, true);    // Hide
 
             headers << trUtf8("id") << trUtf8("Name") << trUtf8("Function type") << trUtf8("")
-                    << trUtf8("Table") << trUtf8("Direction type") << trUtf8("") << trUtf8("") << trUtf8("");
+                    << trUtf8("Table") << trUtf8("Direction type");
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
                 ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-                mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
+                if (i <= 5) mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
                 if (i > 5)
                     ui->mainTableView->setColumnHidden(i, true);    // Hide columns
             }
@@ -303,12 +300,12 @@ void TableForm::loadDataFromDB()
 
             ui->mainTableView->setColumnHidden(4, true); // Hide
 
-            headers << trUtf8("id") << trUtf8("IP Address") << trUtf8("Port") << trUtf8("Description") << trUtf8("");
+            headers << trUtf8("id") << trUtf8("IP Address") << trUtf8("Port") << trUtf8("Description");
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
                 ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-                mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
+                if (i <= 3) mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
             }
             break;
         case TableForm::security_questions:
@@ -319,12 +316,12 @@ void TableForm::loadDataFromDB()
             ui->mainTableView->setItemDelegate(new QSqlRelationalDelegate(ui->mainTableView));
             mainModel->select();
 
-            headers << trUtf8("id") << trUtf8("Question") << trUtf8("Answer") << trUtf8("");
+            headers << trUtf8("id") << trUtf8("Question") << trUtf8("Answer");
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
                 ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-                mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
+                if (i <= 2) mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
             }
             break;
         case TableForm::custom_query:

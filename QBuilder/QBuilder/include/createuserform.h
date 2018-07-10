@@ -27,6 +27,10 @@ private:
     const  QString GroupsTable = "groups";
     const  QString DocTable = "document_group";
 
+    bool avatarChanged = false;
+    bool menuImgChanged = false;
+    bool bodyImgChanged = false;
+
     void checkPasswordLength(const QString &arg1);
 
     void submitChanges() override;
@@ -45,6 +49,10 @@ private:
     BaseComboModel *timeFormatModel;
     BaseComboModel *dateModel;
     BaseComboModel *docModel;
+    BaseComboModel *bntModel;
+    BaseComboModel *menuModel;
+    BaseComboModel *borderModel;
+    BaseComboModel *headerBorderModel;
 };
 
 #endif // CREATEUSERFORM_H

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>978</width>
-    <height>580</height>
+    <width>960</width>
+    <height>647</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -81,13 +81,13 @@ QPlainTextEdit {
      <property name="minimumSize">
       <size>
        <width>800</width>
-       <height>420</height>
+       <height>520</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
        <width>700</width>
-       <height>420</height>
+       <height>520</height>
       </size>
      </property>
      <property name="styleSheet">
@@ -235,7 +235,7 @@ QToolButton:pressed {
            <x>0</x>
            <y>0</y>
            <width>788</width>
-           <height>367</height>
+           <height>467</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_4">
@@ -417,6 +417,31 @@ QToolButton:pressed {
              </spacer>
             </item>
            </layout>
+          </item>
+          <item row="6" column="0">
+           <widget class="QLabel" name="imageLabel">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>100</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>400</width>
+              <height>100</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>

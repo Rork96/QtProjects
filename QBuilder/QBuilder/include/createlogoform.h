@@ -25,15 +25,10 @@ private:
     const QString Table = "logo";
     const QString Record = "Entry name";
 
-//    QSqlTableModel *model;
-//    QDataWidgetMapper *mapper;
+    bool imageChanged = false;
 
     void submitChanges() override;
     void openImage();
-
-//signals:
-//    void sygnalBack() override;
-//    void sygnalSubmit() override;
 };
 
 #endif // CREATELOGOFORM_H

@@ -4,8 +4,6 @@
 #include <QSqlRecord>
 #include <QSqlQuery>
 
-#include <QDebug>
-
 CreateSecurityFilterForm::CreateSecurityFilterForm(QWidget *parent) :
     BaseForm(parent),
     ui(new Ui::CreateSecurityFilterForm)
@@ -77,36 +75,18 @@ void CreateSecurityFilterForm::submitChanges()
 
     auto saveListData = [&id](BaseComboModel *model, QListView *view, QString table, QString column)
     {
-        qDebug() << table;
-
         QModelIndex index = view->currentIndex();
-        qDebug() << index;
         QString itemText = index.data(Qt::DisplayRole).toString();
-        qDebug() << itemText;
 
-        QString str = QString("SELECT id FROM " + table + " WHERE " + column + " = '%1'").arg(itemText);
-        qDebug() << str;
+        QString str = QString("SELECT id FROM %1 WHERE %2 = '%3'").arg(table).arg(column).arg(itemText);
         QSqlQuery query;
         query.exec(str);
-        query.next(); // Query doesn't work properly in second time
-        qDebug() << query.value(0).toInt();
-        qDebug() << query.value(1).toInt();
+        query.next();
         model->saveToDB(query.value(0).toInt(), id);
     };
 
-/*
-    // ListView
-    QModelIndex index = ui->questionListView->currentIndex();
-    QString itemText = index.data(Qt::DisplayRole).toString();
-    QSqlQuery query;
-    QString str = QString("SELECT id FROM " + QuestionTable + " WHERE type = '%1'").arg(itemText);
-    query.exec(str);
-    query.next();
-    questionModel->saveToDB(query.value(0).toInt(), id);
-*/
-
-    //saveListData(questionModel, ui->questionListView, QuestionTable, "type");
-    //saveListData(authModel, ui->authTypeListView, AuthTable, "auth_type");
+    saveListData(questionModel, ui->questionListView, QuestionTable, "type");
+    saveListData(authModel, ui->authTypeListView, AuthTable, "auth_type");
 
     model->select();
     mapper->toLast();

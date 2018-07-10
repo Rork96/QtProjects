@@ -6,6 +6,7 @@
 ClickeLineEdit::ClickeLineEdit(const QString &text, QWidget *parent)
         : QLineEdit(text, parent)
 {
+    setStyleSheet("ClickeLineEdit { color: white; } ");
 }
 
 ClickeLineEdit::ClickeLineEdit(QWidget *parent)
@@ -28,7 +29,7 @@ void ClickeLineEdit::mousePressEvent(QMouseEvent *event)
 void ClickeLineEdit::setText(const QString &text)
 {
     if (QColor(text).isValid()) {
-        setStyleSheet("ClickeLineEdit { background-color: " + text + ";} ");
+        setStyleSheet("ClickeLineEdit { background-color: " + text + "; } ");
     }
 
     QLineEdit::setText(text);

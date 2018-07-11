@@ -24,8 +24,6 @@ private:
 
     const  QString Table = "users";
     const  QString Record = "username";
-    const  QString GroupsTable = "groups";
-    const  QString DocTable = "document_group";
 
     bool avatarChanged = false;
     bool menuImgChanged = false;

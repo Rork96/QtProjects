@@ -9,6 +9,7 @@
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QBuffer>
+#include <QList>
 
 CreateUserForm::CreateUserForm(QWidget *parent) :
     BaseForm(parent),
@@ -21,48 +22,50 @@ CreateUserForm::CreateUserForm(QWidget *parent) :
     // View data with mapper
     mapper->addMapping(ui->userNameLine, 1);
     // Do not display existing password - 2
-    mapper->addMapping(ui->emailLine, 4);
-    mapper->addMapping(ui->accountNameLine, 7);
-    mapper->addMapping(ui->companyLine, 10);
-    mapper->addMapping(ui->productLine, 11);
-    // Last login - 12 - type: timestamp (date and time without time zone)
-    mapper->addMapping(ui->phoneLine, 13);
-    mapper->addMapping(ui->colorBackLine, 24);
-    mapper->addMapping(ui->colorMenuTextLine, 25);
-    mapper->addMapping(ui->colorHighlightLine, 26);
-    mapper->addMapping(ui->colorBorderLine, 27);
-    mapper->addMapping(ui->colorBodyBackLine, 28);
-    mapper->addMapping(ui->colorLinkLine, 29);
-    mapper->addMapping(ui->colorBodyTextLine, 30);
-    mapper->addMapping(ui->colorBodyInfoLine, 31);
-    mapper->addMapping(ui->colorSectionLine, 32);
-    mapper->addMapping(ui->colorSectionHeaderLine, 33);
-    mapper->addMapping(ui->colorSectionBackLine, 34);
-    mapper->addMapping(ui->colorHeaderLine, 35);
-    mapper->addMapping(ui->colorHBorderLine, 36);
-    mapper->addMapping(ui->colorSearchLine, 37);
-    mapper->addMapping(ui->colorSelectedSearchLine, 38);
-    mapper->addMapping(ui->colorFieldLine, 39);
-    mapper->addMapping(ui->colorFieldSelectedLine, 40);
-    mapper->addMapping(ui->colorTabLine, 41);
-    mapper->addMapping(ui->colorTabUnselectedLine, 42);
-    mapper->addMapping(ui->colorMessageLine, 43);
-    mapper->addMapping(ui->colorMessageBackLine, 44);
-    mapper->addMapping(ui->colorChart_1_Line, 45);
-    mapper->addMapping(ui->colorChart_2_Line, 46);
-    mapper->addMapping(ui->colorChart_3_Line, 47);
-    mapper->addMapping(ui->colorChart_4_Line, 48);
-    mapper->addMapping(ui->avatarLabel, 49);
-    mapper->addMapping(ui->menuLabel, 51);
-    mapper->addMapping(ui->bodyLabel, 53);
+    mapper->addMapping(ui->emailLine, 3);
+    mapper->addMapping(ui->accountNameLine, 6);
+    mapper->addMapping(ui->companyLine, 9);
+    mapper->addMapping(ui->productLine, 10);
+    // Last login - 11 - type: timestamp (date and time without time zone)
+    mapper->addMapping(ui->phoneLine, 12);
+    mapper->addMapping(ui->colorBackLine, 22);
+    mapper->addMapping(ui->colorMenuTextLine, 23);
+    mapper->addMapping(ui->colorHighlightLine, 24);
+    mapper->addMapping(ui->colorBorderLine, 25);
+    mapper->addMapping(ui->colorBodyBackLine, 26);
+    mapper->addMapping(ui->colorLinkLine, 27);
+    mapper->addMapping(ui->colorBodyTextLine, 28);
+    mapper->addMapping(ui->colorBodyInfoLine, 29);
+    mapper->addMapping(ui->colorSectionLine, 30);
+    mapper->addMapping(ui->colorSectionHeaderLine, 31);
+    mapper->addMapping(ui->colorSectionBackLine, 32);
+    mapper->addMapping(ui->colorHeaderLine, 33);
+    mapper->addMapping(ui->colorHBorderLine, 34);
+    mapper->addMapping(ui->colorSearchLine, 35);
+    mapper->addMapping(ui->colorSelectedSearchLine, 36);
+    mapper->addMapping(ui->colorFieldLine, 37);
+    mapper->addMapping(ui->colorFieldSelectedLine, 38);
+    mapper->addMapping(ui->colorTabLine, 39);
+    mapper->addMapping(ui->colorTabUnselectedLine, 40);
+    mapper->addMapping(ui->colorMessageLine, 41);
+    mapper->addMapping(ui->colorMessageBackLine, 42);
+    mapper->addMapping(ui->colorChart_1_Line, 43);
+    mapper->addMapping(ui->colorChart_2_Line, 44);
+    mapper->addMapping(ui->colorChart_3_Line, 45);
+    mapper->addMapping(ui->colorChart_4_Line, 46);
+    mapper->addMapping(ui->avatarLabel, 47);
+    mapper->addMapping(ui->menuLabel, 48);
+    mapper->addMapping(ui->bodyLabel, 51);
 
-    groupModel = new BaseComboModel("name", "groups", this, Table, "group_area");
+    groupModel = new BaseComboModel("name", "groups", this, Table, "");
     ui->groupAreaListView->setModel(groupModel);
     ui->groupAreaListView->setRowHidden(0, true);
+    ui->groupAreaListView->setSelectionMode(QAbstractItemView::MultiSelection);
 
-    docModel = new BaseComboModel("group_name", "document_group", this, Table, "docum_group");
+    docModel = new BaseComboModel("group_name", "document_group", this, Table, "");
     ui->docGroupListView->setModel(docModel);
     ui->docGroupListView->setRowHidden(0, true);
+    ui->docGroupListView->setSelectionMode(QAbstractItemView::MultiSelection);
 
     // Init comboBox models with data
     accountModel = new BaseComboModel("acc_type", "account_table", this, Table, "account_type");
@@ -157,20 +160,22 @@ void CreateUserForm::submitChanges()
             query.exec(str);
         }
 
-        auto saveListData = [&id](BaseComboModel *model, QListView *view, QString table, QString column)
+        // Save data from listViews
+        auto saveListData = [&id](QModelIndexList list, QString table, QString column)
         {
-            QModelIndex index = view->currentIndex();
-            QString itemText = index.data(Qt::DisplayRole).toString();
-
-            QString str = QString("SELECT id FROM %1 WHERE %2 = '%3'").arg(table).arg(column).arg(itemText);
-            QSqlQuery query;
-            query.exec(str);
-            query.next();
-            model->saveToDB(query.value(0).toInt(), id);
+            for (QModelIndex index : list) {
+                int itemId = index.data(Qt::UserRole).toInt();
+                QString str = QString("INSERT INTO %1 (user_id, %2) VALUES (%3, %4)").arg(table).arg(column).arg(id).arg(itemId);
+                QSqlQuery query;
+                query.exec(str);
+            }
         };
-
-        saveListData(groupModel, ui->groupAreaListView, GroupsTable, "name");
-        saveListData(docModel, ui->docGroupListView, DocTable, "group_name");
+        str = QString("DELETE FROM users_in_groups WHERE user_id = %1").arg(id);
+        query.exec(str);
+        saveListData(ui->groupAreaListView->selectionModel()->selectedIndexes(), "users_in_groups", "group_id");
+        str = QString("DELETE FROM users_in_doc WHERE user_id = %1").arg(id);
+        query.exec(str);
+        saveListData(ui->docGroupListView->selectionModel()->selectedIndexes(), "users_in_doc", "doc_group_id");
 
         // Save images
         auto saveImage = [this, &id](QLabel *imageLabel, QString column) {
@@ -264,8 +269,26 @@ void CreateUserForm::setRowIndex(int rowIndex, int id)
         ui->accountCheckBox->setChecked(query.value(0).toString() == "Active");
     }
 
-    // groupModel, ui->groupAreaListView
-    // docModel, ui->docGroupListView
+    // Select data in listViews
+    auto loadListData = [&id](QListView *view, QString table, QString column) {
+        QString str = QString("SELECT %1 FROM %2 WHERE user_id = %3").arg(column).arg(table).arg(id);
+        QSqlQuery query;
+        query.exec(str);
+        QList<int> list;
+        while (query.next()) {
+            list.append(query.value(0).toInt());
+        }
+        for (int i = 0; i < view->model()->rowCount(); i++) {
+            QModelIndex index = view->model()->index(i, 0);
+            for (int value : list) {
+                if (view->model()->data(index, Qt::UserRole).toInt() == value) {
+                    view->selectionModel()->select(index, QItemSelectionModel::Select);
+                }
+            }
+        }
+    };
+    loadListData(ui->groupAreaListView, "users_in_groups", "group_id");
+    loadListData(ui->docGroupListView, "users_in_doc", "doc_group_id");
 
     // Image names
     QString str = QString("SELECT avatar_text, menu_image_text, body_image_text FROM %1 WHERE id = %2").arg(Table).arg(id);

@@ -27,13 +27,15 @@ CreateSecurityFilterForm::CreateSecurityFilterForm(QWidget *parent) :
     model->insertRow(model->rowCount(QModelIndex()));
     mapper->toLast();
 
-    questionModel = new BaseComboModel("type", "question", this, Table, "secret_questions");
+    questionModel = new BaseComboModel("type", "question", this, Table, "");
     ui->questionListView->setModel(questionModel);
     ui->questionListView->setRowHidden(0, true);
+    ui->questionListView->setSelectionMode(QAbstractItemView::MultiSelection);
 
-    authModel = new BaseComboModel("auth_type", "authorization_table", this, Table, "authorization_type");
+    authModel = new BaseComboModel("auth_type", "authorization_table", this, Table, "");
     ui->authTypeListView->setModel(authModel);
     ui->authTypeListView->setRowHidden(0, true);
+    ui->authTypeListView->setSelectionMode(QAbstractItemView::MultiSelection);
 
     // Init comboBox models with data
     tenantCModel = new BaseComboModel("tenant_code || ': ' || name", "tenant", this, Table, "tenant");
@@ -73,20 +75,23 @@ void CreateSecurityFilterForm::submitChanges()
         cbModel.at(i)->saveToDB(combo.at(i)->itemData(combo.at(i)->currentIndex(), Qt::UserRole).toInt(), id);
     }
 
-    auto saveListData = [&id](BaseComboModel *model, QListView *view, QString table, QString column)
+    // Save data from listViews
+    auto saveListData = [&id](QModelIndexList list, QString table, QString column)
     {
-        QModelIndex index = view->currentIndex();
-        QString itemText = index.data(Qt::DisplayRole).toString();
-
-        QString str = QString("SELECT id FROM %1 WHERE %2 = '%3'").arg(table).arg(column).arg(itemText);
-        QSqlQuery query;
-        query.exec(str);
-        query.next();
-        model->saveToDB(query.value(0).toInt(), id);
+        for (QModelIndex index : list) {
+            int itemId = index.data(Qt::UserRole).toInt();
+            QString str = QString("INSERT INTO %1 (filter_id, %2) VALUES (%3, %4)").arg(table).arg(column).arg(id).arg(itemId);
+            QSqlQuery query;
+            query.exec(str);
+        }
     };
-
-    saveListData(questionModel, ui->questionListView, QuestionTable, "type");
-    saveListData(authModel, ui->authTypeListView, AuthTable, "auth_type");
+    QString str = QString("DELETE FROM filters_in_authorization WHERE filter_id = %1").arg(id);
+    QSqlQuery query;
+    query.exec(str);
+    saveListData(ui->authTypeListView->selectionModel()->selectedIndexes(), "filters_in_authorization", "auth_id");
+    str = QString("DELETE FROM filters_in_question WHERE filter_id = %1").arg(id);
+    query.exec(str);
+    saveListData(ui->questionListView->selectionModel()->selectedIndexes(), "filters_in_question", "quest_id");
 
     model->select();
     mapper->toLast();
@@ -111,7 +116,24 @@ void CreateSecurityFilterForm::setRowIndex(int rowIndex, int id)
         initComboBox(combo.at(i), cbModel.at(i));
     }
 
-    //ui->questionListView->setCurrentIndex();
-    // ui->questionListView, questionModel
-    // ui->authTypeListView, authModel
+    // Select data in listViews
+    auto loadListData = [&id](QListView *view, QString table, QString column) {
+        QString str = QString("SELECT %1 FROM %2 WHERE filter_id = %3").arg(column).arg(table).arg(id);
+        QSqlQuery query;
+        query.exec(str);
+        QList<int> list;
+        while (query.next()) {
+            list.append(query.value(0).toInt());
+        }
+        for (int i = 0; i < view->model()->rowCount(); i++) {
+            QModelIndex index = view->model()->index(i, 0);
+            for (int value : list) {
+                if (view->model()->data(index, Qt::UserRole).toInt() == value) {
+                    view->selectionModel()->select(index, QItemSelectionModel::Select);
+                }
+            }
+        }
+    };
+    loadListData(ui->authTypeListView, "filters_in_authorization", "auth_id");
+    loadListData(ui->questionListView, "filters_in_question", "quest_id");
 }

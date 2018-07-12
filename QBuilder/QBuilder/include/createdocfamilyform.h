@@ -21,6 +21,7 @@ private:
     Ui::CreateDocFamilyForm *ui;
 
     const QString Table = "document_family";    // Base table name
+    const QString Record = "family_name";
     const QString Category = "categories";      // Second table
 
     QSqlRelationalTableModel *categoryModel;

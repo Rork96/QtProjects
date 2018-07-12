@@ -20,7 +20,8 @@ private:
     Ui::CreateListForm *ui;
 
     const QString Table = "lists";
-    const QString Record = "Entry name";
+    const QString Record1 = "Entry name";
+    const QString Record2 = "List name";
 
     void submitChanges() override;
 };

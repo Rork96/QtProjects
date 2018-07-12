@@ -11,7 +11,9 @@ CreateDocGroupsForm::CreateDocGroupsForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    initData(Table);;
+    ui->submitButton->setEnabled(false); // Group name
+
+    initData(Table);
 
     // Set relation between tables
     int docFamilyIndex = model->fieldIndex("doc_family");
@@ -38,6 +40,11 @@ CreateDocGroupsForm::CreateDocGroupsForm(QWidget *parent) :
     });
 
     connect(ui->submitButton, &QToolButton::clicked, this, &CreateDocGroupsForm::submitChanges);
+
+    // Group name
+    connect(ui->groupNameline, &QLineEdit::textChanged, this, [this] {
+        ui->submitButton->setEnabled(!ui->groupNameline->text().isEmpty());
+    });
 }
 
 CreateDocGroupsForm::~CreateDocGroupsForm()
@@ -50,17 +57,16 @@ void CreateDocGroupsForm::submitChanges()
     // Save changes to database
 
     QSqlQuery query;
-    QString str = QString("SELECT EXISTS (SELECT 'group_name' FROM" + Table +
-        " WHERE '" + Record + "' = '%1' AND id NOT LIKE '%2' )").arg(ui->groupNameline->text(),
-                    model->data(model->index(mapper->currentIndex(), 0), Qt::DisplayRole).toInt());
+    QString str = QString("SELECT EXISTS (SELECT " + Record + " FROM" + Table +
+            " WHERE '" + Record + "' = '%1' AND id != %2 )").arg(ui->groupNameline->text()).
+            arg(model->data(model->index(mapper->currentIndex(), 0), Qt::DisplayRole).toInt());
 
-    query.prepare(str);
-    query.exec();
+    query.exec(str);
     query.next();
 
     // If exists
-    if (mapper->currentIndex() > model->rowCount() && query.value(0) != 0) {
-        QMessageBox::information(this, trUtf8("Error"), Record + trUtf8(" is already exists"));
+    if (query.value(0) != 0 && !edit) {
+        QMessageBox::information(this, trUtf8("Error"), trUtf8("Group name is already exists"));
         return;
     }
     else {
@@ -74,11 +80,10 @@ void CreateDocGroupsForm::submitChanges()
         else if (ui->readOnlyButton->isChecked()) value = 2;
         else value = 3;
 
-        query.prepare( "UPDATE " + Table + " SET access = ?");
+        query.prepare("UPDATE " + Table + " SET access = ?");
         query.addBindValue(value);
         query.exec();
     }
-
     model->select();
     mapper->toLast();
 
@@ -86,10 +91,12 @@ void CreateDocGroupsForm::submitChanges()
     emit sygnalSubmit();
 }
 
-void CreateDocGroupsForm::setRowIndex(int rowIndex, int)
+void CreateDocGroupsForm::setRowIndex(int rowIndex, int id)
 {
     // User chose to edit data from the table
     mapper->setCurrentIndex(rowIndex);
+
+    if (id != -1) edit = true;  // New record
 
     // Connect radioButtons
     QSqlQuery query;

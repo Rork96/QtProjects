@@ -23,6 +23,8 @@ private:
     const QString Table = "document_group";     // Base table name
     const QString Record = "group_name";        // Unique record
 
+    bool edit = false;
+
     void submitChanges() override;
 
 private slots:

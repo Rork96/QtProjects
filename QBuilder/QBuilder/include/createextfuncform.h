@@ -2,6 +2,7 @@
 #define CREATEEXTFUNCFORM_H
 
 #include "BaseForm.h"
+#include "basecombomodel.h"
 
 namespace Ui {
 class CreateExtFuncForm;
@@ -21,6 +22,7 @@ private:
     Ui::CreateExtFuncForm *ui;
 
     const QString Table = "extension_functions";
+    BaseComboModel *extTypeCModel;
 
     void submitChanges() override;
 };

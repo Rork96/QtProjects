@@ -164,27 +164,24 @@ QCheckBox {
            <x>0</x>
            <y>0</y>
            <width>788</width>
-           <height>148</height>
+           <height>150</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
-          <item row="1" column="0">
-           <widget class="QComboBox" name="sQuestionBox"/>
+          <item row="3" column="0">
+           <widget class="QLineEdit" name="questionLine"/>
           </item>
           <item row="0" column="0">
            <widget class="QLabel" name="label_2">
             <property name="text">
-             <string>Choose security question</string>
+             <string>Entry name</string>
             </property>
            </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLineEdit" name="answerLine"/>
           </item>
           <item row="2" column="0">
            <widget class="QLabel" name="label_3">
             <property name="text">
-             <string>Answer</string>
+             <string>Security question</string>
             </property>
            </widget>
           </item>
@@ -200,6 +197,9 @@ QCheckBox {
              </size>
             </property>
            </spacer>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLineEdit" name="entryNameLine"/>
           </item>
          </layout>
         </widget>
@@ -390,14 +390,14 @@ QToolButton:pressed {
    </item>
   </layout>
  </widget>
-    <customwidgets>
-        <customwidget>
-            <class>BaseForm</class>
-            <extends>QWidget</extends>
-            <header>BaseForm.h</header>
-            <container>1</container>
-        </customwidget>
-    </customwidgets>
+ <customwidgets>
+  <customwidget>
+   <class>BaseForm</class>
+   <extends>QWidget</extends>
+   <header>BaseForm.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

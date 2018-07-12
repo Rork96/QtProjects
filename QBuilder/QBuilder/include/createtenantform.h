@@ -3,6 +3,7 @@
 
 #include "BaseForm.h"
 #include "basecombomodel.h"
+#include "clickelineedit.h"
 
 namespace Ui {
 class CreateTenantForm;
@@ -22,11 +23,14 @@ private:
     Ui::CreateTenantForm *ui;
 
     const QString Table = "tenant";
+    const QString Record1 = "tenant_code";
+    const QString Record2 = "name";
 
     void submitChanges() override;
 
     QList<QComboBox*> combo;            // ComboBoxes
     QList<BaseComboModel*> cbModel;     // Combobox models
+    QList<ClickeLineEdit*> colorLine;   // Color lineEdits
 
     /* Combobox models */
     BaseComboModel *countryCModel;

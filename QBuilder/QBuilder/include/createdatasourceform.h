@@ -4,6 +4,7 @@
 #include "BaseForm.h"
 #include <QSqlRelationalTableModel>
 #include <QDataWidgetMapper>
+#include <basecombomodel.h>
 
 namespace Ui {
 class CreateDataSourceForm;
@@ -23,6 +24,9 @@ private:
     Ui::CreateDataSourceForm *ui;
 
     const QString Table = "data_sources";   // Base table name
+
+    BaseComboModel *fTypeCModel;
+    BaseComboModel *dTypeCModel;
 
     void submitChanges() override;
 };

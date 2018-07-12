@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <QSqlRelationalDelegate>
 #include <QSqlRecord>
+#include <QSqlQuery>
 #include "basecombomodel.h"
 
 CreateGroupScreenForm::CreateGroupScreenForm(QWidget *parent) :
@@ -11,6 +12,8 @@ CreateGroupScreenForm::CreateGroupScreenForm(QWidget *parent) :
     ui(new Ui::CreateGroupScreenForm)
 {
     ui->setupUi(this);
+
+    ui->submitButton->setEnabled(false); // Group name, menu name, screen text
 
     initData(Table);
 
@@ -38,6 +41,14 @@ CreateGroupScreenForm::CreateGroupScreenForm(QWidget *parent) :
     });
 
     connect(ui->submitButton, &QToolButton::clicked, this, &CreateGroupScreenForm::submitChanges);
+
+    // Group name, menu name, screen text
+    connect(ui->screenTextLine, &QLineEdit::textChanged, this, [this] {
+        ui->submitButton->setEnabled(!ui->screenTextLine->text().isEmpty() && ui->groupNameBox->currentIndex() > 0 &&
+        ui->menuNameBox->currentIndex() >0);
+    });
+    connect(ui->groupNameBox, &QComboBox::currentTextChanged, ui->screenTextLine, &QLineEdit::textChanged);
+    connect(ui->menuNameBox, &QComboBox::currentTextChanged, ui->screenTextLine, &QLineEdit::textChanged);
 }
 
 CreateGroupScreenForm::~CreateGroupScreenForm()
@@ -49,19 +60,34 @@ void CreateGroupScreenForm::submitChanges()
 {
     // Save changes to database
 
-    mapper->submit();
-    model->submitAll();
+    QSqlQuery query;
+    QString str = QString("SELECT EXISTS (SELECT " + Record + " FROM" + Table +
+            " WHERE '" + Record + "' = '%1' AND id != %2 )").arg(ui->screenTextLine->text()).
+            arg(model->data(model->index(mapper->currentIndex(), 0), Qt::DisplayRole).toInt());
 
-    BaseComboModel *groupCModel = new BaseComboModel("name", "groups", this, Table, "group_name");
-    BaseComboModel *menuCModel = new BaseComboModel("text", "menus", this, Table, "menu_name");
+    query.exec(str);
+    query.next();
 
-    int id = -1;
-    if (isEdit) {
-        id = model->record(mapper->currentIndex()).value("id").toInt();
+    // If exists
+    if (query.value(0) != 0 && !isEdit) {
+        QMessageBox::information(this, trUtf8("Error"), trUtf8("Screen text is already exists"));
+        return;
     }
-    groupCModel->saveToDB(ui->groupNameBox->itemData(ui->groupNameBox->currentIndex(), Qt::UserRole).toInt(), id);
-    menuCModel->saveToDB(ui->menuNameBox->itemData(ui->menuNameBox->currentIndex(), Qt::UserRole).toInt(), id);
+    else {
+        // Insert new data
+        mapper->submit();
+        model->submitAll();
 
+        BaseComboModel *groupCModel = new BaseComboModel("name", "groups", this, Table, "group_name");
+        BaseComboModel *menuCModel = new BaseComboModel("text", "menus", this, Table, "menu_name");
+
+        int id = -1;
+        if (isEdit) {
+            id = model->record(mapper->currentIndex()).value("id").toInt();
+        }
+        groupCModel->saveToDB(ui->groupNameBox->itemData(ui->groupNameBox->currentIndex(), Qt::UserRole).toInt(), id);
+        menuCModel->saveToDB(ui->menuNameBox->itemData(ui->menuNameBox->currentIndex(), Qt::UserRole).toInt(), id);
+    }
     model->select();
     mapper->toLast();
 

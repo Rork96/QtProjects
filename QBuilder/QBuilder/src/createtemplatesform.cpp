@@ -7,6 +7,8 @@ CreateTemplatesForm::CreateTemplatesForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->submitButton->setEnabled(false); // Library name, table name, function, table column, column type
+
     initData(Table);
 
     // View data in lineEdit with mapper
@@ -26,6 +28,15 @@ CreateTemplatesForm::CreateTemplatesForm(QWidget *parent) :
     });
 
     connect(ui->submitButton, &QToolButton::clicked, this, &CreateTemplatesForm::submitChanges);
+
+    // Library name, table name, function, table column, column type
+    connect(ui->libraryNameline, &QLineEdit::textChanged, this, [this] {
+        ui->submitButton->setEnabled(!ui->libraryNameline->text().isEmpty() && !ui->tableNameLine->text().isEmpty());
+    });
+    connect(ui->tableNameLine, &QLineEdit::textChanged, ui->libraryNameline, &QLineEdit::textChanged);
+    connect(ui->functionLine, &QLineEdit::textChanged, ui->libraryNameline, &QLineEdit::textChanged);
+    connect(ui->tableColumnLine, &QLineEdit::textChanged, ui->libraryNameline, &QLineEdit::textChanged);
+    connect(ui->columnTypeLine, &QLineEdit::textChanged, ui->libraryNameline, &QLineEdit::textChanged);
 }
 
 CreateTemplatesForm::~CreateTemplatesForm()

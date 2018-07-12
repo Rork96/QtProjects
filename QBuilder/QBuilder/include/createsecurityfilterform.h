@@ -22,8 +22,7 @@ private:
     Ui::CreateSecurityFilterForm *ui;
 
     const QString Table = "security_filters";
-    const QString QuestionTable = "question";
-    const QString AuthTable = "authorization_table";
+    const QString Record = "user_type";
 
     void submitChanges() override;
 

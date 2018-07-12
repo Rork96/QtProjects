@@ -11,21 +11,12 @@ CreateQuestionForm::CreateQuestionForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->submitButton->setEnabled(false); // All columns
+
     initData(Table);
 
-    // Set relation between tables
-    int typeIndex = model->fieldIndex("security_question");
-    model->setRelation(typeIndex, QSqlRelation("question", "id", "type"));
-    model->select();
-
-    // New relation model for combobox
-    QSqlTableModel *relModel = model->relationModel(typeIndex); // Relation index
-    ui->sQuestionBox->setModel(relModel);
-    ui->sQuestionBox->setModelColumn(relModel->fieldIndex("type"));
-
-    // View data with mapper
-    mapper->addMapping(ui->sQuestionBox, typeIndex);    // Relation by index
-    mapper->addMapping(ui->answerLine, 2);
+    mapper->addMapping(ui->entryNameLine, 1);
+    mapper->addMapping(ui->questionLine, 2);
 
     model->insertRow(model->rowCount(QModelIndex()));
     mapper->toLast();
@@ -35,6 +26,12 @@ CreateQuestionForm::CreateQuestionForm(QWidget *parent) :
     });
 
     connect(ui->submitButton, &QToolButton::clicked, this, &CreateQuestionForm::submitChanges);
+
+    // All columns
+    connect(ui->entryNameLine, &QLineEdit::textChanged, this, [this] {
+        ui->submitButton->setEnabled(!ui->entryNameLine->text().isEmpty() && !ui->questionLine->text().isEmpty());
+    });
+    connect(ui->questionLine, &QLineEdit::textChanged, ui->entryNameLine, &QLineEdit::textChanged);
 }
 
 CreateQuestionForm::~CreateQuestionForm()

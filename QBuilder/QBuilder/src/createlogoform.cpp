@@ -9,11 +9,15 @@
 #include <QSqlRecord>
 #include <QBuffer>
 
+#include <QDebug>
+
 CreateLogoForm::CreateLogoForm(QWidget *parent) :
     BaseForm(parent),
     ui(new Ui::CreateLogoForm)
 {
     ui->setupUi(this);
+
+    ui->submitButton->setEnabled(false); // List name and entry name cannot be blank
 
     initData(Table);
 
@@ -32,6 +36,12 @@ CreateLogoForm::CreateLogoForm(QWidget *parent) :
     connect(ui->submitButton, &QToolButton::clicked, this, &CreateLogoForm::submitChanges);
 
     connect(ui->openImageButton, &QPushButton::clicked, this, &CreateLogoForm::openImage);
+
+    // Check list name and entry name
+    connect(ui->listNameLine, &QLineEdit::textChanged, this, [this] {
+        ui->submitButton->setEnabled(!ui->listNameLine->text().isEmpty() && !ui->entryNameLine->text().isEmpty());
+    });
+    connect(ui->entryNameLine, &QLineEdit::textChanged, ui->listNameLine, &QLineEdit::textChanged);
 }
 
 CreateLogoForm::~CreateLogoForm()
@@ -44,17 +54,16 @@ void CreateLogoForm::submitChanges()
     // Save changes to database
 
     QSqlQuery query;
-    QString str = QString("SELECT EXISTS (SELECT 'Entry name' FROM" + Table +
-            " WHERE '" + Record + "' = '%1' AND id NOT LIKE '%2' )").arg(ui->entryNameLine->text(),
-                                    model->data(model->index(mapper->currentIndex(), 0), Qt::DisplayRole).toInt());
+    QString str = QString("SELECT EXISTS (SELECT " + Record + " FROM " + Table +
+            " WHERE " + Record + " = '%1' AND id != %2 )").arg(ui->entryNameLine->text()).
+            arg(model->data(model->index(mapper->currentIndex(), 0), Qt::DisplayRole).toInt());
 
-    query.prepare(str);
-    query.exec();
+    query.exec(str);
     query.next();
 
     // If exists
-    if (mapper->currentIndex() > model->rowCount() && query.value(0) != 0) {
-        QMessageBox::information(this, trUtf8("Error"), Record + trUtf8(" is already exists"));
+    if (query.value(0) != 0 && !isEdit) {
+        QMessageBox::information(this, trUtf8("Error"), trUtf8("Entry name is already exists"));
         return;
     }
     else {

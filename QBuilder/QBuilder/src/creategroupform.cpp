@@ -10,6 +10,8 @@ CreateGroupForm::CreateGroupForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->submitButton->setEnabled(false); // All columns cannot be blank
+
     initData(Table);
 
     // View data in lineEdit with mapper
@@ -25,6 +27,11 @@ CreateGroupForm::CreateGroupForm(QWidget *parent) :
     });
 
     connect(ui->submitButton, &QToolButton::clicked, this, &CreateGroupForm::submitChanges);
+
+    // Check all columns
+    connect(ui->groupNameLine, &QLineEdit::textChanged, this, [this] {
+        ui->submitButton->setEnabled(!ui->groupNameLine->text().isEmpty() && !ui->groupDescrEdit->toPlainText().isEmpty());
+    });
 }
 
 CreateGroupForm::~CreateGroupForm()
@@ -37,17 +44,16 @@ void CreateGroupForm::submitChanges()
     // Save changes to database
 
     QSqlQuery query;
-    QString str = QString("SELECT EXISTS (SELECT 'name' FROM" + Table +
-            " WHERE '" + Record + "' = '%1' AND id NOT LIKE '%2' )").arg(ui->groupNameLine->text(),
-                        model->data(model->index(mapper->currentIndex(), 0), Qt::DisplayRole).toInt());
+    QString str = QString("SELECT EXISTS (SELECT " + Record + " FROM " + Table +
+            " WHERE " + Record + " = '%1' AND id != %2 )").arg(ui->groupNameLine->text()).
+            arg(model->data(model->index(mapper->currentIndex(), 0), Qt::DisplayRole).toInt());
 
-    query.prepare(str);
-    query.exec();
+    query.exec(str);
     query.next();
 
     // If exists
-    if (mapper->currentIndex() > model->rowCount() && query.value(0) != 0) {
-        QMessageBox::information(this, trUtf8("Error"), Record + trUtf8(" is already exists"));
+    if (query.value(0) != 0 && !isEdit) {
+        QMessageBox::information(this, trUtf8("Error"), trUtf8("Group name is already exists"));
         return;
     }
     else {

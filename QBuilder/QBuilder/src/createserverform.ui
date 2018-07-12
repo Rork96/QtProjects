@@ -247,7 +247,7 @@ QToolButton:pressed {
            <x>0</x>
            <y>0</y>
            <width>788</width>
-           <height>358</height>
+           <height>347</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
@@ -266,7 +266,11 @@ QToolButton:pressed {
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="ipAddressLine"/>
+               <widget class="QLineEdit" name="ipAddressLine">
+                <property name="placeholderText">
+                 <string>192.168.0.0</string>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>
@@ -280,7 +284,11 @@ QToolButton:pressed {
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="portLine"/>
+               <widget class="QLineEdit" name="portLine">
+                <property name="placeholderText">
+                 <string>00000</string>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>
@@ -399,14 +407,14 @@ QToolButton:pressed {
    </item>
   </layout>
  </widget>
-    <customwidgets>
-        <customwidget>
-            <class>BaseForm</class>
-            <extends>QWidget</extends>
-            <header>BaseForm.h</header>
-            <container>1</container>
-        </customwidget>
-    </customwidgets>
+ <customwidgets>
+  <customwidget>
+   <class>BaseForm</class>
+   <extends>QWidget</extends>
+   <header>BaseForm.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

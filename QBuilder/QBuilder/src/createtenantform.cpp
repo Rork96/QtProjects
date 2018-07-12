@@ -1,13 +1,17 @@
 #include "createtenantform.h"
 #include "ui_createtenantform.h"
 
+#include <QSqlQuery>
 #include <QSqlRecord>
+#include <QMessageBox>
 
 CreateTenantForm::CreateTenantForm(QWidget *parent) :
     BaseForm(parent),
     ui(new Ui::CreateTenantForm)
 {
     ui->setupUi(this);
+
+    ui->submitButton->setEnabled(false) ; // Name, city, contact, email, address 1 and country cannot be blank
 
     initData(Table);
 
@@ -30,34 +34,7 @@ CreateTenantForm::CreateTenantForm(QWidget *parent) :
     mapper->addMapping(ui->twilioSidLine, 27);
     mapper->addMapping(ui->twilioTokenLine, 28);
     mapper->addMapping(ui->twPhoneLine, 29);
-    mapper->addMapping(ui->menuBackColorLine, 33);
-    mapper->addMapping(ui->menuTextColorLine, 34);
-    mapper->addMapping(ui->selectionColorLine, 35);
-    mapper->addMapping(ui->borderColorLine, 36);
-    mapper->addMapping(ui->backColorLine, 37);
-    mapper->addMapping(ui->linkColorLine, 38);
-    mapper->addMapping(ui->textColorLine, 39);
-    mapper->addMapping(ui->infoColorLine, 40);
-    mapper->addMapping(ui->sectHeaderColorLine, 41);
-    mapper->addMapping(ui->sectHeaderBackColorLine, 42);
-    mapper->addMapping(ui->sectBackColorLine, 43);
-    mapper->addMapping(ui->headColorLine, 45);
-    mapper->addMapping(ui->headBordColorLine, 46);
-    mapper->addMapping(ui->searchBordColorLine, 47);
-    mapper->addMapping(ui->selectedSearchLine, 48);
-    mapper->addMapping(ui->fieldsBordColorLine, 49);
-    mapper->addMapping(ui->selectedFieldLine, 50);
-    mapper->addMapping(ui->tabSelectColorLine, 51);
-    mapper->addMapping(ui->tabUnselectColorLine, 52);
-    mapper->addMapping(ui->msgColorLine, 53);
-    mapper->addMapping(ui->msgBackLine, 54);
-    mapper->addMapping(ui->fChatColorLine, 55);
-    mapper->addMapping(ui->sChatColorLine, 56);
-    mapper->addMapping(ui->thChatColorLine, 57);
-    mapper->addMapping(ui->fourChatColorLine, 58);
-
-    model->insertRow(model->rowCount(QModelIndex()));
-    mapper->toLast();
+    /* 33 - 43, 45 - 58: ClickeLineEdit for colors */
 
     // Init comboBox models with data
     countryCModel = new BaseComboModel("country_name", "location_country", this, Table, "country");
@@ -83,11 +60,39 @@ CreateTenantForm::CreateTenantForm(QWidget *parent) :
     cbModel = {countryCModel, cityCModel, stateCModel, langCModel, currencyModel, currencyTypeModel, timezoneModel,
                timeFormatModel, dateModel, bntModel, menuModel, borderModel, headerLogoModel, mainLogoModel, headerBorderModel};
 
+    // Color lineEdits
+    colorLine = {ui->menuBackColorLine, ui->menuTextColorLine, ui->selectionColorLine, ui->borderColorLine, ui->backColorLine,
+                 ui->linkColorLine, ui->textColorLine, ui->infoColorLine, ui->sectHeaderColorLine, ui->sectHeaderBackColorLine,
+                 ui->sectBackColorLine, ui->headColorLine, ui->headBordColorLine, ui->searchBordColorLine, ui->selectedSearchLine,
+                 ui->fieldsBordColorLine, ui->selectedFieldLine, ui->tabSelectColorLine, ui->tabUnselectColorLine, ui->msgColorLine,
+                 ui->msgBackLine, ui->fChatColorLine, ui->sChatColorLine, ui->thChatColorLine, ui->fourChatColorLine};
+
+    /* 33 - 43, 45 - 58 */
+    int i = 33;
+    for (ClickeLineEdit *line : colorLine) {
+        if (i != 44) mapper->addMapping(line, i++);
+    }
+
+    model->insertRow(model->rowCount(QModelIndex()));
+    mapper->toLast();
+
     connect(ui->backButton, &QToolButton::clicked, this, [this] {
        emit sygnalBack();
     });
 
     connect(ui->submitButton, &QToolButton::clicked, this, &CreateTenantForm::submitChanges);
+
+    // Check Name, city, contact, email, address 1 and country
+    connect(ui->tenantNameLine, &QLineEdit::textChanged, this, [this] {
+        ui->submitButton->setEnabled(!ui->tenantNameLine->text().isEmpty() && ui->cityBox->currentIndex() > 0 &&
+        ui->countryBox->currentIndex() > 0 && !ui->contactLine->text().isEmpty() && !ui->emailLine->text().isEmpty() &&
+        !ui->address_1_Line->text().isEmpty());
+    });
+    connect(ui->cityBox, &QComboBox::currentTextChanged, ui->tenantNameLine, &QLineEdit::textChanged);
+    connect(ui->countryBox, &QComboBox::currentTextChanged, ui->tenantNameLine, &QLineEdit::textChanged);
+    connect(ui->contactLine, &QLineEdit::textChanged, ui->tenantNameLine, &QLineEdit::textChanged);
+    connect(ui->emailLine, &QLineEdit::textChanged, ui->tenantNameLine, &QLineEdit::textChanged);
+    connect(ui->address_1_Line, &QLineEdit::textChanged, ui->tenantNameLine, &QLineEdit::textChanged);
 }
 
 CreateTenantForm::~CreateTenantForm()
@@ -99,19 +104,34 @@ void CreateTenantForm::submitChanges()
 {
     // Save changes to database
 
-    mapper->submit();
-    model->submitAll();
+    QSqlQuery query;
+    QString str = QString("SELECT EXISTS (SELECT " + Record1 + ", " + Record2 + " FROM " + Table +
+            " WHERE " + Record1 + " = %1 OR " + Record2 + " = '%2' AND id != %3 )").arg(ui->tenantCodeSBox->text().toInt()).
+            arg(ui->tenantNameLine->text()).arg(model->data(model->index(mapper->currentIndex(), 0), Qt::DisplayRole).toInt());
 
-    int id = -1;
-    if (isEdit) {
-        id = model->record(mapper->currentIndex()).value("id").toInt();
+    query.exec(str);
+    query.next();
+
+    // If exists
+    if (query.value(0) != 0 && !isEdit) {
+        QMessageBox::information(this, trUtf8("Error"), trUtf8("Tenant code or name is already exists"));
+        return;
     }
+    else {
+        // Insert new data
+        mapper->submit();
+        model->submitAll();
 
-    // Save data from comboBoxes to database
-    for (int i = 0; i < cbModel.count(); i++) {
-        cbModel.at(i)->saveToDB(combo.at(i)->itemData(combo.at(i)->currentIndex(), Qt::UserRole).toInt(), id);
+        int id = -1;
+        if (isEdit) {
+            id = model->record(mapper->currentIndex()).value("id").toInt();
+        }
+
+        // Save data from comboBoxes to database
+        for (int i = 0; i < cbModel.count(); i++) {
+            cbModel.at(i)->saveToDB(combo.at(i)->itemData(combo.at(i)->currentIndex(), Qt::UserRole).toInt(), id);
+        }
     }
-
     model->select();
     mapper->toLast();
 
@@ -135,29 +155,8 @@ void CreateTenantForm::setRowIndex(int rowIndex, int id)
         initComboBox(combo.at(i), cbModel.at(i));
     }
 
-    ui->menuBackColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->menuBackColorLine->text() + ";} ");
-    ui->menuTextColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->menuTextColorLine->text() + ";} ");
-    ui->selectionColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->selectionColorLine->text() + ";} ");
-    ui->borderColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->borderColorLine->text() + ";} ");
-    ui->backColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->backColorLine->text() + ";} ");
-    ui->linkColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->linkColorLine->text() + ";} ");
-    ui->textColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->textColorLine->text() + ";} ");
-    ui->infoColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->infoColorLine->text() + ";} ");
-    ui->sectHeaderColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->sectHeaderColorLine->text() + ";} ");
-    ui->sectHeaderBackColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->sectHeaderBackColorLine->text() + ";} ");
-    ui->sectBackColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->sectBackColorLine->text() + ";} ");
-    ui->headColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->headColorLine->text() + ";} ");
-    ui->headBordColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->headBordColorLine->text() + ";} ");
-    ui->searchBordColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->searchBordColorLine->text() + ";} ");
-    ui->selectedSearchLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->selectedSearchLine->text() + ";} ");
-    ui->fieldsBordColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->fieldsBordColorLine->text() + ";} ");
-    ui->selectedFieldLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->selectedFieldLine->text() + ";} ");
-    ui->tabSelectColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->tabSelectColorLine->text() + ";} ");
-    ui->tabUnselectColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->tabUnselectColorLine->text() + ";} ");
-    ui->msgColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->msgColorLine->text() + ";} ");
-    ui->msgBackLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->msgBackLine->text() + ";} ");
-    ui->fChatColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->fChatColorLine->text() + ";} ");
-    ui->sChatColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->sChatColorLine->text() + ";} ");
-    ui->thChatColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->thChatColorLine->text() + ";} ");
-    ui->fourChatColorLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->fourChatColorLine->text() + ";} ");
+    // Colors
+    for (ClickeLineEdit *line : colorLine) {
+        line->setStyleSheet("ClickeLineEdit { background-color: " + line->text() + ";} ");
+    }
 }

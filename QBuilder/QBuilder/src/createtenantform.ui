@@ -564,8 +564,8 @@ QSpinBox {
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>772</width>
-               <height>667</height>
+               <width>314</width>
+               <height>220</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="gridLayout_9">
@@ -1470,8 +1470,8 @@ QSpinBox {
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>772</width>
-               <height>667</height>
+               <width>135</width>
+               <height>222</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="gridLayout_10">
@@ -1566,8 +1566,8 @@ QSpinBox {
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>772</width>
-               <height>667</height>
+               <width>145</width>
+               <height>222</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="gridLayout_11">

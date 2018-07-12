@@ -19,6 +19,7 @@ private:
     Ui::CreateScreeForm *ui;
 
     const QString Table = "screens";
+    const QString Record = "tab_text";
 
     void submitChanges() override;
 };

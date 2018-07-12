@@ -21,6 +21,7 @@ private:
     Ui::CreateGroupScreenForm *ui;
 
     const QString Table = "group_screen";
+    const QString Record = "s_text";
 
     void submitChanges() override;
 };

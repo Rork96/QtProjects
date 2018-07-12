@@ -21,7 +21,7 @@ private:
     Ui::CreateGroupForm *ui;
 
     const QString Table = "groups";
-    const QString Record = "Group name";
+    const QString Record = "name";
 
     void submitChanges() override;
 };

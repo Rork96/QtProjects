@@ -5,6 +5,9 @@
 #include <QScreen>
 #include <QSqlQuery>
 
+#include <QCheckBox>
+#include <QAbstractItemDelegate>
+
 TableForm::TableForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::TableForm)
@@ -26,6 +29,7 @@ TableForm::TableForm(QWidget *parent) :
     });
 
     connect(ui->editButton, &QToolButton::clicked, this, [this] {
+        if (ui->mainTableView->selectionModel()->selectedRows().count() == 0) return;
         auto id = mainModel->data(mainModel->index(ui->mainTableView->selectionModel()->selectedRows().at(0).row(), 0)); // id
         emit createData(this->viewType, ui->mainTableView->selectionModel()->selectedRows().at(0).row(), id.toInt());
     });
@@ -149,7 +153,7 @@ void TableForm::loadDataFromDB()
 
             ui->mainTableView->setColumnHidden(3, true); // Hide
 
-            headers << trUtf8("id") << trUtf8("Group name") << trUtf8("Description") << trUtf8("") << trUtf8("Menu name")
+            headers << trUtf8("id") << trUtf8("Group name") << trUtf8("Menu name") << trUtf8("") << trUtf8("Description")
                     << trUtf8("Weight");
 
             // Columns size
@@ -166,6 +170,9 @@ void TableForm::loadDataFromDB()
             mainModel->setRelation(14, QSqlRelation("menus", "id", "text"));
             ui->mainTableView->setItemDelegate(new QSqlRelationalDelegate(ui->mainTableView));
             mainModel->select();
+
+            //QAbstractItemDelegate  *del = new QAbstractItemDelegate();
+            //ui->mainTableView->setItemDelegateForColumn(1, del);
 
             headers << trUtf8("id") << trUtf8("Add") << trUtf8("Delete") << trUtf8("Edit") << trUtf8("Copy")
                     << trUtf8("Inquire") << trUtf8("Execute") << trUtf8("") << trUtf8("") << trUtf8("") << trUtf8("")
@@ -264,8 +271,8 @@ void TableForm::loadDataFromDB()
 
             ui->mainTableView->setColumnHidden(3, true);    // Hide
 
-            headers << trUtf8("id") << trUtf8("Name") << trUtf8("Function type") << trUtf8("")
-                    << trUtf8("Table") << trUtf8("Direction type");
+            headers << trUtf8("id") << trUtf8("Name") << trUtf8("Table") << trUtf8("") << trUtf8("Function type")
+                    << trUtf8("Direction type");
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
@@ -310,17 +317,12 @@ void TableForm::loadDataFromDB()
         case TableForm::security_questions:
             initTable("security_question");
 
-            // Select question type from question table by id
-            mainModel->setRelation(1, QSqlRelation("question", "id", "type"));
-            ui->mainTableView->setItemDelegate(new QSqlRelationalDelegate(ui->mainTableView));
-            mainModel->select();
-
-            headers << trUtf8("id") << trUtf8("Question") << trUtf8("Answer");
+            headers << trUtf8("id") << trUtf8("Entry name") << trUtf8("Question");
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
                 ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-                if (i <= 2) mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
+                mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
             }
             break;
         case TableForm::custom_query:
@@ -396,6 +398,8 @@ void TableForm::setViewType(Type type)
 
 void TableForm::deleteDatafromDB()
 {
+    if (ui->mainTableView->selectionModel()->selectedRows().count() == 0) return;
+
     // Delete current data from database
     int row = ui->mainTableView->selectionModel()->selectedRows().at(0).row();
     mainModel->removeRow(row);

@@ -23,7 +23,7 @@ private:
     Ui::CreateLogoForm *ui;
 
     const QString Table = "logo";
-    const QString Record = "Entry name";
+    const QString Record = "entry_name";
 
     bool imageChanged = false;
 

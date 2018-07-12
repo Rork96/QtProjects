@@ -3,6 +3,7 @@
 
 #include "BaseForm.h"
 #include "basecombomodel.h"
+#include "clickelineedit.h"
 #include <QComboBox>
 
 namespace Ui {
@@ -36,6 +37,7 @@ private:
 
     QList<QComboBox*> combo;            // ComboBoxes
     QList<BaseComboModel*> cbModel;     // Combobox models
+    QList<ClickeLineEdit*> colorLine;   // Color lineEdits
 
     BaseComboModel *groupModel;
     BaseComboModel *accountModel;

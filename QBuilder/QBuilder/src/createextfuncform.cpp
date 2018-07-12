@@ -13,6 +13,8 @@ CreateExtFuncForm::CreateExtFuncForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->submitButton->setEnabled(false); // All columns cannot be blank
+
     initData(Table);
 
     // Set relation between tables
@@ -36,11 +38,26 @@ CreateExtFuncForm::CreateExtFuncForm(QWidget *parent) :
     model->insertRow(model->rowCount(QModelIndex()));
     mapper->toLast();
 
+    extTypeCModel = new BaseComboModel("type", "extension_type", this, Table, "extension_type");
+    ui->extTypeBox->setModel(extTypeCModel);
+
     connect(ui->backButton, &QToolButton::clicked, this, [this] {
        emit sygnalBack();
     });
 
     connect(ui->submitButton, &QToolButton::clicked, this, &CreateExtFuncForm::submitChanges);
+
+    // All columns cannot be blank
+    connect(ui->dataLibLine, &QLineEdit::textChanged, this, [this] {
+        ui->submitButton->setEnabled(!ui->dataLibLine->text().isEmpty() && !ui->dataFuncLine->text().isEmpty() &&
+        !ui->extLibLine->text().isEmpty() && !ui->extFuncLine->text().isEmpty() && !ui->extFreeMemline->text().isEmpty() &&
+        ui->extTypeBox->currentIndex() > 0);
+    });
+    connect(ui->dataFuncLine, &QLineEdit::textChanged, ui->dataLibLine, &QLineEdit::textChanged);
+    connect(ui->extLibLine, &QLineEdit::textChanged, ui->dataLibLine, &QLineEdit::textChanged);
+    connect(ui->extFuncLine, &QLineEdit::textChanged, ui->dataLibLine, &QLineEdit::textChanged);
+    connect(ui->extFreeMemline, &QLineEdit::textChanged, ui->dataLibLine, &QLineEdit::textChanged);
+    connect(ui->extTypeBox, &QComboBox::currentTextChanged, ui->dataLibLine, &QLineEdit::textChanged);
 }
 
 CreateExtFuncForm::~CreateExtFuncForm()
@@ -53,8 +70,6 @@ void CreateExtFuncForm::submitChanges()
     // Save changes to database
     mapper->submit();
     model->submitAll();
-
-    BaseComboModel *extTypeCModel = new BaseComboModel("type", "extension_type", this, Table, "extension_type");
 
     int id = -1;
     if (isEdit) {
@@ -74,7 +89,5 @@ void CreateExtFuncForm::setRowIndex(int rowIndex, int id)
     // User chose to edit data from the table
     BaseForm::setRowIndex(rowIndex, id);
 
-    BaseComboModel *extTypeCModel = new BaseComboModel("type", "extension_type", this, Table, "extension_type");
-    ui->extTypeBox->setModel(extTypeCModel);
     ui->extTypeBox->setCurrentIndex(ui->extTypeBox->findText(extTypeCModel->getTextValue(id)));
 }

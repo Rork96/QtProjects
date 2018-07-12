@@ -17,6 +17,8 @@ CreateUserForm::CreateUserForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->submitButton->setEnabled(false); // User name and account type cannot be blank
+
     initData(Table);
 
     // View data with mapper
@@ -28,31 +30,7 @@ CreateUserForm::CreateUserForm(QWidget *parent) :
     mapper->addMapping(ui->productLine, 10);
     // Last login - 11 - type: timestamp (date and time without time zone)
     mapper->addMapping(ui->phoneLine, 12);
-    mapper->addMapping(ui->colorBackLine, 22);
-    mapper->addMapping(ui->colorMenuTextLine, 23);
-    mapper->addMapping(ui->colorHighlightLine, 24);
-    mapper->addMapping(ui->colorBorderLine, 25);
-    mapper->addMapping(ui->colorBodyBackLine, 26);
-    mapper->addMapping(ui->colorLinkLine, 27);
-    mapper->addMapping(ui->colorBodyTextLine, 28);
-    mapper->addMapping(ui->colorBodyInfoLine, 29);
-    mapper->addMapping(ui->colorSectionLine, 30);
-    mapper->addMapping(ui->colorSectionHeaderLine, 31);
-    mapper->addMapping(ui->colorSectionBackLine, 32);
-    mapper->addMapping(ui->colorHeaderLine, 33);
-    mapper->addMapping(ui->colorHBorderLine, 34);
-    mapper->addMapping(ui->colorSearchLine, 35);
-    mapper->addMapping(ui->colorSelectedSearchLine, 36);
-    mapper->addMapping(ui->colorFieldLine, 37);
-    mapper->addMapping(ui->colorFieldSelectedLine, 38);
-    mapper->addMapping(ui->colorTabLine, 39);
-    mapper->addMapping(ui->colorTabUnselectedLine, 40);
-    mapper->addMapping(ui->colorMessageLine, 41);
-    mapper->addMapping(ui->colorMessageBackLine, 42);
-    mapper->addMapping(ui->colorChart_1_Line, 43);
-    mapper->addMapping(ui->colorChart_2_Line, 44);
-    mapper->addMapping(ui->colorChart_3_Line, 45);
-    mapper->addMapping(ui->colorChart_4_Line, 46);
+    /* 22 - 46: ClickeLineEdit for colors */
     mapper->addMapping(ui->avatarLabel, 47);
     mapper->addMapping(ui->menuLabel, 48);
     mapper->addMapping(ui->bodyLabel, 51);
@@ -88,8 +66,20 @@ CreateUserForm::CreateUserForm(QWidget *parent) :
     cbModel = {accountModel, tenantModel, userModel, currencyModel, currencyTypeModel, timezoneModel, timeFormatModel,
                dateModel, bntModel, menuModel, borderModel, headerBorderModel};
 
-    model->insertRow(model->rowCount(QModelIndex()));
+    // Color lineEdits
+    colorLine = {ui->colorBackLine, ui->colorMenuTextLine, ui->colorHighlightLine, ui->colorBorderLine, ui->colorBodyBackLine,
+                 ui->colorLinkLine, ui->colorBodyTextLine, ui->colorBodyInfoLine, ui->colorSectionLine, ui->colorSectionHeaderLine,
+                 ui->colorSectionBackLine, ui->colorHeaderLine, ui->colorHBorderLine, ui->colorSearchLine, ui->colorSelectedSearchLine,
+                 ui->colorFieldLine, ui->colorFieldSelectedLine, ui->colorTabLine, ui->colorTabUnselectedLine, ui->colorMessageLine,
+                 ui->colorMessageBackLine, ui->colorChart_1_Line, ui->colorChart_2_Line, ui->colorChart_3_Line, ui->colorChart_4_Line};
 
+    /* 22 - 46 */
+    int i = 22;
+    for (ClickeLineEdit *line : colorLine) {
+        mapper->addMapping(line, i++);
+    }
+
+    model->insertRow(model->rowCount(QModelIndex()));
     mapper->toLast();
 
     connect(ui->backButton, &QToolButton::clicked, this, [this] {
@@ -103,9 +93,13 @@ CreateUserForm::CreateUserForm(QWidget *parent) :
     connect(ui->menuImgButton, &QPushButton::clicked, this, &CreateUserForm::openImage);
 
     connect(ui->passwordLine, &QLineEdit::textChanged, this, &CreateUserForm::checkPasswordLength);
-    connect(ui->passwordLengthBox, &QCheckBox::stateChanged, this, [this] {
-        checkPasswordLength(QString());
+    connect(ui->passwordLengthBox, &QCheckBox::stateChanged, this, [this] { checkPasswordLength(QString()); });
+
+    // Check user name and account type
+    connect(ui->userNameLine, &QLineEdit::textChanged, this, [this] {
+        ui->submitButton->setEnabled(!ui->userNameLine->text().isEmpty() && ui->accountTypeBox->currentIndex() > 0);
     });
+    connect(ui->accountTypeBox, &QComboBox::currentTextChanged, ui->userNameLine, &QLineEdit::textChanged);
 }
 
 CreateUserForm::~CreateUserForm()
@@ -118,17 +112,16 @@ void CreateUserForm::submitChanges()
     // Save changes to database
 
     QSqlQuery query;
-    QString str = QString("SELECT EXISTS (SELECT 'username' FROM" + Table +
-                          " WHERE '" + Record + "' = '%1' AND id NOT LIKE '%2' )").arg(ui->userNameLine->text(),
-                                      model->data(model->index(mapper->currentIndex(), 0), Qt::DisplayRole).toInt());
+    QString str = QString("SELECT EXISTS (SELECT " + Record + " FROM" + Table +
+            " WHERE '" + Record + "' = '%1' AND id != %2 )").arg(ui->userNameLine->text()).
+            arg(model->data(model->index(mapper->currentIndex(), 0), Qt::DisplayRole).toInt());
 
-    query.prepare(str);
-    query.exec();
+    query.exec(str);
     query.next();
 
     // If exists
-    if (mapper->currentIndex() > model->rowCount() && query.value(0) != 0) {
-        QMessageBox::information(this, trUtf8("Error"), Record + trUtf8(" is already exists"));
+    if (query.value(0) != 0 && !isEdit) {
+        QMessageBox::information(this, trUtf8("Error"), trUtf8("User name is already exists"));
         return;
     }
     else {
@@ -310,31 +303,10 @@ void CreateUserForm::setRowIndex(int rowIndex, int id)
     img.loadFromData(query.value(2).toByteArray());
     ui->bodyImgLabel->setPixmap(img.scaled(400, 100, Qt::KeepAspectRatio));
 
-    ui->colorBackLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->colorBackLine->text() + ";} ");
-    ui->colorMenuTextLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->colorMenuTextLine->text() + ";} ");
-    ui->colorHighlightLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->colorHighlightLine->text() + ";} ");
-    ui->colorBorderLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->colorBorderLine->text() + ";} ");
-    ui->colorBodyBackLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->colorBodyBackLine->text() + ";} ");
-    ui->colorLinkLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->colorLinkLine->text() + ";} ");
-    ui->colorBodyTextLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->colorBodyTextLine->text() + ";} ");
-    ui->colorBodyInfoLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->colorBodyInfoLine->text() + ";} ");
-    ui->colorSectionLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->colorSectionLine->text() + ";} ");
-    ui->colorSectionHeaderLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->colorSectionHeaderLine->text() + ";} ");
-    ui->colorSectionBackLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->colorSectionBackLine->text() + ";} ");
-    ui->colorHeaderLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->colorHeaderLine->text() + ";} ");
-    ui->colorHBorderLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->colorHBorderLine->text() + ";} ");
-    ui->colorSearchLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->colorSearchLine->text() + ";} ");
-    ui->colorSelectedSearchLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->colorSelectedSearchLine->text() + ";} ");
-    ui->colorFieldLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->colorFieldLine->text() + ";} ");
-    ui->colorFieldSelectedLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->colorFieldSelectedLine->text() + ";} ");
-    ui->colorTabLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->colorTabLine->text() + ";} ");
-    ui->colorTabUnselectedLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->colorTabUnselectedLine->text() + ";} ");
-    ui->colorMessageLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->colorMessageLine->text() + ";} ");
-    ui->colorMessageBackLine->setStyleSheet("ClickeLineEdit { background-color: " + ui->colorMessageBackLine->text() + ";} ");
-    ui->colorChart_1_Line->setStyleSheet("ClickeLineEdit { background-color: " + ui->colorChart_1_Line->text() + ";} ");
-    ui->colorChart_2_Line->setStyleSheet("ClickeLineEdit { background-color: " + ui->colorChart_2_Line->text() + ";} ");
-    ui->colorChart_3_Line->setStyleSheet("ClickeLineEdit { background-color: " + ui->colorChart_3_Line->text() + ";} ");
-    ui->colorChart_4_Line->setStyleSheet("ClickeLineEdit { background-color: " + ui->colorChart_4_Line->text() + ";} ");
+    // Colors
+    for (ClickeLineEdit *line : colorLine) {
+        line->setStyleSheet("ClickeLineEdit { background-color: " + line->text() + ";} ");
+    }
 }
 
 void CreateUserForm::checkPasswordLength(const QString &arg1)

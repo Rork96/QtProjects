@@ -3,13 +3,14 @@
 
 #include <QSqlRelationalDelegate>
 #include <QSqlRecord>
-#include "basecombomodel.h"
 
 CreateDataSourceForm::CreateDataSourceForm(QWidget *parent) :
     BaseForm(parent),
     ui(new Ui::CreateDataSourceForm)
 {
     ui->setupUi(this);
+
+    ui->submitButton->setEnabled(false); // Name, table, function type, direction type
 
     initData(Table);
 
@@ -24,11 +25,25 @@ CreateDataSourceForm::CreateDataSourceForm(QWidget *parent) :
     model->insertRow(model->rowCount(QModelIndex()));
     mapper->toLast();
 
+    fTypeCModel = new BaseComboModel("func_type", "function_type", this, Table, "function_type");
+    ui->fTypeBox->setModel(fTypeCModel);
+    dTypeCModel = new BaseComboModel("direct_type", "direction_type", this, Table, "direction_type");
+    ui->dTypeBox->setModel(dTypeCModel);
+
     connect(ui->backButton, &QToolButton::clicked, this, [this] {
        emit sygnalBack();
     });
 
     connect(ui->submitButton, &QToolButton::clicked, this, &CreateDataSourceForm::submitChanges);
+
+    // Name, table, function type, direction type
+    connect(ui->nameLine, &QLineEdit::textChanged, this, [this] {
+        ui->submitButton->setEnabled(! ui->nameLine->text().isEmpty() && !ui->tableLine->text().isEmpty() &&
+        ui->fTypeBox->currentIndex() > 0 && ui->dTypeBox->currentIndex() > 0);
+    });
+    connect(ui->tableLine, &QLineEdit::textChanged, ui->nameLine, &QLineEdit::textChanged);
+    connect(ui->fTypeBox, &QComboBox::currentTextChanged, ui->nameLine, &QLineEdit::textChanged);
+    connect(ui->dTypeBox, &QComboBox::currentTextChanged, ui->nameLine, &QLineEdit::textChanged);
 }
 
 CreateDataSourceForm::~CreateDataSourceForm()
@@ -41,9 +56,6 @@ void CreateDataSourceForm::submitChanges()
     // Save changes to database
     mapper->submit();
     model->submitAll();
-
-    BaseComboModel *fTypeCModel = new BaseComboModel("func_type", "function_type", this, Table, "function_type");
-    BaseComboModel *dTypeCModel = new BaseComboModel("direct_type", "direction_type", this, Table, "direction_type");
 
     int id = -1;
     if (isEdit) {
@@ -64,11 +76,6 @@ void CreateDataSourceForm::setRowIndex(int rowIndex, int id)
     // User chose to edit data from the table
     BaseForm::setRowIndex(rowIndex, id);
 
-    BaseComboModel *fTypeCModel = new BaseComboModel("func_type", "function_type", this, Table, "function_type");
-    ui->fTypeBox->setModel(fTypeCModel);
     ui->fTypeBox->setCurrentIndex(ui->fTypeBox->findText(fTypeCModel->getTextValue(id)));
-
-    BaseComboModel *dTypeCModel = new BaseComboModel("direct_type", "direction_type", this, Table, "direction_type");
-    ui->dTypeBox->setModel(dTypeCModel);
     ui->dTypeBox->setCurrentIndex(ui->dTypeBox->findText(dTypeCModel->getTextValue(id)));
 }

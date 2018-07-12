@@ -10,6 +10,8 @@ CreateListForm::CreateListForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->submitButton->setEnabled(false); // Entry name and list name
+
     initData(Table);
 
     // View data in lineEdit with mapper
@@ -30,6 +32,12 @@ CreateListForm::CreateListForm(QWidget *parent) :
     });
 
     connect(ui->submitButton, &QToolButton::clicked, this, &CreateListForm::submitChanges);
+
+    // Entry name and list name
+    connect(ui->entryNameline, &QLineEdit::textChanged, this, [this] {
+        ui->submitButton->setEnabled(!ui->entryNameline->text().isEmpty() && !ui->listNameline->text().isEmpty());
+    });
+    connect(ui->listNameline, &QLineEdit::textChanged, ui->entryNameline, &QLineEdit::textChanged);
 }
 
 CreateListForm::~CreateListForm()
@@ -42,17 +50,16 @@ void CreateListForm::submitChanges()
     // Save changes to database
 
     QSqlQuery query;
-    QString str = QString("SELECT EXISTS (SELECT 'Entry name' FROM" + Table +
-                          " WHERE '" + Record + "' = '%1' AND id NOT LIKE '%2' )").arg(ui->entryNameline->text(),
-                                      model->data(model->index(mapper->currentIndex(), 0), Qt::DisplayRole).toInt());
+    QString str = QString("SELECT EXISTS (SELECT '" + Record1 + "', '" + Record2 + "' FROM" + Table +
+            " WHERE '" + Record1 + "' = '%1', '" + Record2 + "' = '%2' AND id != %3 )").arg(ui->entryNameline->text()).
+            arg(ui->listNameline->text()).arg(model->data(model->index(mapper->currentIndex(), 0), Qt::DisplayRole).toInt());
 
-    query.prepare(str);
-    query.exec();
+    query.exec(str);
     query.next();
 
     // If exists
-    if (mapper->currentIndex() > model->rowCount() && query.value(0) != 0) {
-        QMessageBox::information(this, trUtf8("Error"), Record + trUtf8(" is already exists"));
+    if (query.value(0) != 0 && !isEdit) {
+        QMessageBox::information(this, trUtf8("Error"), trUtf8("List name or entry name is already exists"));
         return;
     }
     else {

@@ -11,6 +11,8 @@ CreateDocFamilyForm::CreateDocFamilyForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->submitButton->setEnabled(false); // Family name
+
     initData(Table);
 
     // View data in lineEdit with mapper
@@ -80,6 +82,11 @@ CreateDocFamilyForm::CreateDocFamilyForm(QWidget *parent) :
 
     connect(ui->addCategoryButton, &QToolButton::clicked, this, &CreateDocFamilyForm::addCategory);
     connect(ui->delCategoryButton, &QToolButton::clicked, this, &CreateDocFamilyForm::delCategory);
+
+    // Family name
+    connect(ui->familyNameLine, &QLineEdit::textChanged, this, [this] {
+        ui->submitButton->setEnabled(!ui->familyNameLine->text().isEmpty());
+    });
 }
 
 CreateDocFamilyForm::~CreateDocFamilyForm()
@@ -91,8 +98,24 @@ void CreateDocFamilyForm::submitChanges()
 {
     // Save changes to database
 
-    categoryModel->submitAll();
-    categoryModel->select();
+    QSqlQuery query;
+    QString str = QString("SELECT EXISTS (SELECT " + Record + " FROM" + Table +
+            " WHERE '" + Record + "' = '%1' AND id != %2 )").arg(ui->familyNameLine->text()).
+            arg(model->data(model->index(mapper->currentIndex(), 0), Qt::DisplayRole).toInt());
+
+    query.exec(str);
+    query.next();
+
+    // If exists
+    if (query.value(0) != 0 && !isEdit) {
+        QMessageBox::information(this, trUtf8("Error"), trUtf8("Family name is already exists"));
+        return;
+    }
+    else {
+        // Insert new data
+        categoryModel->submitAll();
+        categoryModel->select();
+    }
 
     BaseForm::submitChanges();
 }

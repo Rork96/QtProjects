@@ -104,16 +104,21 @@ else () # Clang
     set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${CMAKE_HOST_SYSTEM_NAME}/Clang/${CMAKE_BUILD_TYPE})
 endif()
 
+# Translation files
+#file (GLOB TS_FILES ${PROJECT_SOURCE_DIR}/QBuilder/translations/*.ts)
+#qt5_add_translation(QM_FILES ${TS_FILES})
+#add_custom_target(translations DEPENDS ${QM_FILES})
+
 # Create executable file
 if (WIN32)
     add_executable (${PROJECT_NAME} WIN32 ${SOURCE_FILES} ${HEADER_FILES}
-        ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${VersionFilesOutputVariable})
+        ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${VersionFilesOutputVariable} ${QM_FILES})
 
     # Qt modules and librarys
 	qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})
 else ()
     add_executable (${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES}
-        ${UI_SRC_FILES} ${UI_RESOURCES_RCC})
+        ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${QM_FILES})
 
     # Qt modules and librarys
     qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})

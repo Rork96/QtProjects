@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     initUI();   // Hide main menu and view login screen
 
     // Translations
-    qtLanguageTranslator.load(QString("QtLanguage_") + QString("en_US"));
+    qtLanguageTranslator.load(QString("/translations/qt_") + QString("en"));
     qApp->installTranslator(&qtLanguageTranslator);
 
     // region MenuBar connections
@@ -120,7 +120,7 @@ void MainWindow::changeEvent(QEvent *event)
 
 void MainWindow::translate(QString language)
 {
-    qtLanguageTranslator.load("qt_" + language, ".");
+    qtLanguageTranslator.load("/translations/qt_" + language, ".");
     qApp->installTranslator(&qtLanguageTranslator);
 }
 

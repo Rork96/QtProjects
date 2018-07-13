@@ -16,7 +16,6 @@ MainWindow::MainWindow(QWidget *parent) :
     // Translations
     qtLanguageTranslator.load(QString("/translations/qt_") + QString("en"));
     qApp->installTranslator(&qtLanguageTranslator);
-
     // region MenuBar connections
 
     connect(ui->actionLogout, &QAction::triggered, this, &MainWindow::initUI);

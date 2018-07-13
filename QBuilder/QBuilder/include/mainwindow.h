@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTranslator>
 
 #include "loginform.h"
 #include "tableform.h"
@@ -38,8 +39,14 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+protected:
+    void changeEvent(QEvent * event) override;
+    void translate(QString language);
+
 private:
     Ui::MainWindow *ui;
+
+    QTranslator qtLanguageTranslator;
 
     LoginForm *loginForm;
     TableForm *mainForm;

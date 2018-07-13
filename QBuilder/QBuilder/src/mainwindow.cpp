@@ -13,91 +13,115 @@ MainWindow::MainWindow(QWidget *parent) :
 
     initUI();   // Hide main menu and view login screen
 
+    // Translations
+    qtLanguageTranslator.load(QString("QtLanguage_") + QString("en_US"));
+    qApp->installTranslator(&qtLanguageTranslator);
+
     // region MenuBar connections
 
     connect(ui->actionLogout, &QAction::triggered, this, &MainWindow::initUI);
 
     connect(ui->actionGroups, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - " + userName + " groups");
+        setWindowTitle("Application - " + userName + trUtf8(" groups"));
         setMainView(TableForm::groups);
     });
     connect(ui->actionUsers, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - " + userName + " users");
+        setWindowTitle("Application - " + userName + trUtf8(" users"));
         setMainView(TableForm::users);
     });
     connect(ui->actionTenant, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - " + userName + " tenants");
+        setWindowTitle("Application - " + userName + trUtf8(" tenants"));
         setMainView(TableForm::tenant);
     });
     connect(ui->actionLogo, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - " + userName + " logo");
+        setWindowTitle("Application - " + userName + trUtf8(" logo"));
         setMainView(TableForm::logo);
     });
     connect(ui->actionSecurity_filters, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - Security filters");
+        setWindowTitle("Application - " + trUtf8("Security filters"));
         setMainView(TableForm::security_filters);
     });
     connect(ui->actionMenu, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - Security filters");
+        setWindowTitle("Application - " + trUtf8("menu"));
         setMainView(TableForm::menu);
     });
     connect(ui->actionGroup_screens, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - " + userName + " group screen");
+        setWindowTitle("Application - " + userName + trUtf8(" group screen"));
         setMainView(TableForm::group_screens);
     });
     connect(ui->actionScreens, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - " + userName + " screen");
+        setWindowTitle("Application - " + userName + trUtf8(" screen"));
         setMainView(TableForm::screens);
     });
     connect(ui->actionDocument_family, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - Document family");
+        setWindowTitle("Application - " + trUtf8("Document family"));
         setMainView(TableForm::document_family);
     });
     connect(ui->actionDocument_groups, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - " + userName + " groups");
+        setWindowTitle("Application - " + userName + trUtf8(" groups"));
         setMainView(TableForm::document_groups);
     });
     connect(ui->actionLists, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - " + userName + " lists");
+        setWindowTitle("Application - " + userName + trUtf8(" lists"));
         setMainView(TableForm::lists);
     });
     connect(ui->actionTemplates, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - " + userName + " templates");
+        setWindowTitle("Application - " + userName + trUtf8(" templates"));
         setMainView(TableForm::templates);
     });
     connect(ui->actionCustom_data_sourcess, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - " + userName + " templates");
+        setWindowTitle("Application - " + userName + trUtf8(" data sources"));
         setMainView(TableForm::custom_data_sources);
     });
     connect(ui->actionExtention_functions, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - " + userName + " extension functions");
+        setWindowTitle("Application - " + userName + trUtf8(" extension functions"));
         setMainView(TableForm::extension_functions);
     });
     connect(ui->actionServers, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - " + userName + " servers");
+        setWindowTitle("Application - " + userName + trUtf8(" servers"));
         setMainView(TableForm::servers);
     });
     connect(ui->actionSecuriry_questions, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - " + userName + " lists");
+        setWindowTitle("Application - " + userName + trUtf8(" lists"));
         setMainView(TableForm::security_questions);
     });
     connect(ui->actionCustom_query, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - Custom query");
+        setWindowTitle("Application - " + trUtf8("Custom query"));
         setMainView(TableForm::custom_query);
     });
 
     // Import files
     connect(ui->actionImport_files, &QAction::triggered, this, [this] {
-        setWindowTitle("Application - Import files");
+        setWindowTitle("Application - " + trUtf8("Import files"));
         importForm = new ImportFilesForm(this);
         setCentralWidget(importForm);
     });
     // endregion MenuBar connections
+
+    // region Translations
+    connect(ui->actionEnglish, &QAction::triggered, this, [this] { translate("en"); });
+    connect(ui->actionRussian, &QAction::triggered, this, [this] { translate("ru"); });
+    connect(ui->actionUkrainian, &QAction::triggered, this, [this] { translate("uk"); });
+    // endregion Translations
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::changeEvent(QEvent *event)
+{
+    // Change language
+    if (event->type() == QEvent::LanguageChange) {
+        ui->retranslateUi(this);
+    }
+}
+
+void MainWindow::translate(QString language)
+{
+    qtLanguageTranslator.load("qt_" + language, ".");
+    qApp->installTranslator(&qtLanguageTranslator);
 }
 
 void MainWindow::initUI()

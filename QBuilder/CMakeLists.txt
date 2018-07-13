@@ -32,8 +32,8 @@ set (QT_MODULES
 if (WIN32)
     if (MINGW)  # MINGW 64 bit
         set (CMAKE_PREFIX_PATH "C:/msys64/mingw64/")
-    #elseif (MSVC)   # MSVC 64 bit
-    #    set (CMAKE_PREFIX_PATH "C:/Qt/5.10.1/msvc2017_64/")
+    elseif (MSVC)   # MSVC 64 bit
+        set (CMAKE_PREFIX_PATH "C:/Qt/5.10.1/msvc2017_64/")
     else()  # MINGW 32 bit
         set (CMAKE_PREFIX_PATH "C:/Qt/5.10.1/mingw53_32/")
     endif ()
@@ -96,8 +96,8 @@ qt5_add_resources (UI_RESOURCES_RCC ${UI_QRCS})
 # put exe-file in one of the next folders
 if (MINGW)
     set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${CMAKE_HOST_SYSTEM_NAME}/MinGW/${CMAKE_BUILD_TYPE})
-#elseif (MSVC)
-#    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${CMAKE_HOST_SYSTEM_NAME}/MSVC/${CMAKE_BUILD_TYPE})
+elseif (MSVC)
+    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${CMAKE_HOST_SYSTEM_NAME}/MSVC/${CMAKE_BUILD_TYPE})
 elseif (GCC)
     set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${CMAKE_HOST_SYSTEM_NAME}/GCC/${CMAKE_BUILD_TYPE})
 else () # Clang
@@ -131,9 +131,9 @@ if (WIN32)
 elseif (UNIX)
     set (EXT "sh")
 endif ()
-file (GLOB FILES ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/*)
-install(FILES ${FILES}
-        DESTINATION "${PROJECT_SOURCE_DIR}/deploy")
+#file (GLOB FILES ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/*)
+#install(FILES ${FILES}
+#        DESTINATION "${PROJECT_SOURCE_DIR}/deploy")
 
-install(FILES ${PROJECT_SOURCE_DIR}/scripts/DeployQt.${EXT}
-        DESTINATION "${PROJECT_SOURCE_DIR}/deploy")
+#install(FILES ${PROJECT_SOURCE_DIR}/scripts/DeployQt.${EXT}
+#        DESTINATION "${PROJECT_SOURCE_DIR}/deploy")

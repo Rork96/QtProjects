@@ -5,9 +5,6 @@
 #include <QScreen>
 #include <QSqlQuery>
 
-#include <QCheckBox>
-#include <QAbstractItemDelegate>
-
 TableForm::TableForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::TableForm)
@@ -19,6 +16,10 @@ TableForm::TableForm(QWidget *parent) :
     // Hide widgets for search
     ui->searchLine->setVisible(false);
     ui->searchParamBox->setVisible(false);
+
+    // For search
+    listView = new QListView(ui->searchParamBox);
+    ui->searchParamBox->setView(listView);
 
     connect(ui->searchButton, &QToolButton::clicked, this, &TableForm::showSearchWidgets);
 
@@ -58,12 +59,14 @@ void TableForm::loadDataFromDB()
     };
 
     QStringList headers;
+    ui->searchParamBox->clear();
 
     switch (this->viewType) {
         case TableForm::groups:
             initTable("groups");
 
-            headers << trUtf8("id") << trUtf8("Group name") << trUtf8("Group description");
+            headers << trUtf8("") << trUtf8("Group name") << trUtf8("Group description");
+            ui->searchParamBox->addItems(headers);
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
@@ -80,8 +83,10 @@ void TableForm::loadDataFromDB()
 
             ui->mainTableView->setColumnHidden(2, true); // Hide
 
-            headers << trUtf8("id") << trUtf8("User name") << trUtf8("") << trUtf8("Email") << trUtf8("Account type")
+            headers << trUtf8("") << trUtf8("User name") << trUtf8("") << trUtf8("Email") << trUtf8("Account type")
                     << trUtf8("Active account") << trUtf8("Account name");
+            ui->searchParamBox->addItems(headers);
+            ui->searchParamBox->setItemText(4, "");
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
@@ -100,15 +105,19 @@ void TableForm::loadDataFromDB()
             ui->mainTableView->setItemDelegate(new QSqlRelationalDelegate(ui->mainTableView));
             mainModel->select();
 
-            headers << trUtf8("id") << trUtf8("Tenant code") << trUtf8("Name") << trUtf8("Email") << trUtf8("Phone")
+            headers << trUtf8("") << trUtf8("Tenant code") << trUtf8("Name") << trUtf8("Email") << trUtf8("Phone")
                     << trUtf8("Country") << trUtf8("City");
+            ui->searchParamBox->addItems(headers);
+            ui->searchParamBox->setItemText(5, "");
+            ui->searchParamBox->setItemText(6, "");
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
                 ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
                 if (i <= 6) mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
-                if (i > 6)
+                if (i > 6) {
                     ui->mainTableView->setColumnHidden(i, true);    // Hide columns
+                }
             }
             break;
         case TableForm::logo:
@@ -116,8 +125,9 @@ void TableForm::loadDataFromDB()
 
             ui->mainTableView->setColumnHidden(5, true); // Hide
 
-            headers << trUtf8("id") << trUtf8("List name") << trUtf8("Entry name") << trUtf8("Description")
+            headers << trUtf8("") << trUtf8("List name") << trUtf8("Entry name") << trUtf8("Description")
                     << trUtf8("Type");
+            ui->searchParamBox->addItems(headers);
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
@@ -135,7 +145,10 @@ void TableForm::loadDataFromDB()
             mainModel->setRelation(2, QSqlRelation("account_table", "id", "acc_type"));
             mainModel->select();
 
-            headers << trUtf8("id") << trUtf8("Tenant") << trUtf8("Account type") << trUtf8("User type") << trUtf8("Description");
+            headers << trUtf8("") << trUtf8("Tenant") << trUtf8("Account type") << trUtf8("User type") << trUtf8("Description");
+            ui->searchParamBox->addItems(headers);
+            ui->searchParamBox->setItemText(1, "");
+            ui->searchParamBox->setItemText(2, "");
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
@@ -153,8 +166,10 @@ void TableForm::loadDataFromDB()
 
             ui->mainTableView->setColumnHidden(3, true); // Hide
 
-            headers << trUtf8("id") << trUtf8("Group name") << trUtf8("Menu name") << trUtf8("") << trUtf8("Description")
+            headers << trUtf8("") << trUtf8("Group name") << trUtf8("Menu name") << trUtf8("") << trUtf8("Description")
                     << trUtf8("Weight");
+            ui->searchParamBox->addItems(headers);
+            ui->searchParamBox->setItemText(1, "");
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
@@ -171,13 +186,19 @@ void TableForm::loadDataFromDB()
             ui->mainTableView->setItemDelegate(new QSqlRelationalDelegate(ui->mainTableView));
             mainModel->select();
 
-            //QAbstractItemDelegate  *del = new QAbstractItemDelegate();
-            //ui->mainTableView->setItemDelegateForColumn(1, del);
-
-            headers << trUtf8("id") << trUtf8("Add") << trUtf8("Delete") << trUtf8("Edit") << trUtf8("Copy")
+            headers << trUtf8("") << trUtf8("Add") << trUtf8("Delete") << trUtf8("Edit") << trUtf8("Copy")
                     << trUtf8("Inquire") << trUtf8("Execute") << trUtf8("") << trUtf8("") << trUtf8("") << trUtf8("")
                     << trUtf8("") << trUtf8("") << trUtf8("Group name") << trUtf8("Menu name") << trUtf8("Screen text")
                     << trUtf8("Weight");
+            ui->searchParamBox->addItems(headers);
+            ui->searchParamBox->setItemText(1, "");
+            ui->searchParamBox->setItemText(2, "");
+            ui->searchParamBox->setItemText(3, "");
+            ui->searchParamBox->setItemText(4, "");
+            ui->searchParamBox->setItemText(5, "");
+            ui->searchParamBox->setItemText(6, "");
+            ui->searchParamBox->setItemText(13, "");
+            ui->searchParamBox->setItemText(14, "");
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
@@ -199,9 +220,16 @@ void TableForm::loadDataFromDB()
 
             ui->mainTableView->setColumnHidden(7, true);    // Hide
 
-            headers << trUtf8("id") << trUtf8("Menu name") << trUtf8("Screen name") << trUtf8("Library")
+            headers << trUtf8("") << trUtf8("Menu name") << trUtf8("Screen name") << trUtf8("Library")
                     << trUtf8("Tab text") << trUtf8("Description") << trUtf8("Tab weight") << trUtf8("")
                     << trUtf8("Desctop") << trUtf8("Mobile") << trUtf8("Web");
+            ui->searchParamBox->addItems(headers);
+            ui->searchParamBox->setItemText(1, "");
+            ui->searchParamBox->setItemText(2, "");
+            ui->searchParamBox->setItemText(3, "");
+            ui->searchParamBox->setItemText(8, "");
+            ui->searchParamBox->setItemText(9, "");
+            ui->searchParamBox->setItemText(10, "");
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
@@ -212,7 +240,8 @@ void TableForm::loadDataFromDB()
         case TableForm::document_family:
             initTable("document_family");
 
-            headers << trUtf8("id") << trUtf8("Family Name") << trUtf8("Family Description");
+            headers << trUtf8("") << trUtf8("Family Name") << trUtf8("Family Description");
+            ui->searchParamBox->addItems(headers);
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
@@ -223,7 +252,8 @@ void TableForm::loadDataFromDB()
         case TableForm::document_groups:
             initTable("document_group");
 
-            headers << trUtf8("id") << trUtf8("Group Name") << trUtf8("Group Description");
+            headers << trUtf8("") << trUtf8("Group Name") << trUtf8("Group Description");
+            ui->searchParamBox->addItems(headers);
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
@@ -236,7 +266,8 @@ void TableForm::loadDataFromDB()
         case TableForm::lists:
             initTable("lists");
 
-            headers << trUtf8("id") << trUtf8("List name") << trUtf8("Description") << trUtf8("Entry name");
+            headers << trUtf8("") << trUtf8("List name") << trUtf8("Description") << trUtf8("Entry name");
+            ui->searchParamBox->addItems(headers);
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
@@ -249,8 +280,9 @@ void TableForm::loadDataFromDB()
         case TableForm::templates:
             initTable("templates");
 
-            headers << trUtf8("id") << trUtf8("Library name") << trUtf8("Function") << trUtf8("Table name")
+            headers << trUtf8("") << trUtf8("Library name") << trUtf8("Function") << trUtf8("Table name")
                     << trUtf8("Table column") << trUtf8("Column type");
+            ui->searchParamBox->addItems(headers);
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
@@ -271,8 +303,11 @@ void TableForm::loadDataFromDB()
 
             ui->mainTableView->setColumnHidden(3, true);    // Hide
 
-            headers << trUtf8("id") << trUtf8("Name") << trUtf8("Table") << trUtf8("") << trUtf8("Function type")
+            headers << trUtf8("") << trUtf8("Name") << trUtf8("Table") << trUtf8("") << trUtf8("Function type")
                     << trUtf8("Direction type");
+            ui->searchParamBox->addItems(headers);
+            ui->searchParamBox->setItemText(4, "");
+            ui->searchParamBox->setItemText(5, "");
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
@@ -292,8 +327,10 @@ void TableForm::loadDataFromDB()
 
             ui->mainTableView->setColumnHidden(3, true);    // Hide
 
-            headers << trUtf8("id") << trUtf8("Data source library") << trUtf8("Data source function") << trUtf8("")
+            headers << trUtf8("") << trUtf8("Data source library") << trUtf8("Data source function") << trUtf8("")
                     << trUtf8("Extension function") << trUtf8("Extension free memory function") << trUtf8("Extension type");
+            ui->searchParamBox->addItems(headers);
+            ui->searchParamBox->setItemText(6, "");
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
@@ -306,7 +343,8 @@ void TableForm::loadDataFromDB()
 
             ui->mainTableView->setColumnHidden(4, true); // Hide
 
-            headers << trUtf8("id") << trUtf8("IP Address") << trUtf8("Port") << trUtf8("Description");
+            headers << trUtf8("") << trUtf8("IP Address") << trUtf8("Port") << trUtf8("Description");
+            ui->searchParamBox->addItems(headers);
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
@@ -317,7 +355,8 @@ void TableForm::loadDataFromDB()
         case TableForm::security_questions:
             initTable("security_question");
 
-            headers << trUtf8("id") << trUtf8("Entry name") << trUtf8("Question");
+            headers << trUtf8("") << trUtf8("Entry name") << trUtf8("Question");
+            ui->searchParamBox->addItems(headers);
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
@@ -332,7 +371,8 @@ void TableForm::loadDataFromDB()
             ui->mainTableView->setColumnHidden(2, true);
             ui->mainTableView->setColumnHidden(3, true);
 
-            headers << trUtf8("id") << trUtf8("Query name") << trUtf8("") << trUtf8("") << trUtf8("Description");
+            headers << trUtf8("") << trUtf8("Query name") << trUtf8("") << trUtf8("") << trUtf8("Description");
+            ui->searchParamBox->addItems(headers);
 
             // Columns size
             for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
@@ -354,14 +394,20 @@ void TableForm::showSearchWidgets()
     ui->searchLine->setVisible(!ui->searchLine->isVisible());
     ui->searchParamBox->setVisible(!ui->searchParamBox->isVisible());
     ui->searchLine->clear();
-    ui->searchParamBox->clear();
+
+    for (int i = 0; i < ui->searchParamBox->count(); i++) {
+        if (ui->searchParamBox->itemData(i, Qt::DisplayRole).toString().isEmpty()) {
+            listView->setRowHidden(i, true);
+        }
+    }
 
     // Get column header names from table
     QSqlQuery query;
     if (query.exec( "SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '" +
                     this->table + "' AND NOT column_name LIKE '%id%'" )) {
         while (query.next()) {
-            ui->searchParamBox->addItem(query.value(0).toString());
+            //ui->searchParamBox->addItem(query.value(0).toString());
+            tableColumns.append(query.value(0).toString());
         }
     }
 }
@@ -371,12 +417,10 @@ void TableForm::searchInDB(const QString &arg1)
     // Interactive search in current database table
 
     // Set parameters for search
-
-    QString searchStr = ui->searchParamBox->currentText();
+    QString searchStr = tableColumns.at(ui->searchParamBox->currentIndex()-1);
     QString filterString = QString("%1 LIKE '%%2%'").arg(searchStr).arg(arg1);
 
     mainModel->setFilter(filterString);
-
     mainModel->select();
 }
 

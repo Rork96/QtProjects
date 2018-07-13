@@ -165,11 +165,20 @@ QStatusBar {
     <addaction name="separator"/>
     <addaction name="actionLogout"/>
    </widget>
+   <widget class="QMenu" name="menuLanguage">
+    <property name="title">
+     <string>Language</string>
+    </property>
+    <addaction name="actionEnglish"/>
+    <addaction name="actionRussian"/>
+    <addaction name="actionUkrainian"/>
+   </widget>
    <addaction name="menuAccount_settings"/>
    <addaction name="menuScreen_configurations"/>
    <addaction name="menuDocument"/>
    <addaction name="menuSystem_data"/>
    <addaction name="menuFeatures"/>
+   <addaction name="menuLanguage"/>
   </widget>
   <action name="actionGroups">
    <property name="text">
@@ -285,6 +294,33 @@ QStatusBar {
    </property>
    <property name="text">
     <string>Logout</string>
+   </property>
+  </action>
+  <action name="actionEnglish">
+   <property name="icon">
+    <iconset resource="../res/res.qrc">
+     <normaloff>:/english.png</normaloff>:/english.png</iconset>
+   </property>
+   <property name="text">
+    <string>English</string>
+   </property>
+  </action>
+  <action name="actionRussian">
+   <property name="icon">
+    <iconset resource="../res/res.qrc">
+     <normaloff>:/russian.png</normaloff>:/russian.png</iconset>
+   </property>
+   <property name="text">
+    <string>Russian</string>
+   </property>
+  </action>
+  <action name="actionUkrainian">
+   <property name="icon">
+    <iconset resource="../res/res.qrc">
+     <normaloff>:/ukraine.png</normaloff>:/ukraine.png</iconset>
+   </property>
+   <property name="text">
+    <string>Ukrainian</string>
    </property>
   </action>
  </widget>

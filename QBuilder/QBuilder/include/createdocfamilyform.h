@@ -30,16 +30,6 @@ private:
 
     void addCategory();
     void delCategory();
-
-//    QVector<QLineEdit*> catL;
-//    QVector<QLineEdit*> descrL;
-//    QVector<QLineEdit*> kp_1_L;
-//    QVector<QLineEdit*> kp_2_L;
-//    QVector<QLineEdit*> kp_3_L;
-//    QVector<QLineEdit*> kp_4_L;
-//    QVector<QLineEdit*> kp_5_L;
-//    QVector<QLineEdit*> searchL;
-//    QVector<QToolButton*> delBtn;
 };
 
 #endif // CREATEDOCFAMILYFORM_H

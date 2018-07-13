@@ -141,7 +141,7 @@ QToolButton:pressed {
                }</string>
         </property>
         <property name="text">
-         <string>Drop files here to upload</string>
+         <string>Click heare to upload files</string>
         </property>
        </widget>
       </item>

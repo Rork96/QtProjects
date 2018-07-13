@@ -4,6 +4,9 @@
 #include <QWidget>
 #include <QSqlRelationalTableModel>
 
+#include <QListView>
+#include <QListView>
+
 namespace Ui {
 class TableForm;
 }
@@ -45,6 +48,8 @@ private:
     QSqlRelationalTableModel *mainModel;    // For providing relations between tables
 
     QString table;
+    QStringList tableColumns;
+    QListView *listView;
 
     void showSearchWidgets();               // Show widgets for providing search
     void searchInDB(const QString &arg1);   // Interactive search in database

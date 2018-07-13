@@ -21,8 +21,10 @@ ImportFilesForm::ImportFilesForm(QWidget *parent) :
 
     // Delete selected file
     connect(ui->clearButton, &QToolButton::clicked, this, [this] {
-        ui->mainButton->setText("Drop files here to upload");
+        ui->mainButton->setText(trUtf8("Click here to upload files"));
         ui->clearButton->setVisible(false);
+        ui->uploadButton->setEnabled(false);
+        ui->executeButton->setEnabled(false);
     });
 
     // Execute selected file
@@ -38,10 +40,10 @@ void ImportFilesForm::importFiles()
 {
     // Import files
 
-    QString fName = QFileDialog::getOpenFileName(this, "Choose files",
+    QString fName = QFileDialog::getOpenFileName(this, trUtf8("Choose files"),
                     QStandardPaths::locate(QStandardPaths::HomeLocation, QString()),
-                                                 "Supported files (*.sql | *.xlsx | *.xls | *.csv);;"
-                                                 "All files (*.*);; *.sql;; *.xlsx;; *.xls;; *.csv;; Text documents (*.txt)");
+                                                 trUtf8("Supported files (*.sql | *.xlsx | *.xls | *.csv);;"
+                                                 "All files (*.*);; *.sql;; *.xlsx;; *.xls;; *.csv;; Text documents (*.txt)"));
 
     if(fName.isEmpty()) return;
 
@@ -55,5 +57,5 @@ void ImportFilesForm::importFiles()
 void ImportFilesForm::executeFile()
 {
     // Execute selected file
-    QMessageBox::information(this, "Information", "File was successfully executed ", QMessageBox::Ok);
+    QMessageBox::information(this, trUtf8("Information"), trUtf8("File was successfully executed"), QMessageBox::Ok);
 }

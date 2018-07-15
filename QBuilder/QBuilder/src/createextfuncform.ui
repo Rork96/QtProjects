@@ -266,7 +266,7 @@ QToolButton:pressed {
            <x>0</x>
            <y>0</y>
            <width>788</width>
-           <height>247</height>
+           <height>248</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
@@ -436,7 +436,7 @@ QToolButton:pressed {
               }</string>
      </property>
      <property name="text">
-      <string>Create extension function</string>
+      <string>CREATE EXTENSION FUNCTION</string>
      </property>
     </widget>
    </item>
@@ -468,14 +468,14 @@ QToolButton:pressed {
    </item>
   </layout>
  </widget>
-    <customwidgets>
-        <customwidget>
-            <class>BaseFrom</class>
-            <extends>QWidget</extends>
-            <header>BaseForm.h</header>
-            <container>1</container>
-        </customwidget>
-    </customwidgets>
+ <customwidgets>
+  <customwidget>
+   <class>BaseForm</class>
+   <extends>QWidget</extends>
+   <header>BaseForm.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

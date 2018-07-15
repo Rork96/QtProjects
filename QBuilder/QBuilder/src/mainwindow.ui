@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>QBuilder</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../res/res.qrc">
@@ -315,7 +315,7 @@ QStatusBar {
   </action>
   <action name="actionUkrainian">
    <property name="icon">
-    <iconset resource="../res/res.qrc">
+    <iconset>
      <normaloff>:/ukraine.png</normaloff>:/ukraine.png</iconset>
    </property>
    <property name="text">

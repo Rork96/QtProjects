@@ -106,7 +106,8 @@ endif()
 
 # Translation files
 find_package(Qt5LinguistTools)
-qt5_create_translation (PROJECT_SOURCE_DIR}/QBuilder/*)
+qt5_create_translation (${PROJECT_SOURCE_DIR}/QBuilder/translations/qt_en.ts)
+qt5_create_translation (${PROJECT_SOURCE_DIR}/QBuilder/translations/qt_ru.ts)
 file (GLOB TS_FILES ${PROJECT_SOURCE_DIR}/QBuilder/translations/*.ts)
 qt5_add_translation(QM_FILES ${TS_FILES})
 add_custom_target(translations DEPENDS ${QM_FILES})

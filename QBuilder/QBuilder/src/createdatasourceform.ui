@@ -241,7 +241,7 @@ QToolButton:pressed {
            <x>0</x>
            <y>0</y>
            <width>788</width>
-           <height>447</height>
+           <height>448</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
@@ -426,7 +426,7 @@ QToolButton:pressed {
               }</string>
      </property>
      <property name="text">
-      <string>Create custom data source</string>
+      <string>CREATE CUSTOM DATA SOURCE</string>
      </property>
     </widget>
    </item>
@@ -484,14 +484,14 @@ QToolButton:pressed {
    </item>
   </layout>
  </widget>
-    <customwidgets>
-        <customwidget>
-            <class>BaseForm</class>
-            <extends>QWidget</extends>
-            <header>BaseForm.h</header>
-            <container>1</container>
-        </customwidget>
-    </customwidgets>
+ <customwidgets>
+  <customwidget>
+   <class>BaseForm</class>
+   <extends>QWidget</extends>
+   <header>BaseForm.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

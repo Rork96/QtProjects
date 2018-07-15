@@ -247,7 +247,7 @@ QToolButton:pressed {
            <x>0</x>
            <y>0</y>
            <width>788</width>
-           <height>347</height>
+           <height>358</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
@@ -362,7 +362,7 @@ QToolButton:pressed {
               }</string>
      </property>
      <property name="text">
-      <string>Create server</string>
+      <string>CREATE SERVER</string>
      </property>
     </widget>
    </item>

@@ -5,6 +5,12 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    // Load translation for system language
+    QString localeName = locale().name();
+    localeName = localeName.mid(0, localeName.indexOf("_"));
+    qtLanguageTranslator.load(QString("translations/qt_") + localeName); //QString("en"));
+    qApp->installTranslator(&qtLanguageTranslator);
+
     ui->setupUi(this);
 
     setWindowState(Qt::WindowMaximized);
@@ -13,11 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     initUI();   // Hide main menu and view login screen
 
-    // Translations
-    qtLanguageTranslator.load(QString("translations/qt_") + QString("en"));
-    qApp->installTranslator(&qtLanguageTranslator);
     // region MenuBar connections
-
     connect(ui->actionLogout, &QAction::triggered, this, &MainWindow::initUI);
 
     connect(ui->actionGroups, &QAction::triggered, this, [this] {

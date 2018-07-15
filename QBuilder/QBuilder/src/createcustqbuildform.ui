@@ -88,7 +88,7 @@ QComboBox {
               }</string>
      </property>
      <property name="text">
-      <string>Create custom query</string>
+      <string>CREATE CUSTOM QUERY</string>
      </property>
     </widget>
    </item>

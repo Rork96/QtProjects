@@ -164,7 +164,7 @@ QCheckBox {
            <x>0</x>
            <y>0</y>
            <width>788</width>
-           <height>150</height>
+           <height>148</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
@@ -358,7 +358,7 @@ QToolButton:pressed {
               }</string>
      </property>
      <property name="text">
-      <string>Create security question</string>
+      <string>CREATE SUCURITY QUESTION</string>
      </property>
     </widget>
    </item>

@@ -127,7 +127,7 @@ QComboBox {
               }</string>
      </property>
      <property name="text">
-      <string>Create custom query</string>
+      <string>CREATE CUSTOM QUERY</string>
      </property>
     </widget>
    </item>
@@ -388,14 +388,14 @@ QToolButton:pressed {
    </item>
   </layout>
  </widget>
-    <customwidgets>
-        <customwidget>
-            <class>BaseForm</class>
-            <extends>QWidget</extends>
-            <header>BaseForm.h</header>
-            <container>1</container>
-        </customwidget>
-    </customwidgets>
+ <customwidgets>
+  <customwidget>
+   <class>BaseForm</class>
+   <extends>QWidget</extends>
+   <header>BaseForm.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     initUI();   // Hide main menu and view login screen
 
     // Translations
-    qtLanguageTranslator.load(QString("/translations/qt_") + QString("en"));
+    qtLanguageTranslator.load(QString("translations/qt_") + QString("en"));
     qApp->installTranslator(&qtLanguageTranslator);
     // region MenuBar connections
 

@@ -100,7 +100,6 @@ MainWindow::MainWindow(QWidget *parent) :
     // region Translations
     connect(ui->actionEnglish, &QAction::triggered, this, [this] { translate("en"); });
     connect(ui->actionRussian, &QAction::triggered, this, [this] { translate("ru"); });
-    connect(ui->actionUkrainian, &QAction::triggered, this, [this] { translate("uk"); });
     // endregion Translations
 }
 
@@ -119,7 +118,7 @@ void MainWindow::changeEvent(QEvent *event)
 
 void MainWindow::translate(QString language)
 {
-    qtLanguageTranslator.load("/translations/qt_" + language, ".");
+    qtLanguageTranslator.load("translations/qt_" + language, ".");
     qApp->installTranslator(&qtLanguageTranslator);
 }
 

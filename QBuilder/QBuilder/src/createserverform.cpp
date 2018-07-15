@@ -20,9 +20,13 @@ CreateServerForm::CreateServerForm(QWidget *parent) :
     mapper->toLast();
 
     // IP address filtration
-    QRegExp rgx("^[0-9]{3}[.][0-9]{3}[.][0-9]{1,3}[.][0-9]{1,3}");
-    QRegExpValidator *validat = new QRegExpValidator(rgx, this);
-    ui->ipAddressLine->setValidator(validat);
+    QString ipRange = "(?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])";
+    QRegExp ipRegex ("^" + ipRange
+                         + "\\." + ipRange
+                         + "\\." + ipRange
+                         + "\\." + ipRange + "$");
+    QRegExpValidator *ipValidator = new QRegExpValidator(ipRegex, this);
+    ui->ipAddressLine->setValidator(ipValidator);
 
     // Port filtration
     QRegExp rx("^[0-9]{3,5}");

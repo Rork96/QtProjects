@@ -105,42 +105,24 @@ else () # Clang
 endif()
 
 # Translations
-#set (LANGUAGES
-#        ru
-#        en
-#        uk)
+set (LANGUAGES
+        ru
+        en
+        uk)
 find_package (Qt5LinguistTools)
-#if (WIN32)
-#    set (EXT ".exe")
-#endif ()
-#set (TRANSLATIONS_PATH "${PROJECT_SOURCE_DIR}/QBuilder/translations")
-#set (TRANSLATION_PATH "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/translations")
-#foreach (LANGUAGE ${LANGUAGES})
-#    set (TS ${TRANSLATIONS_PATH}/${LANGUAGE}.ts)
-#    set (QM ${TRANSLATION_PATH}/${LANGUAGE}.qm)
-#    set (TRANSLATIONS ${TRANSLATIONS} ${TS})
-#    set (TRANSLATIONS_BINARY ${TRANSLATIONS_BINARY} ${QM})
-#    add_custom_command (
-#            OUTPUT ${QM}
-#            COMMAND ${QT_LRELEASE_EXECUTABLE} ${TS}
-#            MAIN_DEPENDENCY ${TS})
-#endforeach ()
-# Create translation files (*.ts)
-#add_custom_target (
-#        translations
-#        COMMAND "") #"${CMAKE_PREFIX_PATH}bin/lupdate${EXT}" ${SOURCE_FILES} ${SOURCE_FILES} ${UI_SRC_FILES} -ts ${TRANSLATIONS})
-# Compile translation files (*.qm)
-#add_custom_command (
-#        TARGET translations
-# Create *.ts
-#COMMAND "${CMAKE_PREFIX_PATH}bin/lupdate${EXT}" ${SOURCE_FILES} ${SOURCE_FILES} ${UI_SRC_FILES} -ts ${TRANSLATIONS})
-# Create *.qm
-#        COMMAND "${CMAKE_PREFIX_PATH}bin/lrelease${EXT}" ${TS_PATH}${TRANSLATIONS})
 
-# Add translation files (compile *.ts into *.qm)
-file (GLOB TS_FILES ${PROJECT_SOURCE_DIR}/QBuilder/translations/*.ts)
+# Create translations
+set (TRANSLATIONS_PATH "${PROJECT_SOURCE_DIR}/QBuilder/translation")
+foreach (LANGUAGE ${LANGUAGES})
+    set (TRANSLATIONS ${TRANSLATIONS_PATH}/${LANGUAGE}.ts)
+    qt5_create_translation (Q_FILES ${PROJECT_SOURCE_DIR}/QBuilder/src ${TRANSLATIONS} OPTIONS -no-obsolete -I ${PROJECT_SOURCE_DIR}/QBuilder/translation ${TRANSLATIONS_PATH})
+endforeach ()
+add_custom_target (translate DEPENDS ${Q_FILES})
+
+# Add translation files
+file (GLOB TS_FILES ${PROJECT_SOURCE_DIR}/QBuilder/translation/*.ts)
 qt5_add_translation (QM_FILES ${TS_FILES})
-add_custom_target (translation DEPENDS ${QM_FILES})
+add_custom_target (translations DEPENDS ${QM_FILES})
 #set_property (TARGET translations PROPERTY NO_CLEAN TRUE)
 
 # Create executable file

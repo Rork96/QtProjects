@@ -104,61 +104,55 @@ else () # Clang
     set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${CMAKE_HOST_SYSTEM_NAME}/Clang/${CMAKE_BUILD_TYPE})
 endif()
 
+# Translations
+#set (LANGUAGES
+#        ru
+#        en
+#        uk)
+find_package (Qt5LinguistTools)
+#if (WIN32)
+#    set (EXT ".exe")
+#endif ()
+#set (TRANSLATIONS_PATH "${PROJECT_SOURCE_DIR}/QBuilder/translations")
+#set (TRANSLATION_PATH "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/translations")
+#foreach (LANGUAGE ${LANGUAGES})
+#    set (TS ${TRANSLATIONS_PATH}/${LANGUAGE}.ts)
+#    set (QM ${TRANSLATION_PATH}/${LANGUAGE}.qm)
+#    set (TRANSLATIONS ${TRANSLATIONS} ${TS})
+#    set (TRANSLATIONS_BINARY ${TRANSLATIONS_BINARY} ${QM})
+#    add_custom_command (
+#            OUTPUT ${QM}
+#            COMMAND ${QT_LRELEASE_EXECUTABLE} ${TS}
+#            MAIN_DEPENDENCY ${TS})
+#endforeach ()
+# Create translation files (*.ts)
+#add_custom_target (
+#        translations
+#        COMMAND "") #"${CMAKE_PREFIX_PATH}bin/lupdate${EXT}" ${SOURCE_FILES} ${SOURCE_FILES} ${UI_SRC_FILES} -ts ${TRANSLATIONS})
+# Compile translation files (*.qm)
+#add_custom_command (
+#        TARGET translations
+# Create *.ts
+#COMMAND "${CMAKE_PREFIX_PATH}bin/lupdate${EXT}" ${SOURCE_FILES} ${SOURCE_FILES} ${UI_SRC_FILES} -ts ${TRANSLATIONS})
+# Create *.qm
+#        COMMAND "${CMAKE_PREFIX_PATH}bin/lrelease${EXT}" ${TS_PATH}${TRANSLATIONS})
 
-set (LANGUAGES
-        ru
-        en)
-find_package(Qt5LinguistTools)
-foreach (LANGUAGE ${LANGUAGES})
-    set (TS ${TRANSLATIONS_PATH}/${LANGUAGE}.ts)
-    set (QM ${TRANSLATIONS_PATH}/${LANGUAGE}.qm)
-    set (TRANSLATIONS ${TRANSLATIONS} ${TS})
-    set (TRANSLATIONS_BINARY ${TRANSLATIONS_BINARY} ${QM})
-    add_custom_command (
-            OUTPUT ${QM}
-            COMMAND ${QT_LRELEASE_EXECUTABLE} ${TS}
-            MAIN_DEPENDENCY ${TS})
-endforeach()
-add_custom_target (
-        translations
-        COMMAND "/opt/Qt/5.10.1/gcc_64/bin/lupdate" ${SOURCE_FILES} ${SOURCE_FILES} ${UI_SRC_FILES} -ts ${TRANSLATIONS})
-add_custom_command (
-        TARGET translations
-        COMMAND "/opt/Qt/5.10.1/gcc_64/bin/lrelease" ${TS_PATH}${TRANSLATIONS})
-
-
-# Create translation files
-#find_package(Qt5LinguistTools)
-#set (TS_PATH "${PROJECT_SOURCE_DIR}/QBuilder/translation")
-##set (L_PATH Qt5LinguistTools LOCATION)
-#
-#set (DIRS ${PROJECT_SOURCE_DIR}/QBuilder/include ${PROJECT_SOURCE_DIR}/QBuilder/src )
-#
-#ADD_CUSTOM_COMMAND (
-#        OUTPUT ${TS_PATH}/qt_ru.ts ${TS_PATH}/qt_en.ts
-#        COMMAND "/opt/Qt/5.10.1/gcc_64/bin/lupdate" -silent -I ${DIRS}
-#                -ts ${TS_PATH}/qt_ru.ts ${TS_PATH}/qt_en.ts ${TS_PATH}/qt_ru.ts
-#        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-#)
-#add_custom_target (translation_target DEPENDS ${TS_PATH}/qt_ru.ts ${TS_PATH}/qt_en.ts)
-
-# Add translation files
-#file (GLOB TS_FILES ${PROJECT_SOURCE_DIR}/QBuilder/translation/*.ts)
-#qt5_add_translation(QM_FILES ${TS_FILES})
-#add_custom_target(translations DEPENDS ${QM_FILES})
-
+# Add translation files (compile *.ts into *.qm)
+file (GLOB TS_FILES ${PROJECT_SOURCE_DIR}/QBuilder/translations/*.ts)
+qt5_add_translation (QM_FILES ${TS_FILES})
+add_custom_target (translation DEPENDS ${QM_FILES})
 #set_property (TARGET translations PROPERTY NO_CLEAN TRUE)
 
 # Create executable file
 if (WIN32)
     add_executable (${PROJECT_NAME} WIN32 ${SOURCE_FILES} ${HEADER_FILES}
-        ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${VersionFilesOutputVariable} ${TRANSLATIONS}) #${QM_FILES})
+        ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${VersionFilesOutputVariable} ${QM_FILES})
 
     # Qt modules and librarys
 	qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})
 else ()
     add_executable (${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES}
-        ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${TRANSLATIONS}) # ${QM_FILES})
+        ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${TRANSLATIONS} ${QM_FILES})
 
     # Qt modules and librarys
     qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})

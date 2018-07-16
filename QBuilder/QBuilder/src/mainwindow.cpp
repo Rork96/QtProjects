@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // Load translation for system language
     QString localeName = locale().name();
     localeName = localeName.mid(0, localeName.indexOf("_"));
-    qtLanguageTranslator.load(QString("translations/qt_") + localeName); //QString("en"));
+    qtLanguageTranslator.load(QString("translations/") + localeName); //QString("en"));
     qApp->installTranslator(&qtLanguageTranslator);
 
     ui->setupUi(this);
@@ -102,6 +102,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // region Translations
     connect(ui->actionEnglish, &QAction::triggered, this, [this] { translate("en"); });
     connect(ui->actionRussian, &QAction::triggered, this, [this] { translate("ru"); });
+    connect(ui->actionUkrainian, &QAction::triggered, this, [this] { translate("uk"); });
     // endregion Translations
 }
 
@@ -120,7 +121,7 @@ void MainWindow::changeEvent(QEvent *event)
 
 void MainWindow::translate(QString language)
 {
-    qtLanguageTranslator.load("translations/qt_" + language, ".");
+    qtLanguageTranslator.load("translations/" + language, ".");
     qApp->installTranslator(&qtLanguageTranslator);
 }
 

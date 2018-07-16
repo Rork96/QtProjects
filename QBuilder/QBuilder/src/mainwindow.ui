@@ -68,7 +68,7 @@ QStatusBar {
      <x>0</x>
      <y>0</y>
      <width>1242</width>
-     <height>31</height>
+     <height>32</height>
     </rect>
    </property>
    <property name="contextMenuPolicy">
@@ -171,6 +171,7 @@ QStatusBar {
     </property>
     <addaction name="actionEnglish"/>
     <addaction name="actionRussian"/>
+    <addaction name="actionUkrainian"/>
    </widget>
    <addaction name="menuAccount_settings"/>
    <addaction name="menuScreen_configurations"/>
@@ -315,8 +316,8 @@ QStatusBar {
   </action>
   <action name="actionUkrainian">
    <property name="icon">
-    <iconset>
-     <normaloff>:/ukraine.png</normaloff>:/ukraine.png</iconset>
+    <iconset resource="../res/res.qrc">
+     <normaloff>:/ukrainian.png</normaloff>:/ukrainian.png</iconset>
    </property>
    <property name="text">
     <string>Ukrainian</string>

@@ -15,5 +15,6 @@
         <file>index.png</file>
         <file>english.png</file>
         <file>russian.png</file>
+        <file>ukrainian.png</file>
     </qresource>
 </RCC>

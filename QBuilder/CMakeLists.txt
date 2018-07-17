@@ -28,6 +28,12 @@ set (QT_MODULES
 #                    Qml Quick Network # Network needed for QML
                     )
 
+# Translations
+set (LANGUAGES
+        ru
+        en
+        uk)
+
 # Path to Qt library
 if (WIN32)
     if (MINGW)  # MINGW 64 bit
@@ -78,13 +84,14 @@ if (NOT MSVC) # MINGW or Clang
     set (CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")
 endif ()
 
-include_directories(${PROJECT_SOURCE_DIR}/QBuilder/include)
+set (SOURCE_DIR ${PROJECT_SOURCE_DIR}/${PROJECT_NAME})
+include_directories(${SOURCE_DIR}/include)
 
 # Automatically find all files *.cpp, *.h, *.ui, *.qrc in project directory
-file (GLOB SOURCE_FILES ${PROJECT_SOURCE_DIR}/QBuilder/src/*.cpp)
-file (GLOB HEADER_FILES ${PROJECT_SOURCE_DIR}/QBuilder/include/*.h)
-file (GLOB UI_SRC_FILES ${PROJECT_SOURCE_DIR}/QBuilder/src/*.ui)
-file (GLOB UI_QRCS ${PROJECT_SOURCE_DIR}/QBuilder/res/*.qrc)
+file (GLOB SOURCE_FILES ${SOURCE_DIR}/src/*.cpp)
+file (GLOB HEADER_FILES ${SOURCE_DIR}/include/*.h)
+file (GLOB UI_SRC_FILES ${SOURCE_DIR}/src/*.ui)
+file (GLOB UI_QRCS ${SOURCE_DIR}/res/*.qrc)
 
 # Find dependencies Qt
 find_package (Qt5 COMPONENTS ${QT_MODULES} REQUIRED)
@@ -105,20 +112,21 @@ else () # Clang
 endif()
 
 # Translations
-set (LANGUAGES
-        ru
-        en
-        uk)
 find_package (Qt5LinguistTools)
 # Create translations
-#add_subdirectory(${PROJECT_SOURCE_DIR}/QBuilder/translations)
-#SET_DIRECTORY_PROPERTIES(PROPERTIES CLEAN_NO_CUSTOM 1)
+#add_subdirectory (${PROJECT_SOURCE_DIR}/QBuilder/translations)
+#set_directory_properties (PROPERTIES CLEAN_NO_CUSTOM 1)
 
 # Add translation files
-file (GLOB TS_FILES ${PROJECT_SOURCE_DIR}/QBuilder/translations/*.ts)
+file (GLOB TS_FILES ${SOURCE_DIR}/translations/*.ts)
 qt5_add_translation (QM_FILES ${TS_FILES})
-SET(QM_FILES ${QM_FILES} PARENT_SCOPE)
 add_custom_target (translations ALL DEPENDS ${QM_FILES})
+
+# File groups
+source_group ("Headers" FILES ${HEADER_FILES})
+source_group ("Sources" FILES ${SOURCE_FILES})
+source_group ("Forms" FILES ${UI_SRC_FILES})
+source_group ("Resources" FILES ${UI_QRCS})
 
 # Create executable file
 if (WIN32)
@@ -126,13 +134,13 @@ if (WIN32)
         ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${VersionFilesOutputVariable} ${QM_FILES})
 
     # Qt modules and librarys
-	qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})
+	qt5_use_modules (${PROJECT_NAME} ${QT_MODULES})
 else ()
     add_executable (${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES}
-        ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${TRANSLATIONS} ${QM_FILES})
+        ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${QM_FILES})
 
     # Qt modules and librarys
-    qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})
+    qt5_use_modules (${PROJECT_NAME} ${QT_MODULES})
 endif ()
 
 # Install
@@ -142,14 +150,14 @@ endif ()
 if (WIN32)
     set (EXT "bat")
     # Only for Windows, in Linux linuxdeployqt will create it
-    install(FILES ${PROJECT_SOURCE_DIR}/scripts/qt.conf
+    install (FILES ${PROJECT_SOURCE_DIR}/scripts/qt.conf
             DESTINATION "${PROJECT_SOURCE_DIR}/deploy")
 elseif (UNIX)
     set (EXT "sh")
 endif ()
 #file (GLOB FILES ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/*)
-#install(FILES ${FILES}
+#install (FILES ${FILES}
 #        DESTINATION "${PROJECT_SOURCE_DIR}/deploy")
 
-#install(FILES ${PROJECT_SOURCE_DIR}/scripts/DeployQt.${EXT}
+#install (FILES ${PROJECT_SOURCE_DIR}/scripts/DeployQt.${EXT}
 #        DESTINATION "${PROJECT_SOURCE_DIR}/deploy")

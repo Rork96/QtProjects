@@ -9,7 +9,7 @@ include (generate_product_version)
 generate_product_version (
         VersionFilesOutputVariable
         NAME ${PROJECT_NAME}
-        ICON ${PROJECT_SOURCE_DIR}/pict/${PROJECT_NAME}.ico
+        ICON ${PROJECT_SOURCE_DIR}/Application/res/${PROJECT_NAME}.ico
         VERSION_MAJOR 1
         VERSION_MINOR 0
         VERSION_PATH ${BUILD_COUNTER}
@@ -23,9 +23,16 @@ set (QT_MODULES
                     Core
                     Gui
                     Widgets
+#					Sql
 #                    PrintSupport
 #                    Qml Quick Network # Network needed for QML
                     )
+
+# Translations
+set (LANGUAGES
+        ru
+        en
+        uk)
 
 # Path to Qt library
 if (WIN32)
@@ -77,11 +84,14 @@ if (NOT MSVC) # MINGW or Clang
     set (CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")
 endif ()
 
+set (SOURCE_DIR ${PROJECT_SOURCE_DIR}/${PROJECT_NAME})
+include_directories(${SOURCE_DIR}/include)
+
 # Automatically find all files *.cpp, *.h, *.ui, *.qrc in project directory
-file (GLOB SOURCE_FILES ${PROJECT_SOURCE_DIR}/*.cpp)
-file (GLOB HEADER_FILES ${PROJECT_SOURCE_DIR}/*.h)
-file (GLOB UI_SRC_FILES ${PROJECT_SOURCE_DIR}/*.ui)
-file (GLOB UI_QRCS ${PROJECT_SOURCE_DIR}/*.qrc)
+file (GLOB SOURCE_FILES ${SOURCE_DIR}/src/*.cpp)
+file (GLOB HEADER_FILES ${SOURCE_DIR}/include/*.h)
+file (GLOB UI_SRC_FILES ${SOURCE_DIR}/src/*.ui)
+file (GLOB UI_QRCS ${SOURCE_DIR}/res/*.qrc)
 
 # Find dependencies Qt
 find_package (Qt5 COMPONENTS ${QT_MODULES} REQUIRED)
@@ -101,19 +111,36 @@ else () # Clang
     set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${CMAKE_HOST_SYSTEM_NAME}/Clang/${CMAKE_BUILD_TYPE})
 endif()
 
+# Translations
+find_package (Qt5LinguistTools)
+# Create translations
+add_subdirectory (${SOURCE_DIR}/translations)
+set_directory_properties (PROPERTIES CLEAN_NO_CUSTOM 1)
+
+# Add translation files
+file (GLOB TS_FILES ${SOURCE_DIR}/translations/*.ts)
+qt5_add_translation (QM_FILES ${TS_FILES})
+add_custom_target (translations ALL DEPENDS ${QM_FILES})
+
+# File groups
+source_group ("Headers" FILES ${HEADER_FILES})
+source_group ("Sources" FILES ${SOURCE_FILES})
+source_group ("Forms" FILES ${UI_SRC_FILES})
+source_group ("Resources" FILES ${UI_QRCS})
+
 # Create executable file
 if (WIN32)
     add_executable (${PROJECT_NAME} WIN32 ${SOURCE_FILES} ${HEADER_FILES}
-        ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${VersionFilesOutputVariable})
+        ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${VersionFilesOutputVariable} ${QM_FILES})
 
     # Qt modules and librarys
-	qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})
+	qt5_use_modules (${PROJECT_NAME} ${QT_MODULES})
 else ()
     add_executable (${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES}
-        ${UI_SRC_FILES} ${UI_RESOURCES_RCC})
+        ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${QM_FILES})
 
     # Qt modules and librarys
-    qt5_use_modules(${PROJECT_NAME} ${QT_MODULES})
+    qt5_use_modules (${PROJECT_NAME} ${QT_MODULES})
 endif ()
 
 # Install
@@ -123,14 +150,14 @@ endif ()
 if (WIN32)
     set (EXT "bat")
     # Only for Windows, in Linux linuxdeployqt will create it
-    install(FILES ${PROJECT_SOURCE_DIR}/scripts/qt.conf
+    install (FILES ${PROJECT_SOURCE_DIR}/scripts/qt.conf
             DESTINATION "${PROJECT_SOURCE_DIR}/deploy")
 elseif (UNIX)
     set (EXT "sh")
 endif ()
 file (GLOB FILES ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/*)
-install(FILES ${FILES}
+install (FILES ${FILES}
         DESTINATION "${PROJECT_SOURCE_DIR}/deploy")
 
-install(FILES ${PROJECT_SOURCE_DIR}/scripts/DeployQt.${EXT}
+install (FILES ${PROJECT_SOURCE_DIR}/scripts/DeployQt.${EXT}
         DESTINATION "${PROJECT_SOURCE_DIR}/deploy")

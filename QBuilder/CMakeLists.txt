@@ -110,20 +110,15 @@ set (LANGUAGES
         en
         uk)
 find_package (Qt5LinguistTools)
-
 # Create translations
-set (TRANSLATIONS_PATH "${PROJECT_SOURCE_DIR}/QBuilder/translation")
-foreach (LANGUAGE ${LANGUAGES})
-    set (TRANSLATIONS ${TRANSLATIONS_PATH}/${LANGUAGE}.ts)
-    qt5_create_translation (Q_FILES ${PROJECT_SOURCE_DIR}/QBuilder/src ${TRANSLATIONS} OPTIONS -no-obsolete -I ${PROJECT_SOURCE_DIR}/QBuilder/translation ${TRANSLATIONS_PATH})
-endforeach ()
-add_custom_target (translate DEPENDS ${Q_FILES})
+#add_subdirectory(${PROJECT_SOURCE_DIR}/QBuilder/translations)
+#SET_DIRECTORY_PROPERTIES(PROPERTIES CLEAN_NO_CUSTOM 1)
 
 # Add translation files
-file (GLOB TS_FILES ${PROJECT_SOURCE_DIR}/QBuilder/translation/*.ts)
+file (GLOB TS_FILES ${PROJECT_SOURCE_DIR}/QBuilder/translations/*.ts)
 qt5_add_translation (QM_FILES ${TS_FILES})
-add_custom_target (translations DEPENDS ${QM_FILES})
-#set_property (TARGET translations PROPERTY NO_CLEAN TRUE)
+SET(QM_FILES ${QM_FILES} PARENT_SCOPE)
+add_custom_target (translations ALL DEPENDS ${QM_FILES})
 
 # Create executable file
 if (WIN32)

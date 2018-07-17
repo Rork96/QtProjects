@@ -119,6 +119,7 @@ set_directory_properties (PROPERTIES CLEAN_NO_CUSTOM 1)
 
 # Add translation files
 file (GLOB TS_FILES ${SOURCE_DIR}/translations/*.ts)
+set_source_files_properties(${TS_FILES} PROPERTIES OUTPUT_LOCATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/translations)
 qt5_add_translation (QM_FILES ${TS_FILES})
 add_custom_target (translations ALL DEPENDS ${QM_FILES})
 

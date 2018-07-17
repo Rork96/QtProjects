@@ -570,17 +570,17 @@
     <message>
         <location filename="createlogoform.ui" line="249"/>
         <source>List name</source>
-        <translation>Название списка</translation>
+        <translation>Назва списку</translation>
     </message>
     <message>
         <location filename="createlogoform.ui" line="263"/>
         <source>Entry name</source>
-        <translation>Название записи</translation>
+        <translation>Назва запису</translation>
     </message>
     <message>
         <location filename="createlogoform.ui" line="279"/>
         <source>Description</source>
-        <translation>Описание</translation>
+        <translation>Опис</translation>
     </message>
     <message>
         <location filename="createlogoform.ui" line="304"/>
@@ -590,42 +590,42 @@
     <message>
         <location filename="createlogoform.ui" line="341"/>
         <source>Header logo</source>
-        <translation>Логотип заголовка</translation>
+        <translation>Логотип заголовку</translation>
     </message>
     <message>
         <location filename="createlogoform.ui" line="354"/>
         <source>Main logo</source>
-        <translation>Основной логотип</translation>
+        <translation>Основний логотип</translation>
     </message>
     <message>
         <location filename="createlogoform.ui" line="377"/>
         <source>Image</source>
-        <translation>Изображение</translation>
+        <translation>Зображення</translation>
     </message>
     <message>
         <location filename="createlogoform.ui" line="392"/>
         <source>Overview</source>
-        <translation>Выбрать</translation>
+        <translation>Обрати</translation>
     </message>
     <message>
         <location filename="createlogoform.ui" line="402"/>
         <source>Files not selected</source>
-        <translation>Файл не выбран</translation>
+        <translation>Файл не обрано</translation>
     </message>
     <message>
         <location filename="createlogoform.ui" line="533"/>
         <source>CREATE LOGO</source>
-        <translation>СОЗДАТЬ ЛОГОТИП</translation>
+        <translation>СТВОРИТ ЛОГОТИП</translation>
     </message>
     <message>
         <location filename="createlogoform.cpp" line="66"/>
         <source>Error</source>
-        <translation>Ошибка</translation>
+        <translation>Помилка</translation>
     </message>
     <message>
         <location filename="createlogoform.cpp" line="66"/>
         <source>Entry name is already exists</source>
-        <translation>Название записи уже существует</translation>
+        <translation>Назва запису вже існує</translation>
     </message>
 </context>
 <context>
@@ -638,7 +638,7 @@
     <message>
         <location filename="createmenuform.ui" line="107"/>
         <source>CREATE MENU</source>
-        <translation>ТВОРИТИ МЕНЮ</translation>
+        <translation>СТВОРИТИ МЕНЮ</translation>
     </message>
     <message>
         <location filename="createmenuform.ui" line="190"/>
@@ -2340,7 +2340,7 @@
         <location filename="tableform.cpp" line="169"/>
         <location filename="tableform.cpp" line="191"/>
         <source>Group name</source>
-        <translation>Ім&apos;я групи</translation>
+        <translation>Назва групи</translation>
     </message>
     <message>
         <location filename="tableform.cpp" line="68"/>
@@ -2372,7 +2372,7 @@
     <message>
         <location filename="tableform.cpp" line="87"/>
         <source>Account name</source>
-        <translation>Ім&apos;я акаунту</translation>
+        <translation>Назва акаунту</translation>
     </message>
     <message>
         <location filename="tableform.cpp" line="108"/>
@@ -2383,7 +2383,7 @@
         <location filename="tableform.cpp" line="108"/>
         <location filename="tableform.cpp" line="306"/>
         <source>Name</source>
-        <translation>Ім&apos;я</translation>
+        <translation>Назва</translation>
     </message>
     <message>
         <location filename="tableform.cpp" line="108"/>

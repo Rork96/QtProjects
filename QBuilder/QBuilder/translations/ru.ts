@@ -197,7 +197,7 @@
     <message>
         <location filename="createdocfamilyform.cpp" line="111"/>
         <source>Family name is already exists</source>
-        <translation>Имя семейства уже существует</translation>
+        <translation>Название семейства уже существует</translation>
     </message>
 </context>
 <context>
@@ -270,7 +270,7 @@
     <message>
         <location filename="createdocgroupsform.cpp" line="69"/>
         <source>Group name is already exists</source>
-        <translation>Имя группы уже существует</translation>
+        <translation>Название группы уже существует</translation>
     </message>
 </context>
 <context>
@@ -366,7 +366,7 @@
     <message>
         <location filename="creategroupform.cpp" line="56"/>
         <source>Group name is already exists</source>
-        <translation>Имя группы уже существует</translation>
+        <translation>Название группы уже существует</translation>
     </message>
 </context>
 <context>
@@ -1663,7 +1663,7 @@
     <message>
         <location filename="createtenantform.cpp" line="117"/>
         <source>Tenant code or name is already exists</source>
-        <translation>Код арендатора или имя уже существует</translation>
+        <translation>Код арендатора или Название уже существует</translation>
     </message>
 </context>
 <context>
@@ -2340,7 +2340,7 @@
         <location filename="tableform.cpp" line="169"/>
         <location filename="tableform.cpp" line="191"/>
         <source>Group name</source>
-        <translation>Имя группы</translation>
+        <translation>Название группы</translation>
     </message>
     <message>
         <location filename="tableform.cpp" line="68"/>
@@ -2372,7 +2372,7 @@
     <message>
         <location filename="tableform.cpp" line="87"/>
         <source>Account name</source>
-        <translation>Имя аккаунта</translation>
+        <translation>Название аккаунта</translation>
     </message>
     <message>
         <location filename="tableform.cpp" line="108"/>
@@ -2383,7 +2383,7 @@
         <location filename="tableform.cpp" line="108"/>
         <location filename="tableform.cpp" line="306"/>
         <source>Name</source>
-        <translation>Имя</translation>
+        <translation>Название</translation>
     </message>
     <message>
         <location filename="tableform.cpp" line="108"/>

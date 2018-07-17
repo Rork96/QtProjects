@@ -58,7 +58,7 @@ set (CMAKE_INCLUDE_CURRENT_DIR ON)
 set (CMAKE_AUTOMOC ON)
 set (CMAKE_AUTOUIC ON)
 set (CMAKE_AUTORCC ON)
-# C++11
+# C++14
 set (CMAKE_CXX_STANDARD 14)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -119,6 +119,7 @@ find_package (Qt5LinguistTools)
 
 # Add translation files
 file (GLOB TS_FILES ${SOURCE_DIR}/translations/*.ts)
+set_source_files_properties(${TS_FILES} PROPERTIES OUTPUT_LOCATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/translations)
 qt5_add_translation (QM_FILES ${TS_FILES})
 add_custom_target (translations ALL DEPENDS ${QM_FILES})
 

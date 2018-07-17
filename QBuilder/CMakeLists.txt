@@ -128,6 +128,7 @@ source_group ("Headers" FILES ${HEADER_FILES})
 source_group ("Sources" FILES ${SOURCE_FILES})
 source_group ("Forms" FILES ${UI_SRC_FILES})
 source_group ("Resources" FILES ${UI_QRCS})
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 # Create executable file
 if (WIN32)

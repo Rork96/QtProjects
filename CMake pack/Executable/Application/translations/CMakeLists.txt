@@ -1,7 +1,13 @@
-# Create translations
-set (TRANSLATIONS_PATH "${SOURCE_DIR}/translations")
+# Lupdate (Create translation *.ts)
+if (WIN32)
+    set (EXT ".exe")
+endif ()
 foreach (LANGUAGE ${LANGUAGES})
-    set (TRANSLATIONS ${TRANSLATIONS_PATH}/${LANGUAGE}.ts)
-    qt5_create_translation (Q_FILES ${SOURCE_DIR}/src ${SOURCE_DIR}/include ${TRANSLATIONS} OPTIONS -no-obsolete -I ${SOURCE_DIR}/translations)
+    set (TS ${SOURCE_DIR}/translations/${LANGUAGE}.ts)
+    set (TRANSLATIONS ${TRANSLATIONS} ${TS})
+    add_custom_command (
+            OUTPUT ${TRANSLATIONS}
+            COMMAND ${QT_LRELEASE_EXECUTABLE} ${TS}
+            MAIN_DEPENDENCY ${TS})
 endforeach ()
-add_custom_target (translate DEPENDS ${Q_FILES})
+add_custom_target (lupdate COMMAND ${CMAKE_PREFIX_PATH}bin/lupdate${EXT} ${SOURCE_DIR}/include ${SOURCE_DIR}/src -ts ${TRANSLATIONS})

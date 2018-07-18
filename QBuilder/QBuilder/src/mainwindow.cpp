@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // Load translation for system language
     QString localeName = locale().name();
     localeName = localeName.mid(0, localeName.indexOf("_"));
-    qtLanguageTranslator.load(QString("translations/") + localeName); //QString("en"));
+    qtLanguageTranslator.load(QString("translations/") + localeName);
     qApp->installTranslator(&qtLanguageTranslator);
 
     ui->setupUi(this);

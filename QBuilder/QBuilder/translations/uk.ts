@@ -1407,7 +1407,7 @@
     <message>
         <location filename="createtenantform.ui" line="539"/>
         <source>Regional</source>
-        <translation>Геріональне</translation>
+        <translation>Регіональне</translation>
     </message>
     <message>
         <location filename="createtenantform.ui" line="582"/>

@@ -114,14 +114,12 @@ endif()
 # Translations
 find_package (Qt5LinguistTools)
 # Create translations
-#add_subdirectory (${PROJECT_SOURCE_DIR}/QBuilder/translations)
-#set_directory_properties (PROPERTIES CLEAN_NO_CUSTOM 1)
+add_subdirectory (${PROJECT_SOURCE_DIR}/QBuilder/translations)
 
 # Add translation files
 file (GLOB TS_FILES ${SOURCE_DIR}/translations/*.ts)
 set_source_files_properties(${TS_FILES} PROPERTIES OUTPUT_LOCATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/translations)
 qt5_add_translation (QM_FILES ${TS_FILES})
-add_custom_target (translations ALL DEPENDS ${QM_FILES})
 
 # File groups
 source_group ("Headers" FILES ${HEADER_FILES})

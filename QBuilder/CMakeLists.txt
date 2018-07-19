@@ -3,13 +3,15 @@ cmake_minimum_required (VERSION 3.1)
 # Project
 project (QBuilder LANGUAGES CXX)
 
+set (SOURCE_DIR ${PROJECT_SOURCE_DIR}/${PROJECT_NAME})
+
 # Application icon and information
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/info)
 include (generate_product_version)
 generate_product_version (
         VersionFilesOutputVariable
         NAME ${PROJECT_NAME}
-        ICON ${PROJECT_SOURCE_DIR}/QBuilder/res/${PROJECT_NAME}.ico
+        ICON ${SOURCE_DIR}/res/${PROJECT_NAME}.ico
         VERSION_MAJOR 1
         VERSION_MINOR 0
         VERSION_PATH ${BUILD_COUNTER}
@@ -84,7 +86,6 @@ if (NOT MSVC) # MINGW or Clang
     set (CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")
 endif ()
 
-set (SOURCE_DIR ${PROJECT_SOURCE_DIR}/${PROJECT_NAME})
 include_directories(${SOURCE_DIR}/include)
 
 # Automatically find all files *.cpp, *.h, *.ui, *.qrc in project directory
@@ -114,7 +115,7 @@ endif()
 # Translations
 find_package (Qt5LinguistTools)
 # Create translations
-add_subdirectory (${PROJECT_SOURCE_DIR}/QBuilder/translations)
+add_subdirectory (${SOURCE_DIR}/translations)
 
 # Add translation files
 file (GLOB TS_FILES ${SOURCE_DIR}/translations/*.ts)

@@ -1,0 +1,13 @@
+# Lupdate (Create translation *.ts)
+if (WIN32)
+    set (EXT ".exe")
+endif ()
+foreach (LANGUAGE \${LANGUAGES})
+    set (TS \${SOURCE_DIR}/translations/\${LANGUAGE}.ts)
+    set (TRANSLATIONS \${TRANSLATIONS} \${TS})
+    add_custom_command (
+            OUTPUT \${TRANSLATIONS}
+            COMMAND \${QT_LRELEASE_EXECUTABLE} \${TS}
+            MAIN_DEPENDENCY \${TS})
+endforeach ()
+add_custom_target (lupdate COMMAND \${CMAKE_PREFIX_PATH}bin/lupdate\${EXT} \${SOURCE_DIR}/include \${SOURCE_DIR}/src -ts \${TRANSLATIONS})

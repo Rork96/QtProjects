@@ -1,31 +1,31 @@
 cmake_minimum_required (VERSION 3.1)
 
 # Project
-project (QBuilder LANGUAGES CXX)
+project (${PROJECT} LANGUAGES CXX)
 
-set (SOURCE_DIR ${PROJECT_SOURCE_DIR}/${PROJECT_NAME})
+set (SOURCE_DIR \${PROJECT_SOURCE_DIR}/\${PROJECT_NAME})
 
 # Application icon and information
-set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/info)
+set (CMAKE_MODULE_PATH \${CMAKE_MODULE_PATH} \${PROJECT_SOURCE_DIR}/info)
 include (generate_product_version)
 generate_product_version (
         VersionFilesOutputVariable
-        NAME ${PROJECT_NAME}
-        ICON ${SOURCE_DIR}/res/${PROJECT_NAME}.ico
+        NAME \${PROJECT_NAME}
+        ICON \${SOURCE_DIR}/res/\${PROJECT_NAME}.ico
         VERSION_MAJOR 1
         VERSION_MINOR 0
-        VERSION_PATH ${BUILD_COUNTER}
-        VERSION_REVISION ${BUILD_REVISION}
+        VERSION_PATH \${BUILD_COUNTER}
+        VERSION_REVISION \${BUILD_REVISION}
         COMPANY_NAME "Company"
         FILE_DESCRIPTION "Application"
 )
 
-#Qt modules
+# Qt modules
 set (QT_MODULES
                     Core
                     Gui
                     Widgets
-                    Sql
+#                    Sql
 #                    PrintSupport
 #                    Qml Quick Network # Network needed for QML
                     )
@@ -86,62 +86,62 @@ if (NOT MSVC) # MINGW or Clang
     set (CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")
 endif ()
 
-include_directories(${SOURCE_DIR}/include)
+include_directories(\${SOURCE_DIR}/include)
 
 # Automatically find all files *.cpp, *.h, *.ui, *.qrc in project directory
-file (GLOB SOURCE_FILES ${SOURCE_DIR}/src/*.cpp)
-file (GLOB HEADER_FILES ${SOURCE_DIR}/include/*.h)
-file (GLOB UI_SRC_FILES ${SOURCE_DIR}/src/*.ui)
-file (GLOB UI_QRCS ${SOURCE_DIR}/res/*.qrc)
+file (GLOB SOURCE_FILES \${SOURCE_DIR}/src/*.cpp)
+file (GLOB HEADER_FILES \${SOURCE_DIR}/include/*.h)
+file (GLOB UI_SRC_FILES \${SOURCE_DIR}/src/*.ui)
+file (GLOB UI_QRCS \${SOURCE_DIR}/res/*.qrc)
 
 # Find dependencies Qt
-find_package (Qt5 COMPONENTS ${QT_MODULES} REQUIRED)
+find_package (Qt5 COMPONENTS \${QT_MODULES} REQUIRED)
 
 # Resources *.qrc
-qt5_add_resources (UI_RESOURCES_RCC ${UI_QRCS})
+qt5_add_resources (UI_RESOURCES_RCC \${UI_QRCS})
 
 # Dependent on build type and operation system,
 # put exe-file in one of the next folders
 if (MINGW)
-    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${CMAKE_HOST_SYSTEM_NAME}/MinGW/${CMAKE_BUILD_TYPE})
+    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY \${PROJECT_SOURCE_DIR}/\${CMAKE_HOST_SYSTEM_NAME}/MinGW/\${CMAKE_BUILD_TYPE})
 elseif (MSVC)
-    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${CMAKE_HOST_SYSTEM_NAME}/MSVC/${CMAKE_BUILD_TYPE})
+    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY \${PROJECT_SOURCE_DIR}/\${CMAKE_HOST_SYSTEM_NAME}/MSVC/\${CMAKE_BUILD_TYPE})
 elseif (GCC)
-    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${CMAKE_HOST_SYSTEM_NAME}/GCC/${CMAKE_BUILD_TYPE})
+    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY \${PROJECT_SOURCE_DIR}/\${CMAKE_HOST_SYSTEM_NAME}/GCC/\${CMAKE_BUILD_TYPE})
 else () # Clang
-    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${CMAKE_HOST_SYSTEM_NAME}/Clang/${CMAKE_BUILD_TYPE})
+    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY \${PROJECT_SOURCE_DIR}/\${CMAKE_HOST_SYSTEM_NAME}/Clang/\${CMAKE_BUILD_TYPE})
 endif()
 
 # Translations
 find_package (Qt5LinguistTools)
 # Create translations
-add_subdirectory (${SOURCE_DIR}/translations)
+add_subdirectory (\${SOURCE_DIR}/translations)
 
 # Add translation files
-file (GLOB TS_FILES ${SOURCE_DIR}/translations/*.ts)
-set_source_files_properties (${TS_FILES} PROPERTIES OUTPUT_LOCATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/translations)
-qt5_add_translation (QM_FILES ${TS_FILES})
+file (GLOB TS_FILES \${SOURCE_DIR}/translations/*.ts)
+set_source_files_properties (\${TS_FILES} PROPERTIES OUTPUT_LOCATION \${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/translations)
+qt5_add_translation (QM_FILES \${TS_FILES})
 
 # File groups
-source_group ("Headers" FILES ${HEADER_FILES})
-source_group ("Sources" FILES ${SOURCE_FILES})
-source_group ("Forms" FILES ${UI_SRC_FILES})
-source_group ("Resources" FILES ${UI_QRCS})
+source_group ("Headers" FILES \${HEADER_FILES})
+source_group ("Sources" FILES \${SOURCE_FILES})
+source_group ("Forms" FILES \${UI_SRC_FILES})
+source_group ("Resources" FILES \${UI_QRCS})
 set_property (GLOBAL PROPERTY USE_FOLDERS ON)
 
 # Create executable file
 if (WIN32)
-    add_executable (${PROJECT_NAME} WIN32 ${SOURCE_FILES} ${HEADER_FILES}
-        ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${VersionFilesOutputVariable} ${QM_FILES})
+    add_executable (\${PROJECT_NAME} WIN32 \${SOURCE_FILES} \${HEADER_FILES}
+        \${UI_SRC_FILES} \${UI_RESOURCES_RCC} \${VersionFilesOutputVariable} \${QM_FILES})
 
     # Qt modules and librarys
-	qt5_use_modules (${PROJECT_NAME} ${QT_MODULES})
+	qt5_use_modules (\${PROJECT_NAME} \${QT_MODULES})
 else ()
-    add_executable (${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES}
-        ${UI_SRC_FILES} ${UI_RESOURCES_RCC} ${QM_FILES})
+    add_executable (\${PROJECT_NAME} \${SOURCE_FILES} \${HEADER_FILES}
+        \${UI_SRC_FILES} \${UI_RESOURCES_RCC} \${QM_FILES})
 
     # Qt modules and librarys
-    qt5_use_modules (${PROJECT_NAME} ${QT_MODULES})
+    qt5_use_modules (\${PROJECT_NAME} \${QT_MODULES})
 endif ()
 
 # Install
@@ -151,14 +151,14 @@ endif ()
 if (WIN32)
     set (EXT "bat")
     # Only for Windows, in Linux linuxdeployqt will create it
-    install (FILES ${PROJECT_SOURCE_DIR}/scripts/qt.conf
-            DESTINATION "${PROJECT_SOURCE_DIR}/deploy")
+    install (FILES \${PROJECT_SOURCE_DIR}/scripts/qt.conf
+            DESTINATION "\${PROJECT_SOURCE_DIR}/deploy")
 elseif (UNIX)
     set (EXT "sh")
 endif ()
-#file (GLOB FILES ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/*)
-#install (FILES ${FILES}
-#        DESTINATION "${PROJECT_SOURCE_DIR}/deploy")
+file (GLOB FILES \${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/*)
+install (FILES \${FILES}
+        DESTINATION "\${PROJECT_SOURCE_DIR}/deploy")
 
-#install (FILES ${PROJECT_SOURCE_DIR}/scripts/DeployQt.${EXT}
-#        DESTINATION "${PROJECT_SOURCE_DIR}/deploy")
+install (FILES \${PROJECT_SOURCE_DIR}/scripts/DeployQt.\${EXT}
+        DESTINATION "\${PROJECT_SOURCE_DIR}/deploy")

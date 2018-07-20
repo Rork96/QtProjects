@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>calculator.png</file>
+        <file>delete.png</file>
+        <file>edit.png</file>
+        <file>english.png</file>
+        <file>equipment.png</file>
+        <file>JobAccounting.png</file>
+        <file>log.png</file>
+        <file>res.qrc</file>
+        <file>russian.png</file>
+        <file>search.png</file>
+        <file>ukrainian.png</file>
+        <file>user.png</file>
+        <file>worker.png</file>
+    </qresource>
+</RCC>

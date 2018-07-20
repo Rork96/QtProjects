@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=JobAccounting
+Comment=JobAccounting
+Exec=opt/JobAccounting/JobAccounting
+Terminal=false
+Type=Application
+StartupNotify=true
+Icon=usr/share/pixmaps/JobAccounting.png
+Categories=images
+Name[ru_UA]=JobAccounting

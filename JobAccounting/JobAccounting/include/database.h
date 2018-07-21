@@ -7,7 +7,7 @@
 /* Connection parameters */
 #define DATABASE_HOSTNAME   "localhost"
 #define DATABASE_NAME       "JobAccounting"
-#define PORT                5433
+#define PORT                5432
 #define USER_NAME           "postgres"
 #define PASSWORD            "123"
 
@@ -19,7 +19,7 @@ public:
     ~DataBase();
 
     /* Connect to database */
-    int connectToDataBase(QString userName, QString password);
+    bool connectToDataBase(QString userName, QString password);
 
 private:
     QSqlDatabase db;
@@ -27,7 +27,7 @@ private:
     QString userName;
     QString password;
 
-    int openDataBase();
+    bool openDataBase();
     void closeDataBase();
 };
 

@@ -1,0 +1,21 @@
+Создать не рут пользователя.
+
+Давать права:
+GRANT INSERT ON main_table, equipment_table, worker_table to "editor"
+GRANT SELECT, INSERT, UPDATE, DELETE ON main_table, equipment_table, worker_table to "user"
+GRANT SELECT ON main_table, equipment_table, worker_table to "guest"
+
+Забирать:
+
+REVOKE INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER ON main_table FROM "user"
+
+Снять защиту данных с таблицы (иначе SELECT не будет рабатать):
+
+ALTER TABLE main_table DISABLE ROW LEVEL SECURITY
+
+Получить список прав пользователя:
+
+SELECT privilege_type
+FROM information_schema.role_table_grants
+WHERE grantee = 'user' AND table_name = 'main_table'
+

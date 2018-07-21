@@ -13,5 +13,7 @@
         <file>ukrainian.png</file>
         <file>user.png</file>
         <file>worker.png</file>
+        <file>accept.png</file>
+        <file>add.png</file>
     </qresource>
 </RCC>

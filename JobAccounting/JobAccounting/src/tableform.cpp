@@ -5,7 +5,7 @@
 #include <QScreen>
 #include <QSqlQuery>
 
-#include <QDebug>;
+#include <QDebug>
 
 TableForm::TableForm(QWidget *parent) :
     QWidget(parent),
@@ -28,14 +28,10 @@ TableForm::TableForm(QWidget *parent) :
     connect(ui->searchLine, &QLineEdit::textChanged, this, &TableForm::searchInDB); // Interactive search in database
 
     connect(ui->createButton, &QToolButton::clicked, this, [this] {
-        mainModel->insertRow(mainModel->rowCount(QModelIndex()));;
+        mainModel->insertRow(mainModel->rowCount(QModelIndex()));
     });
 
-//    connect(ui->editButton, &QToolButton::clicked, this, [this] {
-//        if (ui->mainTableView->selectionModel()->selectedRows().count() == 0) return;
-//        auto id = mainModel->data(mainModel->index(ui->mainTableView->selectionModel()->selectedRows().at(0).row(), 0)); // id
-//        emit createData(this->viewType, ui->mainTableView->selectionModel()->selectedRows().at(0).row(), id.toInt());
-//    });
+    connect(ui->acceptBtn, &QToolButton::clicked, this, &TableForm::acceptData);
 
     connect(ui->deleteButton, &QToolButton::clicked, this, &TableForm::deleteDatafromDB); // A row was selected in the table
 }
@@ -51,18 +47,31 @@ void TableForm::loadDataFromDB()
     mainModel = new QSqlRelationalTableModel(this);
     mainModel->setTable("main_table");
     mainModel->setSort(0, Qt::AscendingOrder);
-    mainModel->select();
+    mainModel->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    ui->mainTableView->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->mainTableView->setModel(mainModel);
+
+    if (mainModel->select()) {
+        // Select
+        mainModel->setRelation(2, QSqlRelation("equipment_table", "id", "equipment_name"));
+        mainModel->setRelation(3, QSqlRelation("worker_table", "id", "worker_name"));
+        mainModel->select();
+    }
+    else {
+        mod = new QSqlQueryModel();
+        QSqlQuery query;
+//        query.exec( "SELECT id, order_number, (SELECT equipment_name FROM equipment_table WHERE id = equipment), "
+//                    "(SELECT worker_name FROM worker_table WHERE id = worker), "
+//                    "date, part_code, part_name, quantity, part_number, description, start_time, end_time, "
+//                    "hours_count, remark, notes "
+//                    "FROM main_table" );
+        query.exec( "SELECT * FROM main_table" );
+        mod->setQuery(query);
+        ui->mainTableView->setModel(mod);
+    }
 
     // Hide columns
     ui->mainTableView->setColumnHidden(0, true);
-    ui->mainTableView->setColumnHidden(15, true);
-    ui->mainTableView->setColumnHidden(16, true);
-
-    // Select
-    mainModel->setRelation(2, QSqlRelation("equipment_table", "id", "equipment_name"));
-    mainModel->setRelation(3, QSqlRelation("worker_table", "id", "worker_name"));
-    mainModel->select();
 
     QStringList headers;
     ui->searchParamBox->clear();
@@ -70,7 +79,7 @@ void TableForm::loadDataFromDB()
     headers << trUtf8("id") << trUtf8("Order number") << trUtf8("Equipment") << trUtf8("Worker") << trUtf8("Date")
             << trUtf8("Part code") << trUtf8("Part name") << trUtf8("Quantity") << trUtf8("Part number")
             << trUtf8("Description") << trUtf8("Start time") << trUtf8("End time") << trUtf8("Hours count")
-            << trUtf8("Remark") << trUtf8("Notes") << trUtf8("Creator") << trUtf8("Editor");
+            << trUtf8("Remark") << trUtf8("Notes");
     ui->searchParamBox->addItems(headers);
 
     // Columns size
@@ -95,23 +104,32 @@ void TableForm::searchInDB(const QString &arg1)
 
 void TableForm::deleteDatafromDB()
 {
-    if (ui->mainTableView->selectionModel()->selectedRows().count() == 0) return;
+    int row = ui->mainTableView->selectionModel()->currentIndex().row();
+    if (row == 0) return;
 
     // Delete current data from database
-    int row = ui->mainTableView->selectionModel()->selectedRows().at(0).row();
     mainModel->removeRow(row);
     mainModel->submitAll();
     mainModel->select();
     ui->mainTableView->selectRow(row);
 }
 
-void TableForm::setRights(const int rights)
+void TableForm::setRights(const QString user, int rights)
 {
     // User rights: read or read and edit mode
-    if (rights == 2) {
+    this->user = user;
+    if (rights == 3) {
         // Read only mode
         ui->createButton->setVisible(false);
-        ui->editButton->setVisible(false);
+        ui->acceptBtn->setVisible(false);
         ui->deleteButton->setVisible(false);
+        ui->mainTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        mainModel->select();
     }
+}
+void TableForm::acceptData()
+{
+    // Write data into database
+    mainModel->submitAll();
+    mainModel->select();
 }

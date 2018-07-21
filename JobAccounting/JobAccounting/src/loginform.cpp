@@ -38,7 +38,7 @@ void LoginForm::checkLogin()
 
     // Check userName and password in database
     db = new DataBase();
-    int result = db->connectToDataBase(userName, password);
+    bool result = db->connectToDataBase(userName, password);
     if (result) {
         // Login allowed
         emit isLogin(userName, result);

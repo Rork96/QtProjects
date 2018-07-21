@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // region MenuBar connections
 
+    connect(ui->actionLogout, &QAction::triggered, this, &MainWindow::initUI);
     // endregion MenuBar connections
 
     // region Translations
@@ -57,25 +58,43 @@ void MainWindow::initUI()
     ui->menuBar->setVisible(false);
 
     connect(loginForm, &LoginForm::isLogin, this, &MainWindow::login);
+
+    // Delete last view
+    if (this->prewView != nullptr) {
+        delete this->prewView;
+        this->prewView = nullptr;
+    }
 }
 
-void MainWindow::login(const QString &user, const int rights)
+void MainWindow::login(const QString &user, int rights)
 {
     this->userName = user;
-    if (rights != 3) {
-        setMainView(rights); // edit and read / write mode
+    this->rights = rights;
+    setWindowTitle(appName + " - " + user);
+    if (rights == 1) {
+        setMainView(); // full access
     }
-    else {
+    else if (rights == 2) {
+        // write only mode
+        ui->menuBar->setVisible(false);
+        editorForm = new EditorForm(this);
+        setCentralWidget(editorForm);
+        ui->statusBar->showMessage(company);
+    }
+    else if (rights == 3) {
         // Read only mode
+        ui->menuAdministration->setEnabled(false);
+        setMainView();
     }
     delete loginForm;
 }
 
-void MainWindow::setMainView(const int rights)
+void MainWindow::setMainView()
 {
     // Show table
     mainForm = new TableForm(this);
     setCentralWidget(mainForm);
+    mainForm->setRights(QString(), rights);
     ui->menuBar->setVisible(true);
     ui->statusBar->showMessage(company);
 
@@ -84,4 +103,5 @@ void MainWindow::setMainView(const int rights)
         delete this->prewView;
         this->prewView = nullptr;
     }
+    this->prewView = mainForm;
 }

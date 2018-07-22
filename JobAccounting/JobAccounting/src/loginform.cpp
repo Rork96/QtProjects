@@ -41,7 +41,7 @@ void LoginForm::checkLogin()
     bool result = db->connectToDataBase(userName, password);
     if (result) {
         // Login allowed
-        emit isLogin(userName, result);
+        emit isLogin(userName, 2); //result);
     }
     else if (userName.isEmpty() || password.isEmpty()) {
         ui->infoLabel->setText("User name or password cannot be blank.");

@@ -27,6 +27,10 @@ protected:
 private:
     Ui::MainWindow *ui;
 
+    const QString Main_Table = "main_table";
+    const QString Worker_Table = "worker_table";
+    const QString Equipment_Table = "equipment_table";
+
     QTranslator qtLanguageTranslator;
 
     LoginForm *loginForm;
@@ -41,7 +45,7 @@ private:
 
     void initUI();                                  // Hide main menu and show login screen
     void login(const QString &user, int rights);    // Login
-    void setMainView();                             // Set view type
+    void setMainView(const QString &table);         // Set view type
 };
 
 #endif // MAINWINDOW_H

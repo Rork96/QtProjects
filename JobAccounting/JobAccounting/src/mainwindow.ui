@@ -127,7 +127,6 @@ QStatusBar {
     <property name="title">
      <string>Administration</string>
     </property>
-    <addaction name="actionUsers"/>
     <addaction name="actionWorkers"/>
     <addaction name="actionEquipment"/>
    </widget>
@@ -145,7 +144,7 @@ QStatusBar {
   </widget>
   <action name="actionUsers">
    <property name="icon">
-    <iconset resource="../res/res.qrc">
+    <iconset>
      <normaloff>:/user.png</normaloff>:/user.png</iconset>
    </property>
    <property name="text">

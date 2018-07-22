@@ -110,6 +110,19 @@ QToolButton:pressed {
       </spacer>
      </item>
      <item>
+      <widget class="QComboBox" name="searchParamBox">
+       <property name="minimumSize">
+        <size>
+         <width>200</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QLineEdit" name="searchLine">
        <property name="enabled">
         <bool>true</bool>
@@ -135,15 +148,18 @@ QToolButton:pressed {
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="searchParamBox">
+      <widget class="QComboBox" name="searchBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="minimumSize">
         <size>
          <width>200</width>
          <height>0</height>
         </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true"/>
        </property>
       </widget>
      </item>
@@ -302,7 +318,6 @@ QToolButton:pressed {
   <tabstop>deleteButton</tabstop>
   <tabstop>mainTableView</tabstop>
   <tabstop>searchLine</tabstop>
-  <tabstop>searchParamBox</tabstop>
  </tabstops>
  <resources>
   <include location="../res/res.qrc"/>

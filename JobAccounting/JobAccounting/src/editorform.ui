@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1154</width>
-    <height>679</height>
+    <height>684</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -511,7 +511,7 @@ QToolButton:pressed {
            </widget>
           </item>
           <item>
-           <widget class="QTimeEdit" name="StartTimeEdit">
+           <widget class="QTimeEdit" name="startTimeEdit">
             <property name="styleSheet">
              <string notr="true">QTimeEdit {
                color: black;
@@ -524,7 +524,7 @@ QToolButton:pressed {
             </property>
             <property name="dateTime">
              <datetime>
-              <hour>7</hour>
+              <hour>0</hour>
               <minute>0</minute>
               <second>0</second>
               <year>2000</year>
@@ -565,8 +565,8 @@ QToolButton:pressed {
             </property>
             <property name="dateTime">
              <datetime>
-              <hour>15</hour>
-              <minute>30</minute>
+              <hour>0</hour>
+              <minute>0</minute>
               <second>0</second>
               <year>2000</year>
               <month>1</month>
@@ -594,6 +594,9 @@ QToolButton:pressed {
           </item>
           <item>
            <widget class="QTimeEdit" name="hCountTimeEdit">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="styleSheet">
              <string notr="true">QTimeEdit {
                color: black;

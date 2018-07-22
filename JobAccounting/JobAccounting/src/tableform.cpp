@@ -5,9 +5,9 @@
 #include <QScreen>
 #include <QSqlQuery>
 
-#include <QDebug>
+#include "combodelegate.h"
 
-TableForm::TableForm(QWidget *parent) :
+TableForm::TableForm(QWidget *parent, QString tableName) :
     QWidget(parent),
     ui(new Ui::TableForm)
 {
@@ -16,16 +16,21 @@ TableForm::TableForm(QWidget *parent) :
     // Hide widgets for search
     ui->searchLine->setVisible(false);
     ui->searchParamBox->setVisible(false);
+    ui->searchBox->setVisible(false);
 
     // For search
     listView = new QListView(ui->searchParamBox);
     ui->searchParamBox->setView(listView);
 
-    loadDataFromDB();   // Load data from database
+    loadDataFromDB(tableName);   // Load data from database
 
+    // region Connections
     connect(ui->searchButton, &QToolButton::clicked, this, &TableForm::showSearchWidgets);
 
     connect(ui->searchLine, &QLineEdit::textChanged, this, &TableForm::searchInDB); // Interactive search in database
+    connect(ui->searchParamBox, &QComboBox::currentTextChanged, this, &TableForm::adjustSearchForComboBox);
+
+    connect(ui->searchBox, &QComboBox::currentTextChanged, this, &TableForm::searchForComboBox);
 
     connect(ui->createButton, &QToolButton::clicked, this, [this] {
         mainModel->insertRow(mainModel->rowCount(QModelIndex()));
@@ -34,6 +39,7 @@ TableForm::TableForm(QWidget *parent) :
     connect(ui->acceptBtn, &QToolButton::clicked, this, &TableForm::acceptData);
 
     connect(ui->deleteButton, &QToolButton::clicked, this, &TableForm::deleteDatafromDB); // A row was selected in the table
+    // endregion
 }
 
 TableForm::~TableForm()
@@ -41,46 +47,47 @@ TableForm::~TableForm()
     delete ui;
 }
 
-void TableForm::loadDataFromDB()
+void TableForm::loadDataFromDB(const QString &table)
 {
     // Load data
-    mainModel = new QSqlRelationalTableModel(this);
-    mainModel->setTable("main_table");
-    mainModel->setSort(0, Qt::AscendingOrder);
-    mainModel->setEditStrategy(QSqlTableModel::OnManualSubmit);
-    ui->mainTableView->setSelectionMode(QAbstractItemView::SingleSelection);
-    ui->mainTableView->setModel(mainModel);
 
-    if (mainModel->select()) {
-        // Select
-        mainModel->setRelation(2, QSqlRelation("equipment_table", "id", "equipment_name"));
-        mainModel->setRelation(3, QSqlRelation("worker_table", "id", "worker_name"));
+    auto initTable = [this](const QString& tableName)
+    {
+        mainModel = new QSqlRelationalTableModel(this);
+        mainModel->setTable(tableName);
+        mainModel->setSort(0, Qt::AscendingOrder);
+        mainModel->setEditStrategy(QSqlTableModel::OnManualSubmit);
+        ui->mainTableView->setSelectionMode(QAbstractItemView::SingleSelection);
         mainModel->select();
-    }
-    else {
-        mod = new QSqlQueryModel();
-        QSqlQuery query;
-//        query.exec( "SELECT id, order_number, (SELECT equipment_name FROM equipment_table WHERE id = equipment), "
-//                    "(SELECT worker_name FROM worker_table WHERE id = worker), "
-//                    "date, part_code, part_name, quantity, part_number, description, start_time, end_time, "
-//                    "hours_count, remark, notes "
-//                    "FROM main_table" );
-        query.exec( "SELECT * FROM main_table" );
-        mod->setQuery(query);
-        ui->mainTableView->setModel(mod);
-    }
+        ui->mainTableView->setModel(mainModel);
+        ui->mainTableView->setColumnHidden(0, true); // Hide
+    };
 
-    // Hide columns
-    ui->mainTableView->setColumnHidden(0, true);
+    initTable(table);
 
     QStringList headers;
-    ui->searchParamBox->clear();
 
-    headers << trUtf8("id") << trUtf8("Order number") << trUtf8("Equipment") << trUtf8("Worker") << trUtf8("Date")
-            << trUtf8("Part code") << trUtf8("Part name") << trUtf8("Quantity") << trUtf8("Part number")
-            << trUtf8("Description") << trUtf8("Start time") << trUtf8("End time") << trUtf8("Hours count")
-            << trUtf8("Remark") << trUtf8("Notes");
-    ui->searchParamBox->addItems(headers);
+    if (table == Main_Table) {
+        // Select
+        mainModel->setRelation(2, QSqlRelation(Equipment_Table, "id", Equipment_Name));
+        mainModel->setRelation(3, QSqlRelation(Worker_Table, "id", Worker_Name));
+        mainModel->select();
+
+        //ComboBoxDelegate *equipdelegate = new ComboBoxDelegate(this);
+        //ui->mainTableView->setItemDelegateForColumn(2, equipdelegate);
+
+        headers << trUtf8("id") << trUtf8("Order number") << trUtf8("Equipment") << trUtf8("Worker") << trUtf8("Date")
+                << trUtf8("Part code") << trUtf8("Part name") << trUtf8("Quantity") << trUtf8("Part number")
+                << trUtf8("Description") << trUtf8("Start time") << trUtf8("End time") << trUtf8("Hours count")
+                << trUtf8("Remark") << trUtf8("Notes");
+    }
+    else if (table == Worker_Table) {
+        headers << trUtf8("id") << trUtf8("Worker name");
+    }
+    else if (table == Equipment_Table) {
+        // equipment_table
+        headers << trUtf8("id") << trUtf8("Equipment name");
+    }
 
     // Columns size
     for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
@@ -94,12 +101,22 @@ void TableForm::showSearchWidgets()
     // Show widgets for providing search
     ui->searchLine->setVisible(!ui->searchLine->isVisible());
     ui->searchParamBox->setVisible(!ui->searchParamBox->isVisible());
+    ui->searchBox->setVisible(!ui->searchBox->isVisible());
     ui->searchLine->clear();
+    ui->searchParamBox->clear();
+
+    // Add items into searchParamBox
+    ui->searchParamBox->addItem("Order number");
+    ui->searchParamBox->addItem("Worker");
+    ui->searchParamBox->setCurrentIndex(0);
 }
 
 void TableForm::searchInDB(const QString &arg1)
 {
     // Interactive search in current database table
+    QString filterString = QString("text(%1) LIKE '%2%'").arg(Order_Column).arg(arg1);
+    mainModel->setFilter(filterString);
+    mainModel->select();
 }
 
 void TableForm::deleteDatafromDB()
@@ -114,7 +131,7 @@ void TableForm::deleteDatafromDB()
     ui->mainTableView->selectRow(row);
 }
 
-void TableForm::setRights(const QString user, int rights)
+void TableForm::setRights(QString user, int rights)
 {
     // User rights: read or read and edit mode
     this->user = user;
@@ -132,4 +149,32 @@ void TableForm::acceptData()
     // Write data into database
     mainModel->submitAll();
     mainModel->select();
+}
+void TableForm::searchForComboBox()
+{
+    // Search data
+    if (ui->searchBox->currentIndex() > 0) {
+        int index = ui->searchBox->itemData(ui->searchBox->currentIndex(), Qt::UserRole).toInt();
+        QString filterString = QString("%1 = %2").arg(Worker_Column).arg(index);
+        mainModel->setFilter(filterString);
+        mainModel->select();
+    }
+}
+void TableForm::adjustSearchForComboBox()
+{
+    if (ui->searchParamBox->currentIndex() == 1) {
+        ui->searchLine->setVisible(false);
+        ui->searchBox->setVisible(ui->searchParamBox->isVisible());
+        // Search parameters for worker
+        cmodel = new BaseComboModel(Worker_Name, Worker_Table, this, "", "");
+        ui->searchBox->setModel(cmodel);
+    }
+    else {
+        ui->searchBox->setVisible(false);
+        ui->searchLine->setVisible(ui->searchParamBox->isVisible());
+        ui->searchLine->clear();
+        QString filterString = QString("text(%1) LIKE '%2%'").arg(Order_Column).arg("");
+        mainModel->setFilter(filterString);
+        mainModel->select();
+    }
 }

@@ -2,6 +2,10 @@
 #define EditorForm_H
 
 #include <QWidget>
+#include "basecombomodel.h"
+#include <QSqlRelationalTableModel>
+#include <QDataWidgetMapper>
+#include <QSqlRelationalDelegate>
 
 namespace Ui
 {
@@ -18,6 +22,23 @@ public:
 
 private:
     Ui::EditorForm *ui;
+
+    const QString Main_Table = "main_table";
+    const QString Worker_Table = "worker_table";
+    const QString Equipment_Table = "equipment_table";
+
+    const QString Worker_Name = "worker_name";
+    const QString Equipment_Name = "equipment_name";
+
+    QSqlRelationalTableModel *model;
+    QDataWidgetMapper *mapper;
+
+    BaseComboModel *workerModel;
+    BaseComboModel *equipModel;
+
+    void clearAll();        // Clear all data
+    void submitChanges();   // Save data to database
+    void calckTime();       // Calculate time
 };
 
 #endif //EditorForm_H

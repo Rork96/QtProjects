@@ -23,11 +23,10 @@ private:
     DataBase *db;
 
     void checkLogin();
-
     void configure();
 
 signals:
-    void isLogin(const QString &user, const int result);
+    void isLogin(const QString &user, int rights);
 };
 
 #endif // LOGINFORM_H

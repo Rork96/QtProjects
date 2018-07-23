@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QTranslator>
-
+#include <QSettings>
 #include "loginform.h"
 #include "tableform.h"
 #include <editorform.h>
@@ -31,6 +31,7 @@ private:
     const QString Worker_Table = "worker_table";
     const QString Equipment_Table = "equipment_table";
 
+    QSettings *set;
     QTranslator qtLanguageTranslator;
 
     LoginForm *loginForm;
@@ -43,9 +44,9 @@ private:
     const QString company = trUtf8("\t\t© 2018 masterarrows@gmail.com");
     const QString appName = trUtf8("Job Accounting");
 
-    void initUI();                                  // Hide main menu and show login screen
-    void login(const QString &user, int rights);    // Login
-    void setMainView(const QString &table);         // Set view type
+    void initUI();                                      // Hide main menu and show login screen
+    void login(const QString &user, int rights);        // Login
+    void setMainView(const QString &table);             // Set view type
 };
 
 #endif // MAINWINDOW_H

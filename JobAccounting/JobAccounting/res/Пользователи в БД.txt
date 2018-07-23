@@ -1,7 +1,8 @@
 Создать не рут пользователя.
 
 Давать права:
-GRANT INSERT ON main_table, equipment_table, worker_table to "editor"
+GRANT INSERT ON main_table TO "editor"
+GRANT SELECT ON equipment_table, worker_table TO "editor"
 GRANT SELECT, INSERT, UPDATE, DELETE ON main_table, equipment_table, worker_table to "user"
 GRANT SELECT ON main_table, equipment_table, worker_table to "guest"
 
@@ -11,7 +12,11 @@ REVOKE INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER ON main_table FROM 
 
 Снять защиту данных с таблицы (иначе SELECT не будет рабатать):
 
-ALTER TABLE main_table DISABLE ROW LEVEL SECURITY
+ALTER TABLE main_table, equipment_table, worker_tabl DISABLE ROW LEVEL SECURITY
+
+Дать право на использование последовательности:
+
+GRANT USAGE ON SEQUENCE main_table_id_seq TO editor
 
 Получить список прав пользователя:
 

@@ -4,6 +4,8 @@
 #include "database.h"
 #include <QScreen>
 #include <QSqlQuery>
+#include <QtWidgets/QTableWidgetItem>
+#include <QtCore/QTime>
 
 #include "combodelegate.h"
 
@@ -34,6 +36,12 @@ TableForm::TableForm(QWidget *parent, QString tableName) :
 
     connect(ui->createButton, &QToolButton::clicked, this, [this] {
         mainModel->insertRow(mainModel->rowCount(QModelIndex()));
+        int column = mainModel->fieldIndex("data");
+        mainModel->setData(mainModel->index(mainModel->rowCount(), 4), QTime::currentTime().toString());
+
+//        if (column != -1) {
+//            mainModel->setData(mainModel->index(0, column), QTime::currentTime().toString());
+//        }
     });
 
     connect(ui->acceptBtn, &QToolButton::clicked, this, &TableForm::acceptData);
@@ -73,8 +81,9 @@ void TableForm::loadDataFromDB(const QString &table)
         mainModel->setRelation(3, QSqlRelation(Worker_Table, "id", Worker_Name));
         mainModel->select();
 
-        //ComboBoxDelegate *equipdelegate = new ComboBoxDelegate(this);
-        //ui->mainTableView->setItemDelegateForColumn(2, equipdelegate);
+        ComboBoxDelegate *equipdelegate = new ComboBoxDelegate();
+        equipdelegate->setEditorData(new QComboBox(), QModelIndex(), Equipment_Name, Equipment_Table, Main_Table, "equipment");
+        ui->mainTableView->setItemDelegateForColumn(2, equipdelegate);
 
         headers << trUtf8("id") << trUtf8("Order number") << trUtf8("Equipment") << trUtf8("Worker") << trUtf8("Date")
                 << trUtf8("Part code") << trUtf8("Part name") << trUtf8("Quantity") << trUtf8("Part number")
@@ -131,11 +140,11 @@ void TableForm::deleteDatafromDB()
     ui->mainTableView->selectRow(row);
 }
 
-void TableForm::setRights(QString user, int rights)
+void TableForm::setRights(QString user, int &rights)
 {
     // User rights: read or read and edit mode
     this->user = user;
-    if (rights == 3) {
+    if (rights == 1) {
         // Read only mode
         ui->createButton->setVisible(false);
         ui->acceptBtn->setVisible(false);

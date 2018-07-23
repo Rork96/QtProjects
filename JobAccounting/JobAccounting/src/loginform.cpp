@@ -1,5 +1,6 @@
 #include "loginform.h"
 #include "ui_loginform.h"
+#include "connectiondialog.h"
 
 LoginForm::LoginForm(QWidget *parent) :
     QWidget(parent),
@@ -24,6 +25,8 @@ LoginForm::LoginForm(QWidget *parent) :
 void LoginForm::configure()
 {
     // Configure database connection
+    ConnectionDialog *dlg = new ConnectionDialog(this);
+    dlg->exec();
 }
 
 LoginForm::~LoginForm()
@@ -38,10 +41,11 @@ void LoginForm::checkLogin()
 
     // Check userName and password in database
     db = new DataBase();
-    bool result = db->connectToDataBase(userName, password);
+    int rights;
+    bool result = db->connectToDataBase(userName, password, rights);
     if (result) {
         // Login allowed
-        emit isLogin(userName, 2); //result);
+        emit isLogin(userName, rights);
     }
     else if (userName.isEmpty() || password.isEmpty()) {
         ui->infoLabel->setText("User name or password cannot be blank.");

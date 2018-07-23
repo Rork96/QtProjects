@@ -82,17 +82,17 @@ void MainWindow::login(const QString &user, int rights)
     this->userName = user;
     this->rights = rights;
     setWindowTitle(appName + " - " + userName);
-    if (this->rights == 1) {
+    if (this->rights == 18) {
         setMainView(Main_Table); // full access
     }
-    else if (this->rights == 2) {
+    else if (this->rights >= 3 && this->rights < 18) {
         // write only mode
         ui->menuBar->setVisible(false);
         editorForm = new EditorForm(this);
         setCentralWidget(editorForm);
         ui->statusBar->showMessage(company);
     }
-    else if (this->rights == 3) {
+    else if (this->rights == 1) {
         // Read only mode
         ui->menuAdministration->setEnabled(false);
         setMainView(Main_Table);
@@ -105,7 +105,7 @@ void MainWindow::setMainView(const QString &table)
     // Show table
     mainForm = new TableForm(this, table);
     setCentralWidget(mainForm);
-    mainForm->setRights(QString(), rights);
+    mainForm->setRights(QString(), this->rights);
     ui->menuBar->setVisible(true);
     ui->statusBar->showMessage(company);
 

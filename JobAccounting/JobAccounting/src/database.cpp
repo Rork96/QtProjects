@@ -4,9 +4,11 @@
 #include <QSqlQuery>
 #include <QSqlError>
 
+
 DataBase::DataBase(QObject *parent) : QObject(parent)
 {
-
+    // Program settings (ini in current program directorry)
+    set = new QSettings("settings.ini", QSettings::IniFormat, this);
 }
 
 DataBase::~DataBase()
@@ -15,14 +17,14 @@ DataBase::~DataBase()
 }
 
 // Connect to database
-bool DataBase::connectToDataBase(QString userName, QString password)
+bool DataBase::connectToDataBase(QString userName, QString password, int &rights)
 {
     /* Before connecting to the database, verify its existence.
      */
     if (!userName.isEmpty()) {
         this->userName = userName;
         this->password = password;
-        return this->openDataBase();
+        return this->openDataBase(rights);
     }
     else {
         return false;
@@ -30,77 +32,61 @@ bool DataBase::connectToDataBase(QString userName, QString password)
 }
 
 // Open database
-bool DataBase::openDataBase()
+bool DataBase::openDataBase(int &rights)
 {
-    /* Open database as superuser
+    /* Open database
      */
+
+    // load settings
+    loadConnectionSettings();
+
     db = QSqlDatabase::addDatabase("QPSQL");
-    db.setHostName(DATABASE_HOSTNAME);
+    db.setHostName(this->host);
     db.setDatabaseName(DATABASE_NAME);
-    db.setPort(PORT);
-    //db.setUserName(USER_NAME);
-    //db.setPassword(PASSWORD);
+    db.setPort(this->port);
     db.setUserName(userName);
     db.setPassword(password);
 
-    return db.open();
-    /*
-    SELECT privilege_type
-    FROM information_schema.role_table_grants
-    WHERE grantee = 'editor' AND table_name = 'main_table'
-*/
+    rights = 0;
 
-    // Check username and password
-//    if(db.open()) {
-//        QSqlQuery query;
-//        if (query.exec( "SELECT password, rights FROM users WHERE username = '" + this->userName + "'" )) {
-//            while (query.next()) {
-//                // Check password
-//                if (query.value(0).toString() == this->password) {
-//                    return query.value(1).toInt();  // return rights
-//                }
-//                else return 0;  // username or password incorrect
-//            }
-//        }
-//    }
-//    else {
-//        QMessageBox::warning(nullptr, trUtf8("Error"), db.lastError().text()); // Error
-//        return false;
-//    }
-//    return false;
-
-//    QString result;
-//
-//    if (db.open()) {
-//        QSqlQuery query;
-//        if (query.exec( "SELECT privilege_type FROM information_schema.role_table_grants WHERE grantee = '" +
-//            userName + "' AND table_name = 'main_table'" )) {
-//            while (query.next()) {
-//                // Check privileges
-//                if (query.value(0).toString() == "SELECT") {
-//                    result += "1";
-//                }
-//                else if (query.value(0).toString() == "UPDATE") {
-//
-//                }
-//                else if (query.value(0).toString() == "INSERT") {
-//
-//                }
-//                else if (query.value(0).toString() == "DELETE") {
-//
-//                }
-//            }
-//        }
-//    }
-//    else {
-//        QMessageBox::warning(nullptr, trUtf8("Error"), db.lastError().text()); // Error
-//        return false;
-//    }
-//    return result;
+    bool result = db.open();
+    if (result) {
+        QSqlQuery query;
+        if (query.exec( "SELECT privilege_type FROM information_schema.role_table_grants WHERE grantee = '" + userName + "' AND table_name = 'main_table'" )) {
+            while (query.next()) {
+                // Write rights
+                if (query.value(0).toString() == "SELECT") {
+                    this->rights += 1;
+                }
+                else if (query.value(0).toString() == "INSERT") {
+                    this->rights += 3;
+                }
+                else if (query.value(0).toString() == "UPDATE") {
+                    this->rights += 6;
+                }
+                else if (query.value(0).toString() == "DELETE") {
+                    this->rights += 8;
+                }
+            }
+        }
+    }
+    else {
+        QMessageBox::warning(nullptr, trUtf8("Error"), db.lastError().text()); // Error
+        return result;
+    }
+    rights = this->rights;
+    return result;
 }
 
 // Close database
 void DataBase::closeDataBase()
 {
     db.close();
+}
+
+void DataBase::loadConnectionSettings()
+{
+    // Load settings
+    this->host = set->value("JobAccounting/host", "localhost").toString();
+    this->port = set->value("JobAccounting/port", 5432).toInt();
 }

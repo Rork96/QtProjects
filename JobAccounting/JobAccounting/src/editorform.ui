@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1154</width>
-    <height>684</height>
+    <height>714</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -211,7 +211,7 @@ QToolButton:pressed {
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="equipmentBox"/>
+           <widget class="QComboBox" name="equipComboBox"/>
           </item>
          </layout>
         </item>
@@ -231,7 +231,7 @@ QToolButton:pressed {
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="workerBox"/>
+           <widget class="QComboBox" name="workComboBox"/>
           </item>
          </layout>
         </item>

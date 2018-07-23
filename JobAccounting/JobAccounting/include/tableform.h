@@ -18,7 +18,7 @@ public:
     explicit TableForm(QWidget *parent = 0, QString tableName = "main_table");
     ~TableForm();
 
-    void setRights(QString user, int rights); // User rights: read or read and edit mode
+    void setRights(QString user, int &rights); // User rights: read or read and edit mode
 
 private:
     Ui::TableForm *ui;

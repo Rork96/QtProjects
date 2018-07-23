@@ -3,13 +3,10 @@
 
 #include <QObject>
 #include <QSqlRelationalDelegate>
+#include <QSettings>
 
 /* Connection parameters */
-#define DATABASE_HOSTNAME   "localhost"
 #define DATABASE_NAME       "JobAccounting"
-#define PORT                5432
-#define USER_NAME           "postgres"
-#define PASSWORD            "123"
 
 class DataBase : public QObject
 {
@@ -19,16 +16,22 @@ public:
     ~DataBase();
 
     /* Connect to database */
-    bool connectToDataBase(QString userName, QString password);
+    bool connectToDataBase(QString userName, QString password, int &rights);
 
 private:
     QSqlDatabase db;
+    QSettings *set;
+
+    QString host;
+    int port;
 
     QString userName;
     QString password;
+    int rights = 0; // "rwud" - 1368; read only - 1; write only - 3, full access - 18
 
-    bool openDataBase();
+    bool openDataBase(int &rights);
     void closeDataBase();
+    void loadConnectionSettings();  // Load settings
 };
 
 #endif // DATABASE_H

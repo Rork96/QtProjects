@@ -14,6 +14,25 @@ EditorForm::EditorForm(QWidget *parent):
     model->setTable(Main_Table);
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model->setSort(0, Qt::AscendingOrder);
+
+    // Set relation between tables
+    int equipIndex = model->fieldIndex(Equipment);
+    model->setRelation(equipIndex, QSqlRelation(Equipment_Table, "id", Equipment_Name));
+
+    // New relation model for equipment
+    QSqlTableModel *equipRelModel = model->relationModel(equipIndex); // Relation index
+    ui->equipComboBox->setModel(equipRelModel);
+    ui->equipComboBox->setModelColumn(equipRelModel->fieldIndex(Equipment_Name));
+
+    // Set relation between tables
+    int workerIndex = model->fieldIndex(Worker);
+    model->setRelation(workerIndex, QSqlRelation(Worker_Table, "id", Worker_Name));
+
+    // New relation model for worker
+    QSqlTableModel *workerRelModel = model->relationModel(workerIndex); // Relation index
+    ui->workComboBox->setModel(workerRelModel);
+    ui->workComboBox->setModelColumn(workerRelModel->fieldIndex(Worker_Name));
+
     model->select();
 
     mapper = new QDataWidgetMapper();
@@ -21,8 +40,8 @@ EditorForm::EditorForm(QWidget *parent):
     mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
     mapper->setItemDelegate(new QSqlRelationalDelegate(this));
     mapper->addMapping(ui->orderNumberSpin, 1);
-    // 2 - equipmentBox
-    // 3 - workerBox
+    mapper->addMapping(ui->equipComboBox, equipIndex);
+    mapper->addMapping(ui->workComboBox, workerIndex);
     mapper->addMapping(ui->dateEdit, 4);
     mapper->addMapping(ui->partCodeLine, 5);
     mapper->addMapping(ui->partNameLine, 6);
@@ -40,14 +59,6 @@ EditorForm::EditorForm(QWidget *parent):
 
     ui->submitButton->setEnabled(false); // Order number, part code, part name, worker and equipment cannot be blank
 
-    // Equipment comboBox
-    equipModel = new BaseComboModel(Equipment_Name, Equipment_Table, this, "", "");
-    ui->equipmentBox->setModel(equipModel);
-
-    // Worker comboBox
-    workerModel = new BaseComboModel(Worker_Name, Worker_Table, this, "", "");
-    ui->workerBox->setModel(workerModel);
-
     clearAll(); // Clear all data
 
     // region Connections
@@ -57,12 +68,9 @@ EditorForm::EditorForm(QWidget *parent):
 
     // Order number, part code, part name, worker and equipment cannot be blank
     connect(ui->partCodeLine, &QLineEdit::textChanged, this, [this] {
-        ui->submitButton->setEnabled(!ui->partCodeLine->text().isEmpty() && !ui->partNameLine->text().isEmpty() &&
-            ui->workerBox->currentIndex() > 0 && ui->equipmentBox->currentIndex() > 0);
+        ui->submitButton->setEnabled(!ui->partCodeLine->text().isEmpty() && !ui->partNameLine->text().isEmpty());
     });
     connect(ui->partNameLine, &QLineEdit::textChanged, ui->partCodeLine, &QLineEdit::textChanged);
-    connect(ui->workerBox, &QComboBox::currentTextChanged, ui->partCodeLine, &QLineEdit::textChanged);
-    connect(ui->equipmentBox, &QComboBox::currentTextChanged, ui->partCodeLine, &QLineEdit::textChanged);
 
     connect(ui->startTimeEdit, &QTimeEdit::userTimeChanged, this, &EditorForm::calckTime);
     connect(ui->endTimeEdit, &QTimeEdit::userTimeChanged, this, &EditorForm::calckTime);
@@ -84,8 +92,8 @@ void EditorForm::clearAll()
     ui->quantitySpin->setValue(0);
     ui->partNumberSpin->setValue(0);
     ui->descriptionEdit->clear();
-    ui->equipmentBox->setCurrentIndex(0);
-    ui->workerBox->setCurrentIndex(0);
+    ui->equipComboBox->setCurrentIndex(0);
+    ui->workComboBox->setCurrentIndex(0);
     ui->startTimeEdit->setTime(QTime(0, 0));
     ui->endTimeEdit->setTime(QTime(0, 0));
     ui->hCountTimeEdit->setTime(QTime(0, 0));
@@ -98,16 +106,6 @@ void EditorForm::submitChanges()
     mapper->submit();
     model->submitAll();
 
-    int id = model->record(mapper->currentIndex()).value("id").toInt(); // Correct id needed
-
-    QString str = QString( "UPDATE %1 SET equipment = %2, worker = %3 WHERE id = %4" ).arg(Main_Table).
-        arg(ui->equipmentBox->itemData(ui->equipmentBox->currentIndex(), Qt::UserRole).toInt()).
-        arg(ui->workerBox->itemData(ui->workerBox->currentIndex(), Qt::UserRole).toInt()).
-        arg(id);
-
-    QSqlQuery query;
-    query.exec(str);
-
     model->select();
     mapper->toLast();
 
@@ -117,7 +115,16 @@ void EditorForm::submitChanges()
 void EditorForm::calckTime()
 {
     // Calculate time
-    QTime time = QTime(ui->endTimeEdit->time().hour() - ui->startTimeEdit->time().hour(),
-        ui->endTimeEdit->time().minute() - ui->startTimeEdit->time().minute());
-    ui->hCountTimeEdit->setTime(time);
+    int start = ui->startTimeEdit->time().msecsSinceStartOfDay();
+    int end = ui->endTimeEdit->time().msecsSinceStartOfDay();
+    int result;
+
+    // 11:30 - 12.00 - Dinner
+    if (ui->startTimeEdit->time() < QTime(11, 30) && ui->endTimeEdit->time() > QTime(12, 00)) {
+        result = end - start - QTime(0, 30).msecsSinceStartOfDay();
+    }
+    else {
+        result = end - start;
+    }
+    ui->hCountTimeEdit->setTime(QTime::fromMSecsSinceStartOfDay(result));
 }

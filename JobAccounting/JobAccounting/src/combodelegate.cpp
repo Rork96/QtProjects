@@ -1,9 +1,10 @@
 #include "combodelegate.h"
 
-#include <QComboBox>
 #include <QWidget>
 #include <QModelIndex>
 #include <QAbstractItemModel>
+
+#include "basecombomodel.h"
 
 ComboBoxDelegate::ComboBoxDelegate(QObject *parent)
     :QItemDelegate(parent)
@@ -11,18 +12,25 @@ ComboBoxDelegate::ComboBoxDelegate(QObject *parent)
 
 }
 
-
 QWidget *ComboBoxDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &/* option */, const QModelIndex &/* index */) const
 {
     QComboBox* editor = new QComboBox(parent);
     return editor;
 }
 
-void ComboBoxDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
+void ComboBoxDelegate::setEditorData(QWidget *editor,
+                                     const QModelIndex &index,
+                                     const QString column,
+                                     const QString table,
+                                     const QString baseTable,
+                                     const QString baseColumn) const
 {
     QComboBox *comboBox = dynamic_cast<QComboBox*>(editor);
     //int value = index.model()->data(index, Qt::EditRole).toUInt();
     int value = index.data(Qt::EditRole).toInt();
+
+    BaseComboModel *model = new BaseComboModel(column, table, nullptr, "", "");
+    comboBox->setModel(model);
     comboBox->setCurrentIndex(value);
 }
 

@@ -4,7 +4,6 @@
 #include <QSqlQuery>
 #include <QSqlError>
 
-
 DataBase::DataBase(QObject *parent) : QObject(parent)
 {
     // Program settings (ini in current program directorry)

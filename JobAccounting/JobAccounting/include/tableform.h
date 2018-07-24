@@ -35,6 +35,8 @@ private:
     void deleteDatafromDB();                    // Delete current data from database
     void searchForComboBox();                   // Search data
     void adjustSearchForComboBox();
+    // Calculete time
+    void calculateTime(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);
 };
 
 #endif // TABLEFORM_H

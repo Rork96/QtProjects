@@ -5,10 +5,12 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    // Load translation for system language
-    QString localeName = locale().name();
-    localeName = localeName.mid(0, localeName.indexOf("_"));
-    qtLanguageTranslator.load(QString("translations/") + localeName);
+    // Program settings (ini in current program directorry)
+    set = new QSettings("settings.ini", QSettings::IniFormat, this);
+
+    // Load translations
+    QString lang = set->value("JobAccounting/lang", "ru").toString();
+    qtLanguageTranslator.load(QString("translations/") + lang);
     qApp->installTranslator(&qtLanguageTranslator);
 
     ui->setupUi(this);
@@ -53,6 +55,7 @@ void MainWindow::translate(QString language)
 {
     qtLanguageTranslator.load("translations/" + language, ".");
     qApp->installTranslator(&qtLanguageTranslator);
+    set->setValue("JobAccounting/lang", language);
     mainForm->reloadView();
 }
 

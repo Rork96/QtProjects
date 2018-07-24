@@ -476,12 +476,24 @@ QToolButton:pressed {
           </property>
           <property name="minimumSize">
            <size>
-            <width>600</width>
+            <width>200</width>
+            <height>80</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>200</width>
             <height>80</height>
            </size>
           </property>
           <property name="text">
            <string/>
+          </property>
+          <property name="pixmap">
+           <pixmap resource="../res/res.qrc">:/LOGO.png</pixmap>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -673,6 +685,42 @@ QToolButton:pressed {
             <number>0</number>
            </property>
            <item>
+            <widget class="QToolButton" name="languageButton">
+             <property name="contextMenuPolicy">
+              <enum>Qt::CustomContextMenu</enum>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QToolButton {
+                color: darkblue;
+               padding: 4px;
+               border: 1px solid rgb(0, 85, 255); 
+               border-radius: 5px;
+               border-style: outset;
+               font: 10pt &quot;MS Shell Dlg 2&quot;;
+              }
+
+QToolButton:hover {
+               color: white;
+               border: 1px solid grey;
+               background-color: rgb(0, 78, 235);
+               }
+
+QToolButton:pressed {
+               color: rgb(0, 0, 197)
+               background: shadow;
+               border-style: inset;
+               }</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="../res/res.qrc">
+               <normaloff>:/english.png</normaloff>:/english.png</iconset>
+             </property>
+            </widget>
+           </item>
+           <item>
             <spacer name="horizontalSpacer">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -835,6 +883,33 @@ QToolButton:pressed {
     </spacer>
    </item>
   </layout>
+  <action name="actionEnglish">
+   <property name="icon">
+    <iconset resource="../res/res.qrc">
+     <normaloff>:/english.png</normaloff>:/english.png</iconset>
+   </property>
+   <property name="text">
+    <string>English</string>
+   </property>
+  </action>
+  <action name="actionRussian">
+   <property name="icon">
+    <iconset resource="../res/res.qrc">
+     <normaloff>:/russian.png</normaloff>:/russian.png</iconset>
+   </property>
+   <property name="text">
+    <string>Russian</string>
+   </property>
+  </action>
+  <action name="actionUkrainian">
+   <property name="icon">
+    <iconset resource="../res/res.qrc">
+     <normaloff>:/ukrainian.png</normaloff>:/ukrainian.png</iconset>
+   </property>
+   <property name="text">
+    <string>Ukrainian</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="../res/res.qrc"/>

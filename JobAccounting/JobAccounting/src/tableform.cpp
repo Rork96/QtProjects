@@ -8,6 +8,8 @@
 #include "mainwindow.h"
 #include "combodelegate.h"
 
+#include <QDebug>
+
 TableForm::TableForm(QWidget *parent, QString tableName) :
     QWidget(parent),
     ui(new Ui::TableForm)
@@ -46,6 +48,9 @@ TableForm::TableForm(QWidget *parent, QString tableName) :
     connect(ui->deleteButton, &QToolButton::clicked, this, &TableForm::deleteDatafromDB); // A row was selected in the table
 
     connect(ui->refreshButton, &QToolButton::clicked, this, [this] { loadDataFromDB(this->currentTable); });
+
+    // Data in tableView changed
+    connect(ui->mainTableView->model(), &QAbstractItemModel::dataChanged, this, &TableForm::calculateTime);
     // endregion
 }
 
@@ -206,4 +211,22 @@ void TableForm::reloadView()
 {
     // Reload table when language changed
     loadDataFromDB(this->currentTable);
+}
+void TableForm::calculateTime(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &/* roles */)
+{
+    // Calculete time
+    if (topLeft.column() == 10 || topLeft.column() == 11) {
+        QTime startTime = mainModel->itemData(mainModel->index(topLeft.row(), 10)).value(0).toTime();
+        QTime endTime = mainModel->itemData(mainModel->index(topLeft.row(), 11)).value(0).toTime();
+        int result;
+
+        // 11:30 - 12.00 - Dinner
+        if (startTime < QTime(11, 30) && endTime > QTime(12, 00)) {
+            result = endTime.msecsSinceStartOfDay() - startTime.msecsSinceStartOfDay() - QTime(0, 30).msecsSinceStartOfDay();
+        }
+        else {
+            result = endTime.msecsSinceStartOfDay() - startTime.msecsSinceStartOfDay();
+        }
+        mainModel->setData(mainModel->index(topLeft.row(), 12), QTime::fromMSecsSinceStartOfDay(result));
+    }
 }

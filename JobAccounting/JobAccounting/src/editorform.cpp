@@ -9,7 +9,29 @@ EditorForm::EditorForm(QWidget *parent):
     QWidget(parent),
     ui(new Ui::EditorForm)
 {
+    // Program settings (ini in current program directorry)
+    set = new QSettings("settings.ini", QSettings::IniFormat, this);
+
+    // Load translations
+    QString lang = set->value("JobAccounting/lang", "ru").toString();
+    qtLanguageTranslator.load(QString("translations/") + lang);
+    qApp->installTranslator(&qtLanguageTranslator);
+
     ui->setupUi(this);
+
+    // Set flag into toolButton
+    if (lang == "en")
+        ui->languageButton->setIcon(QIcon(":/english.png"));
+    else if (lang == "ru")
+        ui->languageButton->setIcon(QIcon(":/russian.png"));
+    else
+        ui->languageButton->setIcon(QIcon(":/ukrainian.png"));
+
+    // Add language actions toolButton
+    languageMenu = new QMenu(this);
+    languageMenu->addActions(QList<QAction *>() << ui->actionEnglish << ui->actionRussian << ui->actionUkrainian);
+    ui->languageButton->setMenu(languageMenu);
+    ui->languageButton->setPopupMode(QToolButton::InstantPopup);
 
     model = new QSqlRelationalTableModel(this);
     model->setTable(MAIN_TABLE);
@@ -76,11 +98,41 @@ EditorForm::EditorForm(QWidget *parent):
     connect(ui->startTimeEdit, &QTimeEdit::userTimeChanged, this, &EditorForm::calckTime);
     connect(ui->endTimeEdit, &QTimeEdit::userTimeChanged, this, &EditorForm::calckTime);
     // endregion
+
+    // region Translations
+    connect(ui->actionEnglish, &QAction::triggered, this, [this] {
+        ui->languageButton->setIcon(QIcon(":/english.png"));
+        translate("en");
+    });
+    connect(ui->actionRussian, &QAction::triggered, this, [this] {
+        ui->languageButton->setIcon(QIcon(":/russian.png"));
+        translate("ru");
+    });
+    connect(ui->actionUkrainian, &QAction::triggered, this, [this] {
+        ui->languageButton->setIcon(QIcon(":/ukrainian.pngg"));
+        translate("uk");
+    });
+    // endregion Translations
 }
 
 EditorForm::~EditorForm()
 {
     delete ui;
+}
+
+void EditorForm::changeEvent(QEvent *event)
+{
+    // Change language
+    if (event->type() == QEvent::LanguageChange) {
+        ui->retranslateUi(this);
+    }
+}
+
+void EditorForm::translate(QString language)
+{
+    qtLanguageTranslator.load("translations/" + language, ".");
+    qApp->installTranslator(&qtLanguageTranslator);
+    set->setValue("JobAccounting/lang", language);
 }
 
 void EditorForm::clearAll()
@@ -113,6 +165,7 @@ void EditorForm::submitChanges()
     // Clear all data
     clearAll();
 }
+
 void EditorForm::calckTime()
 {
     // Calculate time

@@ -1,6 +1,7 @@
 #include "editorform.h"
 #include "ui_editorform.h"
 
+#include "database.h"
 #include <QSqlQuery>
 #include <QSqlRecord>
 
@@ -11,27 +12,27 @@ EditorForm::EditorForm(QWidget *parent):
     ui->setupUi(this);
 
     model = new QSqlRelationalTableModel(this);
-    model->setTable(Main_Table);
+    model->setTable(MAIN_TABLE);
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model->setSort(0, Qt::AscendingOrder);
 
     // Set relation between tables
-    int equipIndex = model->fieldIndex(Equipment);
-    model->setRelation(equipIndex, QSqlRelation(Equipment_Table, "id", Equipment_Name));
+    int equipIndex = model->fieldIndex(EQUIPMENT);
+    model->setRelation(equipIndex, QSqlRelation(EQUIPMENT_TABLE, "id", EQUIPMENT_NAME));
 
     // New relation model for equipment
     QSqlTableModel *equipRelModel = model->relationModel(equipIndex); // Relation index
     ui->equipComboBox->setModel(equipRelModel);
-    ui->equipComboBox->setModelColumn(equipRelModel->fieldIndex(Equipment_Name));
+    ui->equipComboBox->setModelColumn(equipRelModel->fieldIndex(EQUIPMENT_NAME));
 
     // Set relation between tables
-    int workerIndex = model->fieldIndex(Worker);
-    model->setRelation(workerIndex, QSqlRelation(Worker_Table, "id", Worker_Name));
+    int workerIndex = model->fieldIndex(WORKER);
+    model->setRelation(workerIndex, QSqlRelation(WORKER_TABLE, "id", WORKER_NAME));
 
     // New relation model for worker
     QSqlTableModel *workerRelModel = model->relationModel(workerIndex); // Relation index
     ui->workComboBox->setModel(workerRelModel);
-    ui->workComboBox->setModelColumn(workerRelModel->fieldIndex(Worker_Name));
+    ui->workComboBox->setModelColumn(workerRelModel->fieldIndex(WORKER_NAME));
 
     model->select();
 

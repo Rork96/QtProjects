@@ -70,7 +70,7 @@ bool DataBase::openDataBase(int &rights)
         }
     }
     else {
-        QMessageBox::warning(nullptr, trUtf8("Error"), db.lastError().text()); // Error
+        //QMessageBox::warning(nullptr, trUtf8("Error"), db.lastError().text()); // Error
         return result;
     }
     rights = this->rights;

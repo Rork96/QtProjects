@@ -8,6 +8,18 @@
 /* Connection parameters */
 #define DATABASE_NAME       "JobAccounting"
 
+// Tables and columns
+#define MAIN_TABLE          "main_table"
+#define ORDER               "order_number"
+#define WORKER              "worker"
+#define EQUIPMENT           "equipment"
+
+#define WORKER_TABLE        "worker_table"
+#define WORKER_NAME         "worker_name"
+
+#define EQUIPMENT_TABLE     "equipment_table"
+#define EQUIPMENT_NAME      "equipment_name"
+
 class DataBase : public QObject
 {
     Q_OBJECT
@@ -24,9 +36,9 @@ private:
 
     QString host;
     int port;
-
     QString userName;
     QString password;
+
     int rights = 0; // "rwud" - 1368; read only - 1; write only - 3, full access - 18
 
     bool openDataBase(int &rights);

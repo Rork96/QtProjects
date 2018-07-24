@@ -68,7 +68,7 @@ QStatusBar {
      <x>0</x>
      <y>0</y>
      <width>1242</width>
-     <height>31</height>
+     <height>32</height>
     </rect>
    </property>
    <property name="contextMenuPolicy">
@@ -120,15 +120,10 @@ QStatusBar {
      <string>Accounting</string>
     </property>
     <addaction name="actionJob_accounting"/>
-    <addaction name="separator"/>
-    <addaction name="actionLogout"/>
-   </widget>
-   <widget class="QMenu" name="menuAdministration">
-    <property name="title">
-     <string>Administration</string>
-    </property>
     <addaction name="actionWorkers"/>
     <addaction name="actionEquipment"/>
+    <addaction name="separator"/>
+    <addaction name="actionLogout"/>
    </widget>
    <widget class="QMenu" name="menuLanguage">
     <property name="title">
@@ -139,7 +134,6 @@ QStatusBar {
     <addaction name="actionUkrainian"/>
    </widget>
    <addaction name="menuJob_accounting"/>
-   <addaction name="menuAdministration"/>
    <addaction name="menuLanguage"/>
   </widget>
   <action name="actionUsers">

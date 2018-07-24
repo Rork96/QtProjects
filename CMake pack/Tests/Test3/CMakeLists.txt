@@ -4,11 +4,11 @@ list (GET APPLICATIONS 2 APP_NAME)
 # Project Test
 project (${APP_NAME} LANGUAGES CXX)
 # C++11
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 # Clang ++
 SET (CMAKE_CXX_COMPILER clang++)
 # Flags
-set(CMAKE_CXX_FLAGS                "-Wall -std=c++11")
+set(CMAKE_CXX_FLAGS                "-Wall -std=c++14")
 set(CMAKE_CXX_FLAGS_DEBUG          "-O0 -g")
 set(CMAKE_CXX_FLAGS_MINSIZEREL     "-Os -DNDEBUG")
 set(CMAKE_CXX_FLAGS_RELEASE        "-O3 -DNDEBUG")

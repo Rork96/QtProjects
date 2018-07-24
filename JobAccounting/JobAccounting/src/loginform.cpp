@@ -25,7 +25,7 @@ LoginForm::LoginForm(QWidget *parent) :
 void LoginForm::configure()
 {
     // Configure database connection
-    ConnectionDialog *dlg = new ConnectionDialog(this);
+    auto *dlg = new ConnectionDialog(this);
     dlg->exec();
 }
 

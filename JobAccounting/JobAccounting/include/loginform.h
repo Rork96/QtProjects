@@ -2,7 +2,6 @@
 #define LOGINFORM_H
 
 #include <QWidget>
-
 #include "database.h"
 
 namespace Ui {

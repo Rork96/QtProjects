@@ -22,17 +22,11 @@ MainWindow::MainWindow(QWidget *parent) :
     // region MenuBar connections
     connect(ui->actionLogout, &QAction::triggered, this, &MainWindow::initUI);
 
-    connect(ui->actionJob_accounting, &QAction::triggered, this, [this] {
-        setMainView(Main_Table);
-    });
+    connect(ui->actionJob_accounting, &QAction::triggered, this, [this] { setMainView(MAIN_TABLE); });
 
-    connect(ui->actionWorkers, &QAction::triggered, this, [this] {
-        setMainView(Worker_Table);
-    });
+    connect(ui->actionWorkers, &QAction::triggered, this, [this] { setMainView(WORKER_TABLE); });
 
-    connect(ui->actionEquipment, &QAction::triggered, this, [this] {
-        setMainView(Equipment_Table);
-    });
+    connect(ui->actionEquipment, &QAction::triggered, this, [this] { setMainView(EQUIPMENT_TABLE); });
     // endregion MenuBar connections
 
     // region Translations
@@ -59,6 +53,7 @@ void MainWindow::translate(QString language)
 {
     qtLanguageTranslator.load("translations/" + language, ".");
     qApp->installTranslator(&qtLanguageTranslator);
+    mainForm->reloadView();
 }
 
 void MainWindow::initUI()
@@ -79,33 +74,33 @@ void MainWindow::initUI()
 
 void MainWindow::login(const QString &user, int rights)
 {
-    this->userName = user;
-    this->rights = rights;
-    setWindowTitle(appName + " - " + userName);
-    if (this->rights == 18) {
-        setMainView(Main_Table); // full access
+    setWindowTitle(appName + " - " + user);
+    if (rights == 18) {
+        setMainView(MAIN_TABLE, rights); // full access
     }
-    else if (this->rights >= 3 && this->rights < 18) {
+    else if (rights >= 3 && rights < 18) {
         // write only mode
         ui->menuBar->setVisible(false);
         editorForm = new EditorForm(this);
         setCentralWidget(editorForm);
         ui->statusBar->showMessage(company);
     }
-    else if (this->rights == 1) {
+    else if (rights == 1) {
         // Read only mode
-        ui->menuAdministration->setEnabled(false);
-        setMainView(Main_Table);
+        ui->actionJob_accounting->setVisible(false);
+        ui->actionWorkers->setVisible(false);
+        ui->actionEquipment->setVisible(false);
+        setMainView(MAIN_TABLE, rights);
     }
     delete loginForm;
 }
 
-void MainWindow::setMainView(const QString &table)
+void MainWindow::setMainView(const QString &table, int rights)
 {
     // Show table
     mainForm = new TableForm(this, table);
     setCentralWidget(mainForm);
-    mainForm->setRights(QString(), this->rights);
+    mainForm->setRights(rights);
     ui->menuBar->setVisible(true);
     ui->statusBar->showMessage(company);
 

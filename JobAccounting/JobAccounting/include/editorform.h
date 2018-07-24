@@ -22,16 +22,6 @@ public:
 private:
     Ui::EditorForm *ui;
 
-    const QString Main_Table = "main_table";
-    const QString Worker_Table = "worker_table";
-    const QString Equipment_Table = "equipment_table";
-
-    const QString Worker = "worker";
-    const QString Equipment = "equipment";
-
-    const QString Worker_Name = "worker_name";
-    const QString Equipment_Name = "equipment_name";
-
     QSqlRelationalTableModel *model;
     QDataWidgetMapper *mapper;
 

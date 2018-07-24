@@ -14,5 +14,7 @@
         <file>worker.png</file>
         <file>accept.png</file>
         <file>add.png</file>
+        <file>refresh.png</file>
+        <file>LOGO.png</file>
     </qresource>
 </RCC>

@@ -123,8 +123,8 @@ void TableForm::showSearchWidgets()
     ui->searchParamBox->clear();
 
     // Add items into searchParamBox
-    ui->searchParamBox->addItem("Order number");
-    ui->searchParamBox->addItem("Worker");
+    ui->searchParamBox->addItem(trUtf8("Order number"));
+    ui->searchParamBox->addItem(trUtf8("Worker"));
     ui->searchParamBox->setCurrentIndex(0);
 }
 

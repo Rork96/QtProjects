@@ -60,15 +60,15 @@ QGroupBox {
    <widget class="QToolButton" name="submitButton">
     <property name="geometry">
      <rect>
-      <x>300</x>
+      <x>270</x>
       <y>140</y>
-      <width>61</width>
+      <width>85</width>
       <height>29</height>
      </rect>
     </property>
     <property name="minimumSize">
      <size>
-      <width>60</width>
+      <width>85</width>
       <height>0</height>
      </size>
     </property>
@@ -104,15 +104,15 @@ QToolButton:pressed {
    <widget class="QToolButton" name="rejectButton">
     <property name="geometry">
      <rect>
-      <x>230</x>
+      <x>170</x>
       <y>140</y>
-      <width>60</width>
+      <width>85</width>
       <height>29</height>
      </rect>
     </property>
     <property name="minimumSize">
      <size>
-      <width>60</width>
+      <width>85</width>
       <height>0</height>
      </size>
     </property>

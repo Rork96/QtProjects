@@ -260,6 +260,7 @@ You can run only one copy.</source>
     </message>
     <message>
         <location filename="../src/tableform.cpp" line="96"/>
+        <location filename="../src/tableform.cpp" line="126"/>
         <source>Order number</source>
         <translation type="unfinished"></translation>
     </message>
@@ -270,6 +271,7 @@ You can run only one copy.</source>
     </message>
     <message>
         <location filename="../src/tableform.cpp" line="96"/>
+        <location filename="../src/tableform.cpp" line="127"/>
         <source>Worker</source>
         <translation type="unfinished"></translation>
     </message>

@@ -6,7 +6,7 @@
     <message>
         <location filename="../src/connectiondialog.ui" line="14"/>
         <source>Database Connections</source>
-        <translation>Соединения с базой данных</translation>
+        <translation>Подключение к базе данных</translation>
     </message>
     <message>
         <location filename="../src/connectiondialog.ui" line="101"/>
@@ -261,6 +261,7 @@ You can run only one copy.</source>
     </message>
     <message>
         <location filename="../src/tableform.cpp" line="96"/>
+        <location filename="../src/tableform.cpp" line="126"/>
         <source>Order number</source>
         <translation>№ заказа</translation>
     </message>
@@ -271,6 +272,7 @@ You can run only one copy.</source>
     </message>
     <message>
         <location filename="../src/tableform.cpp" line="96"/>
+        <location filename="../src/tableform.cpp" line="127"/>
         <source>Worker</source>
         <translation>Рабочий</translation>
     </message>
@@ -287,7 +289,7 @@ You can run only one copy.</source>
     <message>
         <location filename="../src/tableform.cpp" line="97"/>
         <source>Part name</source>
-        <translation>Наименование детали</translation>
+        <translation>Наименование</translation>
     </message>
     <message>
         <location filename="../src/tableform.cpp" line="97"/>
@@ -312,22 +314,22 @@ You can run only one copy.</source>
     <message>
         <location filename="../src/tableform.cpp" line="98"/>
         <source>End time</source>
-        <translation>Окончание работы</translation>
+        <translation>Окончание</translation>
     </message>
     <message>
         <location filename="../src/tableform.cpp" line="98"/>
         <source>Hours count</source>
-        <translation>Затрачено времени</translation>
+        <translation>Затрачено врем.</translation>
     </message>
     <message>
         <location filename="../src/tableform.cpp" line="99"/>
         <source>Remark</source>
-        <translation>Замечания по технологии</translation>
+        <translation>Замечания</translation>
     </message>
     <message>
         <location filename="../src/tableform.cpp" line="99"/>
         <source>Notes</source>
-        <translation>Дополнительные замечания</translation>
+        <translation>Доп. замечания</translation>
     </message>
     <message>
         <location filename="../src/tableform.cpp" line="102"/>

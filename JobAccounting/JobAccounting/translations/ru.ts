@@ -164,6 +164,16 @@
         <source>user name</source>
         <translation>имя пользователя</translation>
     </message>
+    <message>
+        <location filename="../src/loginform.cpp" line="51"/>
+        <source>User name or password cannot be blank.</source>
+        <translation>Заполните данные</translation>
+    </message>
+    <message>
+        <location filename="../src/loginform.cpp" line="54"/>
+        <source>Incorrect username or password.</source>
+        <translation>Неверные данные</translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>

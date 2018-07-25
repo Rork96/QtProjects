@@ -48,9 +48,9 @@ void LoginForm::checkLogin()
         emit isLogin(userName, rights);
     }
     else if (userName.isEmpty() || password.isEmpty()) {
-        ui->infoLabel->setText("User name or password cannot be blank.");
+        ui->infoLabel->setText(trUtf8("User name or password cannot be blank."));
     }
     else {
-        ui->infoLabel->setText("Incorrect username or password.");
+        ui->infoLabel->setText(trUtf8("Incorrect username or password."));
     }
 }

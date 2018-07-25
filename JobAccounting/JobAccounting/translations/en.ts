@@ -252,91 +252,131 @@ You can run only one copy.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="96"/>
-        <location filename="../src/tableform.cpp" line="102"/>
-        <location filename="../src/tableform.cpp" line="106"/>
+        <location filename="../src/tableform.ui" line="375"/>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/tableform.ui" line="378"/>
+        <source>F5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/tableform.ui" line="387"/>
+        <source>Create</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/tableform.ui" line="390"/>
+        <source>Ctrl+N</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/tableform.ui" line="399"/>
+        <source>Accept</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/tableform.ui" line="402"/>
+        <source>F7</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/tableform.ui" line="411"/>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/tableform.ui" line="414"/>
+        <source>F3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/tableform.cpp" line="104"/>
+        <location filename="../src/tableform.cpp" line="110"/>
+        <location filename="../src/tableform.cpp" line="114"/>
         <source>id</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="96"/>
-        <location filename="../src/tableform.cpp" line="126"/>
+        <location filename="../src/tableform.cpp" line="104"/>
+        <location filename="../src/tableform.cpp" line="137"/>
         <source>Order number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="96"/>
+        <location filename="../src/tableform.cpp" line="104"/>
         <source>Equipment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="96"/>
-        <location filename="../src/tableform.cpp" line="127"/>
+        <location filename="../src/tableform.cpp" line="104"/>
+        <location filename="../src/tableform.cpp" line="138"/>
         <source>Worker</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="96"/>
+        <location filename="../src/tableform.cpp" line="104"/>
         <source>Date</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="97"/>
+        <location filename="../src/tableform.cpp" line="105"/>
         <source>Part code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="97"/>
+        <location filename="../src/tableform.cpp" line="105"/>
         <source>Part name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="97"/>
+        <location filename="../src/tableform.cpp" line="105"/>
         <source>Quantity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="97"/>
+        <location filename="../src/tableform.cpp" line="105"/>
         <source>Part number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="98"/>
+        <location filename="../src/tableform.cpp" line="106"/>
         <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="98"/>
+        <location filename="../src/tableform.cpp" line="106"/>
         <source>Start time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="98"/>
+        <location filename="../src/tableform.cpp" line="106"/>
         <source>End time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="98"/>
+        <location filename="../src/tableform.cpp" line="106"/>
         <source>Hours count</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="99"/>
+        <location filename="../src/tableform.cpp" line="107"/>
         <source>Remark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="99"/>
+        <location filename="../src/tableform.cpp" line="107"/>
         <source>Notes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="102"/>
+        <location filename="../src/tableform.cpp" line="110"/>
         <source>Worker name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="106"/>
+        <location filename="../src/tableform.cpp" line="114"/>
         <source>Equipment name</source>
         <translation type="unfinished"></translation>
     </message>

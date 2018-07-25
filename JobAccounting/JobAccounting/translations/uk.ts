@@ -253,91 +253,131 @@ You can run only one copy.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="96"/>
-        <location filename="../src/tableform.cpp" line="102"/>
-        <location filename="../src/tableform.cpp" line="106"/>
+        <location filename="../src/tableform.ui" line="375"/>
+        <source>Refresh</source>
+        <translation>Оновити</translation>
+    </message>
+    <message>
+        <location filename="../src/tableform.ui" line="378"/>
+        <source>F5</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/tableform.ui" line="387"/>
+        <source>Create</source>
+        <translation>Новий запис</translation>
+    </message>
+    <message>
+        <location filename="../src/tableform.ui" line="390"/>
+        <source>Ctrl+N</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/tableform.ui" line="399"/>
+        <source>Accept</source>
+        <translation>Зберегти</translation>
+    </message>
+    <message>
+        <location filename="../src/tableform.ui" line="402"/>
+        <source>F7</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/tableform.ui" line="411"/>
+        <source>Delete</source>
+        <translation>Видалити</translation>
+    </message>
+    <message>
+        <location filename="../src/tableform.ui" line="414"/>
+        <source>F3</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/tableform.cpp" line="104"/>
+        <location filename="../src/tableform.cpp" line="110"/>
+        <location filename="../src/tableform.cpp" line="114"/>
         <source>id</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="96"/>
-        <location filename="../src/tableform.cpp" line="126"/>
+        <location filename="../src/tableform.cpp" line="104"/>
+        <location filename="../src/tableform.cpp" line="137"/>
         <source>Order number</source>
         <translation>№ замовлення</translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="96"/>
+        <location filename="../src/tableform.cpp" line="104"/>
         <source>Equipment</source>
         <translation>Обладнання</translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="96"/>
-        <location filename="../src/tableform.cpp" line="127"/>
+        <location filename="../src/tableform.cpp" line="104"/>
+        <location filename="../src/tableform.cpp" line="138"/>
         <source>Worker</source>
         <translation>Робітник</translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="96"/>
+        <location filename="../src/tableform.cpp" line="104"/>
         <source>Date</source>
         <translation>Дата</translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="97"/>
+        <location filename="../src/tableform.cpp" line="105"/>
         <source>Part code</source>
         <translation>Шифр деталі</translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="97"/>
+        <location filename="../src/tableform.cpp" line="105"/>
         <source>Part name</source>
         <translation>Найменування</translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="97"/>
+        <location filename="../src/tableform.cpp" line="105"/>
         <source>Quantity</source>
         <translation>Кількість</translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="97"/>
+        <location filename="../src/tableform.cpp" line="105"/>
         <source>Part number</source>
         <translation>№ за замов.</translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="98"/>
+        <location filename="../src/tableform.cpp" line="106"/>
         <source>Description</source>
         <translation>Опис</translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="98"/>
+        <location filename="../src/tableform.cpp" line="106"/>
         <source>Start time</source>
         <translation>Початок роботи</translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="98"/>
+        <location filename="../src/tableform.cpp" line="106"/>
         <source>End time</source>
         <translation>Завершення</translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="98"/>
+        <location filename="../src/tableform.cpp" line="106"/>
         <source>Hours count</source>
         <translation>Витрачено часу</translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="99"/>
+        <location filename="../src/tableform.cpp" line="107"/>
         <source>Remark</source>
         <translation>Зауваження</translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="99"/>
+        <location filename="../src/tableform.cpp" line="107"/>
         <source>Notes</source>
         <translation>Додаткові заув.</translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="102"/>
+        <location filename="../src/tableform.cpp" line="110"/>
         <source>Worker name</source>
         <translation>ПІБ робіткина</translation>
     </message>
     <message>
-        <location filename="../src/tableform.cpp" line="106"/>
+        <location filename="../src/tableform.cpp" line="114"/>
         <source>Equipment name</source>
         <translation>Найменування обладнання</translation>
     </message>

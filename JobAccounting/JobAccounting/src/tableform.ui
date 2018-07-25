@@ -359,9 +359,61 @@ QToolButton:pressed {
     </layout>
    </item>
    <item row="1" column="0">
-    <widget class="QTableView" name="mainTableView"/>
+    <widget class="QTableView" name="mainTableView">
+     <property name="contextMenuPolicy">
+      <enum>Qt::CustomContextMenu</enum>
+     </property>
+    </widget>
    </item>
   </layout>
+  <action name="actionRefresh">
+   <property name="icon">
+    <iconset resource="../res/res.qrc">
+     <normaloff>:/refresh.png</normaloff>:/refresh.png</iconset>
+   </property>
+   <property name="text">
+    <string>Refresh</string>
+   </property>
+   <property name="shortcut">
+    <string>F5</string>
+   </property>
+  </action>
+  <action name="actionCreate">
+   <property name="icon">
+    <iconset resource="../res/res.qrc">
+     <normaloff>:/add.png</normaloff>:/add.png</iconset>
+   </property>
+   <property name="text">
+    <string>Create</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionAccept">
+   <property name="icon">
+    <iconset resource="../res/res.qrc">
+     <normaloff>:/accept.png</normaloff>:/accept.png</iconset>
+   </property>
+   <property name="text">
+    <string>Accept</string>
+   </property>
+   <property name="shortcut">
+    <string>F7</string>
+   </property>
+  </action>
+  <action name="actionDelete">
+   <property name="icon">
+    <iconset resource="../res/res.qrc">
+     <normaloff>:/delete.png</normaloff>:/delete.png</iconset>
+   </property>
+   <property name="text">
+    <string>Delete</string>
+   </property>
+   <property name="shortcut">
+    <string>F3</string>
+   </property>
+  </action>
  </widget>
  <tabstops>
   <tabstop>deleteButton</tabstop>
@@ -371,5 +423,70 @@ QToolButton:pressed {
  <resources>
   <include location="../res/res.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>actionRefresh</sender>
+   <signal>triggered()</signal>
+   <receiver>refreshButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>784</x>
+     <y>18</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionCreate</sender>
+   <signal>triggered()</signal>
+   <receiver>createButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>896</x>
+     <y>18</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>840</x>
+     <y>18</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionAccept</sender>
+   <signal>triggered()</signal>
+   <receiver>acceptBtn</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>896</x>
+     <y>18</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionDelete</sender>
+   <signal>triggered()</signal>
+   <receiver>deleteButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>952</x>
+     <y>18</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

@@ -37,6 +37,10 @@ private:
     void adjustSearchForComboBox();
     // Calculete time
     void calculateTime(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);
+    // Context menu for table
+    void customMenuRequested(const QPoint &point);
+    // Sorting in tableView
+    void sortByColumn(int index);
 };
 
 #endif // TABLEFORM_H

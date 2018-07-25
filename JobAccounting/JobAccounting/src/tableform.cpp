@@ -5,6 +5,7 @@
 #include <QSqlQuery>
 #include <QDate>
 #include <QTime>
+#include <QScreen>
 #include "mainwindow.h"
 #include "combodelegate.h"
 
@@ -51,6 +52,12 @@ TableForm::TableForm(QWidget *parent, QString tableName) :
 
     // Data in tableView changed
     connect(ui->mainTableView->model(), &QAbstractItemModel::dataChanged, this, &TableForm::calculateTime);
+
+    // Context menu
+    connect(ui->mainTableView, &QTableView::customContextMenuRequested, this, &TableForm::customMenuRequested);
+
+    // Sorting
+    connect(ui->mainTableView->horizontalHeader(), &QHeaderView::sectionClicked, this, &TableForm::sortByColumn);
     // endregion
 }
 
@@ -67,12 +74,13 @@ void TableForm::loadDataFromDB(const QString &table)
     {
         mainModel = new QSqlRelationalTableModel(this);
         mainModel->setTable(tableName);
-        mainModel->setSort(0, Qt::AscendingOrder);
+        mainModel->setSort(1, Qt::AscendingOrder);  // Sort by order number
         mainModel->setEditStrategy(QSqlTableModel::OnManualSubmit);
         ui->mainTableView->setSelectionMode(QAbstractItemView::SingleSelection);
         mainModel->select();
         ui->mainTableView->setModel(mainModel);
-        ui->mainTableView->setColumnHidden(0, true); // Hide
+        ui->mainTableView->setSortingEnabled(true);     // Enable sorting
+        ui->mainTableView->setColumnHidden(0, true);    // Hide column
     };
 
     initTable(table);
@@ -108,9 +116,12 @@ void TableForm::loadDataFromDB(const QString &table)
 
     // Columns size
     for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
-        ui->mainTableView->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
         mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
     }
+
+    // Resize columns width dependent on the screen width
+    QRect rect = QApplication::screens().at(0)->geometry();
+    ui->mainTableView->horizontalHeader()->setDefaultSectionSize(rect.width()/(ui->mainTableView->horizontalHeader()->count()-1) -2);
 }
 
 void TableForm::showSearchWidgets()
@@ -229,4 +240,18 @@ void TableForm::calculateTime(const QModelIndex &topLeft, const QModelIndex &bot
         }
         mainModel->setData(mainModel->index(topLeft.row(), 12), QTime::fromMSecsSinceStartOfDay(result));
     }
+}
+
+void TableForm::customMenuRequested(const QPoint &point)
+{
+    // Context menu for table
+    QMenu *menu = new QMenu(this);
+    menu->addActions(QList<QAction*>() << ui->actionRefresh << ui->actionCreate << ui->actionAccept << menu->addSeparator() << ui->actionDelete);
+    menu->popup(ui->mainTableView->viewport()->mapToGlobal(point));
+}
+
+void TableForm::sortByColumn(int index)
+{
+    // Sorting in tableView
+    mainModel->setSort(index, Qt::AscendingOrder);
 }

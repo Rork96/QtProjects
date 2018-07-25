@@ -180,5 +180,5 @@ void EditorForm::calckTime()
     else {
         result = end - start;
     }
-    ui->hCountTimeEdit->setTime(QTime::fromMSecsSinceStartOfDay(result));
+    ui->hCountTimeEdit->setTime(QTime::fromMSecsSinceStartOfDay(result));   // Set
 }

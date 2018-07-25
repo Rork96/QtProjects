@@ -16,8 +16,8 @@ generate_product_version (
         VERSION_MINOR 0
         VERSION_PATH ${BUILD_COUNTER}
         VERSION_REVISION ${BUILD_REVISION}
-        COMPANY_NAME "Company"
-        FILE_DESCRIPTION "Application"
+        COMPANY_NAME "masterarrows@gmail.com"
+        FILE_DESCRIPTION "JobAccounting"
 )
 
 #Qt modules

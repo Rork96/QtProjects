@@ -3,7 +3,6 @@
 
 #include <QWidget>
 #include <QSqlRelationalTableModel>
-#include <QDataWidgetMapper>
 #include <QSqlRelationalDelegate>
 #include <QTranslator>
 #include <QSettings>
@@ -33,12 +32,13 @@ private:
     QSettings *set;
     QTranslator qtLanguageTranslator;
 
-    QSqlRelationalTableModel *model;
-    QDataWidgetMapper *mapper;
+    QSqlRelationalTableModel *mainModel;
 
     void clearAll();        // Clear all data
     void submitChanges();   // Save data to database
     void calckTime();       // Calculate time
+    void setFilter();       // Set filter to model in table
+    void loadData();        // Load data from database
 };
 
 #endif //EditorForm_H

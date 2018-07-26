@@ -13,6 +13,7 @@
 #define ORDER               "order_number"
 #define WORKER              "worker"
 #define EQUIPMENT           "equipment"
+#define DATE                "date"
 
 #define WORKER_TABLE        "worker_table"
 #define WORKER_NAME         "worker_name"

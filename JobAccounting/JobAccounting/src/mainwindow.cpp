@@ -29,6 +29,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionWorkers, &QAction::triggered, this, [this] { setMainView(WORKER_TABLE); });
 
     connect(ui->actionEquipment, &QAction::triggered, this, [this] { setMainView(EQUIPMENT_TABLE); });
+
+    //connect(ui->actionEquipment, &QAction::triggered, this, [this] { setMainView(ORDER_TABLE); });
+
+    //connect(ui->actionEquipment, &QAction::triggered, this, [this] { setMainView(PART_TABLE); });
     // endregion MenuBar connections
 
     // region Translations

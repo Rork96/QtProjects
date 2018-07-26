@@ -14,6 +14,14 @@
 #define WORKER              "worker"
 #define EQUIPMENT           "equipment"
 #define DATE                "date"
+#define PART                "part"
+
+#define ORDER_TABLE         "order_table"
+#define ORDER_NAME          "order_name"
+
+#define PART_TABLE          "part_table"
+#define ORDER_ID            "order_id"
+#define PART_NAME           "part_name"
 
 #define WORKER_TABLE        "worker_table"
 #define WORKER_NAME         "worker_name"

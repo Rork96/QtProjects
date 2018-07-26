@@ -89,9 +89,15 @@ void TableForm::loadDataFromDB(const QString &table)
 
     if (table == MAIN_TABLE) {
         // Select
+        mainModel->setRelation(1, QSqlRelation(ORDER_TABLE, "id", ORDER_NAME));         // order number
         mainModel->setRelation(2, QSqlRelation(EQUIPMENT_TABLE, "id", EQUIPMENT_NAME)); // equipment
         mainModel->setRelation(3, QSqlRelation(WORKER_TABLE, "id", WORKER_NAME));       // worker
+        mainModel->setRelation(5, QSqlRelation(PART_TABLE, "id", PART_NAME));           // part
         mainModel->select();
+
+        // Delegate for order number
+        auto *ordCb = new ComboBoxDelegate(ui->mainTableView, ORDER_NAME, ORDER_TABLE);
+        ui->mainTableView->setItemDelegateForColumn(1, ordCb);
 
         // Delegate for equipment
         auto *eqCb = new ComboBoxDelegate(ui->mainTableView, EQUIPMENT_NAME, EQUIPMENT_TABLE);
@@ -101,10 +107,15 @@ void TableForm::loadDataFromDB(const QString &table)
         auto *wCb = new ComboBoxDelegate(ui->mainTableView, WORKER_NAME, WORKER_TABLE);
         ui->mainTableView->setItemDelegateForColumn(3, wCb);
 
+        // Delegate for part
+        QString ordText = mainModel->itemData(mainModel->index(mainModel->rowCount()-1, 1)).value(0).toString();
+        auto *partCb = new ComboBoxDelegate(ui->mainTableView, PART_NAME, PART_TABLE " WHERE " ORDER_ID " = "
+                        "(SELECT id FROM " ORDER_TABLE " WHERE " ORDER_NAME " = '" + ordText + "')");
+        ui->mainTableView->setItemDelegateForColumn(5, partCb);
+
         headers << trUtf8("id") << trUtf8("Order number") << trUtf8("Equipment") << trUtf8("Worker") << trUtf8("Date")
-                << trUtf8("Part code") << trUtf8("Part name") << trUtf8("Quantity") << trUtf8("Part number")
-                << trUtf8("Description") << trUtf8("Start time") << trUtf8("End time") << trUtf8("Hours count")
-                << trUtf8("Remark") << trUtf8("Notes");
+                << trUtf8("Part") << trUtf8("Quantity") << trUtf8("OTK") << trUtf8("Description") << trUtf8("Start time")
+                << trUtf8("End time") << trUtf8("Hours count") << trUtf8("Remark") << trUtf8("Notes");
     }
     else if (table == WORKER_TABLE) {
         headers << trUtf8("id") << trUtf8("Worker name");
@@ -112,6 +123,14 @@ void TableForm::loadDataFromDB(const QString &table)
     else if (table == EQUIPMENT_TABLE) {
         // equipment table
         headers << trUtf8("id") << trUtf8("Equipment name");
+    }
+    else if (table == ORDER_TABLE) {
+        // order table
+        headers << trUtf8("id") << trUtf8("Order number");
+    }
+    else if (table == PART_TABLE) {
+        // part table
+        headers << trUtf8("id") << trUtf8("Order number") << trUtf8("Part");
     }
 
     // Columns size
@@ -194,6 +213,7 @@ void TableForm::searchForComboBox()
 void TableForm::adjustSearchForComboBox()
 {
     if (ui->searchParamBox->currentIndex() == 1) {
+        // worker
         ui->searchLine->setVisible(false);
         ui->searchBox->setVisible(ui->searchParamBox->isVisible());
         // Search parameters for worker
@@ -209,7 +229,8 @@ void TableForm::adjustSearchForComboBox()
             ui->searchBox->addItem(query.value(1).toString(), query.value(0));
         }
     }
-    else {
+    else { //if (ui->searchParamBox->currentIndex() == 2) {
+        // order_number
         ui->searchBox->setVisible(false);
         ui->searchLine->setVisible(ui->searchParamBox->isVisible());
         ui->searchLine->clear();
@@ -217,6 +238,9 @@ void TableForm::adjustSearchForComboBox()
         mainModel->setFilter(filterString);
         mainModel->select();
     }
+    /*else {
+        //
+    }*/
 }
 void TableForm::reloadView()
 {
@@ -226,9 +250,9 @@ void TableForm::reloadView()
 void TableForm::calculateTime(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &/* roles */)
 {
     // Calculete time
-    if (topLeft.column() == 10 || topLeft.column() == 11) {
-        QTime startTime = mainModel->itemData(mainModel->index(topLeft.row(), 10)).value(0).toTime();
-        QTime endTime = mainModel->itemData(mainModel->index(topLeft.row(), 11)).value(0).toTime();
+    if (topLeft.column() == 9 || topLeft.column() == 10) {
+        QTime startTime = mainModel->itemData(mainModel->index(topLeft.row(), 9)).value(0).toTime();
+        QTime endTime = mainModel->itemData(mainModel->index(topLeft.row(), 10)).value(0).toTime();
         int result;
 
         // 11:30 - 12.00 - Dinner
@@ -238,7 +262,7 @@ void TableForm::calculateTime(const QModelIndex &topLeft, const QModelIndex &bot
         else {
             result = endTime.msecsSinceStartOfDay() - startTime.msecsSinceStartOfDay();
         }
-        mainModel->setData(mainModel->index(topLeft.row(), 12), QTime::fromMSecsSinceStartOfDay(result));
+        mainModel->setData(mainModel->index(topLeft.row(), 11), QTime::fromMSecsSinceStartOfDay(result));
     }
 }
 

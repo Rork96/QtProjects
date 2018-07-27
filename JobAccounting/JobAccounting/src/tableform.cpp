@@ -154,7 +154,7 @@ void TableForm::loadDataFromDB(const QString &table)
         // part table
         ui->mainTableView->setColumnHidden(1, true);    // Hide column
 
-        headers << trUtf8("id") << trUtf8("Order number") << trUtf8("Part");
+        headers << trUtf8("id") << trUtf8("Order number") << trUtf8("Part") << trUtf8("Count");
         hiddenColumns +=1;
 
         QSqlQuery query;

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>971</width>
+    <width>1301</width>
     <height>624</height>
    </rect>
   </property>
@@ -40,26 +40,71 @@ QTableView {
 QHeaderView::section {
    			padding: 4px;
     		height: 40;
-}</string>
+}
+QLabel {
+               color: rgb(32, 74, 135);
+               padding: 4px;
+               border-radius: 5px;
+               border-style: outset;
+	           font: 11pt &quot;MS Shell Dlg 2&quot;;
+              }
+QDateEdit {
+               color: black;
+               padding: 4px;
+               border: 1px solid rgb(63, 127, 191); 
+               border-radius: 5px;
+               border-style: outset;
+	           font: 10pt &quot;MS Shell Dlg 2&quot;;
+              }</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <property name="leftMargin">
-    <number>3</number>
-   </property>
-   <property name="topMargin">
-    <number>3</number>
-   </property>
-   <property name="rightMargin">
-    <number>3</number>
-   </property>
-   <property name="bottomMargin">
-    <number>3</number>
-   </property>
-   <property name="spacing">
-    <number>3</number>
-   </property>
+  <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QGroupBox" name="groupBox">
+       <property name="title">
+        <string/>
+       </property>
+       <layout class="QGridLayout" name="gridLayout">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item row="0" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Order number</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="orderCBox">
+            <property name="minimumSize">
+             <size>
+              <width>200</width>
+              <height>0</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </item>
      <item>
       <widget class="QToolButton" name="searchButton">
        <property name="styleSheet">
@@ -110,23 +155,7 @@ QToolButton:pressed {
       </spacer>
      </item>
      <item>
-      <widget class="QComboBox" name="searchParamBox">
-       <property name="minimumSize">
-        <size>
-         <width>200</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true"/>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="searchLine">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
+      <widget class="QComboBox" name="orderBox">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -139,16 +168,10 @@ QToolButton:pressed {
          <height>0</height>
         </size>
        </property>
-       <property name="styleSheet">
-        <string notr="true"/>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="searchBox">
+      <widget class="QComboBox" name="workerBox">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -160,6 +183,36 @@ QToolButton:pressed {
          <width>200</width>
          <height>0</height>
         </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDateEdit" name="startDateEdit">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>0</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDateEdit" name="endDateEdit">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="dateTime">
+        <datetime>
+         <hour>0</hour>
+         <minute>0</minute>
+         <second>0</second>
+         <year>2020</year>
+         <month>1</month>
+         <day>1</day>
+        </datetime>
        </property>
       </widget>
      </item>
@@ -358,7 +411,7 @@ QToolButton:pressed {
      </item>
     </layout>
    </item>
-   <item row="1" column="0">
+   <item row="2" column="0">
     <widget class="QTableView" name="mainTableView">
      <property name="contextMenuPolicy">
       <enum>Qt::CustomContextMenu</enum>
@@ -418,7 +471,6 @@ QToolButton:pressed {
  <tabstops>
   <tabstop>deleteButton</tabstop>
   <tabstop>mainTableView</tabstop>
-  <tabstop>searchLine</tabstop>
  </tabstops>
  <resources>
   <include location="../res/res.qrc"/>
@@ -447,8 +499,8 @@ QToolButton:pressed {
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>896</x>
-     <y>18</y>
+     <x>-1</x>
+     <y>-1</y>
     </hint>
     <hint type="destinationlabel">
      <x>840</x>

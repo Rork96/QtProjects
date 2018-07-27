@@ -120,6 +120,8 @@ QStatusBar {
      <string>Accounting</string>
     </property>
     <addaction name="actionJob_accounting"/>
+    <addaction name="actionOrders"/>
+    <addaction name="actionParts"/>
     <addaction name="actionWorkers"/>
     <addaction name="actionEquipment"/>
     <addaction name="separator"/>
@@ -206,6 +208,24 @@ QStatusBar {
    </property>
    <property name="text">
     <string>Logout</string>
+   </property>
+  </action>
+  <action name="actionOrders">
+   <property name="icon">
+    <iconset resource="../res/res.qrc">
+     <normaloff>:/order_list.png</normaloff>:/order_list.png</iconset>
+   </property>
+   <property name="text">
+    <string>Orders</string>
+   </property>
+  </action>
+  <action name="actionParts">
+   <property name="icon">
+    <iconset resource="../res/res.qrc">
+     <normaloff>:/tools.png</normaloff>:/tools.png</iconset>
+   </property>
+   <property name="text">
+    <string>Parts</string>
    </property>
   </action>
  </widget>

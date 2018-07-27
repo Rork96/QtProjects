@@ -21,3 +21,17 @@ ALTER TABLE main_table, equipment_table, worker_tabl DISABLE ROW LEVEL SECURITY
 
 GRANT USAGE ON SEQUENCE main_table_id_seq TO user
 GRANT USAGE ON SEQUENCE main_table_id_seq TO editor
+
+CREATE OR REPLACE FUNCTION setEditor()
+  RETURNS TRIGGER AS
+  $func$
+  BEGIN
+    NEW.edit_date := current_date;
+    RETURN NEW;
+  end;
+$func$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER set_editor
+BEFORE UPDATE ON main_table
+FOR ROW EXECUTE PROCEDURE setEditor();

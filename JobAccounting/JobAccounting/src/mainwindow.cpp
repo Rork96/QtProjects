@@ -30,9 +30,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->actionEquipment, &QAction::triggered, this, [this] { setMainView(EQUIPMENT_TABLE); });
 
-    //connect(ui->actionEquipment, &QAction::triggered, this, [this] { setMainView(ORDER_TABLE); });
+    connect(ui->actionOrders, &QAction::triggered, this, [this] { setMainView(ORDER_TABLE); });
 
-    //connect(ui->actionEquipment, &QAction::triggered, this, [this] { setMainView(PART_TABLE); });
+    connect(ui->actionParts, &QAction::triggered, this, [this] { setMainView(PART_TABLE); });
     // endregion MenuBar connections
 
     // region Translations
@@ -83,6 +83,12 @@ void MainWindow::login(const QString &user, int rights)
 {
     setWindowTitle(appName + " - " + user);
     if (rights == 18) {
+        ui->menuBar->setVisible(true);
+        ui->actionJob_accounting->setVisible(true);
+        ui->actionWorkers->setVisible(true);
+        ui->actionEquipment->setVisible(true);
+        ui->actionOrders->setVisible(true);
+        ui->actionParts->setVisible(true);
         setMainView(MAIN_TABLE, rights); // full access
     }
     else if (rights >= 3 && rights < 18) {
@@ -90,16 +96,18 @@ void MainWindow::login(const QString &user, int rights)
         ui->menuBar->setVisible(false);
         editorForm = new EditorForm(this);
         setCentralWidget(editorForm);
-        ui->statusBar->showMessage(company);
     }
     else if (rights == 1) {
         // Read only mode
         ui->actionJob_accounting->setVisible(false);
         ui->actionWorkers->setVisible(false);
         ui->actionEquipment->setVisible(false);
+        ui->actionOrders->setVisible(false);
+        ui->actionParts->setVisible(false);
         setMainView(MAIN_TABLE, rights);
     }
     delete loginForm;
+    ui->statusBar->showMessage(company);
 }
 
 void MainWindow::setMainView(const QString &table, int rights)

@@ -24,3 +24,19 @@ SELECT privilege_type
 FROM information_schema.role_table_grants
 WHERE grantee = 'user' AND table_name = 'main_table'
 
+Функции (записать в edit_date значение текущей даты):
+
+CREATE OR REPLACE FUNCTION setEditor()
+  RETURNS TRIGGER AS
+  $func$
+  BEGIN
+    NEW.edit_date := current_date;
+    RETURN NEW;
+  end;
+$func$ LANGUAGE plpgsql;
+
+Триггеры на события (при обновлении записи вы полнить функцию setEditor() / внести в отредактированную строку данные):
+
+CREATE TRIGGER set_editor
+BEFORE UPDATE ON main_table
+FOR ROW EXECUTE PROCEDURE setEditor();

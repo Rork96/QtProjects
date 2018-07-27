@@ -5,7 +5,8 @@
 
 class ComboBoxDelegate : public QStyledItemDelegate
 {
-Q_OBJECT
+    Q_OBJECT
+
 public:
     ComboBoxDelegate(QObject *parent, const QString &visualColumn, const QString &queryTail);
 

@@ -26,21 +26,19 @@ private:
     QString currentTable;
 
     QSqlRelationalTableModel *mainModel;        // For providing relations between tables
-    QListView *listView;
 
     void showSearchWidgets();                   // Show widgets for providing search
-    void searchInDB(const QString &arg1);       // Interactive search in database
+    void searchInDB();                          // Interactive search in database
     void loadDataFromDB(const QString &table);  // Load data
     void acceptData();                          // Write data into database
     void deleteDatafromDB();                    // Delete current data from database
-    void searchForComboBox();                   // Search data
-    void adjustSearchForComboBox();
     // Calculete time
     void calculateTime(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);
     // Context menu for table
     void customMenuRequested(const QPoint &point);
     // Sorting in tableView
     void sortByColumn(int index);
+    void setFilterForOrder();                   // Filter for order number for part table
 };
 
 #endif // TABLEFORM_H

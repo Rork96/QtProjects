@@ -16,5 +16,7 @@
         <file>add.png</file>
         <file>refresh.png</file>
         <file>LOGO.png</file>
+        <file>order_list.png</file>
+        <file>tools.png</file>
     </qresource>
 </RCC>

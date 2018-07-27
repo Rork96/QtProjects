@@ -8,6 +8,7 @@
 #include <QScreen>
 #include "mainwindow.h"
 #include "combodelegate.h"
+#include "noteditabledelegate.h"
 
 #include <QDebug>
 
@@ -17,30 +18,37 @@ TableForm::TableForm(QWidget *parent, QString tableName) :
 {
     ui->setupUi(this);
 
-    // Hide widgets for search
-    ui->searchLine->setVisible(false);
-    ui->searchParamBox->setVisible(false);
-    ui->searchBox->setVisible(false);
+    // Hide comboBox for order number
+    ui->groupBox->setVisible(false);
 
-    // For search
-    listView = new QListView(ui->searchParamBox);
-    ui->searchParamBox->setView(listView);
+    // Hide widgets for search
+    ui->orderBox->setVisible(false);
+    ui->workerBox->setVisible(false);
+    ui->startDateEdit->setVisible(false);
+    ui->endDateEdit->setVisible(false);
 
     this->currentTable = tableName;     // Save table name
     loadDataFromDB(tableName);          // Load data from database
 
     // region Connections
+
+    // Search in database
     connect(ui->searchButton, &QToolButton::clicked, this, &TableForm::showSearchWidgets);
-
-    connect(ui->searchLine, &QLineEdit::textChanged, this, &TableForm::searchInDB); // Interactive search in database
-    connect(ui->searchParamBox, &QComboBox::currentTextChanged, this, &TableForm::adjustSearchForComboBox);
-
-    connect(ui->searchBox, &QComboBox::currentTextChanged, this, &TableForm::searchForComboBox);
+    connect(ui->orderBox, &QComboBox::currentTextChanged, this, &TableForm::searchInDB);
+    connect(ui->workerBox, &QComboBox::currentTextChanged, this, &TableForm::searchInDB);
+    connect(ui->startDateEdit, &QDateEdit::userDateChanged, this, &TableForm::searchInDB);
+    connect(ui->endDateEdit, &QDateEdit::userDateChanged, this, &TableForm::searchInDB);
 
     connect(ui->createButton, &QToolButton::clicked, this, [this] {
         int lastRow = mainModel->rowCount();
         mainModel->insertRow(lastRow);
-        mainModel->setData(mainModel->index(lastRow, 4), QDate::currentDate());
+        if (mainModel->tableName() != PART_TABLE) {
+            mainModel->setData(mainModel->index(lastRow, 4), QDate::currentDate());
+        }
+        else {
+            int id = ui->orderCBox->itemData(ui->orderCBox->currentIndex(), Qt::UserRole).toInt();    // Get id form Qt::UserRole
+            mainModel->setData(mainModel->index(lastRow, 1), id);
+        }
         ui->mainTableView->selectRow(lastRow);
     });
 
@@ -86,6 +94,7 @@ void TableForm::loadDataFromDB(const QString &table)
     initTable(table);
 
     QStringList headers;
+    int hiddenColumns = 1;
 
     if (table == MAIN_TABLE) {
         // Select
@@ -109,28 +118,60 @@ void TableForm::loadDataFromDB(const QString &table)
 
         // Delegate for part
         QString ordText = mainModel->itemData(mainModel->index(mainModel->rowCount()-1, 1)).value(0).toString();
-        auto *partCb = new ComboBoxDelegate(ui->mainTableView, PART_NAME, PART_TABLE " WHERE " ORDER_ID " = "
-                        "(SELECT id FROM " ORDER_TABLE " WHERE " ORDER_NAME " = '" + ordText + "')");
+        auto *partCb = new ComboBoxDelegate(ui->mainTableView, PART_NAME, PART_TABLE);
         ui->mainTableView->setItemDelegateForColumn(5, partCb);
+        // Also delegate for part reset in function calculateTime()
 
         headers << trUtf8("id") << trUtf8("Order number") << trUtf8("Equipment") << trUtf8("Worker") << trUtf8("Date")
                 << trUtf8("Part") << trUtf8("Quantity") << trUtf8("OTK") << trUtf8("Description") << trUtf8("Start time")
-                << trUtf8("End time") << trUtf8("Hours count") << trUtf8("Remark") << trUtf8("Notes");
+                << trUtf8("End time") << trUtf8("Hours count") << trUtf8("Remark") << trUtf8("Notes")
+                << trUtf8("Creator") << trUtf8("Creation date") << trUtf8("Editing date");
+
+        // Hide column
+        ui->mainTableView->setColumnHidden(14, true);
+        ui->mainTableView->setColumnHidden(15, true);
+        ui->mainTableView->setColumnHidden(16, true);
+        hiddenColumns += 3;
+
+        // Forbid edit hours count column
+        ui->mainTableView->setItemDelegateForColumn(11, new NotEditableDelegate());
     }
     else if (table == WORKER_TABLE) {
         headers << trUtf8("id") << trUtf8("Worker name");
+        ui->searchButton->setVisible(false);
     }
     else if (table == EQUIPMENT_TABLE) {
         // equipment table
         headers << trUtf8("id") << trUtf8("Equipment name");
+        ui->searchButton->setVisible(false);
     }
     else if (table == ORDER_TABLE) {
         // order table
         headers << trUtf8("id") << trUtf8("Order number");
+        ui->searchButton->setVisible(false);
     }
     else if (table == PART_TABLE) {
         // part table
+        ui->mainTableView->setColumnHidden(1, true);    // Hide column
+
         headers << trUtf8("id") << trUtf8("Order number") << trUtf8("Part");
+        hiddenColumns +=1;
+
+        QSqlQuery query;
+        query.prepare( QString( "SELECT %1.id, %2 FROM %1" ).arg(ORDER_TABLE).arg(ORDER_NAME) );
+        query.exec();
+        // query.value(1).toString() - text (data from visualColumn)
+        // query.value(0) - userData (id from table)
+        ui->orderCBox->addItem(trUtf8("(please select)"), "");
+        while (query.next()) {
+            // Write query.value(1).toString() as displayed text
+            // and query.value(0) as userData (Qt::UserRole)
+            ui->orderCBox->addItem(query.value(1).toString(), query.value(0));
+        }
+        // Show comboBox
+        ui->groupBox->setVisible(true);
+        connect(ui->orderCBox, &QComboBox::currentTextChanged, this, &TableForm::setFilterForOrder);
+        ui->searchButton->setVisible(false);
     }
 
     // Columns size
@@ -140,28 +181,75 @@ void TableForm::loadDataFromDB(const QString &table)
 
     // Resize columns width dependent on the screen width
     QRect rect = QApplication::screens().at(0)->geometry();
-    ui->mainTableView->horizontalHeader()->setDefaultSectionSize(rect.width()/(ui->mainTableView->horizontalHeader()->count()-1) -2);
+    ui->mainTableView->horizontalHeader()->setDefaultSectionSize(rect.width()/(ui->mainTableView->horizontalHeader()->count()-hiddenColumns) -2);
 }
 
 void TableForm::showSearchWidgets()
 {
     // Show widgets for providing search
-    ui->searchLine->setVisible(!ui->searchLine->isVisible());
-    ui->searchParamBox->setVisible(!ui->searchParamBox->isVisible());
-    ui->searchBox->setVisible(!ui->searchBox->isVisible());
-    ui->searchLine->clear();
-    ui->searchParamBox->clear();
+    ui->orderBox->setVisible(!ui->orderBox->isVisible());
+    ui->workerBox->setVisible(!ui->workerBox->isVisible());
+    ui->startDateEdit->setVisible(!ui->startDateEdit->isVisible());
+    ui->endDateEdit->setVisible(!ui->endDateEdit->isVisible());
+    ui->orderBox->clear();
+    ui->workerBox->clear();
+    ui->startDateEdit->setDate(QDate(2018, 01, 01));
+    ui->endDateEdit->setDate(QDate::currentDate());
 
-    // Add items into searchParamBox
-    ui->searchParamBox->addItem(trUtf8("Order number"));
-    ui->searchParamBox->addItem(trUtf8("Worker"));
-    ui->searchParamBox->setCurrentIndex(0);
+    // Order number
+    if (ui->orderBox->isVisible()) {
+        QSqlQuery query;
+        query.prepare(QString("SELECT %1.id, %2 FROM %1").arg(ORDER_TABLE).arg(ORDER_NAME));
+        query.exec();
+        // query.value(1).toString() - text (data from visualColumn)
+        // query.value(0) - userData (id from table)
+        ui->orderBox->addItem(trUtf8("(please select)"), "");
+        while (query.next()) {
+            // Write query.value(1).toString() as displayed text
+            // and query.value(0) as userData (Qt::UserRole)
+            ui->orderBox->addItem(query.value(1).toString(), query.value(0));
+        }
+    }
+    // Worker
+    if (ui->workerBox->isVisible()) {
+        QSqlQuery query;
+        query.prepare(QString("SELECT %1.id, %2 FROM %1").arg(WORKER_TABLE).arg(WORKER_NAME));
+        query.exec();
+        // query.value(1).toString() - text (data from visualColumn)
+        // query.value(0) - userData (id from table)
+        ui->workerBox->addItem(trUtf8("(please select)"), "");
+        while (query.next()) {
+            // Write query.value(1).toString() as displayed text
+            // and query.value(0) as userData (Qt::UserRole)
+            ui->workerBox->addItem(query.value(1).toString(), query.value(0));
+        }
+    }
+    // Clear filter
+    mainModel->setFilter("");
+    mainModel->select();
 }
 
-void TableForm::searchInDB(const QString &arg1)
+void TableForm::searchInDB()
 {
     // Interactive search in current database table
-    QString filterString = QString("text(%1) LIKE '%2%'").arg(ORDER).arg(arg1);
+    int orderId = ui->orderBox->itemData(ui->orderBox->currentIndex(), Qt::UserRole).toInt(); // Get id form Qt::UserRole
+    int workerId = ui->workerBox->itemData(ui->workerBox->currentIndex(), Qt::UserRole).toInt(); // Get id form Qt::UserRole
+    QString startDate = ui->startDateEdit->date().toString("yyyy-MM-dd");
+    QString endDate = ui->endDateEdit->date().toString("yyyy-MM-dd");
+    QString filterString = "";
+    if (orderId == 0) {
+        filterString = QString("%1 = %2 AND text(date) BETWEEN '%3' AND '%4'").arg(WORKER).arg(workerId).
+            arg(startDate).arg(endDate);
+    }
+    else if (workerId == 0) {
+        filterString = QString("%1 = %2 AND text(date) BETWEEN '%3' AND '%4'").arg(ORDER).arg(orderId).
+            arg(startDate).arg(endDate);
+    }
+    else {
+        filterString = QString("%1 = %2 AND %3 = %4 AND text(date) BETWEEN '%5' AND '%6'").arg(ORDER).arg(orderId).
+            arg(WORKER).arg(workerId).arg(startDate).arg(endDate);;
+    }
+    qDebug() << filterString;
     mainModel->setFilter(filterString);
     mainModel->select();
 }
@@ -190,58 +278,14 @@ void TableForm::setRights(int &rights)
         mainModel->select();
     }
 }
+
 void TableForm::acceptData()
 {
     // Write data into database
     mainModel->submitAll();
     mainModel->select();
 }
-void TableForm::searchForComboBox()
-{
-    // Search data
-    QString filterString;
-    if (ui->searchBox->currentIndex() > 0) {
-        int id = ui->searchBox->itemData(ui->searchBox->currentIndex(), Qt::UserRole).toInt();    // Get id form Qt::UserRole
-        filterString = QString("%1 = %2").arg(WORKER).arg(id);
-    }
-    else {
-        filterString = QString("text(%1) LIKE '%2%'").arg(ORDER).arg("");
-    }
-    mainModel->setFilter(filterString);
-    mainModel->select();
-}
-void TableForm::adjustSearchForComboBox()
-{
-    if (ui->searchParamBox->currentIndex() == 1) {
-        // worker
-        ui->searchLine->setVisible(false);
-        ui->searchBox->setVisible(ui->searchParamBox->isVisible());
-        // Search parameters for worker
-        QSqlQuery query;
-        query.prepare( QString( "SELECT %1.id, %2 FROM %1" ).arg(WORKER_TABLE).arg(WORKER_NAME) );
-        query.exec();
-        // query.value(1).toString() - text (data from visualColumn)
-        // query.value(0) - userData (id from table)
-        ui->searchBox->addItem("(please select)", "");
-        while (query.next()) {
-            // Write query.value(1).toString() as displayed text
-            // and query.value(0) as userData (Qt::UserRole)
-            ui->searchBox->addItem(query.value(1).toString(), query.value(0));
-        }
-    }
-    else { //if (ui->searchParamBox->currentIndex() == 2) {
-        // order_number
-        ui->searchBox->setVisible(false);
-        ui->searchLine->setVisible(ui->searchParamBox->isVisible());
-        ui->searchLine->clear();
-        QString filterString = QString("text(%1) LIKE '%2%'").arg(ORDER).arg("");
-        mainModel->setFilter(filterString);
-        mainModel->select();
-    }
-    /*else {
-        //
-    }*/
-}
+
 void TableForm::reloadView()
 {
     // Reload table when language changed
@@ -249,20 +293,30 @@ void TableForm::reloadView()
 }
 void TableForm::calculateTime(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &/* roles */)
 {
-    // Calculete time
-    if (topLeft.column() == 9 || topLeft.column() == 10) {
-        QTime startTime = mainModel->itemData(mainModel->index(topLeft.row(), 9)).value(0).toTime();
-        QTime endTime = mainModel->itemData(mainModel->index(topLeft.row(), 10)).value(0).toTime();
-        int result;
+    if (mainModel->tableName() != PART_TABLE) {
+        // Calculete time
+        if (topLeft.column() == 9 || topLeft.column() == 10) {
+            QTime startTime = mainModel->itemData(mainModel->index(topLeft.row(), 9)).value(0).toTime();
+            QTime endTime = mainModel->itemData(mainModel->index(topLeft.row(), 10)).value(0).toTime();
+            int result;
 
-        // 11:30 - 12.00 - Dinner
-        if (startTime < QTime(11, 30) && endTime > QTime(12, 00)) {
-            result = endTime.msecsSinceStartOfDay() - startTime.msecsSinceStartOfDay() - QTime(0, 30).msecsSinceStartOfDay();
+            // 11:30 - 12.00 - Dinner
+            if (startTime < QTime(11, 30) && endTime > QTime(12, 00)) {
+                result = endTime.msecsSinceStartOfDay() - startTime.msecsSinceStartOfDay()
+                    - QTime(0, 30).msecsSinceStartOfDay();
+            }
+            else {
+                result = endTime.msecsSinceStartOfDay() - startTime.msecsSinceStartOfDay();
+            }
+            mainModel->setData(mainModel->index(topLeft.row(), 11), QTime::fromMSecsSinceStartOfDay(result));
         }
-        else {
-            result = endTime.msecsSinceStartOfDay() - startTime.msecsSinceStartOfDay();
+        else if (topLeft.column() == 1) {   // When order number changed adjust parameters in delegate
+            // Delegate for part
+            QString ordText = mainModel->itemData(mainModel->index(topLeft.row(), 1)).value(0).toString();
+            auto *partCb = new ComboBoxDelegate(ui->mainTableView, PART_NAME, PART_TABLE " WHERE " ORDER_ID " = "
+                                        "(SELECT id FROM " ORDER_TABLE " WHERE " ORDER_NAME " = '" + ordText + "')");
+            ui->mainTableView->setItemDelegateForColumn(5, partCb);
         }
-        mainModel->setData(mainModel->index(topLeft.row(), 11), QTime::fromMSecsSinceStartOfDay(result));
     }
 }
 
@@ -278,4 +332,19 @@ void TableForm::sortByColumn(int index)
 {
     // Sorting in tableView
     mainModel->setSort(index, Qt::AscendingOrder);
+}
+
+void TableForm::setFilterForOrder()
+{
+    // Filter for order number for part table
+    QString filterString;
+    if (ui->orderCBox->currentIndex() > 0) {
+        int id = ui->orderCBox->itemData(ui->orderCBox->currentIndex(), Qt::UserRole).toInt();    // Get id form Qt::UserRole
+        filterString = QString("%1 = %2").arg(ORDER_ID).arg(id);
+    }
+    else {
+        filterString = QString("text(%1) LIKE '%2%'").arg(ORDER_ID).arg("");
+    }
+    mainModel->setFilter(filterString);
+    mainModel->select();
 }

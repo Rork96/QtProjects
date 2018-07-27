@@ -5,6 +5,8 @@
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QScreen>
+#include "combodelegate.h"
+#include "noteditabledelegate.h"
 
 #include <QDebug>
 
@@ -59,6 +61,9 @@ EditorForm::EditorForm(QWidget *parent):
         mainModel->setData(mainModel->index(lastRow, 3), workerId);
         mainModel->setData(mainModel->index(lastRow, 4), ui->dateEdit->date());
     });
+
+    // Data in tableView changed
+    connect(ui->tableView->model(), &QAbstractItemModel::dataChanged, this, &EditorForm::calckTime);
 
     connect(ui->updateButton, &QToolButton::clicked, this, [this] { loadData(); });
     // endregion
@@ -127,11 +132,14 @@ void EditorForm::loadData()
     ui->tableView->setColumnHidden(2, true);
     ui->tableView->setColumnHidden(3, true);
     ui->tableView->setColumnHidden(4, true);
+    ui->tableView->setColumnHidden(14, true);
+    ui->tableView->setColumnHidden(15, true);
+    ui->tableView->setColumnHidden(16, true);
 
-    QStringList headers = QStringList() << trUtf8("id") << trUtf8("Order number") << trUtf8("Equipment") << trUtf8("Worker")
-                                        << trUtf8("Date") << trUtf8("Part code") << trUtf8("Part name") << trUtf8("Quantity") << trUtf8("Part number")
-                                        << trUtf8("Description") << trUtf8("Start time") << trUtf8("End time") << trUtf8("Hours count")
-                                        << trUtf8("Remark") << trUtf8("Notes");
+    QStringList headers = QStringList() << trUtf8("id") << trUtf8("Order number") << trUtf8("Equipment")
+        << trUtf8("Worker") << trUtf8("Date") << trUtf8("Part") << trUtf8("Quantity") << trUtf8("OTK")
+        << trUtf8("Description") << trUtf8("Start time") << trUtf8("End time") << trUtf8("Hours count")
+        << trUtf8("Remark") << trUtf8("Notes") << trUtf8("Creator") << trUtf8("Creation date") << trUtf8("Editing date");
 
     // Columns size
     for (int i = 0; i < ui->tableView->horizontalHeader()->count(); i++) {
@@ -139,9 +147,25 @@ void EditorForm::loadData()
     }
     // Resize columns width dependent on the screen width
     QRect rect = QApplication::screens().at(0)->geometry();
-    ui->tableView->horizontalHeader()->setDefaultSectionSize(rect.width()/(ui->tableView->horizontalHeader()->count()-4) -5);
+    ui->tableView->horizontalHeader()->setDefaultSectionSize(rect.width()/(ui->tableView->horizontalHeader()->count()-7) -7);
 
+    // Select
+    mainModel->setRelation(1, QSqlRelation(ORDER_TABLE, "id", ORDER_NAME));         // order number
+    mainModel->setRelation(5, QSqlRelation(PART_TABLE, "id", PART_NAME));           // part
     mainModel->select();
+
+    // Delegate for order number
+    auto *ordCb = new ComboBoxDelegate(ui->tableView, ORDER_NAME, ORDER_TABLE);
+    ui->tableView->setItemDelegateForColumn(1, ordCb);
+
+    // Delegate for part
+    QString ordText = mainModel->itemData(mainModel->index(mainModel->rowCount()-1, 1)).value(0).toString();
+    auto *partCb = new ComboBoxDelegate(ui->tableView, PART_NAME, PART_TABLE);
+    ui->tableView->setItemDelegateForColumn(5, partCb);
+    // Also delegate for part reset in function calckTime()
+
+    // Forbid edit hours count column
+    ui->tableView->setItemDelegateForColumn(11, new NotEditableDelegate());
 
     clearAll(); // Clear all data
 }
@@ -164,9 +188,9 @@ void EditorForm::translate(QString language)
 void EditorForm::clearAll()
 {
     // Clear all data
-    ui->dateEdit->setDate(QDate::currentDate());
-    ui->equipComboBox->setCurrentIndex(0);
-    ui->workComboBox->setCurrentIndex(0);
+    //ui->dateEdit->setDate(QDate::currentDate());
+    //ui->equipComboBox->setCurrentIndex(0);
+    //ui->workComboBox->setCurrentIndex(0);
 }
 void EditorForm::submitChanges()
 {
@@ -178,22 +202,30 @@ void EditorForm::submitChanges()
     clearAll();
 }
 
-void EditorForm::calckTime()
+void EditorForm::calckTime(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &/* roles */)
 {
     // Calculate time
-    /*int start = ui->startTimeEdit->time().msecsSinceStartOfDay();
-    int end = ui->endTimeEdit->time().msecsSinceStartOfDay();
-    int result;
+    if (topLeft.column() == 9 || topLeft.column() == 10) {
+        QTime startTime = mainModel->itemData(mainModel->index(topLeft.row(), 9)).value(0).toTime();
+        QTime endTime = mainModel->itemData(mainModel->index(topLeft.row(), 10)).value(0).toTime();
+        int result;
 
-    // 11:30 - 12.00 - Dinner
-    if (ui->startTimeEdit->time() < QTime(11, 30) && ui->endTimeEdit->time() > QTime(12, 00)) {
-        result = end - start - QTime(0, 30).msecsSinceStartOfDay();
+        // 11:30 - 12.00 - Dinner
+        if (startTime < QTime(11, 30) && endTime > QTime(12, 00)) {
+            result = endTime.msecsSinceStartOfDay() - startTime.msecsSinceStartOfDay() - QTime(0, 30).msecsSinceStartOfDay();
+        }
+        else {
+            result = endTime.msecsSinceStartOfDay() - startTime.msecsSinceStartOfDay();
+        }
+        mainModel->setData(mainModel->index(topLeft.row(), 11), QTime::fromMSecsSinceStartOfDay(result));
     }
-    else {
-        result = end - start;
+    else if (topLeft.column() == 1) {   // When order number changed adjust parameters in delegate
+        // Delegate for part
+        QString ordText = mainModel->itemData(mainModel->index(topLeft.row(), 1)).value(0).toString();
+        auto *partCb = new ComboBoxDelegate(ui->tableView, PART_NAME, PART_TABLE " WHERE " ORDER_ID " = "
+                                            "(SELECT id FROM " ORDER_TABLE " WHERE " ORDER_NAME " = '" + ordText + "')");
+        ui->tableView->setItemDelegateForColumn(5, partCb);
     }
-    ui->hCountTimeEdit->setTime(QTime::fromMSecsSinceStartOfDay(result));   // Set
-     */
 }
 
 void EditorForm::setFilter()

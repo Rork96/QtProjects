@@ -9,6 +9,7 @@
 #include "mainwindow.h"
 #include "combodelegate.h"
 #include "noteditabledelegate.h"
+#include "infodialog.h"
 
 #include <QDebug>
 
@@ -57,6 +58,13 @@ TableForm::TableForm(QWidget *parent, QString tableName) :
     connect(ui->deleteButton, &QToolButton::clicked, this, &TableForm::deleteDatafromDB); // A row was selected in the table
 
     connect(ui->refreshButton, &QToolButton::clicked, this, [this] { loadDataFromDB(this->currentTable); });
+
+    // Info about record
+    connect(ui->infoButton, &QToolButton::clicked, this, [this] {
+        auto id = mainModel->itemData(mainModel->index(ui->mainTableView->selectionModel()->selectedIndexes().at(0).row(), 0)).value(0);
+        auto *infoDlg = new InfoDialog(this, id.toInt());
+        infoDlg->exec();
+    });
 
     // Data in tableView changed
     connect(ui->mainTableView->model(), &QAbstractItemModel::dataChanged, this, &TableForm::calculateTime);
@@ -172,6 +180,10 @@ void TableForm::loadDataFromDB(const QString &table)
         ui->groupBox->setVisible(true);
         connect(ui->orderCBox, &QComboBox::currentTextChanged, this, &TableForm::setFilterForOrder);
         ui->searchButton->setVisible(false);
+        // Disable create, delete and accept buttons
+        ui->createButton->setEnabled(false);
+        ui->acceptBtn->setEnabled(false);
+        ui->deleteButton->setEnabled(false);
     }
 
     // Columns size
@@ -341,9 +353,17 @@ void TableForm::setFilterForOrder()
     if (ui->orderCBox->currentIndex() > 0) {
         int id = ui->orderCBox->itemData(ui->orderCBox->currentIndex(), Qt::UserRole).toInt();    // Get id form Qt::UserRole
         filterString = QString("%1 = %2").arg(ORDER_ID).arg(id);
+        // Enable create, delete and accept buttons
+        ui->createButton->setEnabled(true);
+        ui->acceptBtn->setEnabled(true);
+        ui->deleteButton->setEnabled(true);
     }
     else {
         filterString = QString("text(%1) LIKE '%2%'").arg(ORDER_ID).arg("");
+        // Enable create, delete and accept buttons
+        ui->createButton->setEnabled(true);
+        ui->acceptBtn->setEnabled(true);
+        ui->deleteButton->setEnabled(true);
     }
     mainModel->setFilter(filterString);
     mainModel->select();

@@ -34,7 +34,6 @@ private:
 
     QSqlRelationalTableModel *mainModel;
 
-    void clearAll();        // Clear all data
     void submitChanges();   // Save data to database
     void calckTime(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);       // Calculate time
     void setFilter();       // Set filter to model in table

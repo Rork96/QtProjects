@@ -8,8 +8,6 @@
 #include "combodelegate.h"
 #include "noteditabledelegate.h"
 
-#include <QDebug>
-
 EditorForm::EditorForm(QWidget *parent):
     QWidget(parent),
     ui(new Ui::EditorForm)
@@ -38,11 +36,12 @@ EditorForm::EditorForm(QWidget *parent):
     ui->languageButton->setMenu(languageMenu);
     ui->languageButton->setPopupMode(QToolButton::InstantPopup);
 
-    loadData(); /// Load data from database
+    loadData(); // Load data from database
     setFilter();
 
+    ui->dateEdit->setDate(QDate::currentDate());
+
     // region Connections
-    connect(ui->rejectButton, &QToolButton::clicked, this, &EditorForm::clearAll);
 
     // Set filter to model in table
     connect(ui->workComboBox, &QComboBox::currentTextChanged, this, &EditorForm::setFilter);
@@ -53,7 +52,6 @@ EditorForm::EditorForm(QWidget *parent):
 
     connect(ui->addButton, &QToolButton::clicked, this, [this] {
         int lastRow = mainModel->rowCount();
-        qDebug() << lastRow;
         mainModel->insertRow(lastRow);
         int equipId = ui->equipComboBox->itemData(ui->equipComboBox->currentIndex(), Qt::UserRole).toInt();
         int workerId = ui->workComboBox->itemData(ui->workComboBox->currentIndex(), Qt::UserRole).toInt();
@@ -65,7 +63,17 @@ EditorForm::EditorForm(QWidget *parent):
     // Data in tableView changed
     connect(ui->tableView->model(), &QAbstractItemModel::dataChanged, this, &EditorForm::calckTime);
 
-    connect(ui->updateButton, &QToolButton::clicked, this, [this] { loadData(); });
+    connect(ui->rejectButton, &QToolButton::clicked, this, [this] {
+        ui->equipComboBox->setCurrentIndex(0);
+        ui->workComboBox->setCurrentIndex(0);
+        ui->dateEdit->setDate(QDate::currentDate());
+        setFilter();
+
+    });
+    connect(ui->updateButton, &QToolButton::clicked, this, [this] {
+        loadData();
+        setFilter();
+    });
     // endregion
 
     // region Translations
@@ -93,30 +101,23 @@ void EditorForm::loadData()
 {
     // Load data from database
 
-    // Parameters for equipment
-    QSqlQuery query;
-    query.prepare( QString( "SELECT %1.id, %2 FROM %1" ).arg(EQUIPMENT_TABLE).arg(EQUIPMENT_NAME) );
-    query.exec();
-    // query.value(1).toString() - text (data from visualColumn)
-    // query.value(0) - userData (id from table)
-    ui->equipComboBox->addItem("(please select)", "");
-    while (query.next()) {
-        // Write query.value(1).toString() as displayed text
-        // and query.value(0) as userData (Qt::UserRole)
-        ui->equipComboBox->addItem(query.value(1).toString(), query.value(0));
-    }
-
-    // Parameters for worker
-    query.prepare( QString( "SELECT %1.id, %2 FROM %1" ).arg(WORKER_TABLE).arg(WORKER_NAME) );
-    query.exec();
-    // query.value(1).toString() - text (data from visualColumn)
-    // query.value(0) - userData (id from table)
-    ui->workComboBox->addItem("(please select)", "");
-    while (query.next()) {
-        // Write query.value(1).toString() as displayed text
-        // and query.value(0) as userData (Qt::UserRole)
-        ui->workComboBox->addItem(query.value(1).toString(), query.value(0));
-    }
+    // Parameters
+    auto setParram = [] (QComboBox *box, const QString &table, const QString column)
+    {
+        QSqlQuery query;
+        query.prepare(QString("SELECT %1.id, %2 FROM %1").arg(table).arg(column));
+        query.exec();
+        // query.value(1).toString() - text (data from visualColumn)
+        // query.value(0) - userData (id from table)
+        box->addItem("(please select)", "");
+        while (query.next()) {
+            // Write query.value(1).toString() as displayed text
+            // and query.value(0) as userData (Qt::UserRole)
+            box->addItem(query.value(1).toString(), query.value(0));
+        }
+    };
+    setParram(ui->equipComboBox, EQUIPMENT_TABLE, EQUIPMENT_NAME);
+    setParram(ui->workComboBox, WORKER_TABLE, WORKER_NAME);
 
     // Model for table
     mainModel = new QSqlRelationalTableModel(this);
@@ -166,8 +167,6 @@ void EditorForm::loadData()
 
     // Forbid edit hours count column
     ui->tableView->setItemDelegateForColumn(11, new NotEditableDelegate());
-
-    clearAll(); // Clear all data
 }
 
 void EditorForm::changeEvent(QEvent *event)
@@ -185,21 +184,11 @@ void EditorForm::translate(QString language)
     set->setValue("JobAccounting/lang", language);
 }
 
-void EditorForm::clearAll()
-{
-    // Clear all data
-    //ui->dateEdit->setDate(QDate::currentDate());
-    //ui->equipComboBox->setCurrentIndex(0);
-    //ui->workComboBox->setCurrentIndex(0);
-}
 void EditorForm::submitChanges()
 {
     // Save data to database
     mainModel->submitAll();
     mainModel->select();
-
-    // Clear all data
-    clearAll();
 }
 
 void EditorForm::calckTime(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &/* roles */)
@@ -238,7 +227,6 @@ void EditorForm::setFilter()
     filterString = QString("%1 = %2 AND %3 = '%4' AND text(%5) = '%6'").arg(EQUIPMENT).arg(equipId).
         arg(WORKER).arg(workerId).
         arg(DATE).arg(ui->dateEdit->date().toString("yyyy-MM-dd"));
-    qDebug() << filterString;
     mainModel->setFilter(filterString);
     mainModel->select();
 }

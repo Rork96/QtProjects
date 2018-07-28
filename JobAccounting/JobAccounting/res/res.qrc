@@ -18,5 +18,6 @@
         <file>LOGO.png</file>
         <file>order_list.png</file>
         <file>tools.png</file>
+        <file>info.png</file>
     </qresource>
 </RCC>

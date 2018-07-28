@@ -3,8 +3,6 @@
 #include <QComboBox>
 #include <QSqlQuery>
 
-#include <QDebug>
-
 ComboBoxDelegate::ComboBoxDelegate(QObject *parent, const QString &visualColumn, const QString &queryTail)
     :QStyledItemDelegate(parent)
 {
@@ -21,7 +19,6 @@ QWidget *ComboBoxDelegate::createEditor(QWidget *parent, const QStyleOptionViewI
     query.prepare( QString( "SELECT %1.id, %2 FROM %3" ).arg( queryTail.split( ' ' ).first() ).arg( visualColumn ).arg( queryTail ) );
     // I.e. query.prepare( "SELECT country.id, countryname || ' - ' || countrycode  FROM country" );
     query.exec();
-    qDebug() << query.lastQuery();
 
     // query.value(1).toString() - text (data from visualColumn)
     // query.value(0) - userData (id from table)

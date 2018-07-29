@@ -40,3 +40,9 @@ $func$ LANGUAGE plpgsql;
 CREATE TRIGGER set_editor
 BEFORE UPDATE ON main_table
 FOR ROW EXECUTE PROCEDURE setEditor();
+
+Группировка:
+
+SELECT order_number AS order_num, equipment AS equip_name, part AS part_name, SUM(otk) AS otk_finish, SUM(hours_count) AS time,
+param, written_off, remainder, state
+FROM  main_table WHERE otk = quantity GROUP BY order_number, equipment, part, param, written_off, remainder, state

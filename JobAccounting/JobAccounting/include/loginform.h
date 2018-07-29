@@ -2,6 +2,7 @@
 #define LOGINFORM_H
 
 #include <QWidget>
+#include <QSettings>
 #include "database.h"
 
 namespace Ui {
@@ -20,6 +21,7 @@ private:
     Ui::LoginForm *ui;
 
     DataBase *db;
+    QSettings *set;
 
     void checkLogin();
     void configure();

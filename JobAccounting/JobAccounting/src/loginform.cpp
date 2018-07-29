@@ -8,11 +8,18 @@ LoginForm::LoginForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    // Password field (hide password)
+    ui->passwordLine->setEchoMode(QLineEdit::Password);
+
+    // Program settings (ini in current program directory)
+    set = new QSettings("settings.ini", QSettings::IniFormat, this);
+    ui->userLine->setText(set->value("JobAccounting/user", "").toString());
+
     connect(ui->loginButton, &QPushButton::clicked, this, &LoginForm::checkLogin);
     connect(ui->userLine, &QLineEdit::returnPressed, this, &LoginForm::checkLogin);
     connect(ui->passwordLine, &QLineEdit::returnPressed, this, &LoginForm::checkLogin);
 
-    // Hide worning message in infoLabel
+    // Hide warning message in infoLabel
     connect(ui->userLine, &QLineEdit::textChanged, this, [this] {
         ui->infoLabel->clear();
     });
@@ -45,6 +52,7 @@ void LoginForm::checkLogin()
     bool result = db->connectToDataBase(userName, password, rights);
     if (result) {
         // Login allowed
+        set->setValue("JobAccounting/user", userName);
         emit isLogin(userName, rights);
     }
     else if (userName.isEmpty() || password.isEmpty()) {

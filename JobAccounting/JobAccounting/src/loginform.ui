@@ -303,6 +303,7 @@ QPushButton:pressed {
   <tabstop>userLine</tabstop>
   <tabstop>passwordLine</tabstop>
   <tabstop>loginButton</tabstop>
+  <tabstop>configureBtn</tabstop>
  </tabstops>
  <resources>
   <include location="../res/res.qrc"/>

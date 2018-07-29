@@ -5,7 +5,7 @@
 
 DataBase::DataBase(QObject *parent) : QObject(parent)
 {
-    // Program settings (ini in current program directorry)
+    // Program settings (ini in current program directory)
     set = new QSettings("settings.ini", QSettings::IniFormat, this);
 }
 

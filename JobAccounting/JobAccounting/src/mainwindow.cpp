@@ -5,7 +5,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    // Program settings (ini in current program directorry)
+    // Program settings (ini in current program directory)
     set = new QSettings("settings.ini", QSettings::IniFormat, this);
 
     // Load translations

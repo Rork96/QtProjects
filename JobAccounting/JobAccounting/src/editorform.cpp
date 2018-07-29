@@ -12,7 +12,7 @@ EditorForm::EditorForm(QWidget *parent):
     QWidget(parent),
     ui(new Ui::EditorForm)
 {
-    // Program settings (ini in current program directorry)
+    // Program settings (ini in current program directory)
     set = new QSettings("settings.ini", QSettings::IniFormat, this);
 
     // Load translations

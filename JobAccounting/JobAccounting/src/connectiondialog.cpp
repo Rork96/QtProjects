@@ -16,10 +16,10 @@ ConnectionDialog::ConnectionDialog(QWidget *parent) :
 
     // Port filtration
     QRegExp rx("^[0-9]{3,5}");
-    QRegExpValidator *validator = new QRegExpValidator(rx, this);
+    auto validator = new QRegExpValidator(rx, this);
     ui->portLine->setValidator(validator);
 
-    // Program settings (ini in current program directorry)
+    // Program settings (ini in current program directory)
     set = new QSettings("settings.ini", QSettings::IniFormat, this);
 
     // Load settings

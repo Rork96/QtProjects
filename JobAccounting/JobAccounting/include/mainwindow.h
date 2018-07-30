@@ -7,6 +7,7 @@
 #include "loginform.h"
 #include "tableform.h"
 #include "editorform.h"
+#include "accountform.h"
 
 namespace Ui {
 class MainWindow;
@@ -33,6 +34,7 @@ private:
     LoginForm *loginForm;
     TableForm *mainForm;
     EditorForm *editorForm;
+    AccountForm *accountForm;
     QWidget *prewView = nullptr; // Current view
 
     const QString company = trUtf8("\t\t© 2018 masterarrows@gmail.com");
@@ -40,7 +42,7 @@ private:
 
     void initUI();                                          // Hide main menu and show login screen
     void login(const QString &user, int rights);            // Login
-    void setMainView(const QString &table, int rights=18);  // Set view type
+    void setMainView(const QString &table);  // Set view type
 };
 
 #endif // MAINWINDOW_H

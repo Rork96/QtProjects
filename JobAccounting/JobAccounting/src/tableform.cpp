@@ -11,8 +11,6 @@
 #include "noteditabledelegate.h"
 #include "infodialog.h"
 
-#include <QDebug>
-
 TableForm::TableForm(QWidget *parent, QString tableName) :
     QWidget(parent),
     ui(new Ui::TableForm)
@@ -261,7 +259,6 @@ void TableForm::searchInDB()
         filterString = QString("%1 = %2 AND %3 = %4 AND text(date) BETWEEN '%5' AND '%6'").arg(ORDER).arg(orderId).
             arg(WORKER).arg(workerId).arg(startDate).arg(endDate);;
     }
-    qDebug() << filterString;
     mainModel->setFilter(filterString);
     mainModel->select();
 }
@@ -276,21 +273,6 @@ void TableForm::deleteDatafromDB()
     mainModel->submitAll();
     mainModel->select();
     ui->mainTableView->selectRow(row);
-}
-
-void TableForm::setRights(int &rights)
-{
-    // User rights: read or read and edit mode
-    if (rights == 1) {
-        // Read only mode
-        ui->createButton->setVisible(false);
-        ui->acceptBtn->setVisible(false);
-        ui->deleteButton->setVisible(false);
-        ui->mainTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-        // Hide info button
-        ui->infoButton->setVisible(false);
-        mainModel->select();
-    }
 }
 
 void TableForm::acceptData()

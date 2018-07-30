@@ -17,7 +17,6 @@ public:
     explicit TableForm(QWidget *parent = 0, QString tableName = "main_table");
     ~TableForm();
 
-    void setRights(int &rights);                // User rights: read or read and edit mode
     void reloadView();                          // Reload table when language changed
 
 private:

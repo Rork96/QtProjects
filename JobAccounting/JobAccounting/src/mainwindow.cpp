@@ -60,7 +60,7 @@ void MainWindow::translate(QString language)
     qtLanguageTranslator.load("translations/" + language, ".");
     qApp->installTranslator(&qtLanguageTranslator);
     set->setValue("JobAccounting/lang", language);
-    mainForm->reloadView();
+    mainForm->reloadView(); ////////////////////////////
 }
 
 void MainWindow::initUI()
@@ -89,7 +89,7 @@ void MainWindow::login(const QString &user, int rights)
         ui->actionEquipment->setVisible(true);
         ui->actionOrders->setVisible(true);
         ui->actionParts->setVisible(true);
-        setMainView(MAIN_TABLE, rights); // full access
+        setMainView(MAIN_TABLE); // full access
     }
     else if (rights >= 3 && rights < 18) {
         // write only mode
@@ -97,25 +97,30 @@ void MainWindow::login(const QString &user, int rights)
         editorForm = new EditorForm(this);
         setCentralWidget(editorForm);
     }
-    else if (rights == 1) {
+    else if (rights <= 1) {
         // Read only mode
         ui->actionJob_accounting->setVisible(false);
         ui->actionWorkers->setVisible(false);
         ui->actionEquipment->setVisible(false);
         ui->actionOrders->setVisible(false);
         ui->actionParts->setVisible(false);
-        setMainView(MAIN_TABLE, rights);
+        setMainView(ACCOUNT_TABLE);
     }
     delete loginForm;
     ui->statusBar->showMessage(company);
 }
 
-void MainWindow::setMainView(const QString &table, int rights)
+void MainWindow::setMainView(const QString &table)
 {
     // Show table
-    mainForm = new TableForm(this, table);
-    setCentralWidget(mainForm);
-    mainForm->setRights(rights);
+    if (table == ACCOUNT_TABLE) {
+        accountForm = new AccountForm(this);
+        setCentralWidget(accountForm);
+    }
+    else {
+        mainForm = new TableForm(this, table);
+        setCentralWidget(mainForm);
+    }
     ui->menuBar->setVisible(true);
     ui->statusBar->showMessage(company);
 

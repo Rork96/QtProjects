@@ -28,6 +28,8 @@
 #define EQUIPMENT_TABLE     "equipment_table"
 #define EQUIPMENT_NAME      "equipment_name"
 
+#define ACCOUNT_TABLE       "account_table"
+
 class DataBase : public QObject
 {
     Q_OBJECT

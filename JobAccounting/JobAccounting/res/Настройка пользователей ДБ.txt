@@ -22,6 +22,9 @@ ALTER TABLE main_table, equipment_table, worker_tabl DISABLE ROW LEVEL SECURITY
 GRANT USAGE ON SEQUENCE main_table_id_seq TO user
 GRANT USAGE ON SEQUENCE main_table_id_seq TO editor
 
+GRANT USAGE ON SEQUENCE acoount_table_id_seq TO "user"
+GRANT SELECT, UPDATE ON account_table TO "user"
+
 CREATE OR REPLACE FUNCTION setEditor()
   RETURNS TRIGGER AS
   $func$
@@ -31,13 +34,34 @@ CREATE OR REPLACE FUNCTION setEditor()
   end;
 $func$ LANGUAGE plpgsql;
 
-
 CREATE TRIGGER set_editor
 BEFORE UPDATE ON main_table
 FOR ROW EXECUTE PROCEDURE setEditor();
 
-INSERT INTO account_table (order_numb, equip_name, part_name, otk_finish, time_sum)
-SELECT order_number, equipment, part, SUM(otk), SUM(hours_count)
-FROM main_table GROUP BY order_number, equipment, part
-HAVING NOT EXISTS(SELECT order_numb, equip_name, part FROM account_table WHERE order_numb=order_number AND equip_name=equipment AND part_name=part)
-AND SUM(quantity)=SUM(otk);
+
+CREATE OR REPLACE FUNCTION process_select_to_account()
+  RETURNS TRIGGER AS
+$select_to$
+    BEGIN
+        IF (TG_OP = 'DELETE') THEN
+            DELETE FROM account_table WHERE order_numb = OLD.order_number AND part_name = OLD.part;
+            IF NOT FOUND THEN RETURN NULL; END IF;
+            RETURN OLD;
+        ELSEIF (TG_OP = 'INSERT') THEN
+          INSERT INTO account_table (order_numb, equip_name, part_name, otk_finish, time_sum)
+          VALUES (NEW.order_number, NEW.equipment, NEW.part, NEW.otk, NEW.hours_count);
+          RETURN NEW;
+        ELSIF (TG_OP = 'UPDATE') THEN -- updated all rows ? --
+          UPDATE account_table SET order_numb = NEW.order_number, equip_name = NEW.equipment, part_name = NEW.part,
+          otk_finish = NEW.otk, time_sum = NEW.hours_count
+          WHERE order_numb = OLD.order_number AND equip_name = OLD.equipment AND part_name = OLD.part AND
+          otk_finish = OLD.otk AND time_sum = OLD.hours_count;
+          RETURN NEW;
+        END IF;
+        RETURN NULL;
+    END;
+$select_to$ LANGUAGE plpgsql;
+
+CREATE TRIGGER select_to_acoount_table
+BEFORE INSERT OR UPDATE OR DELETE ON main_table
+FOR ROW EXECUTE PROCEDURE process_select_to_account();

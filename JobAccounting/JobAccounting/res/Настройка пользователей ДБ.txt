@@ -35,3 +35,9 @@ $func$ LANGUAGE plpgsql;
 CREATE TRIGGER set_editor
 BEFORE UPDATE ON main_table
 FOR ROW EXECUTE PROCEDURE setEditor();
+
+INSERT INTO account_table (order_numb, equip_name, part_name, otk_finish, time_sum)
+SELECT order_number, equipment, part, SUM(otk), SUM(hours_count)
+FROM main_table GROUP BY order_number, equipment, part
+HAVING NOT EXISTS(SELECT order_numb, equip_name, part FROM account_table WHERE order_numb=order_number AND equip_name=equipment AND part_name=part)
+AND SUM(quantity)=SUM(otk);

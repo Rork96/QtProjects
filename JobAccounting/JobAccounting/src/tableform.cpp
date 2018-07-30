@@ -163,7 +163,7 @@ void TableForm::loadDataFromDB(const QString &table)
         ui->mainTableView->setColumnHidden(1, true);    // Hide column
 
         headers << trUtf8("id") << trUtf8("Order number") << trUtf8("Part") << trUtf8("Count");
-        hiddenColumns +=1;
+        hiddenColumns += 1;
 
         QSqlQuery query;
         query.prepare( QString( "SELECT %1.id, %2 FROM %1" ).arg(ORDER_TABLE).arg(ORDER_NAME) );
@@ -287,6 +287,8 @@ void TableForm::setRights(int &rights)
         ui->acceptBtn->setVisible(false);
         ui->deleteButton->setVisible(false);
         ui->mainTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        // Hide info button
+        ui->infoButton->setVisible(false);
         mainModel->select();
     }
 }

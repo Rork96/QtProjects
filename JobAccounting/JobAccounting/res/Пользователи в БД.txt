@@ -46,3 +46,12 @@ FOR ROW EXECUTE PROCEDURE setEditor();
 SELECT order_number AS order_num, equipment AS equip_name, part AS part_name, SUM(otk) AS otk_finish, SUM(hours_count) AS time,
 param, written_off, remainder, state
 FROM  main_table WHERE otk = quantity GROUP BY order_number, equipment, part, param, written_off, remainder, state
+
+Копирование записей из одной таблицы в другую с группировкой и условием выборки только уникальных записей (отсутствуют во второй таблице)
+и если SUM(quantity)=SUM(otk):
+
+INSERT INTO account_table (order_numb, equip_name, part_name, otk_finish, time_sum)
+SELECT order_number, equipment, part, SUM(otk), SUM(hours_count)
+FROM main_table GROUP BY order_number, equipment, part
+HAVING NOT EXISTS(SELECT order_numb, equip_name, part FROM account_table WHERE order_numb=order_number AND equip_name=equipment AND part_name=part)
+AND SUM(quantity)=SUM(otk);

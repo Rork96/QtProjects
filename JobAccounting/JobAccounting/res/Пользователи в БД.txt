@@ -63,24 +63,46 @@ CREATE OR REPLACE FUNCTION process_select_to_account()
 $select_to$
     BEGIN
         IF (TG_OP = 'DELETE') THEN
-            DELETE FROM account_table WHERE order_numb = OLD.order_number AND part_name = OLD.part;
+            IF ( (SELECT account_table.id FROM account_table WHERE account_table.order_numb = OLD.order_number AND account_table.equip_name = OLD.equipment AND account_table.part_name = OLD.part) <> 0) THEN
+                UPDATE account_table SET otk_finish = (SELECT SUM(otk) FROM main_table WHERE
+                        main_table.order_number = OLD.order_number AND main_table.equipment = OLD.equipment AND main_table.part = OLD.part),
+                    time_sum = (SELECT SUM(hours_count)  FROM main_table WHERE
+                        main_table.order_number = OLD.order_number AND main_table.equipment = OLD.equipment AND main_table.part = OLD.part)
+                WHERE account_table.id =
+                      (SELECT account_table.id FROM account_table WHERE account_table.order_numb = OLD.order_number AND account_table.equip_name = OLD.equipment AND account_table.part_name = OLD.part);
+            ELSE
+                DELETE FROM account_table WHERE order_numb = OLD.order_number AND equip_name = OLD.equipment AND part_name = OLD.part
+                AND otk_finish = OLD.otk AND time_sum = OLD.hours_count;
+            END IF;
             IF NOT FOUND THEN RETURN NULL; END IF;
             RETURN OLD;
-        ELSEIF (TG_OP = 'INSERT') THEN
-          INSERT INTO account_table (order_numb, equip_name, part_name, otk_finish, time_sum)
-          VALUES (NEW.order_number, NEW.equipment, NEW.part, NEW.otk, NEW.hours_count);
-          RETURN NEW;
+        ELSIF (TG_OP = 'INSERT') THEN
+            IF ( (SELECT account_table.id FROM account_table WHERE account_table.order_numb = NEW.order_number AND account_table.equip_name = NEW.equipment AND account_table.part_name = NEW.part) <> 0) THEN
+                UPDATE account_table SET otk_finish = (SELECT SUM(otk) FROM main_table WHERE
+                        main_table.order_number = NEW.order_number AND main_table.equipment = NEW.equipment AND main_table.part = NEW.part),
+                    time_sum = (SELECT SUM(hours_count)  FROM main_table WHERE
+                        main_table.order_number = NEW.order_number AND main_table.equipment = NEW.equipment AND main_table.part = NEW.part)
+                WHERE account_table.id =
+                      (SELECT account_table.id FROM account_table WHERE account_table.order_numb = NEW.order_number AND account_table.equip_name = NEW.equipment AND account_table.part_name = NEW.part);
+            ELSE
+                INSERT INTO account_table (order_numb, equip_name, part_name, otk_finish, time_sum)
+                VALUES (NEW.order_number, NEW.equipment, NEW.part, NEW.otk, NEW.hours_count);
+            END IF;
+            RETURN  NEW;
         ELSIF (TG_OP = 'UPDATE') THEN
-          UPDATE account_table SET order_numb = NEW.order_number, equip_name = NEW.equipment, part_name = NEW.part,
-          otk_finish = NEW.otk, time_sum = NEW.hours_count
-          WHERE order_numb = OLD.order_number AND equip_name = OLD.equipment AND part_name = OLD.part AND
-          otk_finish = OLD.otk AND time_sum = OLD.hours_count;
-          RETURN NEW;
+            UPDATE account_table SET order_numb = NEW.order_number, equip_name = NEW.equipment, part_name = NEW.part,
+                otk_finish = (SELECT SUM(otk) FROM main_table WHERE
+                    main_table.order_number = NEW.order_number AND main_table.equipment = NEW.equipment AND main_table.part = NEW.part),
+                time_sum = (SELECT SUM(hours_count)  FROM main_table WHERE
+                    main_table.order_number = NEW.order_number AND main_table.equipment = NEW.equipment AND main_table.part = NEW.part)
+            WHERE account_table.id =
+                  (SELECT account_table.id FROM account_table WHERE account_table.order_numb = OLD.order_number AND account_table.equip_name = OLD.equipment AND account_table.part_name = OLD.part);
+            RETURN NEW;
         END IF;
         RETURN NULL;
     END;
 $select_to$ LANGUAGE plpgsql;
 
 CREATE TRIGGER select_to_acoount_table
-BEFORE INSERT OR UPDATE OR DELETE ON main_table
+AFTER INSERT OR UPDATE OR DELETE ON main_table
 FOR ROW EXECUTE PROCEDURE process_select_to_account();

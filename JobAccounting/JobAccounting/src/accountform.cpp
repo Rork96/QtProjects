@@ -82,7 +82,6 @@ void AccountForm::loadDataFromDB()
     for (int i = 0; i < ui->mainTableView->horizontalHeader()->count(); i++) {
         mainModel->setHeaderData(i, Qt::Horizontal, headers.at(i));
     }
-
     // Resize columns width dependent on the screen width
     QRect rect = QApplication::screens().at(0)->geometry();
     ui->mainTableView->horizontalHeader()->setDefaultSectionSize(rect.width()/(ui->mainTableView->horizontalHeader()->count()-1) -5);

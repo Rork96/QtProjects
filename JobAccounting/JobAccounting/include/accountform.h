@@ -2,8 +2,10 @@
 #define accountform_H
 
 #include <QWidget>
-#include <QSqlRelationalTableModel>
+//#include <QSqlRelationalTableModel>
 #include <QListView>
+
+#include "tablemodel.h"
 
 namespace Ui {
 class AccountForm;
@@ -22,7 +24,8 @@ public:
 private:
     Ui::AccountForm *ui;
 
-    QSqlRelationalTableModel *mainModel;        // For providing relations between tables
+    //QSqlRelationalTableModel *mainModel;        // For providing relations between tables
+    TableModel *mainModel;                      // For providing relations between tables
 
     void showSearchWidgets();                   // Show widgets for providing search
     void searchInDB();                          // Interactive search in database

@@ -8,8 +8,6 @@
 #include "mainwindow.h"
 #include "noteditabledelegate.h"
 
-#include <QDebug>
-
 AccountForm::AccountForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::AccountForm)
@@ -50,7 +48,8 @@ void AccountForm::loadDataFromDB()
 {
     // Load data
 
-    mainModel = new QSqlRelationalTableModel(this);
+    //mainModel = new QSqlRelationalTableModel(this);
+    mainModel = new TableModel(this);
     mainModel->setTable(ACCOUNT_TABLE);
     mainModel->setSort(1, Qt::AscendingOrder);  // Sort by order number
     mainModel->setEditStrategy(QSqlTableModel::OnManualSubmit);

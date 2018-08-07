@@ -9,9 +9,12 @@ CommandPrompt::CommandPrompt(QWidget *parent) :
 
     m_process = new QProcess(this);
 
+    m_edit = new PlaineEdit(this);
+    m_edit->setPlaceholderText("C:> ");
+    setCentralWidget(m_edit);
+
     connect(m_process, &QProcess::readyReadStandardOutput, this, &CommandPrompt::setStdout);
-    //connect()
-    // connect(ui->lineEdit, SIGNAL(returnPressed()), this, SLOT(command()) );
+    connect(m_edit, &PlaineEdit::returnPressed, this, &CommandPrompt::command);
 }
 
 CommandPrompt::~CommandPrompt()
@@ -23,17 +26,18 @@ void CommandPrompt::setStdout()
 {
     if(QSysInfo::productType() == "windows") {
         QTextCodec *codec = QTextCodec::codecForName("IBM 866");
-        //ui->textEdit->append( codec->toUnicode(m_process->readAllStandardOutput() ) );
+        m_edit->setPlainText(m_edit->toPlainText() + codec->toUnicode(m_process->readAllStandardOutput()));
     }
     else {
-        //ui->textEdit->append(m_process->readAllStandardOutput());
+        m_edit->setPlainText(m_process->readAllStandardOutput());
     }
+    m_edit->textCursor().setPosition(m_edit->textCursor().position());
 }
 
 void CommandPrompt::command()
 {
     QString strCommand;
     if(QSysInfo::productType() == "windows") strCommand = "cmd /C ";
-    //strCommand += ui->lineEdit->text();
+    strCommand += m_edit->getLine();
     m_process->start(strCommand);
 }

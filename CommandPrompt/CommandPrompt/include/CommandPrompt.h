@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QtCore>
+#include "PlaineEdit.h"
 
 namespace Ui
 {
@@ -23,6 +24,7 @@ public slots:
 
 private:
     Ui::CommandPrompt *ui;
+    PlaineEdit *m_edit;
     QProcess *m_process;
 };
 

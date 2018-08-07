@@ -31,7 +31,6 @@ void CommandPrompt::setStdout()
     else {
         m_edit->setPlainText(m_process->readAllStandardOutput());
     }
-    m_edit->textCursor().setPosition(m_edit->textCursor().position());
 }
 
 void CommandPrompt::command()

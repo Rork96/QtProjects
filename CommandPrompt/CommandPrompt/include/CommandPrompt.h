@@ -2,6 +2,7 @@
 #define CommandPrompt_H
 
 #include <QMainWindow>
+#include <QtCore>
 
 namespace Ui
 {
@@ -16,8 +17,13 @@ public:
     explicit CommandPrompt(QWidget *parent = 0);
     ~CommandPrompt();
 
+public slots:
+    void setStdout();
+    void command();
+
 private:
     Ui::CommandPrompt *ui;
+    QProcess *m_process;
 };
 
 #endif //CommandPrompt_H

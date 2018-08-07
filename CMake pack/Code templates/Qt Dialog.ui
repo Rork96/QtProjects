@@ -30,7 +30,9 @@
    </property>
   </widget>
  </widget>
- <resources/>
+  <resources>
+  <include location="../res/res.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>

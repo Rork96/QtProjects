@@ -106,9 +106,7 @@ void PlaineEdit::execCommand()
     if(QSysInfo::productType() == "windows") {
         strCommand = "cmd /C ";
     }
-    else {
-        strCommand = "/bin/bash ";   // Linux
-    }
+
     strCommand += getLine();
 
     // Attempt to open new command window

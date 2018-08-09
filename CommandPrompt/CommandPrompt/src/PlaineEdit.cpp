@@ -113,6 +113,9 @@ void PlaineEdit::execCommand()
     if (strCommand == "cmd /C cmd") {
         strCommand = "cmd /C cls";  // Clear
     }
+    else {
+        strCommand = "";
+    }
 
     // Execute command
     m_process->start(strCommand);

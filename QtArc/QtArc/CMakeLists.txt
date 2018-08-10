@@ -68,7 +68,7 @@ set (CMAKE_AUTOMOC ON)
 set (CMAKE_AUTOUIC ON)
 set (CMAKE_AUTORCC ON)
 # C++11
-set (CMAKE_CXX_STANDARD 11)
+set (CMAKE_CXX_STANDARD 14)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # To simplify deployment use MS Compiller for Windows
@@ -89,7 +89,7 @@ if (NOT MSVC) # MINGW or Clang
     set (CMAKE_CXX_FLAGS                "-Wall -std=c++11")
     set (CMAKE_CXX_FLAGS_DEBUG          "-O0 -g")
     set (CMAKE_CXX_FLAGS_MINSIZEREL     "-Os -DNDEBUG")
-    set (CMAKE_CXX_FLAGS_RELEASE        "-O6 -DNDEBUG")
+    set (CMAKE_CXX_FLAGS_RELEASE        "-O3 -DNDEBUG")
     set (CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")
 endif ()
 

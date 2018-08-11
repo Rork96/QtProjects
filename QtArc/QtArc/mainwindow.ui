@@ -45,7 +45,7 @@
      <x>0</x>
      <y>0</y>
      <width>1100</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="fileMenu">
@@ -57,7 +57,6 @@
     <addaction name="separator"/>
     <addaction name="compessArc"/>
     <addaction name="separator"/>
-    <addaction name="setPassword"/>
     <addaction name="separator"/>
     <addaction name="closeArc"/>
     <addaction name="separator"/>
@@ -73,7 +72,6 @@
     <addaction name="separator"/>
     <addaction name="openFile"/>
     <addaction name="deleteFile"/>
-    <addaction name="renameFile"/>
    </widget>
    <widget class="QMenu" name="paramMenu">
     <property name="title">
@@ -115,7 +113,6 @@
    <addaction name="separator"/>
    <addaction name="deleteFile"/>
    <addaction name="separator"/>
-   <addaction name="setPassword"/>
    <addaction name="separator"/>
    <addaction name="quitProgram"/>
   </widget>
@@ -156,7 +153,7 @@
     <string>Ctrl+O</string>
    </property>
    <property name="iconVisibleInMenu">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
   </action>
   <action name="saveArcCopy">
@@ -169,21 +166,6 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+S</string>
-   </property>
-  </action>
-  <action name="setPassword">
-   <property name="icon">
-    <iconset resource="res.qrc">
-     <normaloff>:/pict/password.png</normaloff>:/pict/password.png</iconset>
-   </property>
-   <property name="text">
-    <string>Установить пароль</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Shift+P</string>
-   </property>
-   <property name="shortcutVisibleInContextMenu">
-    <bool>true</bool>
    </property>
   </action>
   <action name="quitProgram">
@@ -204,7 +186,7 @@
      <normaloff>:/pict/addfile.png</normaloff>:/pict/addfile.png</iconset>
    </property>
    <property name="text">
-    <string>Добавить файлы в архив</string>
+    <string>Добавить файлы для сжатия</string>
    </property>
    <property name="shortcut">
     <string>Alt+A</string>
@@ -244,18 +226,6 @@
    </property>
    <property name="shortcut">
     <string>Del</string>
-   </property>
-  </action>
-  <action name="renameFile">
-   <property name="icon">
-    <iconset resource="res.qrc">
-     <normaloff>:/pict/rename.png</normaloff>:/pict/rename.png</iconset>
-   </property>
-   <property name="text">
-    <string>Переименовать файл</string>
-   </property>
-   <property name="shortcut">
-    <string>F2</string>
    </property>
   </action>
   <action name="mainToolBarShow">
@@ -324,7 +294,7 @@
      <normaloff>:/pict/close.png</normaloff>:/pict/close.png</iconset>
    </property>
    <property name="text">
-    <string>Закрыть архив (очистить список)</string>
+    <string>Закрыть архив / Очистить список</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+Q</string>
@@ -336,7 +306,7 @@
      <normaloff>:/pict/addfolder.png</normaloff>:/pict/addfolder.png</iconset>
    </property>
    <property name="text">
-    <string>Добавить папку в архив</string>
+    <string>Добавить папку для сжатия</string>
    </property>
    <property name="shortcut">
     <string>Alt+D</string>

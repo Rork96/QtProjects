@@ -34,11 +34,12 @@ private:
     void OpenArc();                                 // Open archive
     void ExtractArc();                              // Extract
     void CompressIntoArchive();                     // Compress into archive
-    void CloseArchive();                            // Close current archive
+    void CloseArchive();                            // Close current archive or clear list
     void AddFiles();                                // Add files into list for compression
     void DelFile();                                 // Delete file from list
     void SaveAsArc();                               // Save archive as ...
     void setArchiveName(const QString &arcName);    // Set archive name
+    void OpenItem(const QModelIndex &index);        // Open file or folder
     // Identify size of the file or the folder
     // Return QString and objType
     QString objSize(const QFileInfo fileInfo, QString &objType);
@@ -48,6 +49,8 @@ private:
     void ListRecursive(const KArchiveDirectory *dir, const QString &path);
     // Customize table
     void CustomizeTable();
+    // Enable or disable actions (1 - for archive, 2 - for files and folders, 0 - default state)
+    void EnableActions(const int &state = 0);
 };
 
 #endif // MAINWINDOW_H

@@ -32,11 +32,8 @@ private:
 
 private:
     void OpenArc();                                 // Open archive
-    void OpenArch(Archiver *arc);
     void ExtractArc();                              // Extract
-    bool ExtractArch(Archiver *arc, const QString &dest);
     void CompressIntoArchive();                     // Compress into archive
-    bool CompressArch(Archiver *arc);
     void CloseArchive();                            // Close current archive
     void AddFiles();                                // Add files into list for compression
     void DelFile();                                 // Delete file from list

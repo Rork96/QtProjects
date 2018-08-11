@@ -29,7 +29,7 @@ void PlaineEdit::keyPressEvent(QKeyEvent *e)
     if (e->key() == Qt::Key_Return || e->key() == Qt::Key_Enter) {  // Enter pressed
         if (textCursor().position() <= currentPos) {
             if (getLine() == QString()) {
-                setPlainText("\n" + welcomeText);
+                setPlainText("\n" + prompt);
             }
             return;
         }
@@ -54,26 +54,26 @@ void PlaineEdit::keyPressEvent(QKeyEvent *e)
 
 QString PlaineEdit::getLine() const
 {
-    // Return last line without welcomeText
-    return textCursor().block().text().remove(welcomeText);
+    // Return last line without prompt
+    return textCursor().block().text().remove(prompt);
 }
 
 void PlaineEdit::setWelcomeText(const QString &text)
 {
-    welcomeText = text;
-    setPlainText(QString());    // Show welcomeText
+    prompt = text;
+    setPlainText(QString());    // Show prompt
 }
 
 void PlaineEdit::setPlainText(const QString &text)
 {
-    if (text == ("\n" + welcomeText)) {
+    if (text == ("\n" + prompt)) {
         QPlainTextEdit::setPlainText(toPlainText() + text);
     }
     else if (text == QString()) {
-        QPlainTextEdit::setPlainText(welcomeText);
+        QPlainTextEdit::setPlainText(prompt);
     }
     else {
-        QPlainTextEdit::setPlainText(toPlainText() + text + "\n" + welcomeText);
+        QPlainTextEdit::setPlainText(toPlainText() + text + "\n" + prompt);
     }
     moveCursor(QTextCursor::End);
     currentPos = textCursor().position();   // Save cursor position
@@ -81,7 +81,7 @@ void PlaineEdit::setPlainText(const QString &text)
 
 const QString &PlaineEdit::getWelcomeText() const
 {
-    return welcomeText;
+    return prompt;
 }
 
 void PlaineEdit::viewCommandReturn()
@@ -95,7 +95,7 @@ void PlaineEdit::viewCommandReturn()
     else {
         outputStr = m_process->readAllStandardOutput();
     }
-    // If empty string has been returned, show welcomeText, else show output
+    // If empty string has been returned, show prompt, else show output
     setPlainText(outputStr == "\f" ? QString() : outputStr);
 }
 

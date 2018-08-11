@@ -16,7 +16,7 @@ public:
     explicit PlaineEdit(QWidget *parent = Q_NULLPTR);
     void keyPressEvent(QKeyEvent *e) override;
     void setPlainText(const QString &text);
-    QString getLine() const;                            // Return last line without welcomeText
+    QString getLine() const;                            // Return last line without prompt
     void setWelcomeText(const QString &text);           // Set command prompt text
     const QString &getWelcomeText() const;              // Get command prompt text
     void execCommand();                                 // Execute command
@@ -25,7 +25,7 @@ public:
 
 private:
     QProcess *m_process;
-    QString welcomeText;                                // Welcome text
+    QString prompt;                                     // Welcome text
     int currentPos;                                     // Cursor current position
 };
 

@@ -9,6 +9,7 @@
 #include <QDesktopServices>
 
 #include <QDebug>
+#include <QProcess>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -206,6 +207,15 @@ void MainWindow::ListRecursive(const KArchiveDirectory *dir, const QString &path
         }
         else {
             size = (static_cast<const KArchiveFile *>(entry))->size();
+
+//            const KArchiveFile *f = static_cast<const KArchiveFile *>(entry);
+//            QByteArray arr(f->data());
+//            qDebug() << "data" << arr;
+//
+//            QIODevice *dev = f->createDevice();
+//            QByteArray contents = dev->readAll();
+//            qDebug() << "contents" << contents;
+//            delete dev;
         }
             // Translate into bytes in К, М, Г, Т
             qint64 i = 0;
@@ -489,7 +499,62 @@ void MainWindow::OpenItem(const QModelIndex &index)
     /* * * Open file or folder * * */
 
     // Open file
-    QDesktopServices::openUrl(QUrl::fromLocalFile(ui->mainView->model()->data(fModel->index(index.row(), 0)).toString()));
+    if (archiveName.isEmpty()) {
+        // Local file
+        QDesktopServices::openUrl(QUrl::fromLocalFile(ui->mainView->model()->data(fModel->index(index.row(), 0)).toString()));
+    }
+    else {
+        // File from archive
+        if (QFileInfo(archiveName).suffix() == "zip") {
+            // Initialize class Archiver for managing zip files
+            // (class Azip is a wrapper for class KZip)
+            OpenArchFile(new Archiver(new AZip()), index.row());
+        }
+        else if (QFileInfo(archiveName).suffix() == "7z") {
+            OpenArchFile(new Archiver(new A7Zip()), index.row());
+        }
+        else { // gz
+            OpenArchFile(new Archiver(new ATarGz()), index.row());
+        }
+    }
+}
+
+void MainWindow::OpenArchFile(Archiver *archive, const int &row)
+{
+    /* * * Open file from archive * * */
+
+    archive->setFileName(archiveName);
+    if (!archive->open(QIODevice::ReadOnly)) {
+        return;
+    }
+    const KArchiveDirectory *dir = archive->directory();
+
+    QStringList l = dir->entries();
+    QStringList::ConstIterator it = l.constBegin();
+
+    for (; it != l.constEnd(); ++it) {
+        //const KArchiveEntry *entry = dir->entry((*it));
+
+        if (ui->mainView->model()->data(fModel->index(row, 1)).toString() == (*it).toLatin1().constData()) {
+            //const KArchiveFile *f = static_cast<const KArchiveFile *>(entry);
+            //QByteArray arr(f->data());
+            //qDebug() << "data" << arr;
+
+            // Extract the file to a temporary folder and open it
+            if (dir->file((*it))->copyTo(QDir::tempPath())) {
+                //QDesktopServices::openUrl(QUrl::fromLocalFile(QDir::tempPath() + "/" + (*it).toLatin1().constData()));
+
+                QProcess *proc = new QProcess(this);
+                QStringList argument = {QDir::tempPath() + "/" + (*it).toLatin1().constData()};
+                QString programm = "xdg-open";
+                QProcess *open = new QProcess(this);
+                open->start(programm, argument);
+            }
+
+            return;
+        }
+    }
+    archive->close();
 }
 // endregion Files and folders
 

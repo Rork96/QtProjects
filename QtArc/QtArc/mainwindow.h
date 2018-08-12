@@ -51,6 +51,8 @@ private:
     void CustomizeTable();
     // Enable or disable actions (1 - for archive, 2 - for files and folders, 0 - default state)
     void EnableActions(const int &state = 0);
+    // Open file from archive
+    void OpenArchFile(Archiver *archive, const int &row);
 };
 
 #endif // MAINWINDOW_H

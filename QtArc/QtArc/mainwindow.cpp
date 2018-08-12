@@ -9,7 +9,7 @@
 #include <QDesktopServices>
 
 #include <QDebug>
-#include <QProcess>
+//#include <QProcess>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -532,28 +532,17 @@ void MainWindow::OpenArchFile(Archiver *archive, const int &row)
     QStringList l = dir->entries();
     QStringList::ConstIterator it = l.constBegin();
 
-    for (; it != l.constEnd(); ++it) {
-        //const KArchiveEntry *entry = dir->entry((*it));
-
+    for (; it != l.constEnd(); ++it)
         if (ui->mainView->model()->data(fModel->index(row, 1)).toString() == (*it).toLatin1().constData()) {
-            //const KArchiveFile *f = static_cast<const KArchiveFile *>(entry);
-            //QByteArray arr(f->data());
-            //qDebug() << "data" << arr;
+            // Create temporary dir
+            QDir(QDir::tempPath()).mkdir(".QtArc");
 
             // Extract the file to a temporary folder and open it
-            if (dir->file((*it))->copyTo(QDir::tempPath())) {
-                //QDesktopServices::openUrl(QUrl::fromLocalFile(QDir::tempPath() + "/" + (*it).toLatin1().constData()));
-
-                QProcess *proc = new QProcess(this);
-                QStringList argument = {QDir::tempPath() + "/" + (*it).toLatin1().constData()};
-                QString programm = "xdg-open";
-                QProcess *open = new QProcess(this);
-                open->start(programm, argument);
+            if (dir->file((*it))->copyTo(QDir::tempPath() + "/.QtArc")) {
+                QDesktopServices::openUrl(QUrl::fromLocalFile(QDir::tempPath() + "/.QtArc/" + (*it).toLatin1().constData()));
             }
-
             return;
         }
-    }
     archive->close();
 }
 // endregion Files and folders
@@ -621,7 +610,7 @@ void MainWindow::dirSize(const QFileInfo inf, float &num)
 }
 // endregion Object size
 
-// region Apearence
+// region Appearance
 
 void MainWindow::CustomizeTable()
 {
@@ -687,4 +676,14 @@ void MainWindow::EnableActions(const int &state)
         break;
     }
 }
-// endregion Apearence
+// endregion Appearance
+
+void MainWindow::closeEvent(QCloseEvent *e)
+{
+    /* * * Before exit delete temporary folder * * */
+
+    if (QDir(QDir::tempPath() + "/.QtArc").exists())
+        QDir(QDir::tempPath() + "/.QtArc").removeRecursively();
+
+    QWidget::closeEvent(e);
+}

@@ -53,6 +53,8 @@ private:
     void EnableActions(const int &state = 0);
     // Open file from archive
     void OpenArchFile(Archiver *archive, const int &row);
+    // Before exit delete temporary folder
+    void closeEvent(QCloseEvent *e) override;
 };
 
 #endif // MAINWINDOW_H

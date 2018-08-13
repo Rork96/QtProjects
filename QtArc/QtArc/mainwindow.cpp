@@ -8,6 +8,8 @@
 #include <QFileSystemModel>
 #include <QDesktopServices>
 
+#include <QFileInfo>
+
 #include <QDebug>
 //#include <QProcess>
 
@@ -499,9 +501,11 @@ void MainWindow::OpenItem(const QModelIndex &index)
     /* * * Open file or folder * * */
 
     // Open file
+    QFileInfo *f = new QFileInfo(ui->mainView->model()->data(fModel->index(index.row(), 0)).toString());
     if (archiveName.isEmpty()) {
         // Local file
-        QDesktopServices::openUrl(QUrl::fromLocalFile(ui->mainView->model()->data(fModel->index(index.row(), 0)).toString()));
+        if (f->isFile())    // File
+            QDesktopServices::openUrl(QUrl::fromLocalFile(ui->mainView->model()->data(fModel->index(index.row(), 0)).toString()));
     }
     else {
         // File from archive
@@ -532,17 +536,21 @@ void MainWindow::OpenArchFile(Archiver *archive, const int &row)
     QStringList l = dir->entries();
     QStringList::ConstIterator it = l.constBegin();
 
-    for (; it != l.constEnd(); ++it)
-        if (ui->mainView->model()->data(fModel->index(row, 1)).toString() == (*it).toLatin1().constData()) {
-            // Create temporary dir
-            QDir(QDir::tempPath()).mkdir(".QtArc");
+    for (; it != l.constEnd(); ++it) {
+        if ((KArchiveDirectory *)dir->entry((*it))->isFile()) { // File
+            if (ui->mainView->model()->data(fModel->index(row, 1)).toString() == (*it).toLatin1().constData()) {
+                // Create temporary dir
+                QDir(QDir::tempPath()).mkdir(".QtArc");
 
-            // Extract the file to a temporary folder and open it
-            if (dir->file((*it))->copyTo(QDir::tempPath() + "/.QtArc")) {
-                QDesktopServices::openUrl(QUrl::fromLocalFile(QDir::tempPath() + "/.QtArc/" + (*it).toLatin1().constData()));
+                // Extract the file to a temporary folder and open it
+                if (dir->file((*it))->copyTo(QDir::tempPath() + "/.QtArc")) {
+                    QDesktopServices::openUrl(QUrl::fromLocalFile(
+                        QDir::tempPath() + "/.QtArc/" + (*it).toLatin1().constData()));
+                }
+                return;
             }
-            return;
         }
+    }
     archive->close();
 }
 // endregion Files and folders

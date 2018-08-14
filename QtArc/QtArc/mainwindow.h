@@ -36,15 +36,16 @@ private:
     void CompressIntoArchive();                     // Compress into archive
     void CloseArchive();                            // Close current archive or clear list
     void AddFiles();                                // Add files into list for compression
-    void DelFile();                                 // Delete file from list
+    void AddFolders();                              // Add folders into list for compression
+    void DelItem();                                 // Delete file or folder from list
     void SaveAsArc();                               // Save archive as ...
     void setArchiveName(const QString &arcName);    // Set archive name
     void OpenItem(const QModelIndex &index);        // Open file or folder
     // Identify size of the file or the folder
     // Return QString and objType
-    QString objSize(const QFileInfo fileInfo, QString &objType);
+    QString objSize(const QFileInfo &fileInfo, QString &objType);
     // Folder size (return num)
-    void dirSize(const QFileInfo inf, float &num);
+    void dirSize(const QFileInfo &inf, float &num);
     // Add files from archive to list
     void ListRecursive(const KArchiveDirectory *dir, const QString &path);
     // Customize table

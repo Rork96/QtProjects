@@ -45,7 +45,7 @@
      <x>0</x>
      <y>0</y>
      <width>1100</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="fileMenu">
@@ -103,6 +103,8 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="goBack"/>
+   <addaction name="separator"/>
    <addaction name="openArc"/>
    <addaction name="separator"/>
    <addaction name="extractToDir"/>
@@ -112,7 +114,6 @@
    <addaction name="closeArc"/>
    <addaction name="separator"/>
    <addaction name="deleteFile"/>
-   <addaction name="separator"/>
    <addaction name="separator"/>
    <addaction name="quitProgram"/>
   </widget>
@@ -319,6 +320,15 @@
    </property>
    <property name="text">
     <string>Сжать в архив</string>
+   </property>
+  </action>
+  <action name="goBack">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/pict/back.png</normaloff>:/pict/back.png</iconset>
+   </property>
+   <property name="text">
+    <string>Back</string>
    </property>
   </action>
  </widget>

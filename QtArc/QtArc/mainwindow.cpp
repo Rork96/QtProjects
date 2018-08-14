@@ -33,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Default - 0
     EnableActions();
-    ui->closeArc->setEnabled(false);
+    ui->goBack->setEnabled(false);
 
     // region Connections
     /* * * Connections * * */ {
@@ -47,11 +47,14 @@ MainWindow::MainWindow(QWidget *parent) :
         // Add files into list for compression
         connect(ui->addFiles, &QAction::triggered, this, &MainWindow::AddFiles);
 
+        // Add folders into list for compression
+        connect(ui->addFolder, &QAction::triggered, this, &MainWindow::AddFolders);
+
         // Close archive
         connect(ui->closeArc, &QAction::triggered, this, &MainWindow::CloseArchive);
 
         // Delete file from list
-        connect(ui->deleteFile, &QAction::triggered, this, &MainWindow::DelFile);
+        connect(ui->deleteFile, &QAction::triggered, this, &MainWindow::DelItem);
 
         // Save archive as ...
         connect(ui->saveArcCopy, &QAction::triggered, this, &MainWindow::SaveAsArc);
@@ -486,9 +489,40 @@ void MainWindow::AddFiles() {
     }
 }
 
-void MainWindow::DelFile()
+void MainWindow::AddFolders()
 {
-    /* * * Delete file from list * * */
+    /* * * Add folders into list for compression * * */
+
+    // Enable actions for files and folders
+    EnableActions(2);
+
+    archiveItems.append(QFileDialog::getExistingDirectory(this, "Выберите файлы",
+                                                 QStandardPaths::locate(QStandardPaths::HomeLocation, QString())));
+
+    // If user didn't choose folder
+    if (archiveItems.isEmpty())
+        return;
+
+    // Add columns and size
+    if (fModel->columnCount() == 0)
+        CustomizeTable();
+
+    foreach (QString file, archiveItems) {
+        QString type = "";
+        QString size = objSize(QFileInfo(file), type);
+        QList<QStandardItem*> items;
+        items << new QStandardItem(file)                                                        // Folder path (hidden)
+              << new QStandardItem(QFileInfo(file).fileName())                                  // Folder name
+              << new QStandardItem(type)                                                        // Type (file or folder)
+              << new QStandardItem(size)                                                        // Size
+              << new QStandardItem(QFileInfo(file).lastModified().toLocalTime().toString());    // Date
+        fModel->appendRow(items);
+    }
+}
+
+void MainWindow::DelItem()
+{
+    /* * * Delete file or folder from list * * */
 
     fModel->removeRow(ui->mainView->selectionModel()->currentIndex().row());
 
@@ -500,15 +534,42 @@ void MainWindow::OpenItem(const QModelIndex &index)
 {
     /* * * Open file or folder * * */
 
-    // Open file
-    QFileInfo *f = new QFileInfo(ui->mainView->model()->data(fModel->index(index.row(), 0)).toString());
+    // Open item
     if (archiveName.isEmpty()) {
-        // Local file
-        if (f->isFile())    // File
+        if (QFileInfo(ui->mainView->model()->data(fModel->index(index.row(), 0)).toString()).isDir()) {  // Folder
+            QDir dir;
+            qDebug() << ui->mainView->model()->data(fModel->index(index.row(), 0)).toString();
+            qDebug() << QFileInfo(ui->mainView->model()->data(fModel->index(index.row(), 0)).toString()).isDir();
+            dir.cd(ui->mainView->model()->data(fModel->index(index.row(), 0)).toString());
+            dir.setFilter(QDir::AllEntries | QDir::Hidden | QDir::NoSymLinks | QDir::NoDotAndDotDot);
+            QFileInfoList list = dir.entryInfoList();   // Get items from directory
+            qDebug() << list;
+            // Clear the view and fill it with new items
+            fModel->clear();
+            CustomizeTable();
+            foreach (QFileInfo info, list) {
+                QString type = "";
+                QString size = objSize(info, type);
+                QList<QStandardItem*> items;
+                items << new QStandardItem(dir.path() + "/" + info.filePath())              // Item path (hidden)
+                      << new QStandardItem(info.fileName())                                 // Item name
+                      << new QStandardItem(type)                                            // Type (file or folder)
+                      << new QStandardItem(size)                                            // Size
+                      << new QStandardItem(info.lastModified().toLocalTime().toString());   // Date
+                fModel->appendRow(items);
+                ui->goBack->setEnabled(true);
+                ui->deleteFile->setEnabled(false);
+            }
+        }
+        else {  // File
+            // Doesn't execute files from a folder. Why?
             QDesktopServices::openUrl(QUrl::fromLocalFile(ui->mainView->model()->data(fModel->index(index.row(), 0)).toString()));
+            qDebug() << ui->mainView->model()->data(fModel->index(index.row(), 0)).toString();
+            qDebug() << QUrl::fromLocalFile(ui->mainView->model()->data(fModel->index(index.row(), 0)).toString());
+        }
     }
     else {
-        // File from archive
+        // Item from archive
         if (QFileInfo(archiveName).suffix() == "zip") {
             // Initialize class Archiver for managing zip files
             // (class Azip is a wrapper for class KZip)
@@ -557,7 +618,7 @@ void MainWindow::OpenArchFile(Archiver *archive, const int &row)
 
 // region Object size
 
-QString MainWindow::objSize(const QFileInfo fileInfo, QString &objType)
+QString MainWindow::objSize(const QFileInfo &fileInfo, QString &objType)
 {
     // Identify size of the file or the folder
     // Return QString and objType
@@ -587,7 +648,7 @@ QString MainWindow::objSize(const QFileInfo fileInfo, QString &objType)
     return QString("%1").arg(size, 0, 'f', 1) + " " + "BKMGT"[i];
 }
 
-void MainWindow::dirSize(const QFileInfo inf, float &num)
+void MainWindow::dirSize(const QFileInfo &inf, float &num)
 {
     // Folder size (return num)
 
@@ -653,6 +714,7 @@ void MainWindow::EnableActions(const int &state)
         ui->addFiles->setEnabled(false);
         ui->addFolder->setEnabled(false);
         ui->extractToDir->setEnabled(true);
+        ui->goBack->setEnabled(false);
 
         ui->openFile->setEnabled(false);
         ui->deleteFile->setEnabled(false);
@@ -665,6 +727,7 @@ void MainWindow::EnableActions(const int &state)
         ui->addFiles->setEnabled(true);
         ui->addFolder->setEnabled(true);
         ui->extractToDir->setEnabled(false);
+        ui->goBack->setEnabled(false);
 
         ui->openFile->setEnabled(true);
         ui->deleteFile->setEnabled(true);
@@ -677,6 +740,7 @@ void MainWindow::EnableActions(const int &state)
         ui->addFiles->setEnabled(true);
         ui->addFolder->setEnabled(true);
         ui->extractToDir->setEnabled(false);
+        ui->goBack->setEnabled(false);
 
         ui->openFile->setEnabled(false);
         ui->deleteFile->setEnabled(false);

@@ -15,5 +15,6 @@
         <file>pict/save.png</file>
         <file>pict/start.png</file>
         <file>pict/compress.png</file>
+        <file>pict/back.png</file>
     </qresource>
 </RCC>

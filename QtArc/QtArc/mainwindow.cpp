@@ -62,6 +62,9 @@ MainWindow::MainWindow(QWidget *parent) :
         // Open file or folder
         connect(ui->mainView, &QTableView::doubleClicked, this, &MainWindow::OpenItem);
 
+        // Go to previous folder
+        connect(ui->goBack, &QAction::triggered, this, &MainWindow::GoBack);
+
         // Full screen
         connect(ui->fullScrean, &QAction::triggered, fullScreenShortcut, &QShortcut::activated);
         connect(fullScreenShortcut, &QShortcut::activated, this, [this] {
@@ -124,6 +127,23 @@ void MainWindow::OpenArchive(const QString &arcName)
     OpenArc();
 }
 
+Archiver *MainWindow::GetArcType()  // inline
+{
+    /* * * Get Archive type * * */
+
+    if (QFileInfo(archiveName).suffix() == "zip") {
+        // Initialize class Archiver for managing zip files
+        // (class Azip is a wrapper for class KZip)
+        return new Archiver(new AZip());
+    }
+    else if (QFileInfo(archiveName).suffix() == "7z") {
+        return new Archiver(new A7Zip());
+    }
+    else { // gz
+        return new Archiver(new ATarGz());
+    }
+};
+
 // region Open archive
 
 void MainWindow::OpenArc()
@@ -166,17 +186,8 @@ void MainWindow::OpenArc()
         arc->close();
     };
 
-    if (QFileInfo(archiveName).suffix() == "zip") {
-        // Initialize class Archiver for managing zip files
-        // (class Azip is a wrapper for class KZip)
-        openArcheve(new Archiver(new AZip()));
-    }
-    else if (QFileInfo(archiveName).suffix() == "7z") {
-        openArcheve(new Archiver(new A7Zip()));
-    }
-    else { // gz
-        openArcheve(new Archiver(new ATarGz()));
-    }
+    // Get archive type
+    openArcheve(GetArcType());
 
     // Set title
     setWindowTitle("QtArc - " + QFileInfo(archiveName).fileName());
@@ -200,27 +211,9 @@ void MainWindow::ListRecursive(const KArchiveDirectory *dir, const QString &path
         float size = 0;
         if (entry->isDirectory()) {
             type = "Папка";
-            /*KArchiveDirectory *ddd;
-            ddd = (KArchiveDirectory *)entry, path + (*it) + '/';
-            QStringList lst = ddd->entries();
-            QStringList::ConstIterator it = lst.constBegin();
-            for (; it != lst.constEnd(); ++it) {
-                const KArchiveEntry *entry = dir->entry((*it));
-
-                size += (static_cast<const KArchiveFile *>(entry))->size();
-            }*/
         }
         else {
-            size = (static_cast<const KArchiveFile *>(entry))->size();
-
-//            const KArchiveFile *f = static_cast<const KArchiveFile *>(entry);
-//            QByteArray arr(f->data());
-//            qDebug() << "data" << arr;
-//
-//            QIODevice *dev = f->createDevice();
-//            QByteArray contents = dev->readAll();
-//            qDebug() << "contents" << contents;
-//            delete dev;
+            size = (dynamic_cast<const KArchiveFile *>(entry))->size();
         }
             // Translate into bytes in К, М, Г, Т
             qint64 i = 0;
@@ -236,13 +229,6 @@ void MainWindow::ListRecursive(const KArchiveDirectory *dir, const QString &path
               << new QStandardItem(entry->date().toString("yyyy-MM-dd hh:mm:ss").toLatin1().constData());   // Date
               //<< new QStandardItem((static_cast<const KArchiveFile *>(entry))->date().toLocalTime().toString("yyyy-MM-dd hh:mm:ss"));
         fModel->appendRow(items);
-
-        /*
-        // Directory entries
-        if (entry->isDirectory()) {
-            ListRecursive((KArchiveDirectory *)entry, path + (*it) + '/');
-        }
-        */
     }
 }
 // endregion Open archive
@@ -267,10 +253,8 @@ void MainWindow::ExtractArc()
         return;
 
     QFileInfo fInfo(archiveName);
-    // Extraction result
-    bool result;
 
-    auto extractQrchive = [this] (Archiver *arc, const QString &dest) -> bool {
+    auto extractArchive = [this] (Archiver *arc, const QString &dest) -> bool {
         // Extract archive
         QFileInfo archiveInfo(archiveName);
 
@@ -295,19 +279,8 @@ void MainWindow::ExtractArc()
         return res;
     };
 
-    if (fInfo.suffix() == "zip") {
-        // Initialize class Archiver for managing zip files
-        // (class Azip is a wrapper for class KZip)
-        result = extractQrchive(new Archiver(new AZip()), destination);
-    }
-    else if (fInfo.suffix() == "7z") {
-        result = extractQrchive(new Archiver(new A7Zip()), destination);
-    }
-    else { // gz
-        result = extractQrchive(new Archiver(new ATarGz()), destination);
-    }
-
-    if (result) {
+    // Get archive type
+    if (extractArchive(GetArcType(), destination)) {
         QMessageBox::information(this, "QtArc", "Архив успешно извлечен!", QMessageBox::Ok);
     }
     else {
@@ -345,8 +318,6 @@ void MainWindow::CompressIntoArchive()
     setArchiveName(str);
 
     QFileInfo fInfo(archiveName);
-    // Extraction result
-    bool result;
 
     auto compressArchive = [this] (Archiver *arc) -> bool {
         // Compress into archive
@@ -368,19 +339,8 @@ void MainWindow::CompressIntoArchive()
         return false;
     };
 
-    if (fInfo.suffix() == "zip") {
-        // Initialize class Archiver for managing zip files
-        // (class Azip is a wrapper for class KZip)
-        result = compressArchive(new Archiver(new AZip()));
-    }
-    else if (fInfo.suffix() == "7z") {
-        result = compressArchive(new Archiver(new A7Zip()));
-    }
-    else { // gz
-        result = compressArchive(new Archiver(new ATarGz()));
-    }
-
-    if (result) {
+    // Get archive type
+    if (compressArchive(GetArcType())) {
         QMessageBox::information(this, "QtArc", "Архивация успешна!", QMessageBox::Ok);
         setWindowTitle("QtArc - " + QFileInfo(archiveName).fileName());
     }
@@ -427,7 +387,7 @@ void MainWindow::SaveAsArc()
         QMessageBox::warning(this, "QtArc", "Ошибка сохранения!", QMessageBox::Ok);
     }
 }
-// rendregion Save arc as...
+// endregion Save arc as...
 
 void MainWindow::setArchiveName(const QString &arcName)
 {
@@ -458,66 +418,74 @@ void MainWindow::CloseArchive()
 
 // region Files and folders
 
-void MainWindow::AddFiles() {
+bool MainWindow::AddItemsToModel(const QFileInfoList &items) // inline
+{
+    /* * * Add items to list * * */
+
+    // Clear the view and fill it with items
+    fModel->clear();
+    CustomizeTable();
+
+    for (const QFileInfo &info: items) {
+        QString type = "";
+        QString size = objSize(info, type);
+        QList<QStandardItem *> it;
+        it << new QStandardItem(info.filePath())                                 // Item path (hidden)
+           << new QStandardItem(info.fileName())                                 // Item name
+           << new QStandardItem(type)                                            // Type (file or folder)
+           << new QStandardItem(size)                                            // Size
+           << new QStandardItem(info.lastModified().toLocalTime().toString());   // Date
+        fModel->appendRow(it);
+    }
+
+    return fModel->rowCount() != 0;
+}
+
+void MainWindow::AddFiles()
+{
     /* * * Add files into list for compression * * */
 
-    // Enable actions for files and folders
-    EnableActions(2);
-
-    archiveItems = QFileDialog::getOpenFileNames(this, "Выберите файлы",
+    QStringList fileItems = QFileDialog::getOpenFileNames(this, "Выберите файлы",
                                              QStandardPaths::locate(QStandardPaths::HomeLocation, QString()),
                                              "Все файлы (*.*)");
 
     // If user didn't choose file
-    if (archiveItems.isEmpty())
+    if (fileItems.isEmpty())
         return;
 
-    // Add columns and size
-    if (fModel->columnCount() == 0)
-        CustomizeTable();
-
-    foreach (QString file, archiveItems) {
-        QString type = "";
-        QString size = objSize(QFileInfo(file), type);
-        QList<QStandardItem*> items;
-        items << new QStandardItem(file)                                                        // File path (hidden)
-              << new QStandardItem(QFileInfo(file).fileName())                                  // File name
-              << new QStandardItem(type)                                                        // Type (file or folder)
-              << new QStandardItem(size)                                                        // Size
-              << new QStandardItem(QFileInfo(file).lastModified().toLocalTime().toString());    // Date
-        fModel->appendRow(items);
+    for (const QString &item: fileItems) {
+        archiveItems.append(item);
     }
+
+    // Get QFileInfo
+    QFileInfoList list;
+    for (const QString &item: archiveItems) {
+        list.append(QFileInfo(item));
+    }
+    // Show items
+    if (AddItemsToModel(list))
+        EnableActions(2);  // Enable actions for files and folders
 }
 
 void MainWindow::AddFolders()
 {
     /* * * Add folders into list for compression * * */
 
-    // Enable actions for files and folders
-    EnableActions(2);
-
-    archiveItems.append(QFileDialog::getExistingDirectory(this, "Выберите файлы",
+    archiveItems.append(QFileDialog::getExistingDirectory(this, "Выберите папку",
                                                  QStandardPaths::locate(QStandardPaths::HomeLocation, QString())));
 
     // If user didn't choose folder
     if (archiveItems.isEmpty())
         return;
 
-    // Add columns and size
-    if (fModel->columnCount() == 0)
-        CustomizeTable();
-
-    foreach (QString file, archiveItems) {
-        QString type = "";
-        QString size = objSize(QFileInfo(file), type);
-        QList<QStandardItem*> items;
-        items << new QStandardItem(file)                                                        // Folder path (hidden)
-              << new QStandardItem(QFileInfo(file).fileName())                                  // Folder name
-              << new QStandardItem(type)                                                        // Type (file or folder)
-              << new QStandardItem(size)                                                        // Size
-              << new QStandardItem(QFileInfo(file).lastModified().toLocalTime().toString());    // Date
-        fModel->appendRow(items);
+    // Get QFileInfo
+    QFileInfoList list;
+    for (const QString &item: archiveItems) {
+        list.append(QFileInfo(item));
     }
+    // Show items
+    if (AddItemsToModel(list))
+        EnableActions(2);  // Enable actions for files and folders
 }
 
 void MainWindow::DelItem()
@@ -538,49 +506,25 @@ void MainWindow::OpenItem(const QModelIndex &index)
     if (archiveName.isEmpty()) {
         if (QFileInfo(ui->mainView->model()->data(fModel->index(index.row(), 0)).toString()).isDir()) {  // Folder
             QDir dir;
-            qDebug() << ui->mainView->model()->data(fModel->index(index.row(), 0)).toString();
-            qDebug() << QFileInfo(ui->mainView->model()->data(fModel->index(index.row(), 0)).toString()).isDir();
             dir.cd(ui->mainView->model()->data(fModel->index(index.row(), 0)).toString());
             dir.setFilter(QDir::AllEntries | QDir::Hidden | QDir::NoSymLinks | QDir::NoDotAndDotDot);
             QFileInfoList list = dir.entryInfoList();   // Get items from directory
-            qDebug() << list;
-            // Clear the view and fill it with new items
-            fModel->clear();
-            CustomizeTable();
-            foreach (QFileInfo info, list) {
-                QString type = "";
-                QString size = objSize(info, type);
-                QList<QStandardItem*> items;
-                items << new QStandardItem(dir.path() + "/" + info.filePath())              // Item path (hidden)
-                      << new QStandardItem(info.fileName())                                 // Item name
-                      << new QStandardItem(type)                                            // Type (file or folder)
-                      << new QStandardItem(size)                                            // Size
-                      << new QStandardItem(info.lastModified().toLocalTime().toString());   // Date
-                fModel->appendRow(items);
+
+            // Show items
+            if (AddItemsToModel(list)) {
+                // Enable actions for files and folders
+                EnableActions(2);
                 ui->goBack->setEnabled(true);
                 ui->deleteFile->setEnabled(false);
             }
         }
         else {  // File
-            // Doesn't execute files from a folder. Why?
             QDesktopServices::openUrl(QUrl::fromLocalFile(ui->mainView->model()->data(fModel->index(index.row(), 0)).toString()));
-            qDebug() << ui->mainView->model()->data(fModel->index(index.row(), 0)).toString();
-            qDebug() << QUrl::fromLocalFile(ui->mainView->model()->data(fModel->index(index.row(), 0)).toString());
         }
     }
     else {
         // Item from archive
-        if (QFileInfo(archiveName).suffix() == "zip") {
-            // Initialize class Archiver for managing zip files
-            // (class Azip is a wrapper for class KZip)
-            OpenArchFile(new Archiver(new AZip()), index.row());
-        }
-        else if (QFileInfo(archiveName).suffix() == "7z") {
-            OpenArchFile(new Archiver(new A7Zip()), index.row());
-        }
-        else { // gz
-            OpenArchFile(new Archiver(new ATarGz()), index.row());
-        }
+        OpenArchFile(GetArcType(), index.row());
     }
 }
 
@@ -598,21 +542,81 @@ void MainWindow::OpenArchFile(Archiver *archive, const int &row)
     QStringList::ConstIterator it = l.constBegin();
 
     for (; it != l.constEnd(); ++it) {
-        if ((KArchiveDirectory *)dir->entry((*it))->isFile()) { // File
-            if (ui->mainView->model()->data(fModel->index(row, 1)).toString() == (*it).toLatin1().constData()) {
+        if (ui->mainView->model()->data(fModel->index(row, 1)).toString() == (*it).toLatin1().constData()) {
+            if ((KArchiveDirectory *)dir->entry((*it))->isFile()) { // File
                 // Create temporary dir
                 QDir(QDir::tempPath()).mkdir(".QtArc");
 
                 // Extract the file to a temporary folder and open it
                 if (dir->file((*it))->copyTo(QDir::tempPath() + "/.QtArc")) {
-                    QDesktopServices::openUrl(QUrl::fromLocalFile(
-                        QDir::tempPath() + "/.QtArc/" + (*it).toLatin1().constData()));
+                    QDesktopServices::openUrl(QUrl::fromLocalFile(QDir::tempPath() + "/.QtArc/" + (*it).toLatin1().constData()));
                 }
                 return;
+            }
+            else {  // Folder
+                const KArchiveEntry *entry = dir->entry((*it));
+                if (entry->isDirectory()) {
+                    QString path = ui->mainView->model()->data(fModel->index(row, 1)).toString();
+                    // Clear the view and fill it with new items
+                    fModel->clear();
+
+                    // Show items
+                    ListRecursive((KArchiveDirectory *)entry, path + (*it) + '/');
+
+                    ui->goBack->setEnabled(true);
+                    ui->deleteFile->setEnabled(false);
+                }
             }
         }
     }
     archive->close();
+}
+
+void MainWindow::GoBack()
+{
+    /* * * Go to previous folder * * */
+
+    QString currentPath = QFileInfo(ui->mainView->model()->data(fModel->index(0, 0)).toString()).canonicalPath();
+
+    if (archiveName.isEmpty()) {    // Not archived data
+        QDir dir(currentPath);
+        dir.cdUp();
+
+        // Change current path
+        currentPath = dir.path();
+        // if parent directory
+        if (currentPath == QFileInfo(archiveItems.at(0)).canonicalPath()) {
+            // Get QFileInfo
+            QFileInfoList list;
+            for (const QString &item: archiveItems) {
+                list.append(QFileInfo(item));
+            }
+            // Show items
+            if (AddItemsToModel(list)) {
+                ui->goBack->setEnabled(false);
+                ui->deleteFile->setEnabled(true);
+            }
+        }
+        else {
+            dir.setFilter(QDir::AllEntries | QDir::Hidden | QDir::NoSymLinks | QDir::NoDotAndDotDot);
+            QFileInfoList list = dir.entryInfoList();   // Get items from directory
+
+            // Show items
+            if (AddItemsToModel(list)) {
+                ui->goBack->setEnabled(true);
+                ui->deleteFile->setEnabled(false);
+            }
+        }
+    }
+    else {  // Archive
+    /*
+        // Parent directory
+        if (currentPath == QFileInfo(archiveItems.at(0)).canonicalPath()) {
+            ui->goBack->setEnabled(false);
+            ui->deleteFile->setEnabled(false);
+        }
+    */
+    }
 }
 // endregion Files and folders
 

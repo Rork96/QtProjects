@@ -26,21 +26,24 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    QString archiveName;                            // Current archive
-    QStringList archiveItems;                       // Items for compression
-    QStandardItemModel *fModel;                     // Model for view
+    QString archiveName;                                    // Current archive
+    QStringList archiveItems;                               // Items for compression
+    QStandardItemModel *fModel;                             // Model for view
 
 private:
-    void OpenArc();                                 // Open archive
-    void ExtractArc();                              // Extract
-    void CompressIntoArchive();                     // Compress into archive
-    void CloseArchive();                            // Close current archive or clear list
-    void AddFiles();                                // Add files into list for compression
-    void AddFolders();                              // Add folders into list for compression
-    void DelItem();                                 // Delete file or folder from list
-    void SaveAsArc();                               // Save archive as ...
-    void setArchiveName(const QString &arcName);    // Set archive name
-    void OpenItem(const QModelIndex &index);        // Open file or folder
+    void OpenArc();                                         // Open archive
+    void ExtractArc();                                      // Extract
+    inline Archiver *GetArcType();                          // Get Archive type
+    void CompressIntoArchive();                             // Compress into archive
+    void CloseArchive();                                    // Close current archive or clear list
+    void AddFiles();                                        // Add files into list for compression
+    void AddFolders();                                      // Add folders into list for compression
+    inline bool AddItemsToModel(const QFileInfoList &items);    // Add items to list
+    void DelItem();                                         // Delete file or folder from list
+    void SaveAsArc();                                       // Save archive as ...
+    void setArchiveName(const QString &arcName);            // Set archive name
+    void OpenItem(const QModelIndex &index);                // Open file or folder
+    void GoBack();                                          // Go to previous folder
     // Identify size of the file or the folder
     // Return QString and objType
     QString objSize(const QFileInfo &fileInfo, QString &objType);

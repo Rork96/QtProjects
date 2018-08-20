@@ -42,7 +42,7 @@ if (WIN32)
         set (CMAKE_PREFIX_PATH "C:/msys64/mingw64/")
     elseif (MSVC)   # MSVC 64 bit
         set (CMAKE_PREFIX_PATH "C:/Qt/5.10.1/msvc2017_64/")
-    else()  # MINGW 32 bit
+    else ()  # MINGW 32 bit
         set (CMAKE_PREFIX_PATH "C:/Qt/5.10.1/mingw53_32/")
     endif ()
 elseif (UNIX)

@@ -609,6 +609,7 @@ void MainWindow::GoBack()
         }
     }
     else {  // Archive
+        // Check path in the archive
     /*
         // Parent directory
         if (currentPath == QFileInfo(archiveItems.at(0)).canonicalPath()) {

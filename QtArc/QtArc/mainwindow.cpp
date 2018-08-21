@@ -328,15 +328,12 @@ void MainWindow::CompressIntoArchive()
         }
         // For all items
         foreach (QString item, archiveItems) {
-            bool writeOk = false;
+            bool writeOk;
             if (!QFileInfo(item).isDir()) { // File
-                QFile f(item);
-                f.open(QFile::ReadOnly);
-                const QByteArray arr = f.readAll();                                     // Get byte array from file
-                writeOk = arc->writeFile(QFileInfo(item).fileName(), arr);              // Write file
+                writeOk = arc->addLocalFile(item, QFileInfo(item).fileName());
             }
             else {  // Directory
-                writeOk = arc->addLocalDirectory(item, QFileInfo(item).baseName());     // Write dir
+                writeOk = arc->addLocalDirectory(item, QFileInfo(item).baseName());
             }
             if (!writeOk) return !arc->close();     // false
         }

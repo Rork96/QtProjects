@@ -30,9 +30,15 @@
  *
  *              const KArchiveDirectory* directory() - return KArchiveDirectory* for reading file from archive.
  *
- *              bool writeFile(const QString name, const QByteArray data) - write (add) a single file into archive,
- *                                                                          get QString name (full file name with path) and
- *                                                                          QByteArray data (byte array from file),
+ *              bool addLocalFile(const QString &fileName, const QString &destName) - write (add) a single file into archive,
+ *                                                                          get fileName (full file name with path) and
+ *                                                                          destName (name in the archive),
+ *                                                                          returns true if successful.
+ *
+ *              bool addLocalDirectory(const QString &path, const QString &destName) - write (add) a directory into archive
+ *                                                                          with all its contents (recursively),
+ *                                                                          get path (full dir name with path) and
+ *                                                                          destName (name in the archive),
  *                                                                          returns true if successful.
  *
  *              bool close() - close archive after usage (it's necessary!), returns true if successful.
@@ -56,7 +62,7 @@ public:
     virtual void setFileName(const QString &filename) = 0;
     virtual bool open(QIODevice::OpenMode mode) = 0;
     virtual const KArchiveDirectory* directory() const = 0;
-    virtual bool writeFile(const QString &name, const QByteArray &data) = 0;
+    virtual bool addLocalFile(const QString &fileName, const QString &destName) = 0;
     virtual bool addLocalDirectory(const QString &path, const QString &destName) = 0;
     virtual bool close() = 0;
 };
@@ -76,8 +82,8 @@ public:
     const KArchiveDirectory* directory() const {
         return zip->directory();    // Get archive directory for reading files
     }
-    bool writeFile(const QString &name, const QByteArray &data) {
-        return zip->writeFile(name, data);  // Write file into archive
+    bool addLocalFile(const QString &fileName, const QString &destName) {
+        return zip->addLocalFile(fileName, destName);   // Write file into archive
     }
     bool addLocalDirectory(const QString &path, const QString &destName) {
         return zip->addLocalDirectory(path, destName); // Write dir into archive
@@ -109,8 +115,8 @@ public:
     const KArchiveDirectory* directory() const {
         return sZip->directory();
     }
-    bool writeFile(const QString &name, const QByteArray &data) {
-        return sZip->writeFile(name, data);
+    bool addLocalFile(const QString &fileName, const QString &destName) {
+        return sZip->addLocalFile(fileName, destName);
     }
     bool addLocalDirectory(const QString &path, const QString &destName) {
         return sZip->addLocalDirectory(path, destName);
@@ -142,8 +148,8 @@ public:
     const KArchiveDirectory* directory() const {
         return tar->directory();
     }
-    bool writeFile(const QString &name, const QByteArray &data) {
-        return tar->writeFile(name, data);
+    bool addLocalFile(const QString &fileName, const QString &destName) {
+        return tar->addLocalFile(fileName, destName);
     }
     bool addLocalDirectory(const QString &path, const QString &destName) {
         return tar->addLocalDirectory(path, destName);
@@ -179,8 +185,8 @@ public:
     const KArchiveDirectory* directory() const {
         return arc->directory();
     }
-    bool writeFile(const QString &name, const QByteArray &data) {
-        return arc->writeFile(name, data);
+    bool addLocalFile(const QString &fileName, const QString &destName) {
+        return arc->addLocalFile(fileName, destName);
     }
     bool addLocalDirectory(const QString &path, const QString &destName) {
         return arc->addLocalDirectory(path, destName);

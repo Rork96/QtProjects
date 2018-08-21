@@ -56,7 +56,8 @@ public:
     virtual void setFileName(const QString &filename) = 0;
     virtual bool open(QIODevice::OpenMode mode) = 0;
     virtual const KArchiveDirectory* directory() const = 0;
-    virtual bool writeFile(const QString name, const QByteArray data)= 0;
+    virtual bool writeFile(const QString &name, const QByteArray &data) = 0;
+    virtual bool writeDir(const QString &name) = 0;
     virtual bool close() = 0;
 };
 // endregion Main
@@ -75,8 +76,11 @@ public:
     const KArchiveDirectory* directory() const {
         return zip->directory();    // Get archive directory for reading files
     }
-    bool writeFile(const QString name, const QByteArray data) {
+    bool writeFile(const QString &name, const QByteArray &data) {
         return zip->writeFile(name, data);  // Write file into archive
+    }
+    bool writeDir(const QString &name) {
+        return zip->writeDir(name); // Write dir into archive
     }
     bool close() {
         bool result = zip->close();     // Close archive!
@@ -105,8 +109,11 @@ public:
     const KArchiveDirectory* directory() const {
         return sZip->directory();
     }
-    bool writeFile(const QString name, const QByteArray data) {
+    bool writeFile(const QString &name, const QByteArray &data) {
         return sZip->writeFile(name, data);
+    }
+    bool writeDir(const QString &name) {
+        return sZip->writeDir(name);
     }
     bool close() {
         bool result = sZip->close();
@@ -135,8 +142,11 @@ public:
     const KArchiveDirectory* directory() const {
         return tar->directory();
     }
-    bool writeFile(const QString name, const QByteArray data) {
+    bool writeFile(const QString &name, const QByteArray &data) {
         return tar->writeFile(name, data);
+    }
+    bool writeDir(const QString &name) {
+        return tar->writeDir(name);
     }
     bool close() {
         bool result = tar->close();
@@ -169,8 +179,11 @@ public:
     const KArchiveDirectory* directory() const {
         return arc->directory();
     }
-    bool writeFile(const QString name, const QByteArray data) {
+    bool writeFile(const QString &name, const QByteArray &data) {
         return arc->writeFile(name, data);
+    }
+    bool writeDir(const QString &name) {
+        return arc->writeDir(name);
     }
     bool close() {
         return arc->close();

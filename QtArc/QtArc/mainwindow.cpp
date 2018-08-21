@@ -572,7 +572,7 @@ void MainWindow::OpenArchFile(Archiver *archive, const int &row)
             else {  // Folder
                 const KArchiveEntry *entry = dir->entry((*it));
                 if (entry->isDirectory()) {
-                    QString path = ui->mainView->model()->data(fModel->index(row, 0)).toString();
+                    QString path = ui->mainView->model()->data(fModel->index(row, 0)).toString();   // 1
                     // Clear the view and fill it with new items
                     fModel->clear();
 

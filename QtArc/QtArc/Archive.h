@@ -57,7 +57,7 @@ public:
     virtual bool open(QIODevice::OpenMode mode) = 0;
     virtual const KArchiveDirectory* directory() const = 0;
     virtual bool writeFile(const QString &name, const QByteArray &data) = 0;
-    virtual bool writeDir(const QString &name) = 0;
+    virtual bool addLocalDirectory(const QString &path, const QString &destName) = 0;
     virtual bool close() = 0;
 };
 // endregion Main
@@ -79,8 +79,8 @@ public:
     bool writeFile(const QString &name, const QByteArray &data) {
         return zip->writeFile(name, data);  // Write file into archive
     }
-    bool writeDir(const QString &name) {
-        return zip->writeDir(name); // Write dir into archive
+    bool addLocalDirectory(const QString &path, const QString &destName) {
+        return zip->addLocalDirectory(path, destName); // Write dir into archive
     }
     bool close() {
         bool result = zip->close();     // Close archive!
@@ -112,8 +112,8 @@ public:
     bool writeFile(const QString &name, const QByteArray &data) {
         return sZip->writeFile(name, data);
     }
-    bool writeDir(const QString &name) {
-        return sZip->writeDir(name);
+    bool addLocalDirectory(const QString &path, const QString &destName) {
+        return sZip->addLocalDirectory(path, destName);
     }
     bool close() {
         bool result = sZip->close();
@@ -145,8 +145,8 @@ public:
     bool writeFile(const QString &name, const QByteArray &data) {
         return tar->writeFile(name, data);
     }
-    bool writeDir(const QString &name) {
-        return tar->writeDir(name);
+    bool addLocalDirectory(const QString &path, const QString &destName) {
+        return tar->addLocalDirectory(path, destName);
     }
     bool close() {
         bool result = tar->close();
@@ -182,8 +182,8 @@ public:
     bool writeFile(const QString &name, const QByteArray &data) {
         return arc->writeFile(name, data);
     }
-    bool writeDir(const QString &name) {
-        return arc->writeDir(name);
+    bool addLocalDirectory(const QString &path, const QString &destName) {
+        return arc->addLocalDirectory(path, destName);
     }
     bool close() {
         return arc->close();

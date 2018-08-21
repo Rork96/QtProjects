@@ -319,49 +319,37 @@ void MainWindow::CompressIntoArchive()
 
     QFileInfo fInfo(archiveName);
 
-    auto compressArchive = [] (auto &&self, Archiver *arc, QStringList arcItems) -> bool    // Recursive lambda function (C++14)
+    auto compressArchive = [this] (Archiver *arc) -> bool
     {
         // Compress into archive
-        qDebug() << arcItems;
+        arc->setFileName(archiveName);
+        if (!arc->open(QIODevice::WriteOnly)) {
+            return false;
+        }
         // For all items
-        foreach (QString item, arcItems) {
+        foreach (QString item, archiveItems) {
             bool writeOk = false;
-            qDebug() << item;
             if (!QFileInfo(item).isDir()) { // File
                 QFile f(item);
                 f.open(QFile::ReadOnly);
-                const QByteArray arr = f.readAll();                             // Get byte array from file
-                writeOk = arc->writeFile(QFileInfo(item).fileName(), arr);      // Write file
-                qDebug() << writeOk;
+                const QByteArray arr = f.readAll();                                     // Get byte array from file
+                writeOk = arc->writeFile(QFileInfo(item).fileName(), arr);              // Write file
             }
             else {  // Directory
-                if (arc->writeDir(QFileInfo(item).fileName())) {                // Write dir
-                    // Somehow write files into a dir
-                    QDir dir(item);
-                    dir.setFilter(QDir::AllEntries | QDir::Hidden | QDir::NoSymLinks | QDir::NoDotAndDotDot);
-                    QStringList list = dir.entryList();
-                    qDebug() << list;
-                    writeOk = self(self, arc, list);                            // Call compressArchive recursively
-                    qDebug() << writeOk;
-                }
+                writeOk = arc->addLocalDirectory(item, QFileInfo(item).baseName());     // Write dir
             }
-            if (!writeOk) return false;
+            if (!writeOk) return !arc->close();     // false
         }
-        return true;
+        return arc->close();    // true
     };
 
     // Get archive type
-    Archiver *arc = GetArcType();
-    arc->setFileName(archiveName);
-    if (arc->open(QIODevice::WriteOnly)) {
-        if (compressArchive(compressArchive, arc, archiveItems)) {  // compressArchive is a recursive lambda function
-            arc->close();   // Close archive
-            QMessageBox::information(this, "QtArc", "Архивация успешна!", QMessageBox::Ok);
-            setWindowTitle("QtArc - " + QFileInfo(archiveName).fileName());
-        }
-        else {
-            QMessageBox::warning(this, "QtArc", "Ошибка архивации!", QMessageBox::Ok);
-        }
+    if (compressArchive(GetArcType())) {
+        QMessageBox::information(this, "QtArc", "Архивация успешна!", QMessageBox::Ok);
+        setWindowTitle("QtArc - " + QFileInfo(archiveName).fileName());
+    }
+    else {
+        QMessageBox::warning(this, "QtArc", "Ошибка архивации!", QMessageBox::Ok);
     }
 }
 //endregion Compress into archive

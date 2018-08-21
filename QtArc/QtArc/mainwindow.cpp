@@ -539,10 +539,17 @@ void MainWindow::OpenArchFile(Archiver *archive, const int &row)
     }
     const KArchiveDirectory *dir = archive->directory();
 
+    // If we are in a sub dir
+    if (!arcDir.isEmpty()) {
+        dir = dynamic_cast<const KArchiveDirectory *>(dir->entry(arcDir));  // Set as a current dir
+    }
+
+    // Get list of entries in the current dir
     QStringList l = dir->entries();
     QStringList::ConstIterator it = l.constBegin();
 
     for (; it != l.constEnd(); ++it) {
+        // If the item is found
         if (ui->mainView->model()->data(fModel->index(row, 1)).toString() == (*it).toLatin1().constData()) {
             if ((KArchiveDirectory *)dir->entry((*it))->isFile()) { // File
                 // Create temporary dir
@@ -557,7 +564,7 @@ void MainWindow::OpenArchFile(Archiver *archive, const int &row)
             else {  // Folder
                 const KArchiveEntry *entry = dir->entry((*it));
                 if (entry->isDirectory()) {
-                    QString path = ui->mainView->model()->data(fModel->index(row, 0)).toString();   // 1
+                    QString path = ui->mainView->model()->data(fModel->index(row, 1)).toString();
                     // Clear the view and fill it with new items
                     fModel->clear();
 
@@ -566,6 +573,14 @@ void MainWindow::OpenArchFile(Archiver *archive, const int &row)
 
                     ui->goBack->setEnabled(true);
                     ui->deleteFile->setEnabled(false);
+
+                    // Save path
+                    if (arcDir.isEmpty()) {
+                        arcDir = path;
+                    }
+                    else {
+                        arcDir += '/' + path;
+                    }
                 }
             }
         }
@@ -611,13 +626,32 @@ void MainWindow::GoBack()
     }
     else {  // Archive
         // Check path in the archive
-    /*
-        // Parent directory
-        if (currentPath == QFileInfo(archiveItems.at(0)).canonicalPath()) {
-            ui->goBack->setEnabled(false);
-            ui->deleteFile->setEnabled(false);
+        Archiver *archive = GetArcType();
+        archive->setFileName(archiveName);
+        if (!archive->open(QIODevice::ReadOnly)) {
+            return;
         }
-    */
+        const KArchiveDirectory *dir = archive->directory();
+
+        // Go to previous dir
+        if (arcDir.lastIndexOf('/') > 0) {
+            arcDir.truncate(arcDir.lastIndexOf('/'));
+            dir = (KArchiveDirectory *)dir->entry(arcDir);
+        }
+        else {
+            arcDir.clear(); // Root dir
+        }
+
+        // Clear the view and fill it with new items
+        fModel->clear();
+        // Show items
+        ListRecursive(dir, arcDir);
+
+        if (arcDir.isEmpty()) {
+            ui->goBack->setEnabled(false);
+            ui->deleteFile->setEnabled(true);
+        }
+        archive->close();
     }
 }
 // endregion Files and folders

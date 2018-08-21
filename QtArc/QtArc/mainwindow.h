@@ -29,6 +29,7 @@ private:
     QString archiveName;                                    // Current archive
     QStringList archiveItems;                               // Items for compression
     QStandardItemModel *fModel;                             // Model for view
+    QString arcDir;                                         // Current directory in an archive
 
 private:
     void OpenArc();                                         // Open archive

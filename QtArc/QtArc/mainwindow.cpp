@@ -7,11 +7,9 @@
 #include <QShortcut>
 #include <QFileSystemModel>
 #include <QDesktopServices>
-
 #include <QFileInfo>
 
 #include <QDebug>
-//#include <QProcess>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -32,8 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QShortcut *showStatusBar = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_S), this);
 
     // Default - 0
-    EnableActions();
-    ui->goBack->setEnabled(false);
+    EnableActions(0);
 
     // region Connections
     /* * * Connections * * */ {
@@ -121,7 +118,7 @@ void MainWindow::OpenArchive(const QString &arcName)
     if (arcName.isEmpty())
         return;
 
-    setArchiveName(arcName);
+    archiveName = arcName;
 
     // Open
     OpenArc();
@@ -131,17 +128,20 @@ Archiver *MainWindow::GetArcType()  // inline
 {
     /* * * Get Archive type * * */
 
+    Archiver *archive;
     if (QFileInfo(archiveName).suffix() == "zip") {
         // Initialize class Archiver for managing zip files
         // (class Azip is a wrapper for class KZip)
-        return new Archiver(new AZip());
+        archive = new Archiver(new AZip());
     }
     else if (QFileInfo(archiveName).suffix() == "7z") {
-        return new Archiver(new A7Zip());
+        archive = new Archiver(new A7Zip());
     }
     else { // gz
-        return new Archiver(new ATarGz());
+        archive = new Archiver(new ATarGz());
     }
+    archive->setFileName(archiveName);
+    return archive;
 };
 
 // region Open archive
@@ -152,9 +152,6 @@ void MainWindow::OpenArc()
 
     CloseArchive(); // Close previous archive
 
-    // Enable actions for archive
-    EnableActions(1);
-
     if (archiveName.isEmpty()) {
         QString str = QFileDialog::getOpenFileName(this, "Выберите файл",
                                                    QStandardPaths::locate(QStandardPaths::HomeLocation, QString()),
@@ -164,7 +161,7 @@ void MainWindow::OpenArc()
         if (str.isEmpty())
             return;
 
-        setArchiveName(str);
+        archiveName = str;
     }
 
     // Clear model and list
@@ -173,7 +170,6 @@ void MainWindow::OpenArc()
 
     auto openArcheve = [this] (Archiver *arc) {
         // Open archive
-        arc->setFileName(archiveName);
         if (!arc->open(QIODevice::ReadOnly)) {
             QMessageBox::warning(this, "QtArc", "Ошибка открытия архива!", QMessageBox::Ok);
             EnableActions(0);   // Default
@@ -191,6 +187,9 @@ void MainWindow::OpenArc()
 
     // Set title
     setWindowTitle("QtArc - " + QFileInfo(archiveName).fileName());
+
+    // Enable actions for archive
+    EnableActions(1);
 }
 
 void MainWindow::ListRecursive(const KArchiveDirectory *dir, const QString &path)
@@ -256,11 +255,6 @@ void MainWindow::ExtractArc()
 
     auto extractArchive = [this] (Archiver *arc, const QString &dest) -> bool {
         // Extract archive
-        QFileInfo archiveInfo(archiveName);
-
-        arc->setFileName(archiveInfo.absoluteFilePath());
-
-        // Open the archive
         if (!arc->open(QIODevice::ReadOnly))
             return false;
 
@@ -270,6 +264,7 @@ void MainWindow::ExtractArc()
 
         // Extract all contents from a KArchiveDirectory to a destination.
         // true - will also extract subdirectories.
+        QFileInfo archiveInfo(archiveName);
         QString destin = dest + "/" + archiveInfo.baseName();
         bool res = root->copyTo(destin, true);
 
@@ -315,19 +310,18 @@ void MainWindow::CompressIntoArchive()
     }
 
     // Set archive name
-    setArchiveName(str);
+    archiveName = str;
 
     QFileInfo fInfo(archiveName);
 
     auto compressArchive = [this] (Archiver *arc) -> bool
     {
         // Compress into archive
-        arc->setFileName(archiveName);
         if (!arc->open(QIODevice::WriteOnly)) {
             return false;
         }
         // For all items
-        foreach (QString item, archiveItems) {
+        for (const QString &item: archiveItems) {
             bool writeOk;
             if (!QFileInfo(item).isDir()) { // File
                 writeOk = arc->addLocalFile(item, QFileInfo(item).fileName());
@@ -390,19 +384,9 @@ void MainWindow::SaveAsArc()
 }
 // endregion Save arc as...
 
-void MainWindow::setArchiveName(const QString &arcName)
-{
-    /* * * Set archive name * * */
-
-    archiveName = arcName;
-}
-
 void MainWindow::CloseArchive()
 {
     /* * * Close current archive or clear list * * */
-
-    // Default - 0
-    EnableActions();
 
     // Clear view and model
     fModel->clear();
@@ -410,10 +394,13 @@ void MainWindow::CloseArchive()
     archiveItems.clear();
 
     // Set archive name
-    setArchiveName(QString());
+    archiveName = QString();
 
     // Set title
     setWindowTitle("QtArc");
+
+    // Default - 0
+    EnableActions(0);
 }
 // endregion Archive
 
@@ -492,7 +479,54 @@ void MainWindow::AddFolders()
 void MainWindow::DelItem()
 {
     /* * * Delete file or folder from list * * */
+/*
+    if (!archiveName.isEmpty()) {
+        Archiver *arc = GetArcType();
+        if (!arc->open(QIODevice::ReadWrite)) {
+            return;
+        }
 
+        auto *dir = (KArchiveDirectory *)arc->directory();
+
+        // If we are in a sub dir
+        if (!arcDir.isEmpty()) {
+            dir = (KArchiveDirectory *)dynamic_cast<const KArchiveDirectory *>(dir->entry(arcDir));  // Set as a current dir
+        }
+
+        // Get list of entries in the current dir
+        QStringList l = dir->entries();
+        QStringList::ConstIterator it = l.constBegin();
+
+        int row = ui->mainView->selectionModel()->currentIndex().row();
+
+        qDebug() << l;
+
+        qDebug() << ui->mainView->selectionModel()->selectedRows().first().row();
+        qDebug() << fModel->data(fModel->index(row, 1)).toString();
+
+        for (; it != l.constEnd(); ++it) {
+            // If the item is found
+            qDebug() << (*it);
+            if (fModel->data(fModel->index(row, 1)).toString() == (*it).toLatin1().constData()) {
+                dir->removeEntry((KArchiveDirectory *)dir->entry((*it)));
+                break;
+            }
+        }
+
+        qDebug() << dir->entries();
+
+        // Create temporary dir
+        QDir(QDir::tempPath()).mkdir(".QtArc");
+
+        qDebug() << QDir::tempPath() + "/.QtArc/" + arcDir;
+
+        // Extract the file to a temporary folder and open it
+        if (dir->copyTo(QDir::tempPath() + "/.QtArc/" + arcDir)) {
+            qDebug() << arc->addLocalDirectory(QDir::tempPath() + "/.QtArc/" + arcDir, arcDir);
+        }
+        arc->close();
+    }
+*/
     fModel->removeRow(ui->mainView->selectionModel()->currentIndex().row());
 
     // Delete from list
@@ -516,7 +550,6 @@ void MainWindow::OpenItem(const QModelIndex &index)
                 // Enable actions for files and folders
                 EnableActions(2);
                 ui->goBack->setEnabled(true);
-                ui->deleteFile->setEnabled(false);
             }
         }
         else {  // File
@@ -533,7 +566,6 @@ void MainWindow::OpenArchFile(Archiver *archive, const int &row)
 {
     /* * * Open file from archive * * */
 
-    archive->setFileName(archiveName);
     if (!archive->open(QIODevice::ReadOnly)) {
         return;
     }
@@ -559,7 +591,7 @@ void MainWindow::OpenArchFile(Archiver *archive, const int &row)
                 if (dir->file((*it))->copyTo(QDir::tempPath() + "/.QtArc")) {
                     QDesktopServices::openUrl(QUrl::fromLocalFile(QDir::tempPath() + "/.QtArc/" + (*it).toLatin1().constData()));
                 }
-                return;
+                break;
             }
             else {  // Folder
                 const KArchiveEntry *entry = dir->entry((*it));
@@ -581,6 +613,7 @@ void MainWindow::OpenArchFile(Archiver *archive, const int &row)
                     else {
                         arcDir += '/' + path;
                     }
+                    break;
                 }
             }
         }
@@ -594,6 +627,7 @@ void MainWindow::GoBack()
 
     QString currentPath = QFileInfo(ui->mainView->model()->data(fModel->index(0, 0)).toString()).canonicalPath();
 
+    Archiver *archive = GetArcType();
     if (archiveName.isEmpty()) {    // Not archived data
         QDir dir(currentPath);
         dir.cdUp();
@@ -626,8 +660,6 @@ void MainWindow::GoBack()
     }
     else {  // Archive
         // Check path in the archive
-        Archiver *archive = GetArcType();
-        archive->setFileName(archiveName);
         if (!archive->open(QIODevice::ReadOnly)) {
             return;
         }
@@ -649,7 +681,7 @@ void MainWindow::GoBack()
 
         if (arcDir.isEmpty()) {
             ui->goBack->setEnabled(false);
-            ui->deleteFile->setEnabled(true);
+            ui->deleteFile->setEnabled(false);
         }
         archive->close();
     }
@@ -660,7 +692,7 @@ void MainWindow::GoBack()
 
 QString MainWindow::objSize(const QFileInfo &fileInfo, QString &objType)
 {
-    // Identify size of the file or the folder
+    /* * * Identify size of the file or the folder * * */
     // Return QString and objType
 
     // Object exists
@@ -690,7 +722,7 @@ QString MainWindow::objSize(const QFileInfo &fileInfo, QString &objType)
 
 void MainWindow::dirSize(const QFileInfo &inf, float &num)
 {
-    // Folder size (return num)
+    /* * * Folder size (return num) * * */
 
     QDir dir;
     // Browse hidden, skip links
@@ -701,7 +733,7 @@ void MainWindow::dirSize(const QFileInfo &inf, float &num)
     // Get file list in the directory
     QFileInfoList list = dir.entryInfoList();
 
-        foreach (QFileInfo fInfo, list) {
+        for (const QFileInfo &fInfo: list) {
             /* If the current item is a directory and not "." or ".."
              * (in Linux "." is a pointer to the current directory,
              * ".." is a pointer to the parent directory) -
@@ -734,6 +766,7 @@ void MainWindow::CustomizeTable()
 
     ui->mainView->verticalHeader()->hide();
     ui->mainView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->mainView->setSelectionMode(QAbstractItemView::SingleSelection);
 
     // Resize columns
     ui->mainView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
@@ -746,43 +779,29 @@ void MainWindow::EnableActions(const int &state)
 {
     /* * * Enable or disable actions (1 - for archive, 2 - for files and folders, 0 - default state) * * */
 
+    ui->addFiles->setEnabled(true);
+    ui->addFolder->setEnabled(true);
+    ui->goBack->setEnabled(false);
+    ui->deleteFile->setEnabled(true);
+    ui->closeArc->setEnabled(true);
+
     switch (state) {
     case 1: // Archive
         ui->saveArcCopy->setEnabled(true);
         ui->compessArc->setEnabled(false);
-
-        ui->addFiles->setEnabled(false);
-        ui->addFolder->setEnabled(false);
         ui->extractToDir->setEnabled(true);
-        ui->goBack->setEnabled(false);
-
-        ui->openFile->setEnabled(false);
         ui->deleteFile->setEnabled(false);
-        ui->closeArc->setEnabled(true);
         break;
     case 2: // Files and folders
         ui->saveArcCopy->setEnabled(false);
         ui->compessArc->setEnabled(true);
-
-        ui->addFiles->setEnabled(true);
-        ui->addFolder->setEnabled(true);
         ui->extractToDir->setEnabled(false);
-        ui->goBack->setEnabled(false);
-
-        ui->openFile->setEnabled(true);
         ui->deleteFile->setEnabled(true);
-        ui->closeArc->setEnabled(true);
         break;
     default:    // Default
         ui->saveArcCopy->setEnabled(false);
         ui->compessArc->setEnabled(false);
-
-        ui->addFiles->setEnabled(true);
-        ui->addFolder->setEnabled(true);
         ui->extractToDir->setEnabled(false);
-        ui->goBack->setEnabled(false);
-
-        ui->openFile->setEnabled(false);
         ui->deleteFile->setEnabled(false);
         ui->closeArc->setEnabled(false);
         break;

@@ -10,6 +10,8 @@
 // For zip, 7z, tar.gz
 #include "Archive.h"
 
+#include <karchivedirectory.h>
+
 namespace Ui {
     class MainWindow;
 }
@@ -42,7 +44,6 @@ private:
     inline bool AddItemsToModel(const QFileInfoList &items);    // Add items to list
     void DelItem();                                         // Delete file or folder from list
     void SaveAsArc();                                       // Save archive as ...
-    void setArchiveName(const QString &arcName);            // Set archive name
     void OpenItem(const QModelIndex &index);                // Open file or folder
     void GoBack();                                          // Go to previous folder
     // Identify size of the file or the folder

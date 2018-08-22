@@ -72,23 +72,23 @@ public:
 
 class AZip : public Archive {
 public:
-    ~AZip() { delete  zip; }
-    void setFileName(const QString &filename){
+    ~AZip() override { delete  zip; }
+    void setFileName(const QString &filename) override {
         zip = new KZip(filename);   // Init KZip
     }
-    bool open(QIODevice::OpenMode mode) {
+    bool open(QIODevice::OpenMode mode) override {
         return zip->open(mode);     // Open acrhive for read or write
     }
-    const KArchiveDirectory* directory() const {
+    const KArchiveDirectory* directory() const override {
         return zip->directory();    // Get archive directory for reading files
     }
-    bool addLocalFile(const QString &fileName, const QString &destName) {
+    bool addLocalFile(const QString &fileName, const QString &destName) override {
         return zip->addLocalFile(fileName, destName);   // Write file into archive
     }
-    bool addLocalDirectory(const QString &path, const QString &destName) {
+    bool addLocalDirectory(const QString &path, const QString &destName) override {
         return zip->addLocalDirectory(path, destName); // Write dir into archive
     }
-    bool close() {
+    bool close() override {
         bool result = zip->close();     // Close archive!
         if (result) {
             delete zip;
@@ -105,23 +105,23 @@ private:
 
 class A7Zip : public Archive {
 public:
-    ~A7Zip() { delete  sZip; }
-    void setFileName(const QString &filename){
+    ~A7Zip() override { delete  sZip; }
+    void setFileName(const QString &filename) override {
         sZip = new K7Zip(filename);
     }
-    bool open(QIODevice::OpenMode mode) {
+    bool open(QIODevice::OpenMode mode) override {
         return sZip->open(mode);
     }
-    const KArchiveDirectory* directory() const {
+    const KArchiveDirectory* directory() const override {
         return sZip->directory();
     }
-    bool addLocalFile(const QString &fileName, const QString &destName) {
+    bool addLocalFile(const QString &fileName, const QString &destName) override {
         return sZip->addLocalFile(fileName, destName);
     }
-    bool addLocalDirectory(const QString &path, const QString &destName) {
+    bool addLocalDirectory(const QString &path, const QString &destName) override {
         return sZip->addLocalDirectory(path, destName);
     }
-    bool close() {
+    bool close() override {
         bool result = sZip->close();
         if (result) {
             delete sZip;
@@ -138,23 +138,23 @@ private:
 
 class ATarGz : public Archive {
 public:
-    ~ATarGz() { delete  tar; }
-    void setFileName(const QString &filename){
+    ~ATarGz() override { delete  tar; }
+    void setFileName(const QString &filename) override {
         tar = new KTar(filename);
     }
-    bool open(QIODevice::OpenMode mode) {
+    bool open(QIODevice::OpenMode mode) override {
         return tar->open(mode);
     }
-    const KArchiveDirectory* directory() const {
+    const KArchiveDirectory* directory() const override {
         return tar->directory();
     }
-    bool addLocalFile(const QString &fileName, const QString &destName) {
+    bool addLocalFile(const QString &fileName, const QString &destName) override {
         return tar->addLocalFile(fileName, destName);
     }
-    bool addLocalDirectory(const QString &path, const QString &destName) {
+    bool addLocalDirectory(const QString &path, const QString &destName) override {
         return tar->addLocalDirectory(path, destName);
     }
-    bool close() {
+    bool close() override {
         bool result = tar->close();
         if (result) {
             delete tar;
@@ -174,7 +174,7 @@ public:
     // Archiver *arc = new Archiver(new AZip)   - zip
     // Archiver *arc = new Archiver(new A7Zip)  - 7z
     // Archiver *arc = new Archiver(new ATarGz) - tar.gz
-    Archiver(Archive *archive) : arc(archive) {}
+    explicit Archiver(Archive *archive) : arc(archive) {}
     ~Archiver() { delete  arc; }
     void setFileName(const QString &filename) {
         arc->setFileName(filename);
@@ -182,7 +182,7 @@ public:
     bool open(QIODevice::OpenMode mode) {
         return arc->open(mode);
     }
-    const KArchiveDirectory* directory() const {
+    const KArchiveDirectory *directory() const {
         return arc->directory();
     }
     bool addLocalFile(const QString &fileName, const QString &destName) {

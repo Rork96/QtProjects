@@ -70,7 +70,6 @@
     <addaction name="addFolder"/>
     <addaction name="extractToDir"/>
     <addaction name="separator"/>
-    <addaction name="openFile"/>
     <addaction name="deleteFile"/>
    </widget>
    <widget class="QMenu" name="paramMenu">
@@ -187,7 +186,7 @@
      <normaloff>:/pict/addfile.png</normaloff>:/pict/addfile.png</iconset>
    </property>
    <property name="text">
-    <string>Добавить файлы для сжатия</string>
+    <string>Добавить файлы</string>
    </property>
    <property name="shortcut">
     <string>Alt+A</string>
@@ -205,25 +204,13 @@
     <string>Alt+E</string>
    </property>
   </action>
-  <action name="openFile">
-   <property name="icon">
-    <iconset resource="res.qrc">
-     <normaloff>:/pict/start.png</normaloff>:/pict/start.png</iconset>
-   </property>
-   <property name="text">
-    <string>Открыть файл</string>
-   </property>
-   <property name="shortcut">
-    <string>F4</string>
-   </property>
-  </action>
   <action name="deleteFile">
    <property name="icon">
     <iconset resource="res.qrc">
      <normaloff>:/pict/deldocument.png</normaloff>:/pict/deldocument.png</iconset>
    </property>
    <property name="text">
-    <string>Удалить файл</string>
+    <string>Удалить файл или папку</string>
    </property>
    <property name="shortcut">
     <string>Del</string>
@@ -307,7 +294,7 @@
      <normaloff>:/pict/addfolder.png</normaloff>:/pict/addfolder.png</iconset>
    </property>
    <property name="text">
-    <string>Добавить папку для сжатия</string>
+    <string>Добавить папку</string>
    </property>
    <property name="shortcut">
     <string>Alt+D</string>

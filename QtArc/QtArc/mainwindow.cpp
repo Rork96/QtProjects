@@ -168,7 +168,7 @@ void MainWindow::OpenArc()
     fModel->clear();
     archiveItems.clear();
 
-    auto openArcheve = [this] (Archiver *arc) {
+    auto openArchive = [this] (Archiver *arc) {
         // Open archive
         if (!arc->open(QIODevice::ReadOnly)) {
             QMessageBox::warning(this, "QtArc", "Ошибка открытия архива!", QMessageBox::Ok);
@@ -183,7 +183,7 @@ void MainWindow::OpenArc()
     };
 
     // Get archive type
-    openArcheve(GetArcType());
+    openArchive(GetArcType());
 
     // Set title
     setWindowTitle("QtArc - " + QFileInfo(archiveName).fileName());
@@ -194,7 +194,7 @@ void MainWindow::OpenArc()
 
 void MainWindow::ListRecursive(const KArchiveDirectory *dir, const QString &path)
 {
-    /* * * Add files from 7-zip archive to list * * */
+    /* * * Add files from the archive to list * * */
 
     // Add columns and size
     if (fModel->columnCount() == 0)
@@ -210,9 +210,32 @@ void MainWindow::ListRecursive(const KArchiveDirectory *dir, const QString &path
         float size = 0;
         if (entry->isDirectory()) {
             type = "Папка";
+            auto dirEntries = [] (auto&& self, const KArchiveDirectory *d, const QString &itemPath) -> float
+            {
+                qDebug() << itemPath;
+                float itemSize = 0;
+                QStringList list = dynamic_cast<const KArchiveDirectory *>(d->entry(itemPath))->entries();
+                QStringList::ConstIterator item = list.constBegin();
+                qDebug () << list;
+                for (; item != list.constEnd(); ++item) {
+                    qDebug() << (*item);
+                    KArchiveEntry *entr = (KArchiveEntry *)d->entry((*item));
+                    if (entr->isDirectory()) {
+                        qDebug() << itemPath + (*item) + '/';
+                        itemSize += self(self, d, itemPath + (*item) + '/');
+                    }
+                    else {
+                        itemSize += dynamic_cast<const KArchiveFile *>(entr)->size();
+                    }
+                    qDebug () << itemSize;
+                }
+                return itemSize;
+            };
+            qDebug() << path + (*it) + '/';
+            size = dirEntries(dirEntries, dir, path + (*it) + '/');
         }
         else {
-            size = (dynamic_cast<const KArchiveFile *>(entry))->size();
+            size = dynamic_cast<const KArchiveFile *>(entry)->size();
         }
             // Translate into bytes in К, М, Г, Т
             qint64 i = 0;

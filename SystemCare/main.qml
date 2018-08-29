@@ -6,7 +6,7 @@ Window {
     visible: true
     width: Screen.width-500
     height: Screen.height-300
-    title: qsTr("Test")
+    title: qsTr("System Care")
 
     Image {
         source: "qrc:/pict/background.jpg"

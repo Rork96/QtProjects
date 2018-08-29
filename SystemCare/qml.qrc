@@ -3,5 +3,6 @@
         <file>main.qml</file>
         <file>MenuButton.qml</file>
         <file>pict/background.jpg</file>
+        <file>pict/SystemCare.png</file>
     </qresource>
 </RCC>

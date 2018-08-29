@@ -213,7 +213,6 @@ void MainWindow::ListRecursive(const KArchiveDirectory *dir, const QString &path
             auto dirEntries = [] (auto&& self, const KArchiveDirectory *d, const QString &itemPath) -> float
             {
                 qDebug() << itemPath;
-                qDebug() << d->isDirectory();
                 float itemSize = 0;
                 QStringList list = dynamic_cast<const KArchiveDirectory *>(d->entry(itemPath))->entries();
                 QStringList::ConstIterator item = list.constBegin();

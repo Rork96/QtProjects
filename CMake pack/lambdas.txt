@@ -1,0 +1,21 @@
+# C++14
+set (CMAKE_CXX_STANDARD 14)
+set (CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Lambda
+auto someFunction = [this] (QString str) {
+	// Function
+};
+
+// Usage
+openArcheve(QString());
+
+# Recursive lambda
+auto recursiveLambda = [] (auto &&self, QStringList items) -> bool    // Recursive lambda function
+{
+	// Function
+	return self(self, arc, list);	// Call recursiveLambda recursively
+};
+	
+# Usage
+recursiveLambda(recursiveLambda, QStringList())

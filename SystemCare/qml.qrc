@@ -5,5 +5,11 @@
         <file>pict/background.jpg</file>
         <file>pict/SystemCare.png</file>
         <file>MainArea.qml</file>
+        <file>ControlBox.qml</file>
+        <file>MainMenu.qml</file>
+        <file>pict/menu.png</file>
+        <file>pict/close.png</file>
+        <file>pict/maximize.png</file>
+        <file>pict/minimize.png</file>
     </qresource>
 </RCC>

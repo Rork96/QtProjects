@@ -5,6 +5,9 @@ Item {  // Button
     property int fontSize: 18
     property int itemHeight: 40
     property int itemWidth: 100
+    property real startOpacity: 0.6
+    property real defaultOpacity: 1.0
+    property bool checked: false
 
     signal mouseClick   // Signal for MouseArea onClicked
 
@@ -27,6 +30,7 @@ Item {  // Button
         }
         border.color: "#1313af"
         border.width: 1
+        opacity: checked ? defaultOpacity : startOpacity
 
         Text {
             anchors.centerIn: rect
@@ -40,15 +44,15 @@ Item {  // Button
             NumberAnimation {
                 target: rect
                 properties: "opacity"
-                from: 1.0
-                to: 0.5
+                from: startOpacity
+                to: 0.4
                 duration: 80
             }
 
             NumberAnimation {
                 target: rect
                 properties: "opacity"
-                from: 0.5
+                from: 0.4
                 to: 0.8
                 duration: 80
             }
@@ -59,14 +63,14 @@ Item {  // Button
                 name: "Entered"
                 PropertyChanges {
                     target: rect
-                    opacity: 0.8
+                    opacity: checked ? defaultOpacity : 0.8
                 }
             },
             State {
                 name: "Exited"
                 PropertyChanges {
                     target: rect
-                    opacity: 1.0
+                    opacity: checked ? defaultOpacity : startOpacity
                 }
             }
         ]
@@ -74,6 +78,7 @@ Item {  // Button
         MouseArea {
             anchors.fill: parent
             hoverEnabled: true
+            cursorShape: containsMouse ? Qt.PointingHandCursor : Qt.ArrowCursor // Change cursor
             onEntered: rect.state = "Entered"
             onExited: rect.state = "Exited"
             onClicked: {
@@ -81,6 +86,11 @@ Item {  // Button
                 anim.running = true
                 // Send signal
                 mouseClick()
+                // Change state
+                checked = true
+                // Change opacity
+                if (checked) opacity = defaultOpacity
+                else opacity = startOpacity
             }
         }
     }

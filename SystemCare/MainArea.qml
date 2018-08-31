@@ -1,8 +1,12 @@
 import QtQuick 2.10
 import QtQuick.Controls 2.2
+import QtQuick.Controls 1.4
+import QtQuick.Controls.Styles 1.4
 
 Item {  // ClientArea
     anchors.fill: parent
+
+    property int controlsChecked: 12
 
     Rectangle {
         anchors.fill: parent
@@ -11,7 +15,7 @@ Item {  // ClientArea
         Rectangle {
             id: rectangle
             x: parent.width/2 - width/2
-            y: height/2.5
+            y: height/2
             width: 200
             height: 200
             radius: 100
@@ -88,11 +92,9 @@ Item {  // ClientArea
             width: parent.width
             height: 60
 
-            CheckBox {
-                id: selectAll
-                checked: true
-                text: "<font color=\"white\">Выбрать все</font>"
-                font.pixelSize: 16
+            ControlBox {
+                caption: qsTr("Выбрать все")
+                checked: controlsChecked===12 ? false : true    // Reversed in ControlBox.qml
             }
         }
 
@@ -101,7 +103,7 @@ Item {  // ClientArea
             x: spacing
             y: parent.height - height
             width: parent.width
-            height: 200
+            height: 150
             spacing: 40
 
             Column {
@@ -109,28 +111,20 @@ Item {  // ClientArea
                 height: 40
                 spacing: 20
 
-                CheckBox {
-                    checked: true
-                    text: "<font color=\"white\">Оптимизация загрузки</font>"
-                    font.pixelSize: 16
-                    onCheckStateChanged: {
-                        if (checkState===true)
-                            text: "<font color=\"grey\">Оптимизация загрузки</font>"
-                        else
-                            text: "<font color=\"white\">Оптимизация загрузки</font>"
-                    }
+                ControlBox {
+                    /* Checked by default */
+                    caption: qsTr("Оптимизация загрузки")
+                    onClicked: !checked ? controlsChecked++ : controlsChecked--
                 }
 
-                CheckBox {
-                    checked: true
-                    text: "<font color=\"white\">Очистка реестра</font>"
-                    font.pixelSize: 16
+                ControlBox {
+                    caption: qsTr("Очистка реестра")
+                    onClicked: !checked ? controlsChecked++ : controlsChecked--
                 }
 
-                CheckBox {
-                    checked: true
-                    text: "<font color=\"white\">Дефрагм. реестра</font>"
-                    font.pixelSize: 16
+                ControlBox {
+                    caption: qsTr("Дефрагм. реестра")
+                    onClicked: !checked ? controlsChecked++ : controlsChecked--
                 }
             }
 
@@ -139,22 +133,19 @@ Item {  // ClientArea
                 height: 40
                 spacing: 20
 
-                CheckBox {
-                    checked: true
-                    text: "<font color=\"white\">Очистка конфиденц.</font>"
-                    font.pixelSize: 16
+                ControlBox {
+                    caption: qsTr("Очистка конфиденц.")
+                    onClicked: !checked ? controlsChecked++ : controlsChecked--
                 }
 
-                CheckBox {
-                    checked: true
-                    text: "<font color=\"white\">Удал. шпионского ПО</font>"
-                    font.pixelSize: 16
+                ControlBox {
+                    caption: qsTr("Удал. шпионского ПО")
+                    onClicked: !checked ? controlsChecked++ : controlsChecked--
                 }
 
-                CheckBox {
-                    checked: true
-                    text: "<font color=\"white\">Укрепление безопасности</font>"
-                    font.pixelSize: 16
+                ControlBox {
+                    caption: qsTr("Укрепление безопасности")
+                    onClicked: !checked ? controlsChecked++ : controlsChecked--
                 }
             }
 
@@ -163,24 +154,20 @@ Item {  // ClientArea
                 height: 40
                 spacing: 20
 
-                CheckBox {
-                    checked: true
-                    text: "<font color=\"white\">Удаление мусора</font>"
-                    font.pixelSize: 16
+                ControlBox {
+                    caption: qsTr("Удаление мусора")
+                    onClicked: !checked ? controlsChecked++ : controlsChecked--
                 }
 
-                CheckBox {
-                    checked: true
-                    text: "<font color=\"white\">Интернет ускорение</font>"
-                    font.pixelSize: 16
+                ControlBox {
+                    caption: qsTr("Интернет ускорение")
+                    onClicked: !checked ? controlsChecked++ : controlsChecked--
                 }
 
-                CheckBox {
-                    checked: true
-                    text: "<font color=\"white\">Ремонт уязвимости</font>"
-                    font.pixelSize: 16
+                ControlBox {
+                    caption: qsTr("Ремонт уязвимости")
+                    onClicked: !checked ? controlsChecked++ : controlsChecked--
                 }
-
             }
 
             Column {
@@ -188,24 +175,20 @@ Item {  // ClientArea
                 height: 40
                 spacing: 20
 
-                CheckBox {
-                    checked: true
-                    text: "<font color=\"white\">Ремонт ярлыков</font>"
-                    font.pixelSize: 16
+                ControlBox {
+                    caption: qsTr("Ремонт ярлыков")
+                    onClicked: !checked ? controlsChecked++ : controlsChecked--
                 }
 
-                CheckBox {
-                    checked: true
-                    text: "<font color=\"white\">Оптимизация системы</font>"
-                    font.pixelSize: 16
+                ControlBox {
+                    caption: qsTr("Оптимизация системы")
+                    onClicked: !checked ? controlsChecked++ : controlsChecked--
                 }
 
-                CheckBox {
-                    checked: true
-                    text: "<font color=\"white\">Оптимизация диска</font>"
-                    font.pixelSize: 16
+                ControlBox {
+                    caption: qsTr("Оптимизация диска")
+                    onClicked: !checked ? controlsChecked++ : controlsChecked--
                 }
-
             }
         }
     }

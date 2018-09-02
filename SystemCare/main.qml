@@ -171,6 +171,7 @@ Window {
                 onMouseClick: {
                     if (root.visibility === root.Maximized) root.showNormal()
                     else root.showMaximized()
+                    clientLoader.update()
                 }
             }
 

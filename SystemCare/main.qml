@@ -9,7 +9,7 @@ Window {
     minimumWidth: 1250
     minimumHeight: 750
     title: qsTr("System Care")
-    flags: Qt.FramelessWindowHint
+    flags: Qt.FramelessWindowHint | Qt.Window
 
     // Mouse position
     property int previousX
@@ -140,10 +140,19 @@ Window {
         }
 
         MainMenu {
+            id: menuBtn
             itemX: 1
             itemY: 1
             imageSource: "qrc:/pict/menu.png"
             onMouseClick: console.log("Menu")
+        }
+
+        Text {
+            y: menuBtn.width/2 - 10
+            x: menuBtn.width + 15
+            color: "white"
+            text: root.title
+            font.pixelSize: 18
         }
 
         Rectangle { // Header buttons
@@ -169,7 +178,7 @@ Window {
                 itemWidth: 16
                 imageSource: "qrc:/pict/maximize.png"
                 onMouseClick: {
-                    if (root.visibility === root.Maximized) root.showNormal()
+                    if (root.visibility === Window.Maximized) root.showNormal()
                     else root.showMaximized()
                     clientLoader.update()
                 }

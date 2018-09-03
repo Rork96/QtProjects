@@ -23,12 +23,26 @@ Item {  // ClientArea
             Rectangle {
                 id: rectangle
                 anchors.centerIn: parent
-                width: 200
-                height: 200
-                radius: 100
+                width: 250
+                height: width
+                radius: width/2
                 color: "transparent"
-                border.color: "#1313af"
-                border.width: 5
+                border.color: "#2513af"
+                border.width: 0.1
+                gradient: Gradient {
+                    GradientStop {
+                        position: 0.00
+                        color: "transparent"
+                    }
+                    GradientStop {
+                        position: 0.50;
+                        color: Qt.lighter("#0b2880", 0.5);
+                    }
+                    GradientStop {
+                        position: 1.00;
+                        color: "transparent";
+                    }
+                }
 
                 Text {
                     anchors.centerIn: parent

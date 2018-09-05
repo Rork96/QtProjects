@@ -1,13 +1,12 @@
 import QtQuick 2.10
 
-Item {  // MenuButton
+Item {  // SimpleButton
     property string itemText: "Text"
     property int fontSize: 18
     property int itemHeight: 40
     property int itemWidth: 100
-    property real startOpacity: 0.6
-    property real defaultOpacity: 1.0
-    property bool checked: false
+    property string itemColor: "#0b1160"
+    property string borderColor: "#1313af"
 
     signal mouseClick   // Signal for MouseArea onClicked
 
@@ -17,20 +16,20 @@ Item {  // MenuButton
     Rectangle {
         id: rect
         anchors.fill: parent
-        color: "#0b1160"
+        color: itemColor
         gradient: Gradient {
             GradientStop {
                 position: 0.47
-                color: "#0b1160"
+                color: itemColor
             }
             GradientStop {
                 position: 1.00
                 color: "#ffffff"
             }
         }
-        border.color: "#1313af"
+        border.color: borderColor
         border.width: 1
-        opacity: checked ? defaultOpacity : startOpacity
+        opacity: 0.7
 
         Text {
             anchors.centerIn: rect
@@ -44,16 +43,16 @@ Item {  // MenuButton
             NumberAnimation {
                 target: rect
                 properties: "opacity"
-                from: startOpacity
-                to: 0.4
+                from: 0.7
+                to: 0.5
                 duration: 80
             }
 
             NumberAnimation {
                 target: rect
                 properties: "opacity"
-                from: 0.4
-                to: 0.8
+                from: 0.5
+                to: 0.7
                 duration: 80
             }
         }
@@ -63,14 +62,14 @@ Item {  // MenuButton
                 name: "Entered"
                 PropertyChanges {
                     target: rect
-                    opacity: checked ? defaultOpacity : 0.8
+                    opacity: 1.0
                 }
             },
             State {
                 name: "Exited"
                 PropertyChanges {
                     target: rect
-                    opacity: checked ? defaultOpacity : startOpacity
+                    opacity: 0.7
                 }
             }
         ]
@@ -86,11 +85,6 @@ Item {  // MenuButton
                 anim.running = true
                 // Send signal
                 mouseClick()
-                // Change state
-                checked = true
-                // Change opacity
-                if (checked) opacity = defaultOpacity
-                else opacity = startOpacity
             }
         }
     }

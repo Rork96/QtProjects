@@ -216,7 +216,7 @@ Window {
                 protectionBtn.checked = !checked
                 toollBtn.checked = !checked
                 actionsBtn.checked = !checked
-                clientLoader.setSource(Qt.resolvedUrl("qrc:/MainArea.qml")) // Show MainArea
+                clientLoader.source = "qrc:/MainArea.qml"   // Show MainArea
             }
             checked: true
         }
@@ -231,7 +231,7 @@ Window {
                 protectionBtn.checked = !checked
                 toollBtn.checked = !checked
                 actionsBtn.checked = !checked
-//                clientLoader.setSource(Qt.resolvedUrl("qrc:/QuickArea.qml"))
+                clientLoader.source = "qrc:/QuickArea.qml"
             }
         }
 
@@ -245,7 +245,7 @@ Window {
                 optimizeBtn.checked = !checked
                 toollBtn.checked = !checked
                 actionsBtn.checked = !checked
-//                clientLoader.setSource(Qt.resolvedUrl("qrc:/ProtectionArea.qml"))
+                clientLoader.source = "qrc:/ProtectionArea.qml"
             }
         }
 
@@ -259,7 +259,7 @@ Window {
                 protectionBtn.checked = !checked
                 optimizeBtn.checked = !checked
                 actionsBtn.checked = !checked
-//                clientLoader.setSource(Qt.resolvedUrl("qrc:/ToolsArea.qml"))
+//                clientLoader.source = "qrc:/ToolsArea.qml"
             }
         }
 
@@ -273,7 +273,7 @@ Window {
                 protectionBtn.checked = !checked
                 toollBtn.checked = !checked
                 optimizeBtn.checked = !checked
-//                clientLoader.setSource(Qt.resolvedUrl("qrc:/ActionsArea.qml"))
+//                clientLoader.source = "qrc:/ActionsArea.qml"
             }
         }
     }
@@ -298,12 +298,14 @@ Window {
         border.color: "black"
         border.width: 1.5
 
-        MenuButton {
+        SimpleButton {
             id: activateBtn
             x: root.width - itemWidth - 20
             y: parent.height/2 - itemHeight/2
             itemText: qsTr("Активировать")
             itemWidth: 150
+            itemColor: "#e46a1e"
+            borderColor: itemColor
             onMouseClick: console.log(itemText)
         }
     }

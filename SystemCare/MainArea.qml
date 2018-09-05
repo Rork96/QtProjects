@@ -2,12 +2,10 @@ import QtQuick 2.10
 import QtQuick.Controls 2.2
 import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
+import QtGraphicalEffects 1.0
 
 Item {  // ClientArea
     anchors.fill: parent
-
-    property int controlsChecked: 12
-    property bool check: false
 
     Rectangle {
         anchors.fill: parent
@@ -44,6 +42,14 @@ Item {  // ClientArea
                     }
                 }
 
+                RectangularGlow {
+                    anchors.fill: rectangle
+                    glowRadius: 10
+                    spread: 0.2
+                    color: "#5555ff"
+                    cornerRadius: rectangle.radius + glowRadius
+                }
+
                 Text {
                     anchors.centerIn: parent
                     text: qsTr("ПУСК")
@@ -70,7 +76,7 @@ Item {  // ClientArea
                     }
                 }
 
-                states: [   // Change scale dependent on the mouse behavior (entered or exited rect)
+                states: [   // Change the scale dependent on the mouse behavior (entered or exited rect)
                     State {
                         name: "Entered"
                         PropertyChanges {
@@ -95,11 +101,11 @@ Item {  // ClientArea
                     onClicked: {
                         // Start animation
                         animation.running = true
-                        console.log("MainArea")
+                        console.log("ПУСК")
                     }
                 }
 
-                Behavior on scale {
+                Behavior on scale { // When the scale is changed, play animation
                     NumberAnimation {
                         duration: 900
                         easing.type: Easing.OutBounce
@@ -117,11 +123,7 @@ Item {  // ClientArea
 
             ControlBox {
                 caption: qsTr("Выбрать все")
-                checked: controlsChecked===12 ? false : true    // Reversed in ControlBox.qml
-                onClicked: {
-                    if (!check) check = true
-                    else check = false
-                }
+                checkedState: Qt.Checked
             }
         }
 
@@ -141,20 +143,17 @@ Item {  // ClientArea
                 ControlBox {
                     /* Checked by default */
                     caption: qsTr("Оптимизация загрузки")
-                    checked: check
-                    onClicked: !checked ? controlsChecked++ : controlsChecked--
+                    checkedState: Qt.Checked
                 }
 
                 ControlBox {
                     caption: qsTr("Очистка реестра")
-                    checked: check
-                    onClicked: !checked ? controlsChecked++ : controlsChecked--
+                    checkedState: Qt.Checked
                 }
 
                 ControlBox {
                     caption: qsTr("Дефрагм. реестра")
-                    checked: check
-                    onClicked: !checked ? controlsChecked++ : controlsChecked--
+                    checkedState: Qt.Checked
                 }
             }
 
@@ -165,20 +164,17 @@ Item {  // ClientArea
 
                 ControlBox {
                     caption: qsTr("Очистка конфиденц.")
-                    checked: check
-                    onClicked: !checked ? controlsChecked++ : controlsChecked--
+                    checkedState: Qt.Checked
                 }
 
                 ControlBox {
                     caption: qsTr("Удал. шпионского ПО")
-                    checked: check
-                    onClicked: !checked ? controlsChecked++ : controlsChecked--
+                    checkedState: Qt.Checked
                 }
 
                 ControlBox {
                     caption: qsTr("Укрепление безопасности")
-                    checked: check
-                    onClicked: !checked ? controlsChecked++ : controlsChecked--
+                    checkedState: Qt.Checked
                 }
             }
 
@@ -189,20 +185,17 @@ Item {  // ClientArea
 
                 ControlBox {
                     caption: qsTr("Удаление мусора")
-                    checked: check
-                    onClicked: !checked ? controlsChecked++ : controlsChecked--
+                    checkedState: Qt.Checked
                 }
 
                 ControlBox {
                     caption: qsTr("Интернет ускорение")
-                    checked: check
-                    onClicked: !checked ? controlsChecked++ : controlsChecked--
+                    checkedState: Qt.Checked
                 }
 
                 ControlBox {
                     caption: qsTr("Ремонт уязвимости")
-                    checked: check
-                    onClicked: !checked ? controlsChecked++ : controlsChecked--
+                    checkedState: Qt.Checked
                 }
             }
 
@@ -213,20 +206,17 @@ Item {  // ClientArea
 
                 ControlBox {
                     caption: qsTr("Ремонт ярлыков")
-                    checked: check
-                    onClicked: !checked ? controlsChecked++ : controlsChecked--
+                    checkedState: Qt.Checked
                 }
 
                 ControlBox {
                     caption: qsTr("Оптимизация системы")
-                    checked: check
-                    onClicked: !checked ? controlsChecked++ : controlsChecked--
+                    checkedState: Qt.Checked
                 }
 
                 ControlBox {
                     caption: qsTr("Оптимизация диска")
-                    checked: check
-                    onClicked: !checked ? controlsChecked++ : controlsChecked--
+                    checkedState: Qt.Checked
                 }
             }
         }

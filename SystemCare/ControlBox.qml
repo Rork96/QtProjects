@@ -17,7 +17,7 @@ CheckBox {
             Rectangle {
                 implicitWidth: 22
                 implicitHeight: implicitWidth
-                visible: !control.checked
+                visible: control.checked
                 color: "#003c9e"
                 border.color: "#f5f2f2"
                 radius: implicitWidth/2
@@ -28,7 +28,7 @@ CheckBox {
         label: Text {
             text: " " + caption
             font.pixelSize: fontSize
-            color: !control.checked ? textColor : "grey"    // Reverse state (checked by default)
+            color: control.checked ? textColor : "grey"
         }
     }
 }

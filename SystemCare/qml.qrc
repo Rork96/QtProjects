@@ -11,5 +11,19 @@
         <file>pict/close.png</file>
         <file>pict/maximize.png</file>
         <file>pict/minimize.png</file>
+        <file>QuickArea.qml</file>
+        <file>ControlElement.qml</file>
+        <file>pict/speedtest.png</file>
+        <file>pict/startup.png</file>
+        <file>pict/diagram.png</file>
+        <file>pict/broom.png</file>
+        <file>SimpleButton.qml</file>
+        <file>ProtectionArea.qml</file>
+        <file>pict/face.png</file>
+        <file>pict/shield.png</file>
+        <file>pict/clock.png</file>
+        <file>pict/browser.png</file>
+        <file>pict/home.png</file>
+        <file>pict/laptop.png</file>
     </qresource>
 </RCC>

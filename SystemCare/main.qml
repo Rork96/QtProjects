@@ -1,7 +1,7 @@
 import QtQuick 2.10
 import QtQuick.Controls 1.4
 import QtQuick.Window 2.10
-import QSystemTrayIcon 1.0
+//import QSystemTrayIcon 1.0
 
 Window {
     id: root
@@ -21,7 +21,7 @@ Window {
         source: "qrc:/pict/background.jpg"
         anchors.fill: parent
     }
-
+/*
     // Registered in QML
     QSystemTrayIcon {
         id: systemTray
@@ -33,10 +33,9 @@ Window {
             show();
         }
 
-        /* When the icon was clicked, check the mouse button:
-         * left - hide or show window
-         * right - open a system tray menu
-         * */
+        // When the icon was clicked, check the mouse button:
+        // left - hide or show window
+        // right - open a system tray menu
         onActivated: {
             if (reason === 1){
                 trayMenu.popup()
@@ -71,23 +70,23 @@ Window {
     }
 
     // Show or hide the application in the system tray
-    /*CheckBox {
-        id: checkTray
-        anchors.centerIn: parent
-        text: qsTr("Сворачивать в системный трей при закрытии окна")
-    }*/
+    //CheckBox {
+        //id: checkTray
+        //anchors.centerIn: parent
+        //text: qsTr("Сворачивать в системный трей при закрытии окна")
+    //}
 
     // When the window is closing
     onClosing: {
         //if (checkTray.checked === true) {
             close.accepted = false
             root.hide()
-        /*}
-        else {
-            Qt.quit()
-        }*/
+        //}
+        //else {
+            //Qt.quit()
+        //}
     }
-
+*/
     MouseArea { // TopArea
         id: topArea
 

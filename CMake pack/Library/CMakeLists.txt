@@ -32,12 +32,12 @@ if (WIN32)
     if (MINGW)  # MINGW 64 bit
         set (CMAKE_PREFIX_PATH "C:/msys64/mingw64/")
     elseif (MSVC)   # MSVC 64 bit
-        set (CMAKE_PREFIX_PATH "C:/Qt/5.10.1/msvc2017_64/")
+        set (CMAKE_PREFIX_PATH "C:/Qt/5.11.1/msvc2017_64/")
     else()  # MINGW 32 bit
-        set (CMAKE_PREFIX_PATH "C:/Qt/5.10.1/mingw53_32/")
+        set (CMAKE_PREFIX_PATH "C:/Qt/5.11.1/mingw53_32/")
     endif ()
 elseif (UNIX)
-    set (CMAKE_PREFIX_PATH "/opt/Qt/5.10.1/gcc_64/")
+    set (CMAKE_PREFIX_PATH "/opt/Qt/5.11.1/gcc_64/")
 endif ()
 
 # Release by default

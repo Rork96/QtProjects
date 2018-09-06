@@ -1,8 +1,6 @@
 import QtQuick 2.10
 import QtQuick.Window 2.10
 
-/* Qt Creator - DejaVu Sans Mono - 11 / Clion - DejaVu Sans Mono - 14 */
-
 Window {
     id: root
     visible: true

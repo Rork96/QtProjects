@@ -1,5 +1,7 @@
 import QtQuick 2.10
+import QtQuick.Controls 1.4
 import QtQuick.Window 2.10
+import QSystemTrayIcon 1.0
 
 Window {
     id: root
@@ -18,6 +20,72 @@ Window {
     Image { // Background image
         source: "qrc:/pict/background.jpg"
         anchors.fill: parent
+    }
+
+    // Registered in QML
+    QSystemTrayIcon {
+        id: systemTray
+
+        // Init system tray
+        Component.onCompleted: {
+            icon = iconTray             // Set the icon
+            toolTip = root.title
+            show();
+        }
+
+        /* When the icon was clicked, check the mouse button:
+         * left - hide or show window
+         * right - open a system tray menu
+         * */
+        onActivated: {
+            if (reason === 1){
+                trayMenu.popup()
+            }
+            else {
+                if(root.visibility === Window.Hidden) {
+                    root.show()
+                }
+                else {
+                    root.hide()
+                }
+            }
+        }
+    }
+
+    // System tray menu
+    Menu {
+        id: trayMenu
+
+        MenuItem {
+            text: qsTr("Открыть ") + root.title
+            onTriggered: root.show()
+        }
+
+        MenuItem {
+            text: qsTr("Выход")
+            onTriggered: {
+                systemTray.hide()
+                Qt.quit()
+            }
+        }
+    }
+
+    // Show or hide the application in the system tray
+    /*CheckBox {
+        id: checkTray
+        anchors.centerIn: parent
+        text: qsTr("Сворачивать в системный трей при закрытии окна")
+    }*/
+
+    // When the window is closing
+    onClosing: {
+        //if (checkTray.checked === true) {
+            close.accepted = false
+            root.hide()
+        /*}
+        else {
+            Qt.quit()
+        }*/
     }
 
     MouseArea { // TopArea
@@ -100,7 +168,7 @@ Window {
             right: parent.right
         }
 
-        cursorShape:  Qt.SizeHorCursor
+        cursorShape: Qt.SizeHorCursor
 
         onPressed: {
             previousX = mouseX
@@ -168,7 +236,7 @@ Window {
                 itemHeight: 16
                 itemWidth: 16
                 imageSource: "qrc:/pict/close.png"
-                onMouseClick: Qt.quit()
+                onMouseClick: root.close()
             }
 
             MainMenu {  // Maximaze

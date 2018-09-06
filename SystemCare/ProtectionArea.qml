@@ -33,6 +33,7 @@ Item {  // ProtectionArea
                     text: qsTr("Защитите свой ПК от несанкционированного доступа")
                     delay: 1000
                     visible: face.mouseHover
+                    font.pixelSize: 14
                 }
             }
 
@@ -51,6 +52,7 @@ Item {  // ProtectionArea
                     text: qsTr("Автоматическое стирание истории в браузере после его закрытия")
                     delay: 1000
                     visible: watch.mouseHover
+                    font.pixelSize: 14
                 }
             }
 
@@ -69,6 +71,7 @@ Item {  // ProtectionArea
                     text: qsTr("Активная и легкая защита от шпинских программ")
                     delay: 1000
                     visible: protector.mouseHover
+                    font.pixelSize: 14
                 }
             }
 
@@ -87,6 +90,7 @@ Item {  // ProtectionArea
                     text: qsTr("Защита браузера от сетевых атак")
                     delay: 1000
                     visible: advt.mouseHover
+                    font.pixelSize: 14
                 }
             }
 
@@ -105,6 +109,7 @@ Item {  // ProtectionArea
                     text: qsTr("Мониторинг изменения домашней страницы и поиска в браузере")
                     delay: 1000
                     visible: advisor.mouseHover
+                    font.pixelSize: 14
                 }
             }
 
@@ -123,6 +128,7 @@ Item {  // ProtectionArea
                     text: qsTr("Предотвращение от изменения DNS вредоносными программами")
                     delay: 1000
                     visible: dns.mouseHover
+                    font.pixelSize: 14
                 }
             }
         }

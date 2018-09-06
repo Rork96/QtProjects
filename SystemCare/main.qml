@@ -5,6 +5,8 @@ import QtQuick.Window 2.10
 
 /* Font Liberation Mono -11 */
 
+// Tray icon problem in Linux
+
 Window {
     id: root
     visible: true

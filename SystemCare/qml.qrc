@@ -25,5 +25,6 @@
         <file>pict/browser.png</file>
         <file>pict/home.png</file>
         <file>pict/laptop.png</file>
+        <file>MenuWindow.qml</file>
     </qresource>
 </RCC>

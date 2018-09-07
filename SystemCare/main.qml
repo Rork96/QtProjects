@@ -5,7 +5,7 @@ import QtQuick.Window 2.10
 
 /* Linux: Font Liberation Mono - 11 */
 
-Window {
+Window { // Main Window
     id: root
     visible: true
     width: Screen.width-500
@@ -91,9 +91,7 @@ Window {
 */
     MouseArea { // TopArea
         id: topArea
-
         height: 3
-
         anchors {
             top: parent.top
             left: parent.left
@@ -102,7 +100,6 @@ Window {
 
         // Change cursor
         cursorShape: Qt.SizeVerCursor
-
         onPressed: {
             // Save Y
             previousY = mouseY
@@ -181,7 +178,7 @@ Window {
         }
     }
 
-    Rectangle { // Header
+    Rectangle { // Window Header
         id: header
         x: 3
         y: 3
@@ -189,7 +186,7 @@ Window {
         height: 36
         color: "transparent"
 
-        MouseArea {
+        MouseArea { // Acts as window title
             anchors.fill: parent
 
             onPressed: {
@@ -206,17 +203,32 @@ Window {
                 var dy = mouseY - previousY
                 root.setY(root.y + dy)
             }
+
+            onDoubleClicked: {
+                // Minimize or maximize window
+                if (root.visibility === Window.Maximized) root.showNormal()
+                else root.showMaximized()
+                clientLoader.update()
+            }
         }
 
-        MainMenu {
+        MenuWindow { // Menu Window
+            id: menuWnd
+            x: root.x
+            y: root.y
+            wndHeight: root.height
+            wndWidth: 400
+        }
+
+        MainMenu {  // Menu Button
             id: menuBtn
             itemX: 1
             itemY: 1
             imageSource: "qrc:/pict/menu.png"
-            onMouseClick: console.log("Menu")
+            onMouseClick: menuWnd.show() // Show Menu
         }
 
-        Text {
+        Text { // Title
             y: menuBtn.width/2 - 10
             x: menuBtn.width + 15
             color: "white"
@@ -247,6 +259,7 @@ Window {
                 itemWidth: 16
                 imageSource: "qrc:/pict/maximize.png"
                 onMouseClick: {
+                    // Minimize or maximize window
                     if (root.visibility === Window.Maximized) root.showNormal()
                     else root.showMaximized()
                     clientLoader.update()
@@ -347,7 +360,6 @@ Window {
         }
     }
 
-    /* Clien Area */
     Loader {    // Clien area
         id: clientLoader
         anchors.left: header.left

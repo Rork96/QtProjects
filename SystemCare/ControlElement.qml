@@ -71,6 +71,7 @@ Item {  // ControlElement
                         font.pixelSize: 20
                         font.bold: true
                         color: "white"
+                        elide: Text.ElideMiddle
                     }
 
                     Text {
@@ -93,6 +94,7 @@ Item {  // ControlElement
                         horizontalAlignment: Text.AlignHCenter
                         wrapMode: Text.Wrap
                         color: "white"
+                        elide: Text.ElideMiddle
                     }
                 }
             }

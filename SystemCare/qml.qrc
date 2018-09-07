@@ -26,5 +26,16 @@
         <file>pict/home.png</file>
         <file>pict/laptop.png</file>
         <file>MenuWindow.qml</file>
+        <file>SimpleItem.qml</file>
+        <file>pict/quick_settings.png</file>
+        <file>pict/settings.png</file>
+        <file>pict/center_help.png</file>
+        <file>pict/help.png</file>
+        <file>pict/question.png</file>
+        <file>pict/email.png</file>
+        <file>pict/systemhelp.png</file>
+        <file>pict/update.png</file>
+        <file>pict/info.png</file>
+        <file>pict/qt.png</file>
     </qresource>
 </RCC>

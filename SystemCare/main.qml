@@ -215,9 +215,9 @@ Window { // Main Window
         MenuWindow { // Menu Window
             id: menuWnd
             x: root.x
-            y: root.y
-            wndHeight: root.height
-            wndWidth: 400
+            y: root.y + header.height //root.y
+            wndHeight: root.height - header.height
+            wndWidth: 300
         }
 
         MainMenu {  // Menu Button

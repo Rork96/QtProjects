@@ -11,7 +11,7 @@ Window { // MenuWindow
     property int wndWidth: 200
     property int wndHeight: 100
 
-    onActiveFocusItemChanged: if (!activeFocusItem) wnd.visible = false
+    onActiveFocusItemChanged: if (!activeFocusItem) wnd.close() //wnd.visible = false
 
     Rectangle {
         x: 0

@@ -14,6 +14,7 @@ include(FeatureSummary)
 include(GenerateExportHeader)
 
 set(REQUIRED_QT_VERSION 5.2.0)
+set (CMAKE_PREFIX_PATH "/opt/Qt/5.11.1/gcc_64/")
 find_package(Qt5Core ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE)
 
 find_package(ZLIB)

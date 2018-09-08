@@ -3,8 +3,6 @@ import QtQuick.Controls 1.4
 import QtQuick.Window 2.10
 //import QSystemTrayIcon 1.0
 
-/* Linux: Font Liberation Mono - 11 */
-
 Window { // Main Window
     id: root
     visible: true

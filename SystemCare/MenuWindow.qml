@@ -1,5 +1,6 @@
 import QtQuick 2.10
 import QtQuick.Window 2.10
+import QtQuick.Dialogs 1.2
 
 Window { // MenuWindow
     id: wnd
@@ -111,21 +112,22 @@ Window { // MenuWindow
             spacing: 24
 
             SimpleItem {
-                id: qtInfo
-                x: parameters.x
-                width: parent.width - x
-                text: qsTr("О Qt")
-                source: "qrc:/pict/qt.png"
-                onMouseClicked: console.log(text)
-            }
-
-            SimpleItem {
                 id: info
                 x: parameters.x
                 width: parent.width - x
                 text: qsTr("О программе")
                 source: "qrc:/pict/info.png"
-                onMouseClicked: console.log(text)
+                onMouseClicked: aboutDlg.open()
+            }
+
+            MessageDialog {
+                id: aboutDlg
+                modality: Qt.ApplicationModal
+                title: qsTr("О программе")
+                text: "System Care v 1.0.0"
+                informativeText: "Автор: masterarrow\nmasterarrows@gmail.com\n\n    Copyright © 2018\n"
+                icon: StandardIcon.Information
+                standardButtons: StandardButton.Ok
             }
         }
     }

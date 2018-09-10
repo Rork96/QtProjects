@@ -36,6 +36,5 @@
         <file>pict/systemhelp.png</file>
         <file>pict/update.png</file>
         <file>pict/info.png</file>
-        <file>pict/qt.png</file>
     </qresource>
 </RCC>

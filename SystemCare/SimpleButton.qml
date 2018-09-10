@@ -1,26 +1,24 @@
 import QtQuick 2.10
 
 Item {  // SimpleButton
-    property string itemText: "Text"
-    property int fontSize: 18
-    property int itemHeight: 40
-    property int itemWidth: 100
-    property string itemColor: "#0b1160"
+    height: 40
+    width: 100
+
+    property alias text: itemText.text
+    property alias fontSize: itemText.font.pixelSize
+    property alias color: grad.color
     property string borderColor: "#1313af"
-
     signal mouseClick   // Signal for MouseArea onClicked
-
-    height: itemHeight
-    width: itemWidth
 
     Rectangle {
         id: rect
         anchors.fill: parent
-        color: itemColor
+        //color: itemColor
         gradient: Gradient {
             GradientStop {
+                id: grad
                 position: 0.47
-                color: itemColor
+                color: "#0b1160"
             }
             GradientStop {
                 position: 1.00
@@ -32,9 +30,10 @@ Item {  // SimpleButton
         opacity: 0.7
 
         Text {
+            id: itemText
             anchors.centerIn: rect
-            text: itemText
-            font.pixelSize: fontSize
+            text: qsTr("Text")
+            font.pixelSize: 18
             color: "white"
         }
 

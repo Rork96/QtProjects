@@ -3,13 +3,10 @@ import QtQuick.Window 2.10
 
 Window { // MenuWindow
     id: wnd
-    width: wndWidth
-    height: wndHeight
+    width: 200
+    height: 100
     flags: Qt.SubWindow | Qt.FramelessWindowHint
     color: Qt.darker("darkblue", 3)
-
-    property int wndWidth: 200
-    property int wndHeight: 100
 
     onActiveFocusItemChanged: if (!activeFocusItem) wnd.close() //wnd.visible = false
 
@@ -30,24 +27,24 @@ Window { // MenuWindow
                 id: parameters
                 x: 10
                 width: parent.width - x
-                itemText: "Быстрые параметры"
-                itemImage: "qrc:/pict/quick_settings.png"
+                text: qsTr("Быстрые параметры")
+                source: "qrc:/pict/quick_settings.png"
             }
 
             SimpleItem {
                 id: settings
                 x: parameters.x
                 width: parent.width - x
-                itemText: "Настройки..."
-                itemImage: "qrc:/pict/settings.png"
+                text: qsTr("Настройки...")
+                source: "qrc:/pict/settings.png"
             }
 
             SimpleItem {
                 id: news
                 x: parameters.x
                 width: parent.width - x
-                itemText: "Что нового?"
-                itemImage: "qrc:/pict/question.png"
+                text: qsTr("Что нового?")
+                source: "qrc:/pict/question.png"
             }
 
             Rectangle {
@@ -61,24 +58,24 @@ Window { // MenuWindow
                 id: help
                 x: parameters.x
                 width: parent.width - x
-                itemText: "Техподдержка"
-                itemImage: "qrc:/pict/center_help.png"
+                text: qsTr("Техподдержка")
+                source: "qrc:/pict/center_help.png"
             }
 
             SimpleItem {
                 id: centerHelp
                 x: parameters.x
                 width: parent.width - x
-                itemText: "Центр спасения"
-                itemImage: "qrc:/pict/help.png"
+                text: qsTr("Центр спасения")
+                source: "qrc:/pict/help.png"
             }
 
             SimpleItem {
                 id: review
                 x: parameters.x
                 width: parent.width - x
-                itemText: "Отправить отзыв"
-                itemImage: "qrc:/pict/email.png"
+                text: qsTr("Отправить отзыв")
+                source: "qrc:/pict/email.png"
 
             }
 
@@ -86,16 +83,16 @@ Window { // MenuWindow
                 id: update
                 x: parameters.x
                 width: parent.width - x
-                itemText: "Проверка обновлений"
-                itemImage: "qrc:/pict/update.png"
+                text: qsTr("Проверка обновлений")
+                source: "qrc:/pict/update.png"
             }
 
             SimpleItem {
                 id: guide
                 x: parameters.x
                 width: parent.width - x
-                itemText: "Руководство пользователя"
-                itemImage: "qrc:/pict/systemhelp.png"
+                text: qsTr("Руководство пользователя")
+                source: "qrc:/pict/systemhelp.png"
             }
         }
 
@@ -110,16 +107,16 @@ Window { // MenuWindow
                 id: qtInfo
                 x: parameters.x
                 width: parent.width - x
-                itemText: "О Qt"
-                itemImage: "qrc:/pict/qt.png"
+                text: qsTr("О Qt")
+                source: "qrc:/pict/qt.png"
             }
 
             SimpleItem {
                 id: info
                 x: parameters.x
                 width: parent.width - x
-                itemText: "О программе"
-                itemImage: "qrc:/pict/info.png"
+                text: qsTr("О программе")
+                source: "qrc:/pict/info.png"
             }
         }
     }

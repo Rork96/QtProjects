@@ -1,18 +1,14 @@
 import QtQuick 2.0
 
-Item {  // Menu
-    property string imageSource: ""
-    property int itemX: 0
-    property int itemY: 0
-    property int itemHeight: 30
-    property int itemWidth: 30
+Item {  // MainMenu
+    id: mMenu
+    x: 0
+    y: 0
+    height: 30
+    width: height
 
+    property alias source: img.source
     signal mouseClick   // Signal for MouseArea onClicked
-
-    x: itemX
-    y: itemY
-    height: itemHeight
-    width: itemWidth
 
     Rectangle {
         id: rect
@@ -20,10 +16,11 @@ Item {  // Menu
         color: "transparent"
 
         Image {
+            id: img
             anchors.fill: parent
-            source: imageSource
-            sourceSize.width: itemHeight
-            sourceSize.height: itemHeight
+            source: ""
+            sourceSize.width: mMenu.height
+            sourceSize.height: mMenu.height
         }
 
         states: [   // Change opacity dependent on the mouse behavior (entered or exited rect)

@@ -1,18 +1,15 @@
 import QtQuick 2.10
 
 Item {  // MenuButton
-    property string itemText: "Text"
-    property int fontSize: 18
-    property int itemHeight: 40
-    property int itemWidth: 100
+    height: 40
+    width: 100
+
+    property alias text: itemText.text
+    property alias fontSize: itemText.font.pixelSize
     property real startOpacity: 0.6
     property real defaultOpacity: 1.0
     property bool checked: false
-
     signal mouseClick   // Signal for MouseArea onClicked
-
-    height: itemHeight
-    width: itemWidth
 
     Rectangle {
         id: rect
@@ -33,9 +30,10 @@ Item {  // MenuButton
         opacity: checked ? defaultOpacity : startOpacity
 
         Text {
+            id: itemText
             anchors.centerIn: rect
-            text: itemText
-            font.pixelSize: fontSize
+            text: qsTr("Text")
+            font.pixelSize: 18
             color: "white"
         }
 

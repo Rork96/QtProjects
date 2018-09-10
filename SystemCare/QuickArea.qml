@@ -24,7 +24,7 @@ Item {  // QuickArea
                 bodyText: qsTr("Устаревшие драйверы могут замедлять и дестабилизировать Ваш ПК. " +
                                "Пожалуйста, проверьте, есть ли кие-либо устаревшие драйверы.")
                 buttonText: qsTr("Проверить")
-                imageSource: "qrc:/pict/startup.png"
+                source: "qrc:/pict/startup.png"
             }
 
             ControlElement {
@@ -34,7 +34,7 @@ Item {  // QuickArea
                 stateText: qsTr("")
                 bodyText: qsTr("Проверьте какие элементы могут быть оптимизированы для ускорения Вашей системы.")
                 buttonText: qsTr("Оптимизировать")
-                imageSource: "qrc:/pict/diagram.png"
+                source: "qrc:/pict/diagram.png"
             }
 
             ControlElement {
@@ -45,7 +45,7 @@ Item {  // QuickArea
                 bodyText: qsTr("Найдено: 0 плагинов/панелей инструментов. " +
                                "Установите Деинсталятор, чтобы удалить ненужные для более плавного просмотра.")
                 buttonText: qsTr("Установить")
-                imageSource: "qrc:/pict/broom.png"
+                source: "qrc:/pict/broom.png"
             }
         }
     }

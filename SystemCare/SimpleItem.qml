@@ -2,12 +2,12 @@ import QtQuick 2.0
 
 Item { // SimpleItem
     id: itm
-    width: itemWidth
+    width: 100
     height: 28
     opacity: 0.7
 
-    property string itemText: qsTr("Item")
-    property string itemImage: "qrc:/pict/home.png"
+    property alias text: itemText.text
+    property alias source: imgRect.source
     signal mouseClicked
 
     MouseArea {
@@ -31,13 +31,14 @@ Item { // SimpleItem
         width: 26
         height: width
         anchors.fill: imgRect
-        source: itemImage
+        source: "qrc:/pict/home.png"
     }
 
     Text {
+        id: itemText
         x: imgRect.x + imgRect.width + 20
         y: imgRect.height/2 - height/2
-        text: itemText
+        text: qsTr("Item")
         font.pixelSize: 18
         color: "white"
     }

@@ -214,15 +214,15 @@ Window { // Main Window
             id: menuWnd
             x: root.x
             y: root.y + header.height //root.y
-            wndHeight: root.height - header.height
-            wndWidth: 300
+            height: root.height - header.height
+            width: 300
         }
 
         MainMenu {  // Menu Button
             id: menuBtn
-            itemX: 1
-            itemY: 1
-            imageSource: "qrc:/pict/menu.png"
+            x: 1
+            y: 1
+            source: "qrc:/pict/menu.png"
             onMouseClick: menuWnd.show() // Show Menu
         }
 
@@ -242,20 +242,18 @@ Window { // Main Window
             color: "transparent"
 
             MainMenu { // Close
-                itemX: parent.width - itemWidth - 10
-                itemY: parent.height/2 - itemHeight/2
-                itemHeight: 16
-                itemWidth: 16
-                imageSource: "qrc:/pict/close.png"
+                x: parent.width - width - 10
+                y: parent.height/2 - height/2
+                height: 16
+                source: "qrc:/pict/close.png"
                 onMouseClick: root.close()
             }
 
             MainMenu {  // Maximaze
-                itemX: minimizeBtn.width + 20
-                itemY: parent.height/2 - itemHeight/2
-                itemHeight: 16
-                itemWidth: 16
-                imageSource: "qrc:/pict/maximize.png"
+                x: minimizeBtn.width + 20
+                y: parent.height/2 - height/2
+                height: 16
+                source: "qrc:/pict/maximize.png"
                 onMouseClick: {
                     // Minimize or maximize window
                     if (root.visibility === Window.Maximized) root.showNormal()
@@ -266,11 +264,10 @@ Window { // Main Window
 
             MainMenu { // Minimize
                 id: minimizeBtn
-                itemX: 0
-                itemY: parent.height/2 - itemHeight/2
-                itemHeight: 16
-                itemWidth: 16
-                imageSource: "qrc:/pict/minimize.png"
+                x: 0
+                y: parent.height/2 - height/2
+                height: 16
+                source: "qrc:/pict/minimize.png"
                 onMouseClick: root.showMinimized()
             }
         }
@@ -288,8 +285,8 @@ Window { // Main Window
 
         MenuButton {
             id: optimizeBtn
-            itemText: qsTr("Очистка и оптимизация")
-            itemWidth: parent.width/5 - parent.spacing/2
+            text: qsTr("Очистка и оптимизация")
+            width: parent.width/5 - parent.spacing/2
             onMouseClick: {
                 checked = true
                 quickBtn.checked = !checked
@@ -303,8 +300,8 @@ Window { // Main Window
 
         MenuButton {
             id: quickBtn
-            itemText: qsTr("Ускорение")
-            itemWidth: parent.width/5 - parent.spacing/2
+            text: qsTr("Ускорение")
+            width: parent.width/5 - parent.spacing/2
             onMouseClick: {
                 checked = true
                 optimizeBtn.checked = !checked
@@ -317,8 +314,8 @@ Window { // Main Window
 
         MenuButton {
             id: protectionBtn
-            itemText: qsTr("Защита")
-            itemWidth: parent.width/5 - parent.spacing/2
+            text: qsTr("Защита")
+            width: parent.width/5 - parent.spacing/2
             onMouseClick:{
                 checked = true
                 quickBtn.checked = !checked
@@ -331,8 +328,8 @@ Window { // Main Window
 
         MenuButton {
             id: toollBtn
-            itemText: qsTr("Инструменты")
-            itemWidth: parent.width/5 - parent.spacing/2
+            text: qsTr("Инструменты")
+            width: parent.width/5 - parent.spacing/2
             onMouseClick: {
                 checked = true
                 quickBtn.checked = !checked
@@ -345,8 +342,8 @@ Window { // Main Window
 
         MenuButton {
             id: actionsBtn
-            itemText: qsTr("Центр действия")
-            itemWidth: parent.width/5 - parent.spacing/2
+            text: qsTr("Центр действия")
+            width: parent.width/5 - parent.spacing/2
             onMouseClick: {
                 checked = true
                 quickBtn.checked = !checked
@@ -379,13 +376,13 @@ Window { // Main Window
 
         SimpleButton {
             id: activateBtn
-            x: root.width - itemWidth - 20
-            y: parent.height/2 - itemHeight/2
-            itemText: qsTr("Активировать")
-            itemWidth: 150
-            itemColor: "#e46a1e"
-            borderColor: itemColor
-            onMouseClick: console.log(itemText)
+            x: root.width - width - 20
+            y: parent.height/2 - height/2
+            text: qsTr("Активировать")
+            width: 150
+            color: "#e46a1e"
+            borderColor: color
+            onMouseClick: console.log(text)
         }
     }
 }

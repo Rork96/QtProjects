@@ -2,22 +2,17 @@ import QtQuick 2.0
 
 Item {  // ControlElement
     id: itemControl
-    x: posX
-    y: posY
-    width: elemWidth
-    height: elemHeight
+    x: 0
+    y: 0
+    width: 300
+    height: 450
 
-    property int posX: 0
-    property int posY: 0
-    property int elemWidth: 300
-    property int elemHeight: 450
-
-    property string headerText: qsTr("Турбо ускорение: ")
-    property string stateText: qsTr("ВЫКЛ")
-    property string bodyText:qsTr("Сервисы/Приложения остановлены: 0 \nВысвобождено RAM: 0 MB Автозапуск: Выключено")
-    property string buttonText: qsTr("Включить")
-    property string imageSource: "qrc:/pict/speedtest.png"
-    property bool bodyVisible: true
+    property alias headerText: headText.text
+    property alias stateText: optionState.text
+    property alias bodyText: body_Text.text
+    property alias buttonText: button.text
+    property alias source: imageSource.source
+    property alias bodyVisible: bodyRow.visible
     property bool mouseHover: false
 
     Rectangle {
@@ -67,7 +62,8 @@ Item {  // ControlElement
                     x: bodyRect.width/2 - width/2
 
                     Text {
-                        text: headerText
+                        id: headText
+                        text: qsTr("Турбо ускорение: ")
                         font.pixelSize: 20
                         font.bold: true
                         color: "white"
@@ -76,20 +72,22 @@ Item {  // ControlElement
 
                     Text {
                         id: optionState
-                        text: stateText
+                        text: qsTr("ВЫКЛ") //stateText
                         font.pixelSize: 20
                         color: "blue"
                     }
                 }
 
                 Row {
+                    id: bodyRow
                     x: bodyRect.width/2 - width/2
-                    y: bodyVisible ? 100 : 0
-                    visible: bodyVisible
+                    y: bodyRow.visible ? 100 : 0
+                    visible: true //bodyVisible
 
                     Text {
+                        id: body_Text
                         width: bodyRect.width - 10
-                        text: bodyText
+                        text: qsTr("Сервисы/Приложения остановлены: 0 \nВысвобождено RAM: 0 MB Автозапуск: Выключено") //bodyText
                         font.pixelSize: 18
                         horizontalAlignment: Text.AlignHCenter
                         wrapMode: Text.Wrap
@@ -108,10 +106,11 @@ Item {  // ControlElement
                 color: "transparent"
 
                 SimpleButton {
+                    id: button
                     anchors.centerIn: bottomRect
-                    itemText: buttonText
-                    itemWidth: 150
-                    onMouseClick: console.log(itemText)
+                    text: qsTr("Включить")
+                    width: 150
+                    onMouseClick: console.log(text)
                 }
             }
         }
@@ -126,9 +125,10 @@ Item {  // ControlElement
             color: "transparent"
 
             Image {
+                id: imageSource
                 anchors.fill: imgRect
                 anchors.centerIn: imgRect
-                source: imageSource
+                source: "qrc:/pict/speedtest.png"
                 smooth: true
             }
         }

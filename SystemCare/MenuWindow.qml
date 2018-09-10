@@ -29,6 +29,7 @@ Window { // MenuWindow
                 width: parent.width - x
                 text: qsTr("Быстрые параметры")
                 source: "qrc:/pict/quick_settings.png"
+                onMouseClicked: console.log(text)
             }
 
             SimpleItem {
@@ -37,6 +38,7 @@ Window { // MenuWindow
                 width: parent.width - x
                 text: qsTr("Настройки...")
                 source: "qrc:/pict/settings.png"
+                onMouseClicked: console.log(text)
             }
 
             SimpleItem {
@@ -45,6 +47,7 @@ Window { // MenuWindow
                 width: parent.width - x
                 text: qsTr("Что нового?")
                 source: "qrc:/pict/question.png"
+                onMouseClicked: console.log(text)
             }
 
             Rectangle {
@@ -60,6 +63,7 @@ Window { // MenuWindow
                 width: parent.width - x
                 text: qsTr("Техподдержка")
                 source: "qrc:/pict/center_help.png"
+                onMouseClicked: console.log(text)
             }
 
             SimpleItem {
@@ -68,6 +72,7 @@ Window { // MenuWindow
                 width: parent.width - x
                 text: qsTr("Центр спасения")
                 source: "qrc:/pict/help.png"
+                onMouseClicked: console.log(text)
             }
 
             SimpleItem {
@@ -76,7 +81,7 @@ Window { // MenuWindow
                 width: parent.width - x
                 text: qsTr("Отправить отзыв")
                 source: "qrc:/pict/email.png"
-
+                onMouseClicked: console.log(text)
             }
 
             SimpleItem {
@@ -85,6 +90,7 @@ Window { // MenuWindow
                 width: parent.width - x
                 text: qsTr("Проверка обновлений")
                 source: "qrc:/pict/update.png"
+                onMouseClicked: console.log(text)
             }
 
             SimpleItem {
@@ -93,6 +99,7 @@ Window { // MenuWindow
                 width: parent.width - x
                 text: qsTr("Руководство пользователя")
                 source: "qrc:/pict/systemhelp.png"
+                onMouseClicked: console.log(text)
             }
         }
 
@@ -109,6 +116,7 @@ Window { // MenuWindow
                 width: parent.width - x
                 text: qsTr("О Qt")
                 source: "qrc:/pict/qt.png"
+                onMouseClicked: console.log(text)
             }
 
             SimpleItem {
@@ -117,6 +125,7 @@ Window { // MenuWindow
                 width: parent.width - x
                 text: qsTr("О программе")
                 source: "qrc:/pict/info.png"
+                onMouseClicked: console.log(text)
             }
         }
     }

@@ -124,6 +124,7 @@ Item {  // ClientArea
             ControlBox {
                 caption: qsTr("Выбрать все")
                 checkedState: Qt.Checked
+                onCheckedStateChanged: console.log(caption + " - checked: " + checked)
             }
         }
 
@@ -144,16 +145,19 @@ Item {  // ClientArea
                     /* Checked by default */
                     caption: qsTr("Оптимизация загрузки")
                     checkedState: Qt.Checked
+                    onCheckedStateChanged: console.log(caption + " - checked: " + checked)
                 }
 
                 ControlBox {
                     caption: qsTr("Очистка реестра")
                     checkedState: Qt.Checked
+                    onCheckedStateChanged: console.log(caption + " - checked: " + checked)
                 }
 
                 ControlBox {
                     caption: qsTr("Дефрагм. реестра")
                     checkedState: Qt.Checked
+                    onCheckedStateChanged: console.log(caption + " - checked: " + checked)
                 }
             }
 
@@ -165,16 +169,19 @@ Item {  // ClientArea
                 ControlBox {
                     caption: qsTr("Очистка конфиденц.")
                     checkedState: Qt.Checked
+                    onCheckedStateChanged: console.log(caption + " - checked: " + checked)
                 }
 
                 ControlBox {
                     caption: qsTr("Удал. шпионского ПО")
                     checkedState: Qt.Checked
+                    onCheckedStateChanged: console.log(caption + " - checked: " + checked)
                 }
 
                 ControlBox {
                     caption: qsTr("Укрепление безопасности")
                     checkedState: Qt.Checked
+                    onCheckedStateChanged: console.log(caption + " - checked: " + checked)
                 }
             }
 
@@ -186,16 +193,19 @@ Item {  // ClientArea
                 ControlBox {
                     caption: qsTr("Удаление мусора")
                     checkedState: Qt.Checked
+                    onCheckedStateChanged: console.log(caption + " - checked: " + checked)
                 }
 
                 ControlBox {
                     caption: qsTr("Интернет ускорение")
                     checkedState: Qt.Checked
+                    onCheckedStateChanged: console.log(caption + " - checked: " + checked)
                 }
 
                 ControlBox {
                     caption: qsTr("Ремонт уязвимости")
                     checkedState: Qt.Checked
+                    onCheckedStateChanged: console.log(caption + " - checked: " + checked)
                 }
             }
 
@@ -207,16 +217,19 @@ Item {  // ClientArea
                 ControlBox {
                     caption: qsTr("Ремонт ярлыков")
                     checkedState: Qt.Checked
+                    onCheckedStateChanged: console.log(caption + " - checked: " + checked)
                 }
 
                 ControlBox {
                     caption: qsTr("Оптимизация системы")
                     checkedState: Qt.Checked
+                    onCheckedStateChanged: console.log(caption + " - checked: " + checked)
                 }
 
                 ControlBox {
                     caption: qsTr("Оптимизация диска")
                     checkedState: Qt.Checked
+                    onCheckedStateChanged: console.log(caption + " - checked: " + checked)
                 }
             }
         }

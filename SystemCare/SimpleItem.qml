@@ -8,6 +8,7 @@ Item { // SimpleItem
 
     property alias text: itemText.text
     property alias source: imgRect.source
+    property alias imageWidth: imgRect.width
     signal mouseClicked
 
     MouseArea {

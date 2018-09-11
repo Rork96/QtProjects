@@ -336,7 +336,7 @@ Window { // Main Window
                 protectionBtn.checked = !checked
                 optimizeBtn.checked = !checked
                 actionsBtn.checked = !checked
-//                clientLoader.source = "qrc:/ToolsArea.qml"
+                clientLoader.source = "qrc:/ToolsArea.qml"
             }
         }
 

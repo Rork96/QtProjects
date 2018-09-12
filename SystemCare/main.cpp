@@ -1,9 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QIcon>
-//#include <QQuickWidget>
-//#include <QSystemTrayIcon>
-//#include <QQmlContext>
+#include <QApplication>
 
 // Custom type for QML
 //Q_DECLARE_METATYPE(QSystemTrayIcon::ActivationReason)
@@ -12,7 +10,9 @@ int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
-    QGuiApplication app(argc, argv);
+    //QGuiApplication app(argc, argv);
+    // For TrayIcon
+    QApplication app(argc, argv);
     app.setWindowIcon(QIcon(":/pict/SystemCare.png"));
 
     QQmlApplicationEngine engine;

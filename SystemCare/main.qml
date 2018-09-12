@@ -1,9 +1,9 @@
 import QtQuick 2.10
 import QtQuick.Controls 1.4
-import QtQuick.Window 2.10
-//import QSystemTrayIcon 1.0
+import QtQuick.Window 2.0
+import Qt.labs.platform 1.0 // TrayIcon
 
-Window { // Main Window
+ApplicationWindow { // Main Window
     id: root
     visible: true
     width: Screen.width-500
@@ -21,26 +21,19 @@ Window { // Main Window
         source: "qrc:/pict/background.jpg"
         anchors.fill: parent
     }
-/*
-    // Registered in QML
-    QSystemTrayIcon {
-        id: systemTray
 
-        // Init system tray
-        Component.onCompleted: {
-            icon = iconTray             // Set the icon
-            toolTip = root.title
-            show();
-        }
+    SystemTrayIcon {
+        // The window is closing to a system tray without interception "onClosing" event
+        id: systemTray
+        visible: true
+        iconSource: "qrc:/pict/SystemCare.png"
+        tooltip: root.title
 
         // When the icon was clicked, check the mouse button:
         // left - hide or show window
         // right - open a system tray menu
         onActivated: {
-            if (reason === 1){
-                trayMenu.popup()
-            }
-            else {
+            if (reason !== 1){
                 if(root.visibility === Window.Hidden) {
                     root.show()
                 }
@@ -49,44 +42,31 @@ Window { // Main Window
                 }
             }
         }
-    }
 
-    // System tray menu
-    Menu {
-        id: trayMenu
+        menu:
+            // System tray menu
+            Menu {
 
-        MenuItem {
-            text: qsTr("Открыть ") + root.title
-            onTriggered: root.show()
-        }
+            MenuItem {
+                text: qsTr("Открыть ") + root.title
+                onTriggered: root.show()
+            }
 
-        MenuItem {
-            text: qsTr("Выход")
-            onTriggered: {
-                systemTray.hide()
-                Qt.quit()
+            MenuItem {
+                text: qsTr("Выход")
+                onTriggered: {
+                    systemTray.hide()
+                    Qt.quit()
+                }
             }
         }
     }
 
-    // Show or hide the application in the system tray
-    //CheckBox {
-        //id: checkTray
-        //anchors.centerIn: parent
-        //text: qsTr("Сворачивать в системный трей при закрытии окна")
-    //}
+//    onClosing: {
+//        close.accepted = false
+//        root.hide()
+//    }
 
-    // When the window is closing
-    onClosing: {
-        //if (checkTray.checked === true) {
-            close.accepted = false
-            root.hide()
-        //}
-        //else {
-            //Qt.quit()
-        //}
-    }
-*/
     MouseArea { // TopArea
         id: topArea
         height: 3

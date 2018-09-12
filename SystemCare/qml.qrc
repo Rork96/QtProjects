@@ -37,5 +37,25 @@
         <file>pict/update.png</file>
         <file>pict/info.png</file>
         <file>ToolsArea.qml</file>
+        <file>pict/uninstall.png</file>
+        <file>pict/boost.png</file>
+        <file>pict/defrag.png</file>
+        <file>pict/defend.png</file>
+        <file>pict/flash.png</file>
+        <file>pict/memory.png</file>
+        <file>pict/globe.png</file>
+        <file>pict/power_off.png</file>
+        <file>pict/window.png</file>
+        <file>pict/repair.png</file>
+        <file>pict/hard_disk.png</file>
+        <file>pict/backup.png</file>
+        <file>pict/shredder.png</file>
+        <file>pict/adjust.png</file>
+        <file>pict/defragment.png</file>
+        <file>pict/disk_clean.png</file>
+        <file>pict/filereplace.png</file>
+        <file>pict/folder_search.png</file>
+        <file>pict/label.png</file>
+        <file>ActionsArea.qml</file>
     </qresource>
 </RCC>

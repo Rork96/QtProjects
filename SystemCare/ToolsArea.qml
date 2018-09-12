@@ -38,11 +38,11 @@ Item { // ToolsArea
                 Column {
                     id: mainColumn
                     width: parent.width/4 - parent.spacing/3
-                    spacing: 35
+                    spacing: 40
 
                     Text {
                         text: "Продукция"
-                        font.pixelSize: 18
+                        font.pixelSize: 20
                         color: "white"
                         opacity: 0.7
                     }
@@ -52,8 +52,9 @@ Item { // ToolsArea
                         width: parent.width
                         anchors.margins: 15
                         text: qsTr("Uninstaller")
-                        source: "qrc:/pict/info.png"
-                        imageWidth: 42
+                        fontSize: 20
+                        source: "qrc:/pict/uninstall.png"
+                        imageWidth: 36
                         onMouseClicked: console.log(text)
                     }
 
@@ -61,7 +62,8 @@ Item { // ToolsArea
                         width: parent.width
                         anchors.margins: uninstItem.anchors.margins
                         text: qsTr("Booster")
-                        source: "qrc:/pict/info.png"
+                        fontSize: uninstItem.fontSize
+                        source: "qrc:/pict/boost.png"
                         imageWidth: uninstItem.imageWidth
                         onMouseClicked: console.log(text)
                     }
@@ -70,7 +72,8 @@ Item { // ToolsArea
                         width: parent.width
                         anchors.margins: uninstItem.anchors.margins
                         text: qsTr("Defrag")
-                        source: "qrc:/pict/info.png"
+                        fontSize: uninstItem.fontSize
+                        source: "qrc:/pict/defrag.png"
                         imageWidth: uninstItem.imageWidth
                         onMouseClicked: console.log(text)
                     }
@@ -79,7 +82,8 @@ Item { // ToolsArea
                         width: parent.width
                         anchors.margins: uninstItem.anchors.margins
                         text: qsTr("Malware Fighter")
-                        source: "qrc:/pict/info.png"
+                        fontSize: uninstItem.fontSize
+                        source: "qrc:/pict/defend.png"
                         imageWidth: uninstItem.imageWidth
                         onMouseClicked: console.log(text)
                     }
@@ -111,7 +115,7 @@ Item { // ToolsArea
 
                     Text {
                         text: "Оптимизация системы"
-                        font.pixelSize: 18
+                        font.pixelSize: 20
                         color: "white"
                         opacity: 0.7
                     }
@@ -120,7 +124,8 @@ Item { // ToolsArea
                         width: parent.width
                         anchors.margins: uninstItem.anchors.margins
                         text: qsTr("Менеджер по запуску")
-                        source: "qrc:/pict/info.png"
+                        fontSize: uninstItem.fontSize
+                        source: "qrc:/pict/flash.png"
                         imageWidth: uninstItem.imageWidth
                         onMouseClicked: console.log(text)
                     }
@@ -129,7 +134,8 @@ Item { // ToolsArea
                         width: parent.width
                         anchors.margins: uninstItem.anchors.margins
                         text: qsTr("Оперативная память")
-                        source: "qrc:/pict/info.png"
+                        fontSize: uninstItem.fontSize
+                        source: "qrc:/pict/memory.png"
                         imageWidth: uninstItem.imageWidth
                         onMouseClicked: console.log(text)
                     }
@@ -138,7 +144,8 @@ Item { // ToolsArea
                         width: parent.width
                         anchors.margins: uninstItem.anchors.margins
                         text: qsTr("Интернет ускоритель")
-                        source: "qrc:/pict/info.png"
+                        fontSize: uninstItem.fontSize
+                        source: "qrc:/pict/globe.png"
                         imageWidth: uninstItem.imageWidth
                         onMouseClicked: console.log(text)
                     }
@@ -147,7 +154,8 @@ Item { // ToolsArea
                         width: parent.width
                         anchors.margins: uninstItem.anchors.margins
                         text: qsTr("Автовыключение")
-                        source: "qrc:/pict/info.png"
+                        fontSize: uninstItem.fontSize
+                        source: "qrc:/pict/power_off.png"
                         imageWidth: uninstItem.imageWidth
                         onMouseClicked: console.log(text)
                     }
@@ -156,7 +164,8 @@ Item { // ToolsArea
                         width: parent.width
                         anchors.margins: uninstItem.anchors.margins
                         text: qsTr("Деактиватор программ")
-                        source: "qrc:/pict/info.png"
+                        fontSize: uninstItem.fontSize
+                        source: "qrc:/pict/window.png"
                         imageWidth: uninstItem.imageWidth
                         onMouseClicked: console.log(text)
                     }
@@ -188,7 +197,7 @@ Item { // ToolsArea
 
                     Text {
                         text: "Безопасность и ремонт"
-                        font.pixelSize: 18
+                        font.pixelSize: 20
                         color: "white"
                         opacity: 0.7
                     }
@@ -197,7 +206,8 @@ Item { // ToolsArea
                         width: parent.width
                         anchors.margins: uninstItem.anchors.margins
                         text: qsTr("Ремонт системы")
-                        source: "qrc:/pict/info.png"
+                        fontSize: uninstItem.fontSize
+                        source: "qrc:/pict/repair.png"
                         imageWidth: uninstItem.imageWidth
                         onMouseClicked: console.log(text)
                     }
@@ -206,7 +216,8 @@ Item { // ToolsArea
                         width: parent.width
                         anchors.margins: uninstItem.anchors.margins
                         text: qsTr("Доктор диска")
-                        source: "qrc:/pict/info.png"
+                        fontSize: uninstItem.fontSize
+                        source: "qrc:/pict/hard_disk.png"
                         imageWidth: uninstItem.imageWidth
                         onMouseClicked: console.log(text)
                     }
@@ -214,8 +225,9 @@ Item { // ToolsArea
                     SimpleItem {
                         width: parent.width
                         anchors.margins: uninstItem.anchors.margins
-                        text: qsTr("Восстановл. после удаления")
-                        source: "qrc:/pict/info.png"
+                        text: qsTr("Восстанов. после удаления")
+                        fontSize: uninstItem.fontSize
+                        source: "qrc:/pict/backup.png"
                         imageWidth: uninstItem.imageWidth
                         onMouseClicked: console.log(text)
                     }
@@ -224,7 +236,8 @@ Item { // ToolsArea
                         width: parent.width
                         anchors.margins: uninstItem.anchors.margins
                         text: qsTr("Уничтожитель файлов")
-                        source: "qrc:/pict/info.png"
+                        fontSize: uninstItem.fontSize
+                        source: "qrc:/pict/shredder.png"
                         imageWidth: uninstItem.imageWidth
                         onMouseClicked: console.log(text)
                     }
@@ -233,7 +246,8 @@ Item { // ToolsArea
                         width: parent.width
                         anchors.margins: uninstItem.anchors.margins
                         text: qsTr("Программы по умолчанию")
-                        source: "qrc:/pict/info.png"
+                        fontSize: uninstItem.fontSize
+                        source: "qrc:/pict/adjust.png"
                         imageWidth: uninstItem.imageWidth
                         onMouseClicked: console.log(text)
                     }
@@ -265,7 +279,7 @@ Item { // ToolsArea
 
                     Text {
                         text: "Очистка системы"
-                        font.pixelSize: 18
+                        font.pixelSize: 20
                         color: "white"
                         opacity: 0.7
                     }
@@ -274,7 +288,8 @@ Item { // ToolsArea
                         width: parent.width
                         anchors.margins: uninstItem.anchors.margins
                         text: qsTr("Очистка реестра")
-                        source: "qrc:/pict/info.png"
+                        fontSize: uninstItem.fontSize
+                        source: "qrc:/pict/defragment.png"
                         imageWidth: uninstItem.imageWidth
                         onMouseClicked: console.log(text)
                     }
@@ -283,7 +298,8 @@ Item { // ToolsArea
                         width: parent.width
                         anchors.margins: uninstItem.anchors.margins
                         text: qsTr("Очистка диска")
-                        source: "qrc:/pict/info.png"
+                        fontSize: uninstItem.fontSize
+                        source: "qrc:/pict/disk_clean.png"
                         imageWidth: uninstItem.imageWidth
                         onMouseClicked: console.log(text)
                     }
@@ -292,7 +308,8 @@ Item { // ToolsArea
                         width: parent.width
                         anchors.margins: uninstItem.anchors.margins
                         text: qsTr("Поиск больших файлов")
-                        source: "qrc:/pict/info.png"
+                        fontSize: uninstItem.fontSize
+                        source: "qrc:/pict/filereplace.png"
                         imageWidth: uninstItem.imageWidth
                         onMouseClicked: console.log(text)
                     }
@@ -301,7 +318,8 @@ Item { // ToolsArea
                         width: parent.width
                         anchors.margins: uninstItem.anchors.margins
                         text: qsTr("Поиск пустых папок")
-                        source: "qrc:/pict/info.png"
+                        fontSize: uninstItem.fontSize
+                        source: "qrc:/pict/folder_search.png"
                         imageWidth: uninstItem.imageWidth
                         onMouseClicked: console.log(text)
                     }
@@ -310,7 +328,8 @@ Item { // ToolsArea
                         width: parent.width
                         anchors.margins: uninstItem.anchors.margins
                         text: qsTr("Битые ярлыки")
-                        source: "qrc:/pict/info.png"
+                        fontSize: uninstItem.fontSize
+                        source: "qrc:/pict/label.png"
                         imageWidth: uninstItem.imageWidth
                         onMouseClicked: console.log(text)
                     }

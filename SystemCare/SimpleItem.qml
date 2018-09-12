@@ -9,6 +9,7 @@ Item { // SimpleItem
     property alias text: itemText.text
     property alias source: imgRect.source
     property alias imageWidth: imgRect.width
+    property alias fontSize: itemText.font.pixelSize
     signal mouseClicked
 
     MouseArea {
@@ -27,8 +28,8 @@ Item { // SimpleItem
 
     Image {
         id: imgRect
-        x: parent.x + 2
-        y: parent.height/2 - height/2
+        x: itm.x + 2
+        y: itm.height/2 - height/2
         width: 26
         height: width
         anchors.fill: imgRect

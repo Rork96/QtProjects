@@ -350,7 +350,7 @@ Window { // Main Window
                 protectionBtn.checked = !checked
                 toollBtn.checked = !checked
                 optimizeBtn.checked = !checked
-//                clientLoader.source = "qrc:/ActionsArea.qml"
+                clientLoader.source = "qrc:/ActionsArea.qml"
             }
         }
     }

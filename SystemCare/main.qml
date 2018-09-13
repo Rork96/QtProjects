@@ -62,10 +62,10 @@ ApplicationWindow { // Main Window
         }
     }
 
-//    onClosing: {
-//        close.accepted = false
-//        root.hide()
-//    }
+/*    onClosing: {
+        close.accepted = false
+        root.hide()
+    }*/
 
     MouseArea { // TopArea
         id: topArea
@@ -341,6 +341,7 @@ ApplicationWindow { // Main Window
         anchors.top: menu.bottom
         width: header.width
         height: footer.y - y
+        clip: true
         source: Qt.resolvedUrl("qrc:/MainArea.qml")
     }
 

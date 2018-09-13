@@ -57,5 +57,7 @@
         <file>pict/folder_search.png</file>
         <file>pict/label.png</file>
         <file>ActionsArea.qml</file>
+        <file>pict/warning.png</file>
+        <file>TextLink.qml</file>
     </qresource>
 </RCC>

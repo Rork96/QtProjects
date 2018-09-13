@@ -10,6 +10,7 @@ Item { // SimpleItem
     property alias source: imgRect.source
     property alias imageWidth: imgRect.width
     property alias fontSize: itemText.font.pixelSize
+    property real itemOpacity: 0.7
     signal mouseClicked
 
     MouseArea {
@@ -50,7 +51,7 @@ Item { // SimpleItem
         NumberAnimation {
             target: itm
             properties: "opacity"
-            from: 0.7
+            from: itemOpacity
             to: 0.5
             duration: 80
         }
@@ -59,7 +60,7 @@ Item { // SimpleItem
             target: itm
             properties: "opacity"
             from: 0.5
-            to: 0.7
+            to: itemOpacity
             duration: 80
         }
     }
@@ -76,7 +77,7 @@ Item { // SimpleItem
             name: "Exited"
             PropertyChanges {
                 target: itm
-                opacity: 0.7
+                opacity: itemOpacity
             }
         }
     ]

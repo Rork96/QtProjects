@@ -9,7 +9,7 @@ Item { // ActionsArea
         height: parent.height - 0.1
         clip: true
         contentWidth: parent.width;
-        contentHeight: parent.height
+        contentHeight: 700
         ScrollBar.vertical: ScrollBar { }
 
         Rectangle {
@@ -41,7 +41,7 @@ Item { // ActionsArea
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 width: parent.width - 20
-                spacing: 10
+                spacing: 30
 
                 Text {
                     text: "Безопасность и производительность"
@@ -211,6 +211,165 @@ Item { // ActionsArea
                     font.pixelSize: 20
                     color: "white"
                     opacity: 0.7
+                }
+
+                Grid {
+                    rows: 4
+                    columns: 4
+                    spacing: 15
+                    width: parent.width
+
+                    SimpleItem {
+                        width: parent.width/3
+                        text: qsTr("Skype")
+                        fontSize: 18
+                        source: "qrc:/pict/skype.png"
+                        imageWidth: 28
+                        onMouseClicked: console.log(text)
+                    }
+
+                    Column {
+                        width: driverUpdate.width + 80
+
+                        Text {
+                            text: "Доступна новая версия"
+                            font.pixelSize: 16
+                            color: "white"
+                            opacity: 0.7
+                        }
+                    }
+
+                    TextLink {
+                        text: "Игнорировать"
+                        onMouseClick: console.log(text)
+                    }
+
+                    TextLink {
+                        text: "\t\tОбновить"
+                        color: "orange"
+                        onMouseClick: console.log(text)
+                    }
+
+                    SimpleItem {
+                        width: parent.width/3
+                        text: qsTr("Mozilla Firefox")
+                        fontSize: 18
+                        source: "qrc:/pict/firefox.png"
+                        imageWidth: 28
+                        onMouseClicked: console.log(text)
+                    }
+
+                    Column {
+                        width: driverUpdate.width + 80
+
+                        Text {
+                            text: "Доступна новая версия"
+                            font.pixelSize: 16
+                            color: "white"
+                            opacity: 0.7
+                        }
+                    }
+
+                    TextLink {
+                        text: "Игнорировать"
+                        onMouseClick: console.log(text)
+                    }
+
+                    TextLink {
+                        text: "\t\tОбновить"
+                        color: "orange"
+                        onMouseClick: console.log(text)
+                    }
+                }
+
+                Text {
+                    text: "Компоненты системы"
+                    font.pixelSize: 20
+                    color: "white"
+                    opacity: 0.7
+                }
+
+                Grid {
+                    rows: 4
+                    columns: 4
+                    spacing: 15
+                    width: parent.width
+
+                    SimpleItem {
+                        width: parent.width/3
+                        text: qsTr("Отключено автообновление системы")
+                        fontSize: 18
+                        source: "qrc:/pict/auto_update.png"
+                        imageWidth: 28
+                        onMouseClicked: console.log(text)
+                    }
+
+                    Column {
+                        width: driverUpdate.width + 60
+
+                        Text {
+                            text: "Влючите автообновления"
+                            font.pixelSize: 16
+                            color: "white"
+                            opacity: 0.7
+                        }
+
+                        Text {
+                            text: "Автообновление помогает обеспечить надежную защиту системы от атак"
+                            font.pixelSize: 14
+                            color: "white"
+                            opacity: 0.5
+                        }
+                    }
+
+                    TextLink {
+                        text: "Игнорировать"
+                        onMouseClick: console.log(text)
+                    }
+
+                    TextLink {
+                        text: "\t\tВключить"
+                        color: "orange"
+                        onMouseClick: console.log(text)
+                    }
+
+                    SimpleItem {
+                        width: parent.width/3
+                        text: qsTr("Firewall")
+                        fontSize: 18
+                        source: "qrc:/pict/firewall.png"
+                        imageWidth: 28
+                        onMouseClicked: console.log(text)
+                    }
+
+                    Column {
+                        width: driverUpdate.width + 60
+
+                        Text {
+                            text: "Firewall отключен или не установлен"
+                            font.pixelSize: 16
+                            color: "white"
+                            opacity: 0.7
+                        }
+
+                        Text {
+                            text: "Помогает защитить систему от злоумышленников"
+                            font.pixelSize: 14
+                            color: "white"
+                            opacity: 0.5
+                        }
+                    }
+
+                    TextLink {
+                        text: "Подробнее"
+                        onMouseClick: console.log(text)
+                    }
+
+                    TextLink {
+                        text: "\t\tИгнорировать"
+                        color: "orange"
+                        onMouseClick: console.log(text)
+                    }
                 }
             }
         }

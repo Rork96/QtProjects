@@ -59,5 +59,9 @@
         <file>ActionsArea.qml</file>
         <file>pict/warning.png</file>
         <file>TextLink.qml</file>
+        <file>pict/firefox.png</file>
+        <file>pict/skype.png</file>
+        <file>pict/auto_update.png</file>
+        <file>pict/firewall.png</file>
     </qresource>
 </RCC>

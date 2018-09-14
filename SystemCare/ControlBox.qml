@@ -2,7 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
 
-CheckBox {
+CheckBox { // ControlBox
     property string caption: "CheckBox"
     property string textColor: "white"
     property int fontSize: 16

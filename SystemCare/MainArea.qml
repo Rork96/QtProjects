@@ -43,6 +43,7 @@ Item {  // ClientArea
                 }
 
                 RectangularGlow {
+                    id: glow
                     anchors.fill: rectangle
                     glowRadius: 10
                     spread: 0.2
@@ -76,7 +77,7 @@ Item {  // ClientArea
                     }
                 }
 
-                states: [   // Change the scale dependent on the mouse behavior (entered or exited rect)
+                states: [   // Change the scale dependent on the mouse behavior (entered or exited rectangle)
                     State {
                         name: "Entered"
                         PropertyChanges {

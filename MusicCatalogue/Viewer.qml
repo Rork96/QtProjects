@@ -3,14 +3,17 @@ import QtQuick 2.9
 import QtQuick.Window 2.10
 
 Window {
-    width: 400
-    height: width
+    id: wnd
+    width: 300 // Screen.width
+    height: width //Screen.height
 
     property alias source: img.source
 
     Image {
         id: img
-        anchors.fill: parent
+        anchors.centerIn: parent
+        width: wnd.width
+        height: wnd.width
         smooth: true
     }
 }

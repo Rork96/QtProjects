@@ -1,11 +1,12 @@
 import QtQuick 2.9
+import QtQuick.Window 2.0
 import QtQuick.Controls 2.2
 
 ApplicationWindow {
     id: root
     visible: true
-    width: 300
-    height: 450
+    width: 300 // Screen.width
+    height: 450 //Screen.height
     title: qsTr("Music Catalogue")
 
     Rectangle {

@@ -35,7 +35,7 @@ win32:{
     QMAKE_TARGET_COPYRIGHT = masterarrow (masterarrows@gmail.com)
 }
 
-win32: RC_ICONS = $$PWD/pict/MusicCatalodue.ico
+win32: RC_ICONS = $$PWD/pict/MusicCatalogue.ico
 
 TARGET = MusicCatalodue
 
@@ -62,3 +62,5 @@ CONFIG(debug, debug|release) {
         QMAKE_POST_LINK += linuxdeployqt $$PWD/win32/$$TARGET
     }
 }
+
+DISTFILES +=

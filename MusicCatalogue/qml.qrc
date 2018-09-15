@@ -3,8 +3,7 @@
         <file>main.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>Music.qml</file>
-        <file>covers/A.jpg</file>
-        <file>covers/B.jpg</file>
-        <file>covers/C.jpg</file>
+        <file>pict/MusicCatalogue.png</file>
+        <file>Viewer.qml</file>
     </qresource>
 </RCC>

@@ -1,11 +1,11 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
-import QtQuick.XmlListModel 2.0
 
 ApplicationWindow {
+    id: root
     visible: true
-    width: 200
-    height: 360
+    width: 300
+    height: 450
     title: qsTr("Music Catalogue")
 
     Rectangle {
@@ -18,6 +18,7 @@ ApplicationWindow {
              id: delegate
 
              Item {
+                 id: it
                  width: mainRect.width
                  height: 70
 
@@ -25,9 +26,10 @@ ApplicationWindow {
                      anchors.verticalCenter: parent.verticalCenter
 
                      Image {
+                         id: imgCover
                          width: 64
                          height: 64
-                         source: cover
+                         source: "file://" + cover
                          smooth: true
                      }
 
@@ -37,12 +39,26 @@ ApplicationWindow {
                          Text { color: "yellow"; text: " " + year; font.pointSize: 10 }
                      }
                  }
+
+                 MouseArea {
+                     anchors.fill: parent
+                     onDoubleClicked: {
+                         imgViewer.title = artist + " - " + album
+                         imgViewer.source = imgCover.source
+                         imgViewer.show()
+                     }
+                 }
              }
+         }
+
+         Viewer {
+             id: imgViewer
          }
 
         ListView {
             anchors.fill: parent
             focus: true
+            ScrollBar.vertical: ScrollBar {}
             header: Rectangle {
                 width: parent.width
                 height: 30
@@ -54,7 +70,7 @@ ApplicationWindow {
                 Text {
                     anchors.centerIn: parent
                     color: "grey"
-                    text: "Muisc"
+                    text: "Music"
                     font.bold: true
                     font.pointSize: 20
                 }

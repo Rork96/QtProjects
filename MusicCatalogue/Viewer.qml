@@ -4,8 +4,13 @@ import QtQuick.Window 2.10
 
 Window {
     id: wnd
-    width: 300 // Screen.width
-    height: width //Screen.height
+    // Linux
+    width: 350
+    height: width
+
+    // Android
+//    width: Screen.width
+//    height: Screen.height
 
     property alias source: img.source
 

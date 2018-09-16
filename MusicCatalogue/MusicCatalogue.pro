@@ -53,37 +53,13 @@ CONFIG(debug, debug|release) {
         # Папка для release-версии программы
         DESTDIR = $${_PRO_FILE_PWD_}/linux
         # Запуск linuxdeployqt для сборки всех библиотек
-        QMAKE_POST_LINK += linuxdeployqt $$PWD/win32/$$TARGET
-    }
-    android: {
-        # Папка для release-версии программы
-        DESTDIR = $${_PRO_FILE_PWD_}/Android
-        # Запуск linuxdeployqt для сборки всех библиотек
-        QMAKE_POST_LINK += androiddeployqt $$PWD/win32/$$TARGET
+        #QMAKE_POST_LINK += linuxdeployqt $$PWD/win32/$$TARGET
     }
 }
 
 DISTFILES += \
-    android/AndroidManifest.xml \
-    android/gradle/wrapper/gradle-wrapper.jar \
-    android/gradlew \
-    android/res/values/libs.xml \
-    android/build.gradle \
-    android/gradle/wrapper/gradle-wrapper.properties \
-    android/gradlew.bat \
-    android/AndroidManifest.xml \
-    android/gradle/wrapper/gradle-wrapper.jar \
-    android/gradlew \
-    android/res/values/libs.xml \
-    android/build.gradle \
-    android/gradle/wrapper/gradle-wrapper.properties \
-    android/gradlew.bat \
-    android/AndroidManifest.xml \
-    android/gradle/wrapper/gradle-wrapper.jar \
-    android/gradlew \
-    android/res/values/libs.xml \
-    android/build.gradle \
-    android/gradle/wrapper/gradle-wrapper.properties \
-    android/gradlew.bat
+    AndroidFiles/AndroidManifest.xml \
+    AndroidFiles/res/values/libs.xml \
+    AndroidFiles/build.gradle
 
-ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/AndroidFiles

@@ -5,5 +5,37 @@
         <file>Music.qml</file>
         <file>pict/MusicCatalogue.png</file>
         <file>Viewer.qml</file>
+<!--        For Android-->
+        <!--<file>android.xml</file>
+        <file>covers/A Sound Of Thunder/A Sound Of Thunder - The Lesser Key Of Solomon (2014)/cover.jpg</file>
+        <file>covers/A Sound Of Thunder/A Sound Of Thunder -Time's Arrow (2013)/front.jpg</file>
+        <file>covers/Butcher Babies/2013 - Goliath/folder.jpg</file>
+        <file>covers/Butcher Babies/2014 - Uncovered/folder.jpg</file>
+        <file>covers/Butcher Babies/2015 - Take It Like A Man/folder.jpg</file>
+        <file>covers/Butcher Babies/2017 - Lilith/folder.jpg</file>
+        <file>covers/Infected Rain/01. Demo (2008)/front.JPG</file>
+        <file>covers/Infected Rain/02. EP Judgemental Trap (2009)/front.jpg</file>
+        <file>covers/Infected Rain/03. Asylum (2011)/front.jpg</file>
+        <file>covers/Infected Rain/04. Embrace Eternity (2014)/front.jpg</file>
+        <file>covers/Infected Rain/05. 86 (2017)/front.jpg</file>
+        <file>covers/Korn/See You On The Other Side (2005)/korn-see you on the other side.jpg</file>
+        <file>covers/Rammstein/Rosenrot (2005)/cover.jpg</file>
+        <file>covers/Slipknot/Greatest Hits (2010)/Slipknot Greatest Hits.jpg</file>
+        <file>covers/Slipknot/The Gray Chapter (2014)/cover.jpg</file>
+        <file>covers/Stone Sour/Come What (Ever) May (2006)/CD COVER - FRONT.jpg</file>
+        <file>covers/System of A Down/Hypnotize (2005)/cover.jpg</file>
+        <file>covers/System of A Down/Toxicity (2001)/Cover.jpg</file>
+        <file>covers/Thousand Foot Krutch/Thousand Foot Krutch - Exhale (2016)/Cover.jpg</file>
+        <file>covers/Thousand Foot Krutch/Thousand Foot Krutch - Oxygen Inhale (2014)/folder.jpg</file>
+        <file>covers/Visions Of Atlantis/2000 - Morning In Atlantis (Demo)/folder.jpg</file>
+        <file>covers/Visions Of Atlantis/2002 - Eternal Endless Infinity/folder.jpg</file>
+        <file>covers/Visions Of Atlantis/2004 - Cast Away/folder.jpg</file>
+        <file>covers/Visions Of Atlantis/2007 - Trinity/folder.jpg</file>
+        <file>covers/Visions Of Atlantis/2011 - Delta/folder.jpg</file>
+        <file>covers/Visions Of Atlantis/2011 - Favorites (Compilation)/folder.jpg</file>
+        <file>covers/Visions Of Atlantis/2011 - Maria Magdalena (EP)/folder.jpg</file>
+        <file>covers/Visions Of Atlantis/2013 - Ethera/Folder.jpg</file>
+        <file>covers/Visions Of Atlantis/2016 - Old Routes – New Waters/cover.jpg</file>
+        <file>covers/Visions Of Atlantis/2018 - The Deep and the Dark/Front.jpg</file>-->
     </qresource>
 </RCC>

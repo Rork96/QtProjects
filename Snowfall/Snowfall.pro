@@ -27,37 +27,22 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-win32:{
-    VERSION = 1.0.0
-    QMAKE_TARGET_COMPANY = masterarrow
-    QMAKE_TARGET_PRODUCT = System Care
-    QMAKE_TARGET_DESCRIPTION = System
-    QMAKE_TARGET_COPYRIGHT = masterarrow (masterarrows@gmail.com)
-}
+#win32:{
+#    VERSION = 1.0.0
+#    QMAKE_TARGET_COMPANY = masterarrow
+#    QMAKE_TARGET_PRODUCT = Snowfall
+#    QMAKE_TARGET_DESCRIPTION = Screen
+#    QMAKE_TARGET_COPYRIGHT = masterarrow (masterarrows@gmail.com)
+#}
 
-win32: RC_ICONS = $$PWD/pict/MusicCatalogue.ico
+#win32: RC_ICONS = $$PWD/pict/Snowfall.ico
 
-TARGET = MusicCatalogue
-
-CONFIG(debug, debug|release) {
-    # debug
-} else {
-    # release
-    win32: {
-        # Папка для release-версии программы
-        DESTDIR = $${_PRO_FILE_PWD_}/win32
-        # Запуск windeployqt для сборки всех библиотек
-        QMAKE_POST_LINK += windeployqt $$PWD/win32/$$TARGET
-    }
-    unix: {
-        # Папка для release-версии программы
-        DESTDIR = $${_PRO_FILE_PWD_}/linux
-        # Запуск linuxdeployqt для сборки всех библиотек
-        #QMAKE_POST_LINK += linuxdeployqt $$PWD/win32/$$TARGET
-    }
-}
+#TARGET = Snowfall
 
 DISTFILES += \
+    android/AndroidManifest.xml \
+    android/res/values/libs.xml \
+    android/build.gradle \
     android/AndroidManifest.xml \
     android/res/values/libs.xml \
     android/build.gradle

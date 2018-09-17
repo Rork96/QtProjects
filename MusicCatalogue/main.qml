@@ -13,7 +13,6 @@ ApplicationWindow {
 //    width: Screen.width
 //    height: Screen.height
 
-
     title: qsTr("Music Catalogue")
 
     Rectangle {

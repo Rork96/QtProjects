@@ -5,8 +5,8 @@
         <file>Music.qml</file>
         <file>pict/MusicCatalogue.png</file>
         <file>Viewer.qml</file>
-<!--        For Android-->
-        <!--<file>android.xml</file>
+         <!--For Android-->
+        <file>android.xml</file>
         <file>covers/A Sound Of Thunder/A Sound Of Thunder - The Lesser Key Of Solomon (2014)/cover.jpg</file>
         <file>covers/A Sound Of Thunder/A Sound Of Thunder -Time's Arrow (2013)/front.jpg</file>
         <file>covers/Butcher Babies/2013 - Goliath/folder.jpg</file>
@@ -35,7 +35,7 @@
         <file>covers/Visions Of Atlantis/2011 - Favorites (Compilation)/folder.jpg</file>
         <file>covers/Visions Of Atlantis/2011 - Maria Magdalena (EP)/folder.jpg</file>
         <file>covers/Visions Of Atlantis/2013 - Ethera/Folder.jpg</file>
-        <file>covers/Visions Of Atlantis/2016 - Old Routes – New Waters/cover.jpg</file>
-        <file>covers/Visions Of Atlantis/2018 - The Deep and the Dark/Front.jpg</file>-->
+        <file>covers/Visions Of Atlantis/2018 - The Deep and the Dark/Front.jpg</file>
+        <file>covers/Visions Of Atlantis/2016 - Old Routes - New Waters/cover.jpg</file>
     </qresource>
 </RCC>

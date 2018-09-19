@@ -5,13 +5,8 @@ import QtQuick.Controls 2.2
 ApplicationWindow {
     id: root
     visible: true
-    // Linux
-    width: 350
-    height: 500
-
-    // Android
-//    width: Screen.width
-//    height: Screen.height
+    width: Screen.width
+    height: Screen.height
 
     title: qsTr("Music Catalogue")
 
@@ -27,24 +22,24 @@ ApplicationWindow {
              Item {
                  id: it
                  width: mainRect.width
-                 height: 70
+                 height: 70    // 100
 
                  Row {
                      anchors.verticalCenter: parent.verticalCenter
 
                      Image {
                          id: imgCover
-                         width: 64
-                         height: 64
-                         source: "file://" + cover  // Linux
-//                         source: cover  // Android
+                         width: 64  // 96
+                         height: 64 // 96
+//                         source: "file://" + cover  // Linux
+                         source: cover  // Android
                          smooth: true
                      }
 
                      Column {
-                         Text { color: "white"; text: " " + artist; font.pointSize: 16 }
-                         Text { color: "lightblue"; text: " " + album; font.pointSize: 14 }
-                         Text { color: "yellow"; text: " " + year; font.pointSize: 12 }
+                         Text { color: "white"; text: " " + artist; font.pointSize: 20 }
+                         Text { color: "lightblue"; text: " " + album; font.pointSize: 18 }
+                         Text { color: "yellow"; text: " " + year; font.pointSize: 16 }
                      }
                  }
 

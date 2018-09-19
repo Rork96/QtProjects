@@ -4,8 +4,6 @@
         <file>qtquickcontrols2.conf</file>
         <file>Music.qml</file>
         <file>pict/MusicCatalogue.png</file>
-        <file>Viewer.qml</file>
-         <!--For Android-->
         <file>android.xml</file>
         <file>covers/A Sound Of Thunder/A Sound Of Thunder - The Lesser Key Of Solomon (2014)/cover.jpg</file>
         <file>covers/A Sound Of Thunder/A Sound Of Thunder -Time's Arrow (2013)/front.jpg</file>

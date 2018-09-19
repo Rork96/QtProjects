@@ -7,56 +7,42 @@ ApplicationWindow {
     visible: true
     width: Screen.width
     height: Screen.height
-
     title: qsTr("Music Catalogue")
 
     Rectangle {
-         id: mainRect
-         color: "grey"
-         width: parent.width
-         height: parent.height
+        id: mainRect
+        color: "grey"
+        width: parent.width
+        height: parent.height
 
-         Component {
-             id: delegate
+        Component {
+            id: delegate
 
-             Item {
-                 id: it
-                 width: mainRect.width
-                 height: 70    // 100
+            Item {
+                id: it
+                width: mainRect.width
+                height: 100
 
-                 Row {
-                     anchors.verticalCenter: parent.verticalCenter
+                Row {
+                    anchors.verticalCenter: parent.verticalCenter
 
-                     Image {
-                         id: imgCover
-                         width: 64  // 96
-                         height: 64 // 96
-//                         source: "file://" + cover  // Linux
-                         source: cover  // Android
-                         smooth: true
-                     }
+                    Image {
+                        id: imgCover
+                        width: 96
+                        height: 96
+                        // source: "file://" + cover  // Linux
+                        source: cover  // Android
+                        smooth: true
+                    }
 
-                     Column {
-                         Text { color: "white"; text: " " + artist; font.pointSize: 20 }
-                         Text { color: "lightblue"; text: " " + album; font.pointSize: 18 }
-                         Text { color: "yellow"; text: " " + year; font.pointSize: 16 }
-                     }
-                 }
-
-                 MouseArea {
-                     anchors.fill: parent
-                     onDoubleClicked: {
-                         imgViewer.title = artist + " - " + album
-                         imgViewer.source = imgCover.source
-                         imgViewer.show()
-                     }
-                 }
-             }
-         }
-
-         Viewer {
-             id: imgViewer
-         }
+                    Column {
+                        Text { color: "white"; text: " " + artist; font.pointSize: 20 }
+                        Text { color: "lightblue"; text: " " + album; font.pointSize: 18 }
+                        Text { color: "yellow"; text: " " + year; font.pointSize: 16 }
+                    }
+                }
+            }
+        }
 
         ListView {
             anchors.fill: parent
@@ -64,7 +50,7 @@ ApplicationWindow {
             ScrollBar.vertical: ScrollBar {}
             header: Rectangle {
                 width: parent.width
-                height: 30
+                height: 40
                 gradient: Gradient {
                     GradientStop { position: 0; color: "grey" }
                     GradientStop { position: 0.7; color: "black" }
@@ -75,15 +61,23 @@ ApplicationWindow {
                     color: "grey"
                     text: "Music"
                     font.bold: true
-                    font.pointSize: 20
+                    font.pointSize: 24
                 }
             }
             footer: Rectangle {
                 width: parent.width
-                height: 30
+                height: 40
                 gradient: Gradient {
                     GradientStop { position: 0; color: "grey" }
                     GradientStop { position: 0.7; color: "black" }
+                }
+
+                Text {
+                    anchors.centerIn: parent
+                    color: "grey"
+                    text: "mastrarrows@gmail.com"
+                    font.bold: true
+                    font.pointSize: 14
                 }
             }
             highlight: Rectangle {

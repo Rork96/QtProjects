@@ -1,6 +1,6 @@
-import QtQuick 2.10
+import QtQuick 2.9
 import QtQuick.Window 2.0
-import QtQuick.Controls 2.3
+import QtQuick.Controls 2.2
 
 Page {
     id: mainPage
@@ -9,6 +9,7 @@ Page {
     property int albumFont: 18
     property int yearFont: 16
     property bool imageVisible: true
+    signal changePage
 
     header: Rectangle {
         width: parent.width
@@ -24,6 +25,19 @@ Page {
             text: "Music"
             font.bold: true
             font.pointSize: 24
+        }
+
+        Image {
+            anchors.verticalCenter: parent.verticalCenter
+            x: parent.width - width - 5
+            width: 28
+            height: width
+            source: "qrc:/pict/settings.png"
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: changePage()
+            }
         }
     }
 

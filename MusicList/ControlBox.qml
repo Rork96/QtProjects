@@ -15,7 +15,7 @@ CheckBox {
                 implicitWidth: 16
                 implicitHeight: implicitWidth
                 visible: control.checked
-                color: "#003c9e"
+                color: "grey" //"#003c9e"
                 border.color: "#f5f2f2"
                 radius: implicitWidth/2
                 anchors.margins: 2

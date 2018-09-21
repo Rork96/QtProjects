@@ -1,6 +1,6 @@
-import QtQuick 2.10
+import QtQuick 2.9
 import QtQuick.Window 2.0
-import QtQuick.Controls 2.3
+import QtQuick.Controls 2.2
 
 ApplicationWindow {
     visible: true
@@ -10,30 +10,30 @@ ApplicationWindow {
     height: if (Qt.platform.os === "android" || Qt.platform.os === "ios")
                 return Screen.height;
             else return 600
-    title: qsTr("Music Catalogue")
+    title: qsTr("Music List")
 
     SwipeView {
+        id: swipeView
         anchors.fill: parent
-        currentIndex: 1
-
-        MenuPage {
-            id: menu
-            width: parent.width
-            height: parent.height
-            artistFont: 20
-            albumFont: 18
-            yearFont: 16
-            imageVisible: true
-        }
+        currentIndex: 0
+        interactive: false
 
         MainPage {
             id: page
-            width: parent.width;
-            height: parent.height
             artistFont: menu.artistFont
             albumFont: menu.albumFont
             yearFont: menu.yearFont
             imageVisible: menu.imageVisible
+            onChangePage: swipeView.currentIndex = 1
+        }
+
+        MenuPage {
+            id: menu
+            artistFont: 20
+            albumFont: 18
+            yearFont: 16
+            imageVisible: true
+            onChangePage: swipeView.currentIndex = 0
         }
     }
 }

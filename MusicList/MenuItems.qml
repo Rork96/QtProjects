@@ -1,5 +1,5 @@
-import QtQuick 2.0
-import QtQuick.Controls 2.3
+import QtQuick 2.9
+import QtQuick.Controls 2.2
 
 Item {
     width: parent.width
@@ -14,6 +14,13 @@ Item {
         id: mainRect
         anchors.fill: parent
         color: "grey"
+        border.width: 1
+        gradient: Gradient {
+            GradientStop { position: 0; color: "grey" }
+            GradientStop { position: 0.3; color: Qt.darker("grey") }
+            GradientStop { position: 0.7; color: Qt.darker("grey") }
+            GradientStop { position: 1; color: "grey" }
+        }
 
         Column {
             x: 5
@@ -45,7 +52,7 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
 
                     Column {
-                        width: mainRect.width - 50
+                        width: mainRect.width - 40
 
                         Text {
                             color: "lightGray"; text: "Show pictures";
@@ -72,7 +79,7 @@ Item {
 
             Rectangle {
                 width: mainRect.width - 10
-                height: 100
+                height: 120
                 color: "transparent"
 
                 Row {
@@ -99,6 +106,9 @@ Item {
                 Column {
                     x: 10
                     anchors.top: r.bottom
+
+                    Text { color: "lightGray"; text: "Music List v1.0.0";
+                        font.italic: true; font.pointSize: 12 }
 
                     Text { color: "lightGray"; text: "author: masterarrow";
                         font.italic: true; font.pointSize: 12 }

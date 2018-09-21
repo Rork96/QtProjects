@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>main.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>MainPage.qml</file>
         <file>Music.qml</file>
@@ -42,5 +41,7 @@
         <file>FontItem.qml</file>
         <file>pict/info.png</file>
         <file>pict/MusicList.png</file>
+        <file>pict/settings.png</file>
+        <file>pict/back.png</file>
     </qresource>
 </RCC>

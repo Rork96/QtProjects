@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);
-    app.setWindowIcon(QIcon(":/pict/MusicCatalogue.png"));
+    app.setWindowIcon(QIcon(":/pict/MusicList.png"));
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));

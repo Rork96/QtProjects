@@ -1,8 +1,9 @@
 import QtQuick 2.0
-import QtQuick.Controls 2.3
+import QtQuick.Controls 1.4
+import QtQuick.Controls.Styles 1.4
 
 Item {
-    id: item
+    id: it
     width: parent.width
     height: 80
 
@@ -22,13 +23,37 @@ Item {
 
             Slider {
                 id: slider
-                width: item.width - 20
+                width: it.width - 10
                 height: 24
                 orientation: Qt.Horizontal
                 stepSize: 2
-                to: 24
-                from: 6
-                value: 6
+                minimumValue: 6
+                maximumValue: 24
+                value: minimumValue
+
+                style: SliderStyle {
+                    groove: Rectangle {
+                        height: 4
+                        antialiasing: true
+                        radius: height/2
+                        color: "gray"
+
+                        Rectangle {
+                            width: styleData.handlePosition
+                            height: parent.height
+                            color: "lightGray"
+                            radius: parent.radius
+                        }
+                    }
+
+                    handle: Rectangle {
+                        implicitHeight: 12
+                        implicitWidth: implicitHeight
+                        radius: implicitHeight/2
+                        color: "lightGray"
+                    }
+
+                }
             }
         }
     }

@@ -1,6 +1,6 @@
-import QtQuick 2.10
+import QtQuick 2.9
 import QtQuick.Window 2.0
-import QtQuick.Controls 2.3
+import QtQuick.Controls 2.2
 
 Page {
     id: menuPage
@@ -9,6 +9,7 @@ Page {
     property alias albumFont: fontItem.albumFont
     property alias yearFont: fontItem.yearFont
     property alias imageVisible: fontItem.imgVisible
+    signal changePage
 
     header: Rectangle {
         width: parent.width
@@ -24,6 +25,19 @@ Page {
             text: "Preferences"
             font.bold: true
             font.pointSize: 24
+        }
+
+        Image {
+            anchors.verticalCenter: parent.verticalCenter
+            x: 5
+            width: 24
+            height: width
+            source: "qrc:/pict/back.png"
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: changePage()
+            }
         }
     }
 

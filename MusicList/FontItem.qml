@@ -2,7 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
 
-Item {
+Item {  // FontItem
     id: it
     width: parent.width
     height: 80
@@ -32,13 +32,13 @@ Item {
                 value: minimumValue
 
                 style: SliderStyle {
-                    groove: Rectangle {
+                    groove: Rectangle { // The background of the slider
                         height: 4
                         antialiasing: true
                         radius: height/2
                         color: "gray"
 
-                        Rectangle {
+                        Rectangle { // Filled slider part
                             width: styleData.handlePosition
                             height: parent.height
                             color: "lightGray"
@@ -46,7 +46,7 @@ Item {
                         }
                     }
 
-                    handle: Rectangle {
+                    handle: Rectangle { // Handle
                         implicitHeight: 12
                         implicitWidth: implicitHeight
                         radius: implicitHeight/2

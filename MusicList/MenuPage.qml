@@ -2,7 +2,7 @@ import QtQuick 2.9
 import QtQuick.Window 2.0
 import QtQuick.Controls 2.2
 
-Page {
+Page {  // MenuPage
     id: menuPage
 
     property alias artistFont: fontItem.artistFont
@@ -27,7 +27,7 @@ Page {
             font.pointSize: 24
         }
 
-        Image {
+        Image { // Back to the MainPage
             anchors.verticalCenter: parent.verticalCenter
             x: 5
             width: 24
@@ -41,11 +41,12 @@ Page {
         }
     }
 
+    // Font and image visibility settings
     MenuItems {
         id: fontItem
-        artistFont: 6
-        albumFont: 6
-        yearFont: 6
+        artistFont: 20
+        albumFont: 18
+        yearFont: 16
         imgVisible: true
     }
 

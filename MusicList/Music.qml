@@ -1,6 +1,6 @@
 import QtQuick.XmlListModel 2.0
 
-XmlListModel {
+XmlListModel {  // Model for ListView in the MainPage
     source: "qrc:/android.xml"
     query: "/CDs/CD"
     XmlRole { name: "artist"; query: "artist/string()" }

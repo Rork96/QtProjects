@@ -1,7 +1,7 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
 
-Item {
+Item {  // MenuItems
     width: parent.width
     height: parent.height
 
@@ -27,9 +27,11 @@ Item {
             width: mainRect.width - x*2
             spacing: 0
 
+            /* Font settings */
+
             Text { color: "lightGray"; text: "Font size"; font.bold: true; font.pointSize: 16 }
 
-            ToolSeparator { width: parent.width; height: 14; orientation: Qt.Horizontal }
+            ToolSeparator { width: parent.width; height: 14; orientation: Qt.Horizontal } // Separator
 
             FontItem { id: art; fontSize: 6; text: "Artist" }
 
@@ -43,7 +45,7 @@ Item {
 
             ToolSeparator { width: parent.width; height: 14; orientation: Qt.Horizontal }
 
-            Rectangle {
+            Rectangle { // Show or hide image
                 width: mainRect.width - 10
                 height: 60
                 color: "transparent"
@@ -77,7 +79,7 @@ Item {
 
             ToolSeparator { width: parent.width; height: 14; orientation: Qt.Horizontal }
 
-            Rectangle {
+            Rectangle { // About the app
                 width: mainRect.width - 10
                 height: 120
                 color: "transparent"
@@ -103,7 +105,7 @@ Item {
                     }
                 }
 
-                Column {
+                Column {    // Information
                     x: 10
                     anchors.top: r.bottom
 

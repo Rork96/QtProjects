@@ -2,7 +2,7 @@ import QtQuick 2.9
 import QtQuick.Window 2.0
 import QtQuick.Controls 2.2
 
-Page {
+Page {  // MainPage
     id: mainPage
 
     property int artistFont: 20
@@ -27,7 +27,7 @@ Page {
             font.pointSize: 24
         }
 
-        Image {
+        Image { // Go to the MenuPage
             anchors.verticalCenter: parent.verticalCenter
             x: parent.width - width - 5
             width: 28
@@ -47,7 +47,7 @@ Page {
         width: parent.width
         height: parent.height
 
-        Component {
+        Component { // Delegate for ListView
             id: delegate
 
             Item {

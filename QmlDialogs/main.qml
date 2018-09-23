@@ -42,9 +42,15 @@ ApplicationWindow {
         title: "Simple dialog"
 
         contentItem: Rectangle {
-            color: "lightskyblue"
+            //color: "lightskyblue"
             implicitWidth: 400
             implicitHeight: 150
+            gradient: Gradient {
+                GradientStop { position: 0; color: "white" }
+                GradientStop { position: 0.3; color: "lightskyblue" }
+                GradientStop { position: 0.7; color: "lightskyblue" }
+                GradientStop { position: 1; color: "white" }
+            }
 
             Text {
                 anchors.top: parent.top
@@ -92,29 +98,26 @@ ApplicationWindow {
         modality: Qt.WindowModal
         currentColor: testText.color
         showAlphaChannel: true
-        onAccepted: testText.color = color
     }
 
     FontDialog {
         id: fontDlg
         title: "Choose a font"
         modality: Qt.WindowModal
-        currentFont: testText.font //Qt.font({ family: "Arial", pointSize: 24, weight: Font.Normal })
-        onAccepted: {
-            testText.font.family = font
-            testText.font.pointSize = font.pointSize
-            testText.font.bold = font.bold
-            testText.font.italic = font.italic
-            testText.font.underline = font.underline
-            testText.font.weight = font.weight
-        }
+        font: Qt.font({ family: "Verdana", pointSize: 24, weight: Font.Normal })
     }
 
     Label {
         id: testText
         text: qsTr("Text for a test")
         horizontalAlignment: Text.AlignHCenter
-        font.pointSize: 20
+        font.pointSize: fontDlg.font.pointSize //20
+        font.family: fontDlg.font
+        font.weight: fontDlg.font.weight
+        font.bold: fontDlg.font.bold
+        font.italic: fontDlg.font.italic
+        font.underline: fontDlg.font.underline
+        color: colorDlg.color
         anchors.right: parent.right
         anchors.rightMargin: 0
         anchors.left: parent.left
@@ -123,9 +126,7 @@ ApplicationWindow {
         anchors.topMargin: 65
     }
 
-    Button {
-        width: 142
-        height: 40
+    CustomButton {
         text: qsTr("Message dialog")
         anchors.left: parent.left
         anchors.leftMargin: 140
@@ -140,10 +141,7 @@ ApplicationWindow {
         }
     }
 
-    Button {
-        x: 358
-        width: 142
-        height: 40
+    CustomButton {
         text: qsTr("Dialog")
         anchors.right: parent.right
         anchors.rightMargin: 140
@@ -152,9 +150,7 @@ ApplicationWindow {
         onClicked: dlg.open()
     }
 
-    Button {
-        width: 142
-        height: 40
+    CustomButton {
         text: qsTr("File dialog")
         anchors.top: parent.top
         anchors.topMargin: 235
@@ -163,10 +159,7 @@ ApplicationWindow {
         onClicked: fileDlg.open()
     }
 
-    Button {
-        x: 358
-        width: 142
-        height: 40
+    CustomButton {
         text: qsTr("Folder dialog")
         anchors.top: parent.top
         anchors.topMargin: 235
@@ -175,9 +168,7 @@ ApplicationWindow {
         onClicked: folderDialog.open()
     }
 
-    Button {
-        width: 142
-        height: 40
+    CustomButton {
         text: qsTr("Font dialog")
         anchors.left: parent.left
         anchors.leftMargin: 140
@@ -186,10 +177,7 @@ ApplicationWindow {
         onClicked: fontDlg.open()
     }
 
-    Button {
-        x: 358
-        width: 142
-        height: 40
+    CustomButton {
         text: qsTr("Color dialog")
         anchors.right: parent.right
         anchors.rightMargin: 140
@@ -199,6 +187,7 @@ ApplicationWindow {
     }
 
     footer: Rectangle {
+        anchors.bottom: parent.bottom
         width: parent.width
         height: 30
         gradient: Gradient {

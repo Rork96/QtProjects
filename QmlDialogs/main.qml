@@ -34,6 +34,7 @@ ApplicationWindow {
         id: msgDlg
         title: "Information"
         modality: Qt.WindowModal
+        standardButtons: StandardButton.Ok
     }
 
     Dialog {
@@ -88,15 +89,29 @@ ApplicationWindow {
     ColorDialog {
         id: colorDlg
         title: "Choose a color"
+        modality: Qt.WindowModal
+        currentColor: testText.color
+        showAlphaChannel: true
+        onAccepted: testText.color = color
     }
 
     FontDialog {
         id: fontDlg
         title: "Choose a font"
+        modality: Qt.WindowModal
+        currentFont: testText.font //Qt.font({ family: "Arial", pointSize: 24, weight: Font.Normal })
+        onAccepted: {
+            testText.font.family = font
+            testText.font.pointSize = font.pointSize
+            testText.font.bold = font.bold
+            testText.font.italic = font.italic
+            testText.font.underline = font.underline
+            testText.font.weight = font.weight
+        }
     }
 
     Label {
-        id: label
+        id: testText
         text: qsTr("Text for a test")
         horizontalAlignment: Text.AlignHCenter
         font.pointSize: 20
@@ -105,7 +120,7 @@ ApplicationWindow {
         anchors.left: parent.left
         anchors.leftMargin: 0
         anchors.top: parent.top
-        anchors.topMargin: 75
+        anchors.topMargin: 65
     }
 
     Button {
@@ -119,7 +134,8 @@ ApplicationWindow {
         onClicked: {
             msgDlg.text = "Text in the message dialog"
             msgDlg.detailedText = "Some detailed text"
-            //msgDlg.icon = MessageDialog.Information
+            msgDlg.informativeText = "Informative text"
+            msgDlg.icon = StandardIcon.Information
             msgDlg.open()
         }
     }
@@ -133,9 +149,7 @@ ApplicationWindow {
         anchors.rightMargin: 140
         anchors.top: parent.top
         anchors.topMargin: 155
-        onClicked: {
-            dlg.open()
-        }
+        onClicked: dlg.open()
     }
 
     Button {
@@ -146,9 +160,7 @@ ApplicationWindow {
         anchors.topMargin: 235
         anchors.left: parent.left
         anchors.leftMargin: 140
-        onClicked: {
-            fileDlg.open()
-        }
+        onClicked: fileDlg.open()
     }
 
     Button {
@@ -160,9 +172,7 @@ ApplicationWindow {
         anchors.topMargin: 235
         anchors.right: parent.right
         anchors.rightMargin: 140
-        onClicked:  {
-            folderDialog.open()
-        }
+        onClicked: folderDialog.open()
     }
 
     Button {
@@ -173,6 +183,7 @@ ApplicationWindow {
         anchors.leftMargin: 140
         anchors.top: parent.top
         anchors.topMargin: 315
+        onClicked: fontDlg.open()
     }
 
     Button {
@@ -184,6 +195,7 @@ ApplicationWindow {
         anchors.rightMargin: 140
         anchors.top: parent.top
         anchors.topMargin: 315
+        onClicked: colorDlg.open()
     }
 
     footer: Rectangle {

@@ -1,5 +1,5 @@
-import QtQuick 2.0
-import QtQuick.Controls 2.2
+import QtQuick 2.10
+import QtQuick.Controls 2.4
 
 Button {    // CustomButton
     id: btn

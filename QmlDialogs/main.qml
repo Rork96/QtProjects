@@ -1,6 +1,6 @@
 import QtQuick 2.10
-import QtQuick.Window 2.10
-import QtQuick.Controls 2.2
+import QtQuick.Window 2.3
+import QtQuick.Controls 2.4
 import Qt.labs.platform 1.0
 import QtQuick.Dialogs 1.2
 

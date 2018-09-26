@@ -2,5 +2,9 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>CustomButton.qml</file>
+        <file>pict/up.png</file>
+        <file>MainPage.qml</file>
+        <file>DialogPage.qml</file>
+        <file>pict/folder.png</file>
     </qresource>
 </RCC>

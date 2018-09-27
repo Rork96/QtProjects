@@ -15,11 +15,20 @@ ApplicationWindow {
            id: swipeView
            anchors.fill: parent
            currentIndex: 0
-           //interactive: true
+           interactive: false
 
            MainPage {
                id: mainPage
-               onOpenDialogPage: {
+               onOpenFileDialog: {
+                   dlgPage.showFiles = true
+                   dlgPage.path = "file:///D:/"
+                   dlgPage.initPath = "file:///D:/"
+                   dlgPage.filter = [ "*.*" ]
+                   swipeView.currentIndex = 1
+               }
+               onOpenFolderDialog: {
+                   dlgPage.showFiles = false
+                   dlgPage.path = "file:///D:/"
                    dlgPage.initPath = "file:///D:/"
                    swipeView.currentIndex = 1
                }

@@ -9,23 +9,27 @@ Page {  // DialogPage
 
     property string path: initPath.toString()
     property alias initPath: fileSystemModel.folder
+    property alias filter: fileSystemModel.nameFilters
+    property alias showFiles: fileSystemModel.showFiles
     signal selected
     signal rejected
 
     header: Rectangle {
         width: parent.width
-        height: 40
+        height: 28
 
         Button {
             id: backBtn
             anchors.left: parent.left
             anchors.leftMargin: 5
             anchors.verticalCenter: parent.verticalCenter
-            width: 26
+            width: 28
             height: width
             icon.source: "qrc:/pict/up.png"
+            background: Rectangle { color: "white" }
             onClicked: {
-                path = path.replace(path.substring(path.lastIndexOf("/"), path.length), "/")
+                path = path.replace(path.substring(path.lastIndexOf("/"), path.length), "")
+                if (path.lastIndexOf(":") === path.length-1) path += "/"
                 fileSystemModel.folder = path
             }
         }
@@ -35,7 +39,7 @@ Page {  // DialogPage
             anchors.rightMargin: 10
             anchors.verticalCenter: parent.verticalCenter
             text: dlgPage.path
-            font.pointSize: 12
+            font.pointSize: 10
             width: parent.width - backBtn.width - 25
         }
     }
@@ -49,19 +53,13 @@ Page {  // DialogPage
             anchors.bottomMargin: 5
             spacing: 5
 
-            ComboBox {
-                anchors.left: parent.left
-                anchors.leftMargin: 15
-                width: 250
-                height: 26
-            }
-
             Button {
                 anchors.right: openBtn.left
                 anchors.rightMargin: 5
                 width: 52
                 height: 26
                 text: "Cansel"
+                background: Rectangle { color: "white" }
                 onClicked: rejected()
             }
 
@@ -72,9 +70,9 @@ Page {  // DialogPage
                 width: 52
                 height: 26
                 text: "Select"
+                background: Rectangle { color: "white" }
                 onClicked: {
                     path = fileSystemModel.get(treeView.selection.currentIndex.row, "fileURL")
-                    console.log(path);
                     selected()
                 }
             }
@@ -90,8 +88,8 @@ Page {  // DialogPage
             /* * * File system model * * */
             id: fileSystemModel
             showDirsFirst: true
-//            showDotAndDotDot: true
             sortField: FolderListModel.Name
+            nameFilters: [ "*.*" ]
             folder: "file:///D:" // Current path
         }
         selection: ItemSelectionModel {
@@ -104,12 +102,16 @@ Page {  // DialogPage
         TableViewColumn {
             width: 38
             delegate: Image {
+                id: img
                 fillMode: Image.PreserveAspectFit
                 source: if (fileSystemModel.isFolder(treeView.currentIndex)) {
+                            console.log(treeView.currentRow)
+                            console.log(fileSystemModel.indexOf(nameColumn.role))
+                            console.log(fileSystemModel.isFolder(fileSystemModel.indexOf("fileName")))
                             return "qrc:/pict/folder.png"
                         }
                         else {
-                            return "qrc:/pict/up.png"
+                            return "qrc:/pict/file.png"
                         }
             }
         }
@@ -139,10 +141,6 @@ Page {  // DialogPage
                 dlgPage.path = fileSystemModel.get(ind, "fileURL")
                 // Go to directory
                 fileSystemModel.folder = fileSystemModel.get(ind, "fileURL")
-            }
-            else {
-                // Open file
-                openBtn.clicked()
             }
         }
     }

@@ -6,5 +6,6 @@
         <file>MainPage.qml</file>
         <file>DialogPage.qml</file>
         <file>pict/folder.png</file>
+        <file>pict/file.png</file>
     </qresource>
 </RCC>

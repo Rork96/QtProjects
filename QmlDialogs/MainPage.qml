@@ -5,9 +5,9 @@ import Qt.labs.platform 1.0
 import QtQuick.Dialogs 1.2
 
 Page {
-
     property alias path: pathText.text
-    signal openDialogPage
+    signal openFileDialog
+    signal openFolderDialog
 
     header: Rectangle {
         width: parent.width
@@ -70,25 +70,25 @@ Page {
         }
     }
 
-    FileDialog {
-        id: fileDlg
-        title: "Choose a file"
-        selectMultiple: false
-        folder: shortcuts.home
-        nameFilters: [ "Image files (*.jpg *.png *jpeg)", "All files (*)" ]
-        modality: Qt.WindowModal
-        onAccepted: pathText.text = fileUrl
-    }
+//    FileDialog {
+//        id: fileDlg
+//        title: "Choose a file"
+//        selectMultiple: false
+//        folder: shortcuts.home
+//        nameFilters: [ "Image files (*.jpg *.png *jpeg)", "All files (*)" ]
+//        modality: Qt.WindowModal
+//        onAccepted: pathText.text = fileUrl
+//    }
 
-    FolderDialog {
-       id: folderDialog
-       title: "Choose a folder or a couple of folders"
-       folder: shortcuts.home
-       modality: Qt.WindowModal
-       options: FolderDialog.ShowDirsOnly
-       currentFolder: shortcuts.home
-       onAccepted: pathText.text = folder
-    }
+//    FolderDialog {
+//       id: folderDialog
+//       title: "Choose a folder or a couple of folders"
+//       folder: shortcuts.home
+//       modality: Qt.WindowModal
+//       options: FolderDialog.ShowDirsOnly
+//       currentFolder: shortcuts.home
+//       onAccepted: pathText.text = folder
+//    }
 
     ColorDialog {
         id: colorDlg
@@ -154,7 +154,7 @@ Page {
         anchors.topMargin: 235
         anchors.left: parent.left
         anchors.leftMargin: 140
-        onClicked: openDialogPage() //fileDlg.open()
+        onClicked: openFileDialog() //fileDlg.open()
     }
 
     CustomButton {
@@ -163,7 +163,7 @@ Page {
         anchors.topMargin: 235
         anchors.right: parent.right
         anchors.rightMargin: 140
-        onClicked: openDialogPage() //folderDialog.open()
+        onClicked: openFolderDialog() //folderDialog.open()
     }
 
     CustomButton {

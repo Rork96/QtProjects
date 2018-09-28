@@ -105,10 +105,7 @@ Page {  // DialogPage
                 id: img
                 fillMode: Image.PreserveAspectFit
                 source: if (fileSystemModel.isFolder(treeView.currentIndex)) {
-                            console.log(treeView.currentRow)
-                            console.log(fileSystemModel.indexOf(nameColumn.role))
-                            console.log(fileSystemModel.isFolder(fileSystemModel.indexOf("fileName")))
-                            console.log(nameColumn.title)
+                            console.log("treeView.currentIndex: " + treeView.currentIndex)
                             return "qrc:/pict/folder.png"
                         }
                         else {

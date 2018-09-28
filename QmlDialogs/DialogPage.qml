@@ -119,16 +119,16 @@ Page {  // DialogPage
             role: "fileName"
         }
 
-        itemDelegate: Item {
+        //itemDelegate: Item {
             /* * * Delegate for file system model * * */
-            id: itemDeleg
+            /*id: itemDeleg
             Text {
                 anchors.left: parent.left
                 anchors.verticalCenter: parent.verticalCenter
                 renderType: Text.NativeRendering
                 text: styleData.value
             }
-        }
+        }*/
 
         onDoubleClicked: {
             /* * * User double clicked on item * * */

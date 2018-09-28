@@ -108,6 +108,7 @@ Page {  // DialogPage
                             console.log(treeView.currentRow)
                             console.log(fileSystemModel.indexOf(nameColumn.role))
                             console.log(fileSystemModel.isFolder(fileSystemModel.indexOf("fileName")))
+                            console.log(nameColumn.title)
                             return "qrc:/pict/folder.png"
                         }
                         else {

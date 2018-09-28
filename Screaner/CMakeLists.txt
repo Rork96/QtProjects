@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.1)
 
 # Project
-project (QScreaner LANGUAGES CXX)
+project (QScreener LANGUAGES CXX)
 
 # Application icon and information
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/info)

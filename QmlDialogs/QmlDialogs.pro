@@ -22,6 +22,19 @@ QML_IMPORT_PATH =
 # Additional import path used to resolve QML modules just for Qt Quick Designer
 QML_DESIGNER_IMPORT_PATH =
 
+# Use Clang 64bit for MSVC
+#win32: QMAKESPEC = C:\Qt\5.11.1\msvc2017_64\mkspecs\win32-clang-msvc
+
+#win32:{
+#    VERSION = 1.0.0
+#    QMAKE_TARGET_COMPANY = masterarrow
+#    QMAKE_TARGET_PRODUCT = QmlDialogs
+#    QMAKE_TARGET_DESCRIPTION = System
+#    QMAKE_TARGET_COPYRIGHT = masterarrow (masterarrows@gmail.com)
+#}
+
+#win32: RC_ICONS = $$PWD/pict/QmlDialogs.ico
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

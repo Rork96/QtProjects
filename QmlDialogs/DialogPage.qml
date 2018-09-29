@@ -3,6 +3,7 @@ import QtQuick.Controls 1.4
 import QtQuick.Controls 2.4
 import QtQml.Models 2.3
 import Qt.labs.folderlistmodel 2.2
+import QtQuick.Dialogs 1.2
 
 Page {  // DialogPage
     id: dlgPage
@@ -90,7 +91,7 @@ Page {  // DialogPage
             showDirsFirst: true
             sortField: FolderListModel.Name
             nameFilters: [ "*.*" ]
-            folder: "file:///D:" // Current path
+            folder: shortcuts.home  // Home directory "file:///D:" // Current path
         }
         selection: ItemSelectionModel {
             /* * * To be able to get the index of the selected item * * */

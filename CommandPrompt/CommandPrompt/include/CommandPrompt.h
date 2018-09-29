@@ -14,7 +14,7 @@ class CommandPrompt: public QMainWindow
     Q_OBJECT
 
 public:
-    explicit CommandPrompt(QWidget *parent = 0);
+    explicit CommandPrompt(QWidget *parent = nullptr);
     ~CommandPrompt();
 
 private:

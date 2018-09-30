@@ -3,7 +3,7 @@ import QtQuick.Controls 1.4
 import QtQuick.Controls 2.4
 import QtQml.Models 2.3
 import Qt.labs.folderlistmodel 2.2
-import QtQuick.Dialogs 1.2
+import Qt.labs.platform 1.0
 
 Page {  // DialogPage
     id: dlgPage
@@ -91,7 +91,7 @@ Page {  // DialogPage
             showDirsFirst: true
             sortField: FolderListModel.Name
             nameFilters: [ "*.*" ]
-            folder: shortcuts.home  // Home directory "file:///D:" // Current path
+            folder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation) // Home directory
         }
         selection: ItemSelectionModel {
             /* * * To be able to get the index of the selected item * * */
@@ -105,8 +105,7 @@ Page {  // DialogPage
             delegate: Image {
                 id: img
                 fillMode: Image.PreserveAspectFit
-                source: if (fileSystemModel.isFolder(treeView.currentIndex)) {
-                            console.log("treeView.currentIndex: " + treeView.currentIndex)
+                source: if (fileSystemModel.isFolder(styleData.index)) {
                             return "qrc:/pict/folder.png"
                         }
                         else {

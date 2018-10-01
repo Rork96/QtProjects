@@ -21,15 +21,15 @@ ApplicationWindow {
                id: mainPage
                onOpenFileDialog: {
                    dlgPage.showFiles = true
-                   dlgPage.path = StandardPaths.writableLocation(StandardPaths.HomeLocation)
-                   dlgPage.initPath = StandardPaths.writableLocation(StandardPaths.HomeLocation)
+                   dlgPage.path = StandardPaths.writableLocation(StandardPaths.DocumentsLocation)
+                   dlgPage.initPath = StandardPaths.writableLocation(StandardPaths.DocumentsLocation)
                    dlgPage.filter = [ "*.*" ]
                    swipeView.currentIndex = 1
                }
                onOpenFolderDialog: {
                    dlgPage.showFiles = false
-                   dlgPage.path = StandardPaths.writableLocation(StandardPaths.HomeLocation)
-                   dlgPage.initPath = StandardPaths.writableLocation(StandardPaths.HomeLocation)
+                   dlgPage.path = StandardPaths.writableLocation(StandardPaths.DocumentsLocation)
+                   dlgPage.initPath = StandardPaths.writableLocation(StandardPaths.DocumentsLocation)
                    swipeView.currentIndex = 1
                }
            }

@@ -91,7 +91,7 @@ Page {  // DialogPage
             showDirsFirst: true
             sortField: FolderListModel.Name
             nameFilters: [ "*.*" ]
-            folder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation) // Home directory
+            folder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation) // Documents directory
         }
         selection: ItemSelectionModel {
             /* * * To be able to get the index of the selected item * * */
@@ -105,7 +105,7 @@ Page {  // DialogPage
             delegate: Image {
                 id: img
                 fillMode: Image.PreserveAspectFit
-                source: if (fileSystemModel.isFolder(styleData.index)) {
+                source: if (fileSystemModel.isFolder(styleData.row)) {
                             return "qrc:/pict/folder.png"
                         }
                         else {

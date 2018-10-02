@@ -1,7 +1,7 @@
 import QtQuick 2.10
 import QtQuick.Window 2.3
 import QtQuick.Controls 2.4
-import Qt.labs.platform 1.0
+//import Qt.labs.platform 1.0
 import QtQuick.Dialogs 1.2
 
 Page {
@@ -57,6 +57,7 @@ Page {
                 anchors.leftMargin: 5
                 text: "Text in the simple dialog!"
                 color: "navy"
+                font.pointSize: 12
             }
 
             Button {
@@ -64,7 +65,17 @@ Page {
                 anchors.right: parent.right
                 anchors.bottomMargin: 10
                 anchors.rightMargin: 10
+                height: 30
+                width: 80
                 text: "Ok"
+                background: Rectangle {
+                    gradient: Gradient {
+                        GradientStop { position: 0; color: "lightGray" }
+                        GradientStop { position: 0.4; color: "darkGray" }
+                        GradientStop { position: 0.6; color: "darkGray" }
+                        GradientStop { position: 1; color: "lightGray" }
+                    }
+                }
                 onClicked: dlg.close()
             }
         }
@@ -112,9 +123,10 @@ Page {
         font.pointSize: fontDlg.font.pointSize //20
         font.family: fontDlg.font
         font.weight: fontDlg.font.weight
-        font.bold: fontDlg.font.bold
         font.italic: fontDlg.font.italic
         font.underline: fontDlg.font.underline
+        font.overline: fontDlg.font.overline
+        font.strikeout: fontDlg.font.strikeout
         color: colorDlg.color
         anchors.right: parent.right
         anchors.rightMargin: 0

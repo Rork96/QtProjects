@@ -21,7 +21,7 @@ ApplicationWindow {
                id: mainPage
                onOpenFileDialog: {
                    dlgPage.showFiles = true
-                   dlgPage.path = StandardPaths.writableLocation(StandardPaths.DocumentsLocation)
+                   dlgPage.path = StandardPaths.writableLocation(StandardPaths.DocumentsLocation)       // Documents directory
                    dlgPage.initPath = StandardPaths.writableLocation(StandardPaths.DocumentsLocation)
                    dlgPage.filter = [ "*.*" ]
                    swipeView.currentIndex = 1

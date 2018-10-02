@@ -120,7 +120,7 @@ Page {
         id: testText
         text: qsTr("Text for a test")
         horizontalAlignment: Text.AlignHCenter
-        font.pointSize: fontDlg.font.pointSize //20
+        font.pointSize: fontDlg.font.pointSize
         font.family: fontDlg.font
         font.weight: fontDlg.font.weight
         font.italic: fontDlg.font.italic

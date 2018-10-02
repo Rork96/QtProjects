@@ -34,7 +34,7 @@ ApplicationWindow {
                }
            }
 
-           DialogPage {
+           DialogPage { // Open file or folder dialog
                id: dlgPage
                onSelected: {
                    mainPage.path = path

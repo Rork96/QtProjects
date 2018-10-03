@@ -3,9 +3,12 @@
         <file>main.qml</file>
         <file>CustomButton.qml</file>
         <file>pict/up.png</file>
-        <file>MainPage.qml</file>
         <file>DialogPage.qml</file>
         <file>pict/folder.png</file>
         <file>pict/file.png</file>
+        <file>ImageView.qml</file>
+        <file>ImageViewForm.ui.qml</file>
+        <file>MainView.qml</file>
+        <file>MainViewForm.ui.qml</file>
     </qresource>
 </RCC>

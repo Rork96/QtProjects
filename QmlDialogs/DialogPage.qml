@@ -101,6 +101,7 @@ Page {  // DialogPage
         selectionMode: SelectionMode.SingleSelection
 
         TableViewColumn {
+            id: imgColumn
             width: 38
             delegate: Image {
                 id: img
@@ -115,8 +116,8 @@ Page {  // DialogPage
         }
 
         TableViewColumn {
-            id: nameColumn
             role: "fileName"
+            width: parent.width - imgColumn.width
         }
 
         //itemDelegate: Item {

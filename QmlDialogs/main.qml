@@ -7,40 +7,61 @@ import QtQuick.Dialogs 1.2
 ApplicationWindow {
     id: applicationWindow
     visible: true
-    width: 640
-    height: 480
+    width: if (Qt.platform.os === "android" || Qt.platform.os === "ios")
+               return Screen.width;
+           else return 640
+    height: if (Qt.platform.os === "android" || Qt.platform.os === "ios")
+                return Screen.height;
+            else return 480
     title: qsTr("QmlDialogs")
+
+    property  bool folder: false
 
     SwipeView {
            id: swipeView
            anchors.fill: parent
            currentIndex: 0
-           interactive: false
+           interactive: false   // Flipping is forbidden
 
-           MainPage {
+           MainView {
                id: mainPage
                onOpenFileDialog: {
                    dlgPage.showFiles = true
-                   dlgPage.path = StandardPaths.writableLocation(StandardPaths.DocumentsLocation)       // Documents directory
-                   dlgPage.initPath = StandardPaths.writableLocation(StandardPaths.DocumentsLocation)
-                   dlgPage.filter = [ "*.*" ]
+                   dlgPage.path = StandardPaths.writableLocation(StandardPaths.PicturesLocation)       // Pictures directory
+                   dlgPage.initPath = StandardPaths.writableLocation(StandardPaths.PicturesLocation)
+                   dlgPage.filter = [ "*.jpg", "*.jpeg", "*.png" ]
                    swipeView.currentIndex = 1
+                   folder = false
+                   console.log(folder)
                }
                onOpenFolderDialog: {
                    dlgPage.showFiles = false
-                   dlgPage.path = StandardPaths.writableLocation(StandardPaths.DocumentsLocation)
-                   dlgPage.initPath = StandardPaths.writableLocation(StandardPaths.DocumentsLocation)
+                   dlgPage.path = StandardPaths.writableLocation(StandardPaths.HomeLocation)        // Home directory
+                   dlgPage.initPath = StandardPaths.writableLocation(StandardPaths.HomeLocation)
                    swipeView.currentIndex = 1
+                   folder = true
+                   console.log(folder)
                }
            }
 
            DialogPage { // Open file or folder dialog
                id: dlgPage
-               onSelected: {
-                   mainPage.path = path
-                   swipeView.currentIndex = 0
-               }
+               onSelected: if (folder) {    // Folder
+                               mainPage.pathTextText = path.substring(path.indexOf("/")+3, path.length)
+                               swipeView.currentIndex = 0
+                           }
+                           else {   // File
+                               imgView.imgPathText = path.substring(path.lastIndexOf("/")+1, path.length)
+                               imgView.imageSource = path
+                               swipeView.currentIndex = 2
+                           }
+
                onRejected: swipeView.currentIndex = 0
+           }
+
+           ImageView {  // Show the image (image width was fitted by parent width)
+               id: imgView
+               backBtn.onClicked: swipeView.currentIndex = 0
            }
        }
 }

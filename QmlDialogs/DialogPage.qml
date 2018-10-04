@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.10
 import QtQuick.Controls 1.4
 import QtQuick.Controls 2.4
 import QtQml.Models 2.3
@@ -17,14 +17,14 @@ Page {  // DialogPage
 
     header: Rectangle {
         width: parent.width
-        height: 28
+        height: Interface.dp(28)
 
         Button {
             id: backBtn
             anchors.left: parent.left
             anchors.leftMargin: 5
             anchors.verticalCenter: parent.verticalCenter
-            width: 28
+            width: Interface.dp(8)
             height: width
             icon.source: "qrc:/pict/up.png"
             background: Rectangle { color: "white" }
@@ -91,7 +91,7 @@ Page {  // DialogPage
             showDirsFirst: true
             sortField: FolderListModel.Name
             nameFilters: [ "*.*" ]
-            folder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation) // Documents directory
+            folder: StandardPaths.writableLocation(StandardPaths.HomeLocation) // Home directory
         }
         selection: ItemSelectionModel {
             /* * * To be able to get the index of the selected item * * */
@@ -144,3 +144,10 @@ Page {  // DialogPage
         }
     }
 }
+
+
+/*##^## Designer {
+    D{i:0;autoSize:true;height:480;width:640}D{i:19;anchors_height:400}D{i:20;anchors_height:400}
+D{i:18;anchors_height:400}D{i:13;anchors_height:400;anchors_width:200;anchors_x:220;anchors_y:29}
+}
+ ##^##*/

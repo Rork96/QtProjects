@@ -75,12 +75,14 @@ Page {
 
         Label {
             id: testText
+            x: 200
+            y: 90
             text: qsTr("Text for a test")
-            font.family: "Verdana"
-            anchors.bottom: row.top
-            anchors.bottomMargin: 50
-            font.pointSize: 24
             anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: row.top
+            anchors.bottomMargin: 60
+            font.family: "Verdana"
+            font.pointSize: 24
             horizontalAlignment: Text.AlignHCenter
         }
 

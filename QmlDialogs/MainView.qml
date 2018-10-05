@@ -124,3 +124,8 @@ MainViewForm {
         font: Qt.font({ family: "Verdana", pointSize: 24, weight: Font.Normal })
     }
 }
+
+/*##^## Designer {
+    D{i:0;autoSize:true;height:480;width:640}
+}
+ ##^##*/

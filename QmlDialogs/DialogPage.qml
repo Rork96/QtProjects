@@ -17,16 +17,17 @@ Page {  // DialogPage
 
     header: Rectangle {
         width: parent.width
-        height: Interface.dp(28)
+        height: 28
 
         Button {
             id: backBtn
             anchors.left: parent.left
             anchors.leftMargin: 5
             anchors.verticalCenter: parent.verticalCenter
-            width: Interface.dp(8)
+            width: 28
             height: width
             icon.source: "qrc:/pict/up.png"
+            icon.color: "orange"
             background: Rectangle { color: "white" }
             onClicked: {
                 path = path.replace(path.substring(path.lastIndexOf("/"), path.length), "")

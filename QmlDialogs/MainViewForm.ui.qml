@@ -75,9 +75,9 @@ Page {
         Label {
             id: testText
             text: qsTr("Text for a test")
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 275
             font.pointSize: 24
-            anchors.top: parent.top
-            anchors.topMargin: 80
             anchors.horizontalCenter: parent.horizontalCenter
             horizontalAlignment: Text.AlignHCenter
         }
@@ -86,21 +86,21 @@ Page {
             id: row
             width: parent.width
             height: messageBtn.height
-            anchors.top: testText.bottom
-            anchors.topMargin: 60
+            anchors.top: parent.top
+            anchors.topMargin: 185
             spacing: 0
 
             CustomButton {
                 id: messageBtn
                 text: "Show message"
-                anchors.horizontalCenterOffset: -width + 50
+                anchors.horizontalCenterOffset: -85
                 anchors.horizontalCenter: parent.horizontalCenter
             }
 
             CustomButton {
                 id: dialogBtn
                 text: "Show dialog"
-                anchors.horizontalCenterOffset: width - 50
+                anchors.horizontalCenterOffset: 85
                 anchors.horizontalCenter: parent.horizontalCenter
             }
         }
@@ -115,14 +115,14 @@ Page {
             CustomButton {
                 id: imageBtn
                 text: "Open image"
-                anchors.horizontalCenterOffset: -width + 50
+                anchors.horizontalCenterOffset: -85
                 anchors.horizontalCenter: parent.horizontalCenter
             }
 
             CustomButton {
                 id: folderBtn
                 text: "Open folder"
-                anchors.horizontalCenterOffset: width - 50
+                anchors.horizontalCenterOffset: 85
                 anchors.horizontalCenter: parent.horizontalCenter
             }
         }
@@ -138,14 +138,14 @@ Page {
             CustomButton {
                 id: fontBtn
                 text: "Select font"
-                anchors.horizontalCenterOffset: -width + 50
+                anchors.horizontalCenterOffset: -85
                 anchors.horizontalCenter: parent.horizontalCenter
             }
 
             CustomButton {
                 id: colorBtn
                 text: "Select color"
-                anchors.horizontalCenterOffset: width - 50
+                anchors.horizontalCenterOffset: 85
                 anchors.horizontalCenter: parent.horizontalCenter
             }
         }

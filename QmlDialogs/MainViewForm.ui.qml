@@ -155,7 +155,6 @@ Page {
 
 
 /*##^## Designer {
-    D{i:0;autoSize:true;height:480;width:640}D{i:19;anchors_height:400}D{i:20;anchors_height:400}
-D{i:18;anchors_height:400}D{i:13;anchors_height:400;anchors_width:200;anchors_x:220;anchors_y:29}
+    D{i:0;autoSize:true;height:480;width:640}
 }
  ##^##*/

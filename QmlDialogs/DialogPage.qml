@@ -27,7 +27,7 @@ Page {  // DialogPage
             width: 28
             height: width
             icon.source: "qrc:/pict/up.png"
-            icon.color: "orange"
+            icon.color: "grey"
             background: Rectangle { color: "white" }
             onClicked: {
                 path = path.replace(path.substring(path.lastIndexOf("/"), path.length), "")

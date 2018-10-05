@@ -70,11 +70,13 @@ MainViewForm {
                 anchors.topMargin: 30
                 anchors.leftMargin: 5
                 text: "Text in the simple dialog!"
+                font.family: "Verdana"
                 color: "navy"
                 font.pointSize: 12
             }
 
-            Button {
+            CustomButton {
+                id: btnOk
                 anchors.bottom: parent.bottom
                 anchors.right: parent.right
                 anchors.bottomMargin: 10
@@ -82,14 +84,6 @@ MainViewForm {
                 height: 30
                 width: 80
                 text: "Ok"
-                background: Rectangle {
-                    gradient: Gradient {
-                        GradientStop { position: 0; color: "lightGray" }
-                        GradientStop { position: 0.4; color: "darkGray" }
-                        GradientStop { position: 0.6; color: "darkGray" }
-                        GradientStop { position: 1; color: "lightGray" }
-                    }
-                }
                 onClicked: dlg.close()
             }
         }

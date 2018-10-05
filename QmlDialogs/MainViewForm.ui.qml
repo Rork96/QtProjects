@@ -35,6 +35,7 @@ Page {
         Text {
             anchors.centerIn: parent
             text: qsTr("Choose a dialog")
+            font.family: "Verdana"
             color: "lightGray"
             font.bold: true
             font.pointSize: 18
@@ -75,8 +76,9 @@ Page {
         Label {
             id: testText
             text: qsTr("Text for a test")
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 275
+            font.family: "Verdana"
+            anchors.bottom: row.top
+            anchors.bottomMargin: 50
             font.pointSize: 24
             anchors.horizontalCenter: parent.horizontalCenter
             horizontalAlignment: Text.AlignHCenter
@@ -86,8 +88,7 @@ Page {
             id: row
             width: parent.width
             height: messageBtn.height
-            anchors.top: parent.top
-            anchors.topMargin: 185
+            anchors.verticalCenter: parent.verticalCenter
             spacing: 0
 
             CustomButton {

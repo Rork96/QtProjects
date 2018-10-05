@@ -35,7 +35,7 @@ Page {
             width: 28
             height: width
             icon.source: "qrc:/pict/up.png"
-            icon.color: "green"
+            icon.color: "lightGray"
             icon.width: backBtn.width - 2
             rotation: 270
             background: Rectangle {
@@ -102,6 +102,5 @@ Page {
 
 /*##^## Designer {
     D{i:0;autoSize:true;height:480;width:640}D{i:18;anchors_height:100;anchors_width:100;anchors_x:214;anchors_y:135}
-D{i:19;anchors_height:300;anchors_width:300}
 }
  ##^##*/

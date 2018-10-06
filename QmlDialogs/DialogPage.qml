@@ -58,7 +58,7 @@ Page {  // DialogPage
             Button {
                 anchors.right: openBtn.left
                 anchors.rightMargin: 5
-                width: 52
+                width: 62
                 height: 26
                 text: "Cansel"
                 background: Rectangle { color: "white" }
@@ -69,7 +69,7 @@ Page {  // DialogPage
                 id: openBtn
                 anchors.right: parent.right
                 anchors.rightMargin: 5
-                width: 52
+                width: 62
                 height: 26
                 text: "Select"
                 background: Rectangle { color: "white" }
@@ -103,7 +103,7 @@ Page {  // DialogPage
 
         TableViewColumn {
             id: imgColumn
-            width: 38
+            width: 32
             delegate: Image {
                 id: img
                 fillMode: Image.PreserveAspectFit
@@ -148,7 +148,6 @@ Page {  // DialogPage
 
 
 /*##^## Designer {
-    D{i:0;autoSize:true;height:480;width:640}D{i:19;anchors_height:400}D{i:20;anchors_height:400}
-D{i:18;anchors_height:400}D{i:13;anchors_height:400;anchors_width:200;anchors_x:220;anchors_y:29}
+    D{i:0;autoSize:true;height:480;width:640}D{i:13;anchors_height:400;anchors_width:200;anchors_x:220;anchors_y:29}
 }
  ##^##*/

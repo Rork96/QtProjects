@@ -32,7 +32,6 @@ ApplicationWindow {
                    dlgPage.filter = [ "*.jpg", "*.jpeg", "*.png" ]
                    swipeView.currentIndex = 1
                    folder = false
-                   console.log(folder)
                }
                onOpenFolderDialog: {
                    dlgPage.showFiles = false
@@ -40,7 +39,6 @@ ApplicationWindow {
                    dlgPage.initPath = StandardPaths.writableLocation(StandardPaths.HomeLocation)
                    swipeView.currentIndex = 1
                    folder = true
-                   console.log(folder)
                }
            }
 

@@ -58,7 +58,7 @@ Page {  // DialogPage
             Button {
                 anchors.right: openBtn.left
                 anchors.rightMargin: 5
-                width: 62
+                width: 68
                 height: 26
                 text: "Cansel"
                 background: Rectangle { color: "white" }
@@ -69,7 +69,7 @@ Page {  // DialogPage
                 id: openBtn
                 anchors.right: parent.right
                 anchors.rightMargin: 5
-                width: 62
+                width: 68
                 height: 26
                 text: "Select"
                 background: Rectangle { color: "white" }

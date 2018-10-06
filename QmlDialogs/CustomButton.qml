@@ -14,7 +14,9 @@ Button {    // CustomButton
             GradientStop { position: 1; color: "lightGray" }
         }
     }
+    // For desktop
     contentItem: Label {
+        anchors.fill: parent
         text: btn.text
         font.family: "Verdana"
         font.pixelSize: 12
@@ -22,6 +24,7 @@ Button {    // CustomButton
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
     }
+    // -------
     text: "Button"
     onHoveredChanged: hovered ? opacity = 0.9 : opacity = 1.0
     onClicked: anim.start()

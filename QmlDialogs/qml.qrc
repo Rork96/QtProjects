@@ -10,5 +10,6 @@
         <file>ImageViewForm.ui.qml</file>
         <file>MainView.qml</file>
         <file>MainViewForm.ui.qml</file>
+        <file>pict/dialogue.png</file>
     </qresource>
 </RCC>

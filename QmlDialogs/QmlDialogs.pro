@@ -33,7 +33,7 @@ QML_DESIGNER_IMPORT_PATH =
 #    QMAKE_TARGET_COPYRIGHT = masterarrow (masterarrows@gmail.com)
 #}
 
-#win32: RC_ICONS = $$PWD/pict/QmlDialogs.ico
+win32: RC_ICONS = $$PWD/pict/dialogue.png
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -19,7 +19,7 @@ Button {    // CustomButton
         anchors.fill: parent
         text: btn.text
         font.family: "Verdana"
-        font.pixelSize: 12
+        font.pixelSize: 14
         renderType: Text.NativeRendering
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter

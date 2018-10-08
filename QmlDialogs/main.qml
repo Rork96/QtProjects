@@ -15,7 +15,7 @@ ApplicationWindow {
             else return 480
     title: qsTr("QmlDialogs")
 
-    property  bool folder: false
+    property bool folder: false
 
     SwipeView {
            id: swipeView

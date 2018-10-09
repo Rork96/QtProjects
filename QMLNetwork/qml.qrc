@@ -4,5 +4,9 @@
         <file>Page1Form.ui.qml</file>
         <file>main.qml</file>
         <file>qtquickcontrols2.conf</file>
+        <file>pict/back.png</file>
+        <file>pict/forward.png</file>
+        <file>pict/update.png</file>
+        <file>pict/network.ico</file>
     </qresource>
 </RCC>

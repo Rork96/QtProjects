@@ -41,7 +41,7 @@ Page {
                 text: webView.url
                 anchors.left: parent.left
                 anchors.leftMargin: 10
-                font.pointSize: 12
+                font.pointSize: 10
                 font.family: "Verdana"
                 renderType: Text.NativeRendering
                 anchors.verticalCenter: parent.verticalCenter
@@ -50,7 +50,7 @@ Page {
             RoundButton {
                 id: backBtn
                 width: height
-                height: 30
+                height: 26
                 anchors.right: forwardBtn.left
                 anchors.rightMargin: 15
                 display: AbstractButton.IconOnly
@@ -64,7 +64,7 @@ Page {
             RoundButton {
                 id: forwardBtn
                 width: height
-                height: 30
+                height: 26
                 anchors.right: updateBtn.left
                 anchors.rightMargin: 15
                 display: AbstractButton.IconOnly
@@ -78,7 +78,7 @@ Page {
             RoundButton {
                 id: updateBtn
                 width: height
-                height: 30
+                height: 26
                 anchors.right: parent.right
                 anchors.rightMargin: 10
                 display: AbstractButton.IconOnly

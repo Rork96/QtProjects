@@ -1,6 +1,7 @@
 import QtQuick 2.11
-import QtQuick.Controls 1.4
 import QtQuick.Controls 2.4
+import QtQuick.Layouts 1.3
+import "ServiceFunctions.js" as Logic
 
 ApplicationWindow {
     visible: true
@@ -8,69 +9,78 @@ ApplicationWindow {
     height: 768
     title: qsTr("QML WebBrowser")
 
-    header: Rectangle {
-        width: parent.width
-        height: 30
+    Component.onCompleted: Logic.addScreen()    // Run after loading ApplicationWindow
 
-        RoundButton {
-            width: height
-            height: 26
-            text: swipeView.depth //swipeView.count
-            anchors.centerIn: parent
-            onClicked: { //swipeView.addTab("", component); console.log(swipeView.count) }
-                swipeView.push(component)
-            }
-        }
-    }
-
-    //    SwipeView {
-    //        id: swipeView
-    //        anchors.fill: parent
-    //        currentIndex: 0
-
-    //        Page1Form {
-    //            webView.onLoadingChanged: {
-    //                if (loadRequest.errorString)
-    //                    console.error(loadRequest.errorString);
-    //            }
-    //        }
-    //    }
-
-//    TabView {
-//        id: swipeView
-//        anchors.fill: parent
-//        tabsVisible: false
-//        currentIndex: indicator.currentIndex
-//        clip: true
-
-//        Tab {
-//            Page1Form { anchors.fill: parent }
-//        }
-//    }
-
-    StackView {
-        id: swipeView
+    SwipeView {
+        id: swipe
         anchors.fill: parent
-        clip: true
-        initialItem: component
-        //currentItem: get(indicator.currentIndex)
-    }
-
-    PageIndicator {
-        id: indicator
-        anchors.bottom: swipeView.bottom
-        anchors.horizontalCenter: swipeView.horizontalCenter
-        count: swipeView.depth //swipeView.count
-        currentIndex: swipeView.index //swipeView.currentIndex
-        interactive: true
-        onCurrentIndexChanged: swipeView.get(swipeView.get(indicator.currentIndex))
     }
 
     Component {
-        id: component
+        id: screenComponent
 
-        Page1Form {
-            anchors.fill: parent
+        Rectangle {
+            Page1Form { anchors.fill: parent }
+        }
+    }
+
+    footer: Rectangle {
+        width: parent.width
+        height: 32
+        gradient: Gradient {
+            GradientStop {
+                position: 0
+                color: "lightGray"
+            }
+            GradientStop {
+                position: 0.05
+                color: "lightGray"
+            }
+            GradientStop {
+                position: 0.07
+                color: "white"
+            }
+            GradientStop {
+                position: 1
+                color: "white"
+            }
+        }
+
+        RoundButton {
+            id: btn
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+            anchors.leftMargin: 5
+            width: height
+            height: 26
+            icon.source: "qrc:/pict/plus.png"
+            icon.width: icon.height
+            icon.color: "black"
+            onClicked: Logic.addScreen()
+        }
+
+        RoundButton {
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: btn.right
+            anchors.leftMargin: 5
+            width: height
+            height: 26
+            icon.source: "qrc:/pict/minus.png"
+            icon.width: icon.height
+            icon.color: "black"
+            onClicked: Logic.removeScreen()
+        }
+
+        PageIndicator {
+            id: indicator
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: parent.right
+            anchors.rightMargin: 10
+            height: 30
+            count: swipe.count
+            currentIndex: swipe.currentIndex
+            interactive: true
+            onCurrentIndexChanged: swipe.currentIndex = currentIndex
         }
     }
 }

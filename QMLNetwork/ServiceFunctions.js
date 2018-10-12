@@ -1,3 +1,5 @@
+// Adding pages to SwipeView and deleting them
+
 function addScreen()
 {
     var page = screenComponent.createObject(swipe);

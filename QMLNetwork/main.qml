@@ -46,7 +46,7 @@ ApplicationWindow {
             }
         }
 
-        RoundButton {
+        RoundButton {   // Add new page
             id: btn
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
@@ -59,7 +59,7 @@ ApplicationWindow {
             onClicked: Logic.addScreen()
         }
 
-        RoundButton {
+        RoundButton {   // Delete current page
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: btn.right
             anchors.leftMargin: 5

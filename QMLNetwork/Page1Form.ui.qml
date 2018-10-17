@@ -111,6 +111,11 @@ Page {
         target: updateBtn
         onClicked: webView.reload()
     }
+
+    Connections {
+        target: textUrl
+        onAccepted: webView.url = textUrl.text
+    }
 }
 
 

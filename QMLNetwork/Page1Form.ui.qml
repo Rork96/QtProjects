@@ -4,6 +4,7 @@ import QtWebView 1.1
 
 Page {
     property alias webView: webView
+    property alias textUrl: textUrl
 
     header: Rectangle {
         id: rectangle

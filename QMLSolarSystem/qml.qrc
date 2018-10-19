@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>images/earth.jpg</file>
+        <file>images/mars.jpg</file>
+        <file>images/mercury.jpg</file>
+        <file>images/venus.jpg</file>
+        <file>images/right.png</file>
+        <file>images/ceres.jpg</file>
+        <file>images/jupiter.jpg</file>
+        <file>images/neptune.jpg</file>
+        <file>images/saturn.jpg</file>
+        <file>images/uranus.jpg</file>
+        <file>images/pluto.jpg</file>
+        <file>images/haumea.jpg</file>
+        <file>images/makemake.jpg</file>
+        <file>images/eris.jpg</file>
+        <file>images/sun.jpg</file>
+        <file>images/solar_system.jpg</file>
+        <file>images/asteroid.jpg</file>
+        <file>images/comet.jpg</file>
+    </qresource>
+</RCC>

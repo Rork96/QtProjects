@@ -138,7 +138,7 @@ ApplicationWindow {
                             wrapMode: Text.WordWrap
                             color: '#1f1f21'
 
-                            font.pixelSize: 12
+                            font.pixelSize: 16
 
                             text: facts
                         }

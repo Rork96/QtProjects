@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<RCC>
+    <qresource prefix="/">
+        <file alias="images/earth.jpg">../../../images/earth.jpg</file>
+        <file alias="images/mars.jpg">../../../images/mars.jpg</file>
+        <file alias="images/mercury.jpg">../../../images/mercury.jpg</file>
+        <file alias="images/venus.jpg">../../../images/venus.jpg</file>
+        <file alias="images/right.png">../../../images/right.png</file>
+        <file alias="images/ceres.jpg">../../../images/ceres.jpg</file>
+        <file alias="images/jupiter.jpg">../../../images/jupiter.jpg</file>
+        <file alias="images/neptune.jpg">../../../images/neptune.jpg</file>
+        <file alias="images/saturn.jpg">../../../images/saturn.jpg</file>
+        <file alias="images/uranus.jpg">../../../images/uranus.jpg</file>
+        <file alias="images/pluto.jpg">../../../images/pluto.jpg</file>
+        <file alias="images/haumea.jpg">../../../images/haumea.jpg</file>
+        <file alias="images/makemake.jpg">../../../images/makemake.jpg</file>
+        <file alias="images/eris.jpg">../../../images/eris.jpg</file>
+        <file alias="images/sun.jpg">../../../images/sun.jpg</file>
+        <file alias="images/solar_system.jpg">../../../images/solar_system.jpg</file>
+        <file alias="images/asteroid.jpg">../../../images/asteroid.jpg</file>
+        <file alias="images/comet.jpg">../../../images/comet.jpg</file>
+    </qresource>
+</RCC>

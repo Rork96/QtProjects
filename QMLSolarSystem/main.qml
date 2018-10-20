@@ -3,8 +3,8 @@ import QtQuick.Controls 2.4
 
 ApplicationWindow {
     visible: true
-    width: 300
-    height: 500
+    width: 405
+    height: 670
     title: qsTr("Solar system")
 
     Item {

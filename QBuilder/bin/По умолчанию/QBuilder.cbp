@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="QBuilder"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="clang"/>
+		<Option virtualFolders="CMake Files\;CMake Files\info\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\..\opt\;CMake Files\..\..\..\..\..\..\..\opt\Qt\;CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\;CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\;CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\;CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\;CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5\;CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Core\;CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\;CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Widgets\;CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Sql\;CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5LinguistTools\;CMake Files\QBuilder\;CMake Files\QBuilder\res\;CMake Files\QBuilder\translations\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По умолчанию"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По\ умолчанию/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По\ умолчанию/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По\ умолчанию/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По\ умолчанию/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По умолчанию"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По\ умолчанию/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По\ умолчанию/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По\ умолчанию/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По\ умолчанию/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По умолчанию"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По\ умолчанию/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По\ умолчанию/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По\ умолчанию/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По\ умолчанию/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="QBuilder">
+				<Option output="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/Linux/Clang/Release/QBuilder" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/Linux/Clang/Release"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="clang"/>
+				<Compiler>
+					<Add option="-DQT_CORE_LIB"/>
+					<Add option="-DQT_GUI_LIB"/>
+					<Add option="-DQT_WIDGETS_LIB"/>
+					<Add option="-DQT_SQL_LIB"/>
+					<Add option="-DQT_NO_DEBUG"/>
+					<Add directory="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По умолчанию"/>
+					<Add directory="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder"/>
+					<Add directory="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include"/>
+					<Add directory="/opt/Qt/5.11.1/gcc_64/include"/>
+					<Add directory="/opt/Qt/5.11.1/gcc_64/include/QtCore"/>
+					<Add directory="/opt/Qt/5.11.1/gcc_64/./mkspecs/linux-g++"/>
+					<Add directory="/opt/Qt/5.11.1/gcc_64/include/QtGui"/>
+					<Add directory="/opt/Qt/5.11.1/gcc_64/include/QtWidgets"/>
+					<Add directory="/opt/Qt/5.11.1/gcc_64/include/QtSql"/>
+					<Add directory="/usr/bin/../lib/gcc/x86_64-linux-gnu/6.3.0/../../../../include/c++/6.3.0"/>
+					<Add directory="/usr/bin/../lib/gcc/x86_64-linux-gnu/6.3.0/../../../../include/x86_64-linux-gnu/c++/6.3.0"/>
+					<Add directory="/usr/bin/../lib/gcc/x86_64-linux-gnu/6.3.0/../../../../include/c++/6.3.0/backward"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/llvm-3.8/bin/../lib/clang/3.8.1/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По\ умолчанию/Makefile&quot;  VERBOSE=1 QBuilder"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По\ умолчанию/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По\ умолчанию/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По\ умолчанию/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="QBuilder/fast">
+				<Option output="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/Linux/Clang/Release/QBuilder" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/Linux/Clang/Release"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="clang"/>
+				<Compiler>
+					<Add option="-DQT_CORE_LIB"/>
+					<Add option="-DQT_GUI_LIB"/>
+					<Add option="-DQT_WIDGETS_LIB"/>
+					<Add option="-DQT_SQL_LIB"/>
+					<Add option="-DQT_NO_DEBUG"/>
+					<Add directory="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По умолчанию"/>
+					<Add directory="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder"/>
+					<Add directory="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include"/>
+					<Add directory="/opt/Qt/5.11.1/gcc_64/include"/>
+					<Add directory="/opt/Qt/5.11.1/gcc_64/include/QtCore"/>
+					<Add directory="/opt/Qt/5.11.1/gcc_64/./mkspecs/linux-g++"/>
+					<Add directory="/opt/Qt/5.11.1/gcc_64/include/QtGui"/>
+					<Add directory="/opt/Qt/5.11.1/gcc_64/include/QtWidgets"/>
+					<Add directory="/opt/Qt/5.11.1/gcc_64/include/QtSql"/>
+					<Add directory="/usr/bin/../lib/gcc/x86_64-linux-gnu/6.3.0/../../../../include/c++/6.3.0"/>
+					<Add directory="/usr/bin/../lib/gcc/x86_64-linux-gnu/6.3.0/../../../../include/x86_64-linux-gnu/c++/6.3.0"/>
+					<Add directory="/usr/bin/../lib/gcc/x86_64-linux-gnu/6.3.0/../../../../include/c++/6.3.0/backward"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/llvm-3.8/bin/../lib/clang/3.8.1/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По\ умолчанию/Makefile&quot;  VERBOSE=1 QBuilder/fast"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По\ умолчанию/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По\ умолчанию/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По\ умолчанию/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="QBuilder_automoc">
+				<Option working_dir="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По умолчанию"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По\ умолчанию/Makefile&quot;  VERBOSE=1 QBuilder_automoc"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По\ умолчанию/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По\ умолчанию/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По\ умолчанию/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="lupdate">
+				<Option working_dir="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По умолчанию/QBuilder/translations"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По\ умолчанию/QBuilder/translations/Makefile&quot;  VERBOSE=1 lupdate"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По\ умолчанию/QBuilder/translations/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По\ умолчанию/QBuilder/translations/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По\ умолчанию/QBuilder/translations/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/Linux/Clang/Release/translations/en.qm">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/Linux/Clang/Release/translations/en.qm.rule">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/Linux/Clang/Release/translations/ru.qm">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/Linux/Clang/Release/translations/ru.qm.rule">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/Linux/Clang/Release/translations/uk.qm">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/Linux/Clang/Release/translations/uk.qm.rule">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include/BaseForm.h">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include/basecombomodel.h">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include/clickelineedit.h">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include/createcustqbuildform.h">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include/createdatasourceform.h">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include/createdocfamilyform.h">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include/createdocgroupsform.h">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include/createextfuncform.h">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include/creategroupform.h">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include/creategroupscreenform.h">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include/createlistform.h">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include/createlogoform.h">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include/createmenuform.h">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include/createqueryform.h">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include/createquestionform.h">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include/createscrbuilderform.h">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include/createscreeform.h">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include/createsecurityfilterform.h">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include/createserverform.h">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include/createtemplatesform.h">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include/createtenantform.h">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include/createuserform.h">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include/database.h">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include/importfilesform.h">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include/loginform.h">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include/mainwindow.h">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/include/tableform.h">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/res/res.qrc">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/BaseForm.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/basecombomodel.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/clickelineedit.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createcustqbuildform.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createcustqbuildform.ui">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createdatasourceform.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createdatasourceform.ui">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createdocfamilyform.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createdocfamilyform.ui">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createdocgroupsform.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createdocgroupsform.ui">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createextfuncform.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createextfuncform.ui">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/creategroupform.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/creategroupform.ui">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/creategroupscreenform.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/creategroupscreenform.ui">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createlistform.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createlistform.ui">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createlogoform.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createlogoform.ui">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createmenuform.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createmenuform.ui">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createqueryform.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createqueryform.ui">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createquestionform.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createquestionform.ui">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createscrbuilderform.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createscrbuilderform.ui">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createscreeform.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createscreeform.ui">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createsecurityfilterform.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createsecurityfilterform.ui">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createserverform.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createserverform.ui">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createtemplatesform.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createtemplatesform.ui">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createtenantform.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createtenantform.ui">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createuserform.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/createuserform.ui">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/database.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/importfilesform.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/importfilesform.ui">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/loginform.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/loginform.ui">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/main.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/mainwindow.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/mainwindow.ui">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/tableform.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/src/tableform.ui">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По умолчанию/QBuilder_automoc.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/bin/По умолчанию/qrc_res.cpp">
+			<Option target="QBuilder"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/info/generate_product_version.cmake">
+			<Option virtualFolder="CMake Files\info\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/info/VersionInfo.in">
+			<Option virtualFolder="CMake Files\info\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/info/VersionResource.rc">
+			<Option virtualFolder="CMake Files\info\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5/Qt5ConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5/Qt5Config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5/Qt5ModuleLocation.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Core/Qt5CoreConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Core/Qt5CoreConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Core/Qt5CoreConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Core/Qt5CoreConfigExtrasMkspecDir.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Core/Qt5CoreMacros.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5GuiConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QComposePlatformInputContextPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QEglFSEmulatorIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QEglFSIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QEglFSKmsEglDeviceIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QEglFSX11IntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QEvdevKeyboardPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QEvdevMousePlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QEvdevTabletPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QEvdevTouchScreenPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QFlatpakThemePlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QGifPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QGtk3ThemePlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QICNSPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QICOPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QIbusPlatformInputContextPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QJpegPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QLinuxFbIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QMinimalEglIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QMinimalIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QOffscreenIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QTgaPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QTiffPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QTuioTouchPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QVirtualKeyboardPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QVncIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QWaylandEglPlatformIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QWaylandIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QWaylandXCompositeEglPlatformIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QWaylandXCompositeGlxPlatformIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QWbmpPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QWebGLIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QWebpPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QXcbEglIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QXcbGlxIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5Gui_QXcbIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Sql/Qt5SqlConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Sql\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Sql/Qt5SqlConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Sql\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Sql/Qt5Sql_QMYSQLDriverPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Sql\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Sql/Qt5Sql_QPSQLDriverPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Sql\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5Sql/Qt5Sql_QSQLiteDriverPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5Sql\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5LinguistTools/Qt5LinguistToolsConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5LinguistTools\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5LinguistTools/Qt5LinguistToolsConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5LinguistTools\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/../../../../../../../opt/Qt/5.11.1/gcc_64/lib/cmake/Qt5LinguistTools/Qt5LinguistToolsMacros.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\opt\Qt\5.11.1\gcc_64\lib\cmake\Qt5LinguistTools\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/res/res.qrc">
+			<Option virtualFolder="CMake Files\QBuilder\res\"/>
+		</Unit>
+		<Unit filename="/home/masterarrow/Документы/Projects/GitHub/QtProjects/QBuilder/QBuilder/translations/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\QBuilder\translations\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
